@@ -1,0 +1,127 @@
+ARM GAS  /tmp/ccnWCGUP.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"CANMetaData.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../../Util/Src/CANMetaData.c"
+  20              		.global	CanMetadataLUT
+  21              		.section	.rodata.CanMetadataLUT,"a"
+  22              		.align	2
+  25              	CanMetadataLUT:
+  26 0000 00       		.space	1
+  27 0001 02       		.byte	2
+  28 0002 02       		.byte	2
+  29 0003 02       		.byte	2
+  30 0004 02       		.byte	2
+  31 0005 02       		.byte	2
+  32 0006 00000000 		.space	251
+  32      00000000 
+  32      00000000 
+  32      00000000 
+  32      00000000 
+  33 0101 02       		.byte	2
+  34 0102 02       		.byte	2
+  35 0103 08       		.byte	8
+  36 0104 0B       		.byte	11
+  37 0105 0B       		.byte	11
+  38 0106 08       		.byte	8
+  39 0107 02       		.byte	2
+  40 0108 02       		.byte	2
+  41 0109 10       		.byte	16
+  42 010a 00       		.space	1
+  43 010b 04       		.byte	4
+  44 010c 02       		.byte	2
+  45 010d 00000000 		.space	309
+  45      00000000 
+  45      00000000 
+  45      00000000 
+  45      00000000 
+  46 0242 10       		.byte	16
+  47 0243 10       		.byte	16
+  48 0244 10       		.byte	16
+  49 0245 10       		.byte	16
+  50 0246 10       		.byte	16
+  51 0247 10       		.byte	16
+ARM GAS  /tmp/ccnWCGUP.s 			page 2
+
+
+  52 0248 000000   		.space	3
+  53 024b 10       		.byte	16
+  54 024c 0000     		.space	2
+  55 024e 10       		.byte	16
+  56 024f 02       		.byte	2
+  57 0250 00000000 		.space	816
+  57      00000000 
+  57      00000000 
+  57      00000000 
+  57      00000000 
+  58 0580 02       		.byte	2
+  59 0581 10       		.byte	16
+  60 0582 00000000 		.space	126
+  60      00000000 
+  60      00000000 
+  60      00000000 
+  60      00000000 
+  61 0600 08       		.byte	8
+  62 0601 08       		.byte	8
+  63 0602 08       		.byte	8
+  64 0603 08       		.byte	8
+  65 0604 08       		.byte	8
+  66 0605 02       		.byte	2
+  67 0606 02       		.byte	2
+  68 0607 00000000 		.space	9
+  68      00000000 
+  68      00
+  69 0610 08       		.byte	8
+  70 0611 08       		.byte	8
+  71 0612 08       		.byte	8
+  72 0613 08       		.byte	8
+  73 0614 08       		.byte	8
+  74 0615 02       		.byte	2
+  75 0616 02       		.byte	2
+  76 0617 00000000 		.space	9
+  76      00000000 
+  76      00
+  77 0620 0A       		.byte	10
+  78 0621 00000000 		.space	15
+  78      00000000 
+  78      00000000 
+  78      000000
+  79 0630 08       		.byte	8
+  80 0631 08       		.byte	8
+  81 0632 02       		.byte	2
+  82 0633 02       		.byte	2
+  83 0634 00000000 		.space	12
+  83      00000000 
+  83      00000000 
+  84 0640 0A       		.byte	10
+  85              		.text
+  86              	.Letext0:
+  87              		.file 2 "/usr/share/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+  88              		.file 3 "/usr/share/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+  89              		.file 4 "../../Util/Inc/CANMetaData.h"
+ARM GAS  /tmp/ccnWCGUP.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 CANMetaData.c
+     /tmp/ccnWCGUP.s:25     .rodata.CanMetadataLUT:0000000000000000 CanMetadataLUT
+     /tmp/ccnWCGUP.s:22     .rodata.CanMetadataLUT:0000000000000000 $d
+
+NO UNDEFINED SYMBOLS
