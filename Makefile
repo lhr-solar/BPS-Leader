@@ -11,5 +11,6 @@ embedded-sharepoint:
 	@echo "Building Embedded-Sharepoint submodule"	
 	$(MAKE) -C $(SUBMODULE_DIR)/$(BUILD_DIR) PROJECT_TARGET=$(TARGET)
 
-# clean:
-#     rm -rf $()
+clean:
+	@echo "running clean from Embedded-Sharepoint/Test"
+	$(MAKE) -C $(SUBMODULE_DIR)/$(BUILD_DIR) clean
