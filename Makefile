@@ -17,10 +17,11 @@ PROJECT_TARGET ?= stm32f413rht
 
 # source and include directories
 PROJECT_C_SOURCES = $(wildcard Src/*.c)
-PROJECT_C_INCLUDES = Inc
-# PROJECT_C_INCLUDES = $(wildcard */Inc)
+# PROJECT_C_SOURCES = $(wildcard **/*.c)
+# PROJECT_C_INCLUDES = Inc
+PROJECT_C_INCLUDES = $(wildcard */Inc)
 
-# build and driver directories
+# build directories
 PROJECT_BUILD_DIR = Embedded-Sharepoint/build
 BUILD_MAKEFILE_DIR = Embedded-Sharepoint
 
@@ -30,7 +31,10 @@ PROJECT_C_SOURCES := $(addprefix $(MAKEFILE_DIR)/, $(PROJECT_C_SOURCES)/)
 
 ifneq ($(TEST), main)
 PROJECT_C_SOURCES := $(addprefix $(MAKEFILE_DIR)/, $(PROJECT_C_SOURCES) Tests/$(TEST).c)
-# PROJECT_C_SOURCES += $(wildcard */$(TEST).c)
+# PROJECT_C_SOURCES := $(addprefix $(MAKEFILE_DIR)/, $(PROJECT_C_SOURCES)/$(wildcard */$(TEST).c))
+else
+# PROJECT_C_SOURCES := $(addprefix $(MAKEFILE_DIR)/, $(PROJECT_C_SOURCES) $(wildcard /*.c))
+PROJECT_C_SOURCES := $(addprefix $(MAKEFILE_DIR)/, $(PROJECT_C_SOURCES) Apps/Src/main.c)
 endif
 
 PROJECT_C_INCLUDES := $(addprefix $(MAKEFILE_DIR)/, $(PROJECT_C_INCLUDES))
