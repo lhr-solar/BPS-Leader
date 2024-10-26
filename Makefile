@@ -82,10 +82,12 @@ endif
 .PHONY: help
 help:
 	@echo "Format: ${ORANGE}make ${BLUE}TEST=${PURPLE}<Test name>${NC}"
-	@echo "- Running ${ORANGE}make${NC}by itself will compile the production code (same as running ${ORANGE}make${NC}all)"
+	@echo "- Running ${ORANGE}make${NC}by itself will compile the production code (same as running ${ORANGE}make${NC}all) \n"
+	@echo "TEST:"
 	@echo "- If you want to run a test, specify ${BLUE}TEST=${PURPLE}<Test name>${NC}, with ${PURPLE}<Test name>${NC}"
-	@echo "   being the exact name of the test file ${RED} without${NC} the .c suffix."
-	@echo "For debugs, specify ${BLUE}PRINT_DEBUGS=${PURPLE}true${NC}"
+	@echo "   being the exact name of the test file ${RED} without${NC} the .c suffix.\n"
+	@echo "PRINT_DEBUGS:"
+	@echo "- For debugs, specify ${BLUE}PRINT_DEBUGS=${PURPLE}true${NC}."
 	@echo "- For now, this will print the directories that will be compiled (can be useful for troubleshooting)."
 
 #-------------- 
