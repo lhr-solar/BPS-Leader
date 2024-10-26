@@ -17,8 +17,8 @@ PROJECT_TARGET ?= stm32f413rht
 
 # source and include directories
 PROJECT_C_SOURCES = $(wildcard Src/*.c)
-# PROJECT_C_INCLUDES = $(wildcard */Inc)
 PROJECT_C_INCLUDES = Inc
+# PROJECT_C_INCLUDES = $(wildcard */Inc)
 
 # build and driver directories
 PROJECT_BUILD_DIR = Embedded-Sharepoint/build
@@ -30,6 +30,7 @@ PROJECT_C_SOURCES := $(addprefix $(MAKEFILE_DIR)/, $(PROJECT_C_SOURCES)/)
 
 ifneq ($(TEST), main)
 PROJECT_C_SOURCES := $(addprefix $(MAKEFILE_DIR)/, $(PROJECT_C_SOURCES) Tests/$(TEST).c)
+# PROJECT_C_SOURCES += $(wildcard */$(TEST).c)
 endif
 
 PROJECT_C_INCLUDES := $(addprefix $(MAKEFILE_DIR)/, $(PROJECT_C_INCLUDES))
@@ -58,14 +59,15 @@ else
 	@echo "Making STM32 build with ${ORANGE}no test.${NC}"
 endif
 	$(MAKE) -C $(BUILD_MAKEFILE_DIR) all
+	@echo "${BLUE}Compiled for BPS-Leader! Splendid! Jolly Good!!${NC}"
 
 # Help
 .PHONY: help
 help:
-	@echo "Make Format: ${ORANGE}make ${BLUE}TEST=${PURPLE}<Test name>${NC}"
-	@echo "- Running ${ORANGE}make${NC}will compile the production code."
-	@echo "- If you want to run a test, specify ${BLUE}TEST=${PURPLE}<Test name>${NC}"
-	@echo "  with ${PURPLE}<Test name>${NC} being the exact name of the test file."
+	@echo "Format: ${ORANGE}make ${BLUE}TEST=${PURPLE}<Test name>${NC}"
+	@echo "- Running ${ORANGE}make${NC}by itself will compile the production code (same as running ${ORANGE}make${NC}all)"
+	@echo "- If you want to run a test, specify ${BLUE}TEST=${PURPLE}<Test name>${NC}, with ${PURPLE}<Test name>${NC}"
+	@echo "   being the exact name of the test file ${RED} without${NC} the .c suffix."
 
 
 #--------------
