@@ -17,7 +17,6 @@ TEST ?= main
 # PROJECT_TARGET ?= stm32f413rht; 	f446ret
 TARGET ?= f413rht
 PROJECT_TARGET ?= $(addprefix stm32, $(TARGET))
-$(info PROJECT TARGET: $(PROJECT_TARGET))
 
 # source and include directories
 PROJECT_C_SOURCES = $(wildcard */Src/*.c)
@@ -73,9 +72,9 @@ endif
 
 build_code:
 ifneq ($(TEST), main)
-	@echo "Making STM32 build for ${BLUE}TEST=${PURPLE} ${TEST}${NC}"
+	@echo "Making ${PURPLE}$(PROJECT_TARGET)${NC}build for ${BLUE}TEST=${PURPLE} ${TEST}${NC}"
 else
-	@echo "Making STM32 build with ${ORANGE}no test.${NC}"
+	@echo "Making ${PURPLE}$(PROJECT_TARGET)${NC}build with ${ORANGE}no test.${NC}"
 endif
 	$(MAKE) -C $(BUILD_MAKEFILE_DIR) $(MAKECMDGOALS)
 	@echo "${BLUE}Compiled for BPS-Leader! Splendid! Jolly Good!!${NC}"
@@ -89,8 +88,9 @@ help:
 	@echo "  (same as running ${ORANGE}make${NC}all). \n"
 
 	@echo "${GREEN}TARGET:${NC}"
-	@echo "- Specify stm32 target, including identifier after 'stm32'."
-	@echo "- e.g. building for stm32${PURPLE}f413rht${NC} would mean specifying ${GREEN}TARGET=${PURPLE}f413rht.${NC} \n"
+	@echo "- Specify stm32 target, including chip number after 'stm32'."
+	@echo "- e.g. building for stm32${PURPLE}f446ret${NC} would mean specifying ${GREEN}TARGET=${PURPLE}f446ret.${NC}"
+	@echo "- Currently, default TARGET is stm32${PURPLE}f413rht${NC} \n"
 
 	@echo "${BLUE}TEST:${NC}"
 	@echo "- If you want to run a test, specify ${BLUE}TEST=${PURPLE}<Test name>${NC}, with ${PURPLE}<Test name>${NC}"
