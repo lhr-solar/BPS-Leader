@@ -1,9 +1,12 @@
 #include "main.h"
 #include "stm32xx_hal.h"
 #include "stm32f4xx_hal.h"
+#include <stdio.h>
 
 int main(void) {
     HAL_Init();
+
+    int counter = 0;
 
     // IWDG (Independent WatchDog) parameters
     IWDG_HandleTypeDef hiwdg;
@@ -27,19 +30,20 @@ int main(void) {
     while(1) {
         HAL_Delay(IDWG_KICK_TIME);
         HAL_IWDG_Refresh(&hiwdg);
+        counter++;
+        printf("%d", counter);
     }
 
     return 0;
 }
 
 
-void Error_Handler(void)
-{
-  /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
+void Error_Handler(void) {
+  /* Users can add their own implementation to report the HAL error return state */
   __disable_irq();
-  while (1)
-  {
+
+  while (1) {
+
   }
-  /* USER CODE END Error_Handler_Debug */
+
 }

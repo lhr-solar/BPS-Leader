@@ -14,16 +14,19 @@ NC=\033[0m # No Color
 
 # Project Configuration
 TEST ?= main
-PROJECT_TARGET ?= stm32f413rht
-# PROJECT_TARGET ?= stm32f446ret
+# PROJECT_TARGET ?= stm32f413rht; 	f446ret
+TARGET ?= f413rht
+PROJECT_TARGET ?= $(addprefix stm32, $(TARGET))
+$(info PROJECT TARGET: $(PROJECT_TARGET))
 
 # source and include directories
 PROJECT_C_SOURCES = $(wildcard */Src/*.c)
 PROJECT_C_INCLUDES = $(wildcard */Inc)
 
-# debug
+# debug: print project target & current sources/inc directories
 PRINT_DEBUGS ?= false
 ifeq ($(PRINT_DEBUGS), true)
+
 $(info SOURCES: $(PROJECT_C_SOURCES))
 $(info INCLUDES: $(PROJECT_C_INCLUDES))
 endif
@@ -41,7 +44,7 @@ else
 PROJECT_C_SOURCES := $(addprefix $(MAKEFILE_DIR)/, $(PROJECT_C_SOURCES))
 endif
 
-# debug
+# debug: print modified sources / include directories
 ifeq ($(PRINT_DEBUGS), true)
 $(info SOURCES: $(PROJECT_C_SOURCES))
 $(info INCLUDES: $(PROJECT_C_INCLUDES))
@@ -74,18 +77,25 @@ ifneq ($(TEST), main)
 else
 	@echo "Making STM32 build with ${ORANGE}no test.${NC}"
 endif
-	$(MAKE) -C $(BUILD_MAKEFILE_DIR) all
+	$(MAKE) -C $(BUILD_MAKEFILE_DIR) $(MAKECMDGOALS)
 	@echo "${BLUE}Compiled for BPS-Leader! Splendid! Jolly Good!!${NC}"
 #-------------------------------
 
 # Help
 .PHONY: help
 help:
-	@echo "Format: ${ORANGE}make ${BLUE}TEST=${PURPLE}<Test name>${NC}"
-	@echo "- Running ${ORANGE}make${NC}by itself will compile the production code (same as running ${ORANGE}make${NC}all) \n"
-	@echo "TEST:"
+	@echo "Format: ${ORANGE}make  ${GREEN}TARGET=${PURPLE}<stm-target>${NC} ${BLUE}TEST=${PURPLE}<Test name>${NC}"
+	@echo "- Running ${ORANGE}make${NC}by itself will compile the production code"
+	@echo "  (same as running ${ORANGE}make${NC}all). \n"
+
+	@echo "${GREEN}TARGET:${NC}"
+	@echo "- Specify stm32 target, including identifier after 'stm32'."
+	@echo "- e.g. building for stm32${PURPLE}f413rht${NC} would mean specifying ${GREEN}TARGET=${PURPLE}f413rht.${NC} \n"
+
+	@echo "${BLUE}TEST:${NC}"
 	@echo "- If you want to run a test, specify ${BLUE}TEST=${PURPLE}<Test name>${NC}, with ${PURPLE}<Test name>${NC}"
 	@echo "   being the exact name of the test file ${RED} without${NC} the .c suffix.\n"
+	
 	@echo "PRINT_DEBUGS:"
 	@echo "- For debugs, specify ${BLUE}PRINT_DEBUGS=${PURPLE}true${NC}."
 	@echo "- For now, this will print the directories that will be compiled (can be useful for troubleshooting)."
