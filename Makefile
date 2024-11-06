@@ -15,7 +15,6 @@ NC=\033[0m # No Color
 # Project Configuration
 TEST ?= main
 PROJECT_TARGET ?= stm32f413rht
-# PROJECT_TARGET ?= stm32f446ret
 
 # source and include directories
 PROJECT_C_SOURCES = $(wildcard */Src/*.c)
@@ -29,13 +28,16 @@ $(info INCLUDES: $(PROJECT_C_INCLUDES))
 endif
 
 # build directories
-PROJECT_BUILD_DIR = Embedded-Sharepoint/build
+PROJECT_BUILD_DIR = Objects
 BUILD_MAKEFILE_DIR = Embedded-Sharepoint
 
 # path files
 MAKEFILE_DIR = $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+
+PROJECT_MAIN_DIR ?= Apps/Src/main.c
+
 ifneq ($(TEST), main)
-PROJECT_C_SOURCES := $(filter-out Apps/Src/main.c, $(PROJECT_C_SOURCES))
+PROJECT_C_SOURCES := $(filter-out $(PROJECT_MAIN_DIR), $(PROJECT_C_SOURCES))
 PROJECT_C_SOURCES := $(addprefix $(MAKEFILE_DIR)/, $(PROJECT_C_SOURCES) Tests/$(TEST).c)
 else
 PROJECT_C_SOURCES := $(addprefix $(MAKEFILE_DIR)/, $(PROJECT_C_SOURCES))
