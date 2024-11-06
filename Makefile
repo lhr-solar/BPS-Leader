@@ -80,6 +80,11 @@ endif
 	@echo "${BLUE}Compiled for BPS-Leader! Splendid! Jolly Good!!${NC}"
 #-------------------------------
 
+#-------------------------------
+# Flash
+flash: 	
+	$(MAKE) -C $(BUILD_MAKEFILE_DIR) flash
+
 # Help
 .PHONY: help
 help:
