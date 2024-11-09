@@ -25,7 +25,6 @@ PROJECT_C_INCLUDES = $(wildcard */Inc)
 # debug: print project target & current sources/inc directories
 PRINT_DEBUGS ?= false
 ifeq ($(PRINT_DEBUGS), true)
-
 $(info SOURCES: $(PROJECT_C_SOURCES))
 $(info INCLUDES: $(PROJECT_C_INCLUDES))
 endif
@@ -84,21 +83,20 @@ endif
 .PHONY: help
 help:
 	@echo "Format: ${ORANGE}make  ${GREEN}TARGET=${PURPLE}<stm-target>${NC} ${BLUE}TEST=${PURPLE}<Test name>${NC}"
-	@echo "- Running ${ORANGE}make${NC}by itself will compile the production code"
-	@echo "  (same as running ${ORANGE}make${NC}all). \n"
+	@echo "- Simply running '${ORANGE}make${NC}' or '${ORANGE}make${NC} all' will compile the production code."
+	@echo "- Specify ${GREEN}TARGET${NC}if different than default; ${BLUE}TEST${NC}is optional. \n"
 
-	@echo "${GREEN}TARGET:${NC}"
-	@echo "- Specify stm32 target, including chip number after 'stm32'."
-	@echo "- e.g. building for stm32${PURPLE}f446ret${NC} would mean specifying ${GREEN}TARGET=${PURPLE}f446ret.${NC}"
-	@echo "- Currently, default TARGET is stm32${PURPLE}f413rht${NC} \n"
+	@echo "${GREEN}TARGET${NC}( default is ${PURPLE}f413rht${NC}):"
+	@echo "- Specify stm32 target by entering the chip number after 'stm32'."
+	@echo "- e.g. building for stm32${PURPLE}f446ret${NC}would mean specifying ${GREEN}TARGET=${PURPLE}f446ret${NC}\n"
 
-	@echo "${BLUE}TEST:${NC}"
+	@echo "${BLUE}TEST${NC}( OPTIONAL ):"
 	@echo "- If you want to run a test, specify ${BLUE}TEST=${PURPLE}<Test name>${NC}, with ${PURPLE}<Test name>${NC}"
-	@echo "   being the exact name of the test file ${RED} without${NC} the .c suffix.\n"
+	@echo "   being the exact name of the test file ${RED}without${NC}the .c suffix.\n"
 	
-	@echo "PRINT_DEBUGS:"
-	@echo "- For debugs, specify ${BLUE}PRINT_DEBUGS=${PURPLE}true${NC}."
-	@echo "- For now, this will print the directories that will be compiled (can be useful for troubleshooting)."
+	@echo "PRINT_DEBUGS (temporary / work in progress)"
+	@echo "- For debugs, specify ${BLUE}PRINT_DEBUGS=${PURPLE}true${NC}"
+	@echo "- For now, this will print the directories that will be compiled (was useful for me when troubleshooting)."
 
 #-------------- 
 # Documentation
