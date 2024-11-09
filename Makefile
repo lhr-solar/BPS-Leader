@@ -1,4 +1,6 @@
-# crazy colors
+# ----- BPS-Leader Makefile -----
+
+# crazy colors ------------------
 RED=\033[0;31m
 GREEN=\033[0;32m
 ORANGE=\033[0;33m
@@ -9,20 +11,18 @@ LIGHTGRAY=\033[0;37m
 DARKGRAY=\033[1;30m
 YELLOW=\033[0;33m
 NC=\033[0m # No Color
-#----------------------------
+#---------------------------------
 
 
-# Project Configuration
+# Project Configuration ----------
 TEST ?= main
-# PROJECT_TARGET ?= stm32f413rht; 	f446ret
-TARGET ?= f413rht
-PROJECT_TARGET ?= $(addprefix stm32, $(TARGET))
+PROJECT_TARGET ?= stm32f413rht 	# f446ret
 
 # source and include directories
 PROJECT_C_SOURCES = $(wildcard */Src/*.c)
 PROJECT_C_INCLUDES = $(wildcard */Inc)
 
-# debug: print project target & current sources/inc directories
+# debug: print project target & current sources/inc directories BEFORE modification
 PRINT_DEBUGS ?= false
 ifeq ($(PRINT_DEBUGS), true)
 $(info SOURCES: $(PROJECT_C_SOURCES))
@@ -33,7 +33,7 @@ endif
 PROJECT_BUILD_DIR = Embedded-Sharepoint/build
 BUILD_MAKEFILE_DIR = Embedded-Sharepoint
 
-# path files
+# generate paths
 MAKEFILE_DIR = $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 ifneq ($(TEST), main)
 PROJECT_C_SOURCES := $(filter-out Apps/Src/main.c, $(PROJECT_C_SOURCES))
@@ -48,6 +48,7 @@ $(info SOURCES: $(PROJECT_C_SOURCES))
 $(info INCLUDES: $(PROJECT_C_INCLUDES))
 endif
 
+# generate paths (cont.d)
 PROJECT_C_INCLUDES := $(addprefix $(MAKEFILE_DIR)/, $(PROJECT_C_INCLUDES))
 PROJECT_BUILD_DIR := $(addprefix $(MAKEFILE_DIR)/, $(PROJECT_BUILD_DIR))
 
@@ -56,10 +57,10 @@ export PROJECT_TARGET
 export PROJECT_C_SOURCES
 export PROJECT_C_INCLUDES
 export PROJECT_BUILD_DIR
+#---------------------------------
 
 
-#-------------------------------
-# Build
+# Build --------------------------
 ifeq ($(MAKECMDGOALS),)
 default: build_code
 else ifeq ($(MAKECMDGOALS), all)
@@ -77,18 +78,18 @@ else
 endif
 	$(MAKE) -C $(BUILD_MAKEFILE_DIR) $(MAKECMDGOALS)
 	@echo "${BLUE}Compiled for BPS-Leader! Splendid! Jolly Good!!${NC}"
-#-------------------------------
+#---------------------------------
 
-# Help
+
+# Help --------------------------
 .PHONY: help
 help:
-	@echo "Format: ${ORANGE}make  ${GREEN}TARGET=${PURPLE}<stm-target>${NC} ${BLUE}TEST=${PURPLE}<Test name>${NC}"
+	@echo "Format: ${ORANGE}make  ${GREEN}PROJECT_TARGET=${PURPLE}<stm-target>${NC} ${BLUE}TEST=${PURPLE}<Test name>${NC}"
 	@echo "- Simply running '${ORANGE}make${NC}' or '${ORANGE}make${NC} all' will compile the production code."
 	@echo "- Specify ${GREEN}TARGET${NC}if different than default; ${BLUE}TEST${NC}is optional. \n"
 
-	@echo "${GREEN}TARGET${NC}( default is ${PURPLE}f413rht${NC}):"
-	@echo "- Specify stm32 target by entering the chip number after 'stm32'."
-	@echo "- e.g. building for stm32${PURPLE}f446ret${NC}would mean specifying ${GREEN}TARGET=${PURPLE}f446ret${NC}\n"
+	@echo "${GREEN}PROJECT_TARGET${NC}( default is ${PURPLE}stm32f413rht${NC}):"
+	@echo "- Specify stm32 target by entering the full stm chip number.\n"
 
 	@echo "${BLUE}TEST${NC}( OPTIONAL ):"
 	@echo "- If you want to run a test, specify ${BLUE}TEST=${PURPLE}<Test name>${NC}, with ${PURPLE}<Test name>${NC}"
@@ -97,8 +98,9 @@ help:
 	@echo "PRINT_DEBUGS (temporary / work in progress)"
 	@echo "- For debugs, specify ${BLUE}PRINT_DEBUGS=${PURPLE}true${NC}"
 	@echo "- For now, this will print the directories that will be compiled (was useful for me when troubleshooting)."
+#--------------------------------
 
-#-------------- 
+
 # Documentation
 # .PHONY: docs
 # docs:

@@ -1,14 +1,18 @@
+#ifndef IWDG_H
+#define IWDG_H
+#include "stm32f4xx_hal.h"
 
-/** @brief How long we want to wait (in ms) before we refresh
+/** @brief How long we want to wait (in ms) before we refresh 
  *  the IDWG to prevent it from resetting the system.
- *  Should be smaller than the refresh time of the system itself.
+ *  Should be lower than the refresh time of the system itself.
  */
-int IWDG_REFRESH_TIME;
-
+// extern int IWDG_REFRESH_TIME;
 
 void IWDG_Init();
-void IWDG_Start();
+void IWDG_Refresh();
 void IWDG_Reset();
 void IWDG_CheckStatus();
 
 void Error_Handler(void);
+
+#endif

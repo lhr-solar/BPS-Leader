@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "iwdg.h": "c"
+        "iwdg.h": "c",
+        "stm32f4xx_hal.h": "c",
+        "stm32xx_hal.h": "c"
     }
 }
