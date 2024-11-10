@@ -18,7 +18,8 @@ PROJECT_TARGET ?= stm32f413rht
 
 # source and include directories
 PROJECT_C_SOURCES = $(wildcard */Src/*.c)
-PROJECT_C_INCLUDES := Apps/Inc Tasks/Inc
+PROJECT_C_INCLUDES = $(wildcard */Inc)
+
 
 # debug
 PRINT_DEBUGS ?= false
@@ -96,9 +97,3 @@ help:
 	@echo "PRINT_DEBUGS:"
 	@echo "- For debugs, specify ${BLUE}PRINT_DEBUGS=${PURPLE}true${NC}."
 	@echo "- For now, this will print the directories that will be compiled (can be useful for troubleshooting)."
-
-#-------------- 
-# Documentation
-# .PHONY: docs
-# docs:
-# 	cd $(BUILD_MAKEFILE_DIR) && mkdocs serve

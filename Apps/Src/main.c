@@ -10,12 +10,6 @@
 
 int main() {
 
-    // xTaskCreate( vTaskCode,
-    //              "NAME",
-    //              STACK_SIZE,
-    //              NULL,
-    //              tskIDLE_PRIORITY,
-    //              NULL );
         xTaskCreateStatic( /* The function that implements the task. */
                     Task_Init,
                     /* Text name for the task, just to help debugging. */
