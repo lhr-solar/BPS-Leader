@@ -54,3 +54,6 @@ dkms.conf
 
 # Build files
 Objects/
+
+#VSCode Preferences
+.vscode

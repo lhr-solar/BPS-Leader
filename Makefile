@@ -18,7 +18,7 @@ PROJECT_TARGET ?= stm32f413rht
 
 # source and include directories
 PROJECT_C_SOURCES = $(wildcard */Src/*.c)
-PROJECT_C_INCLUDES = $(wildcard */Inc)
+PROJECT_C_INCLUDES := Apps/Inc Tasks/Inc
 
 # debug
 PRINT_DEBUGS ?= false
@@ -34,10 +34,10 @@ BUILD_MAKEFILE_DIR = Embedded-Sharepoint
 # path files
 MAKEFILE_DIR = $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
-PROJECT_MAIN_DIR ?= Apps/Src/main.c
+PROJECT_MAIN_DIR ?= Apps/Src/main
 
 ifneq ($(TEST), main)
-PROJECT_C_SOURCES := $(filter-out $(PROJECT_MAIN_DIR), $(PROJECT_C_SOURCES))
+PROJECT_C_SOURCES := $(filter-out $(PROJECT_MAIN_DIR).c, $(PROJECT_C_SOURCES))
 PROJECT_C_SOURCES := $(addprefix $(MAKEFILE_DIR)/, $(PROJECT_C_SOURCES) Tests/$(TEST).c)
 else
 PROJECT_C_SOURCES := $(addprefix $(MAKEFILE_DIR)/, $(PROJECT_C_SOURCES))
@@ -76,7 +76,7 @@ ifneq ($(TEST), main)
 else
 	@echo "Making STM32 build with ${ORANGE}no test.${NC}"
 endif
-	$(MAKE) -C $(BUILD_MAKEFILE_DIR) all
+	$(MAKE) -j 	-C $(BUILD_MAKEFILE_DIR) all
 	@echo "${BLUE}Compiled for BPS-Leader! Splendid! Jolly Good!!${NC}"
 #-------------------------------
 
