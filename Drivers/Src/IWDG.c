@@ -1,12 +1,16 @@
 #include "IWDG.h"
-// #include "stm32xx_hal.h"
+#include "stm32xx_hal.h"
+#include "stm32xx_hal.h"
+#include "stm32l4xx_hal.h"
 // #include "stm32f4xx_hal.h"
 
 /* Coundown value macro */
 #define IWDG_COUNTDOWN 39     // 5ms
 #define IWDG_REFRESH_TIME 4   // 4ms
 
-IWDG_HandleTypeDef hiwdg;
+IWDG_HandleTypeDef hiwdg = {
+  .Instance = IWDG
+};
 
 void IWDG_Init() {
     // HAL_Init();
@@ -22,7 +26,7 @@ void IWDG_Init() {
 
     // IWDG parameters
     // IWDG_HandleTypeDef hiwdg;
-    hiwdg.Instance = IWDG;
+    // hiwdg.Instance = IWDG;
     hiwdg.Init.Prescaler = IWDG_PRESCALER_4;
     hiwdg.Init.Reload = IWDG_COUNTDOWN;
 
@@ -34,8 +38,9 @@ void IWDG_Init() {
 }
 
 void IWDG_Refresh() {
-  __HAL_IWDG_RELOAD_COUNTER(&hiwdg);
-  __HAL_IWDG_ENABLE_WRITE_ACCESS(&hiwdg);
+  // __HAL_IWDG_RELOAD_COUNTER(&hiwdg);
+  // __HAL_IWDG_ENABLE_WRITE_ACCESS(&hiwdg);
+  HAL_IWDG_Refresh(&hiwdg);
 }
 
 
@@ -52,6 +57,15 @@ void Error_Handler(void) {
   __disable_irq();
 
   while (1) {
-    // printf("iwdg initialization failed");
+    GPIO_InitTypeDef led_config = {
+        .Mode = GPIO_MODE_OUTPUT_PP,
+        .Pull = GPIO_NOPULL,
+        .Pin = GPIO_PIN_5,
+        .Speed = GPIO_SPEED_FREQ_LOW
+    };
+    __HAL_RCC_GPIOA_CLK_ENABLE(); // enable clock for GPIOA
+    HAL_GPIO_Init(GPIOA, &led_config); // initialize GPIOA with led_config
+    HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+    HAL_Delay(500);
   }
 }
