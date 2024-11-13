@@ -7,8 +7,11 @@
 
 #include "stm32xx_hal.h"
 #include "Tasks.h"
+#include "LEDs.h"
 
 int main() {
+    //Heartbeat_Init();
+    //Heartbeat_Toggle();
 
    xTaskCreateStatic(
       Task_Init,            /* Function that implements the task. */
@@ -18,7 +21,6 @@ int main() {
       TASK_INIT_PRIO,       /* Task Priority. */
       NULL,                  /* Task Handle. */
       NULL );
-
 
     // Start the scheduler
     vTaskStartScheduler();

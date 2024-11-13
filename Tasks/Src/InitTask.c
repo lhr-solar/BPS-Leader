@@ -1,6 +1,9 @@
 #include "Tasks.h"
+#include "LEDs.h"
 
 void Task_Init(){
+    Heartbeat_Init();
+    Heartbeat_Toggle();
 
     xTaskCreateStatic(
       Task_Init,                        /* Function that implements the task. */

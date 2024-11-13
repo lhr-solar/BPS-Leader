@@ -19,11 +19,12 @@ PROJECT_BOARD ?= LeaderSOM
 
 ifeq ($(PROJECT_BOARD), NUCLEOF446)
 PROJECT_TARGET = stm32f446ret
+CFLAGS += -NUCLEOF446
 endif
 
 # source and include directories
-PROJECT_C_SOURCES = $(wildcard */Src/*.c)
 PROJECT_C_INCLUDES = $(wildcard */Inc)
+PROJECT_C_SOURCES = $(wildcard */Src/*.c)
 
 # build directories
 PROJECT_BUILD_DIR = Objects
