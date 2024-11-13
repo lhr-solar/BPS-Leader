@@ -15,18 +15,15 @@ NC=\033[0m # No Color
 # Project Configuration
 TEST ?= main
 PROJECT_TARGET ?= stm32f413rht
+PROJECT_BOARD ?= LeaderSOM
+
+ifeq ($(PROJECT_BOARD), NUCLEOF446)
+PROJECT_TARGET = stm32f446ret
+endif
 
 # source and include directories
 PROJECT_C_SOURCES = $(wildcard */Src/*.c)
 PROJECT_C_INCLUDES = $(wildcard */Inc)
-
-
-# debug
-PRINT_DEBUGS ?= false
-ifeq ($(PRINT_DEBUGS), true)
-$(info SOURCES: $(PROJECT_C_SOURCES))
-$(info INCLUDES: $(PROJECT_C_INCLUDES))
-endif
 
 # build directories
 PROJECT_BUILD_DIR = Objects
@@ -45,7 +42,7 @@ PROJECT_C_SOURCES := $(addprefix $(MAKEFILE_DIR)/, $(PROJECT_C_SOURCES))
 endif
 
 # debug
-ifeq ($(PRINT_DEBUGS), true)
+ifeq ($(PRINT_DEBUG), true)
 $(info SOURCES: $(PROJECT_C_SOURCES))
 $(info INCLUDES: $(PROJECT_C_INCLUDES))
 endif
@@ -94,6 +91,6 @@ help:
 	@echo "TEST:"
 	@echo "- If you want to run a test, specify ${BLUE}TEST=${PURPLE}<Test name>${NC}, with ${PURPLE}<Test name>${NC}"
 	@echo "   being the exact name of the test file ${RED} without${NC} the .c suffix.\n"
-	@echo "PRINT_DEBUGS:"
-	@echo "- For debugs, specify ${BLUE}PRINT_DEBUGS=${PURPLE}true${NC}."
+	@echo "PRINT_DEBUG:"
+	@echo "- For debugs, specify ${BLUE}PRINT_DEBUG=${PURPLE}true${NC}."
 	@echo "- For now, this will print the directories that will be compiled (can be useful for troubleshooting)."
