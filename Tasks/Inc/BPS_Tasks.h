@@ -11,11 +11,11 @@
 #include "stm32xx_hal.h"
 
 // Task Priority 
-#define TASK_INIT_PRIO                      0
-#define TASK_TEMPERATURE_MONITOR_PRIO       1
-#define TASK_VOLTAGE_MONITOR_PRIO           2
-#define TASK_AMPERES_MONITOR_PRIO           3
-#define TASK_PETWDOG_PRIO                   4
+#define TASK_INIT_PRIO                      tskIDLE_PRIORITY + 2
+#define TASK_TEMPERATURE_MONITOR_PRIO       tskIDLE_PRIORITY + 3
+#define TASK_VOLTAGE_MONITOR_PRIO           tskIDLE_PRIORITY + 4
+#define TASK_AMPERES_MONITOR_PRIO           tskIDLE_PRIORITY + 5
+#define TASK_PETWDOG_PRIO                   tskIDLE_PRIORITY + 6
 
 // Task Stack Size 
 #define TASK_INIT_STACK_SIZE                       configMINIMAL_STACK_SIZE
@@ -23,6 +23,9 @@
 #define TASK_VOLTAGE_MONITOR_STACK_SIZE            configMINIMAL_STACK_SIZE
 #define TASK_AMPERES_MONITOR_STACK_SIZE            configMINIMAL_STACK_SIZE
 #define TASK_PETWDOG_STACK_SIZE                    configMINIMAL_STACK_SIZE
+
+
+// Task Stack Arrays
 
 
 
