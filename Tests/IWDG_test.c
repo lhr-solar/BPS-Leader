@@ -27,11 +27,11 @@ int main() {
 
     if(IWDG_CheckIfReset() == 1) {
         // HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_RESET); // l432kcu
-        while(1) {
+        // while(1) {
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET); // f4
 
         HAL_Delay(1000);
-        }
+        // }
     }
     
     IWDG_Init();
@@ -43,7 +43,8 @@ int main() {
 
 
         /* IWDG test */
-        HAL_Delay(2);   // must refresh faster than 5 ms
+
+        HAL_Delay(.5);   // must refresh faster than 5 ms
         IWDG_Refresh();
     }
 
