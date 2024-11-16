@@ -5,29 +5,35 @@ Independent Watch Dog (IWDG) Driver
 - Description of watch dog coming soon
 
 
+
 ===========================================================
 How to calculate COUNTDOWN value from desired refresh time
 ===========================================================
   - Countdown / timeout value is how long the IDWG will 
-    count down before resetting the system.
+    count down before resetting the system. We think of this
+    in terms of seconds / milliseconds, but the IWDG will 
+    hold this value in terms of a tick countdown.
 
 
 ===========================================================
 Formula [finding timeout (in s) from RL]
 ===========================================================
-t_IWDG = t_LSI * 4 * 2^PR * (RL + 1)
-  - t_LSI (constant): 1/32,000 (31.25 uS  <- micro second)
-  - PR : prescalar
-  - RL : reload time (IDWG_COUNTDOWN, ticks?)
-  - t_IWDG : IDWG timeout (s)
+            t_IWDG = t_LSI * 4 * 2^PR * (RL + 1)
+-----------------------------------------------------------
+  Parameters:
+  - t_IWDG  : IDWG timeout (in seconds)
+  - t_LSI   : constant; 1/32,000 (represents 31.25 uS [micro second])
+  - PR      : prescalar (PRESCALAR_4 = 0, PRESCALAR_8 = 1, etc)
+  - RL      : reload time (in terms of IWDG ticks)
 
 
 ===========================================================
 Revised formula [finding RL from timeout (in ms)]
 ===========================================================
-RL = [(t_IWDG * 32,000) / (4 * 2^PR * 1000)] - 1
-  - RL : countdown value to put for IWDG_COUNTDOWN
-  - t_IWDG : the countdown timeout you want in ms
+      RL = [(t_IWDG * 32,000) / (4 * 2^PR * 1000)] - 1
+-----------------------------------------------------------
+  - RL      : countdown value to put for IWDG_COUNTDOWN
+  - t_IWDG  : the countdown timeout you want in ms
 
 */
 
@@ -39,7 +45,7 @@ RL = [(t_IWDG * 32,000) / (4 * 2^PR * 1000)] - 1
 // #include "stm32f4xx_hal.h"
 
 /* Coundown value macro */
-#define IWDG_COUNTDOWN 3999     // 500ms
+#define IWDG_COUNTDOWN 79   // 20ms
 
 /* IWDG struct */
 IWDG_HandleTypeDef hiwdg = {
@@ -49,11 +55,8 @@ IWDG_HandleTypeDef hiwdg = {
 
 void IWDG_Init() {
     /* IDWG config */
-      // IWDG_HandleTypeDef hiwdg;
-      // hiwdg.Instance = IWDG;
-    hiwdg.Init.Prescaler = IWDG_PRESCALER_4;
+    hiwdg.Init.Prescaler = IWDG_PRESCALER_8;
     hiwdg.Init.Reload = IWDG_COUNTDOWN;
-
 
     HAL_IWDG_Init(&hiwdg);
 
