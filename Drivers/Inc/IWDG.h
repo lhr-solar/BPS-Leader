@@ -9,25 +9,28 @@
 // extern int IWDG_REFRESH_TIME;
 
 /**
- * @brief Initialize the watchdog
+ * @brief Initialize the watchdog.
+ * (1): Load IWDG with parameters (IWDG_COUNTDOWN, PRESCALAR)
+ * (2): Initialize IWDG
+ * (3): Wait until status flag is reset; check if Init failed
  */
 void IWDG_Init();
 
 /**
  * @brief Refresh ("pet") the watchdog so it does not reset the system
+ * - Reloads IDWG with countown value.
  */
 void IWDG_Refresh();
 
 /**
- * @brief Reset the watchdog
+ * @brief Check whether the watchdog has reset the system
+ * @retval 1 if true (has reset); 0 is false (has not reset)
  */
-void IWDG_Reset();
+int IWDG_CheckIfReset();
 
 /**
- * @brief Check whether the watchdog has been tripped
+ * @brief Error Handler: Contains procedures for when IWDG_Init fails
  */
-void IWDG_CheckStatus();
-
 void Error_Handler(void);
 
 #endif
