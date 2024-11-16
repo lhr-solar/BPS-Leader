@@ -43,8 +43,14 @@ int main() {
 
 
         /* IWDG test */
-
-        HAL_Delay(.5);   // must refresh faster than 5 ms
+        HAL_Delay(258);   // must refresh faster than IWDG timeout 
+        /**
+         *  Weird issues :(
+         * - supposedly 5 ms timeout:   IWDG resets with >= 2 ms delay
+         * - supposedly 50 ms timeout:  IWDG resets with >= 25 ms delay
+         * - supposedly 500 ms timeout: IWDG resets with >= 258 ms delay
+         */ 
+        
         IWDG_Refresh();
     }
 

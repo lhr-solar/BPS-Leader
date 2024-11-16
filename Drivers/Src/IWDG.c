@@ -13,22 +13,23 @@ How to calculate COUNTDOWN value from desired refresh time
 
 
 ===========================================================
-Formula (finding timeout in ms from RL)
+Formula [finding timeout (in s) from RL]
 ===========================================================
 t_IWDG = t_LSI * 4 * 2^PR * (RL + 1)
-  - t_LSI (constant): 1/32,000 (31.25 uS)
+  - t_LSI (constant): 1/32,000 (31.25 uS  <- micro second)
   - PR : prescalar
   - RL : reload time (IDWG_COUNTDOWN, ticks?)
-  - t_IWDG : IDWG timeout (ms)
+  - t_IWDG : IDWG timeout (s)
 
 
 ===========================================================
-Formula (finding RL from timeout in ms)
+Revised formula [finding RL from timeout (in ms)]
 ===========================================================
 RL = [(t_IWDG * 32,000) / (4 * 2^PR * 1000)] - 1
   - RL : countdown value to put for IWDG_COUNTDOWN
   - t_IWDG : the countdown timeout you want in ms
- */
+
+*/
 
 
 /* --------------------------------------------------------- */
@@ -38,7 +39,7 @@ RL = [(t_IWDG * 32,000) / (4 * 2^PR * 1000)] - 1
 // #include "stm32f4xx_hal.h"
 
 /* Coundown value macro */
-#define IWDG_COUNTDOWN 39     // 5ms
+#define IWDG_COUNTDOWN 3999     // 500ms
 
 /* IWDG struct */
 IWDG_HandleTypeDef hiwdg = {
@@ -48,11 +49,10 @@ IWDG_HandleTypeDef hiwdg = {
 
 void IWDG_Init() {
     /* IDWG config */
-    // IWDG_HandleTypeDef hiwdg;
-    // hiwdg.Instance = IWDG;
+      // IWDG_HandleTypeDef hiwdg;
+      // hiwdg.Instance = IWDG;
     hiwdg.Init.Prescaler = IWDG_PRESCALER_4;
-    // hiwdg.Init.Reload = IWDG_COUNTDOWN;
-    hiwdg.Init.Reload = 39;
+    hiwdg.Init.Reload = IWDG_COUNTDOWN;
 
 
     HAL_IWDG_Init(&hiwdg);
