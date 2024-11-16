@@ -40,7 +40,6 @@ int main() {
         // HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_SET); // l432kcu
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET); // f4
 
-
         /* Refresh IWDG after a set timeout (simulating system timeout) */
         HAL_Delay(9);   // must refresh faster than IWDG timeout 
         IWDG_Refresh();
