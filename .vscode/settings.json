@@ -4,6 +4,7 @@
         "stm32f4xx_hal.h": "c",
         "stm32xx_hal.h": "c",
         "__node_handle": "c",
-        "stm32l4xx_hal_rcc.h": "c"
+        "stm32l4xx_hal_rcc.h": "c",
+        "stm32l4xx_hal.h": "c"
     }
 }

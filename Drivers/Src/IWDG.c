@@ -5,7 +5,6 @@ Independent Watch Dog (IWDG) Driver
 - Description of watch dog coming soon
 
 
-
 ===========================================================
 How to calculate COUNTDOWN value from desired refresh time
 ===========================================================
@@ -35,6 +34,12 @@ Revised formula [finding RL from timeout (in ms)]
   - RL      : countdown value to put for IWDG_COUNTDOWN
   - t_IWDG  : the countdown timeout you want in ms
 
+===========================================================
+Common Timeouts
+===========================================================
+  - 20 ms:  prescalar 8 (1), countdown 79
+  - 10 ms:  prescalar 4 (0), countdown 79
+  - 5 ms:   prescalar 4 (0), countdown 39
 */
 
 
@@ -45,7 +50,7 @@ Revised formula [finding RL from timeout (in ms)]
 // #include "stm32f4xx_hal.h"
 
 /* Coundown value macro */
-#define IWDG_COUNTDOWN 79   // 20ms
+#define IWDG_COUNTDOWN 79 
 
 /* IWDG struct */
 IWDG_HandleTypeDef hiwdg = {
@@ -58,9 +63,9 @@ void IWDG_Init() {
     hiwdg.Init.Prescaler = IWDG_PRESCALER_8;
     hiwdg.Init.Reload = IWDG_COUNTDOWN;
 
-    HAL_IWDG_Init(&hiwdg);
+    int init_status = HAL_IWDG_Init(&hiwdg);
 
-    if (HAL_IWDG_Init(&hiwdg) != HAL_OK) {
+    if (init_status!= HAL_OK) {
         Error_Handler();
     }
 }
@@ -83,7 +88,7 @@ int IWDG_CheckIfReset() {
 
 
 void Error_Handler(void) {
-  __disable_irq(); 
+  // __disable_irq(); 
 
   GPIO_InitTypeDef led_config = {
     .Mode = GPIO_MODE_OUTPUT_PP,
@@ -95,8 +100,8 @@ void Error_Handler(void) {
   HAL_GPIO_Init(GPIOB, &led_config);
 
   while (1) {
-    /* If IWDG_Init fails, turn off LED and (for now) halt program */
+    /* If IWDG_Init fails, turn off LED and (for now) infinite loop */
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_RESET);
-    HAL_Delay(500);
+    HAL_Delay(200);
   }
 }
