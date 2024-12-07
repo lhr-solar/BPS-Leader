@@ -16,7 +16,8 @@ NC=\033[0m # No Color
 
 # Project Configuration ----------
 TEST ?= main
-PROJECT_TARGET ?= stm32f413rht
+PROJECT_TARGET ?= stm32l432kcu
+# stm32f413rht
 # stm32l432kcu
 
 # source and include directories
