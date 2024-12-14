@@ -53,16 +53,16 @@ Common Timeouts
 #define IWDG_COUNTDOWN 79 
 
 /* IWDG struct */
-IWDG_HandleTypeDef hiwdg = {
-  .Instance = IWDG
-};
+IWDG_HandleTypeDef hiwdg;
 
 
 void IWDG_Init() {
     /* IDWG config */
+    hiwdg.Instance = IWDG;
     hiwdg.Init.Prescaler = IWDG_PRESCALER_8;
     hiwdg.Init.Reload = IWDG_COUNTDOWN;
-
+    hiwdg.Init.Window = 4095;
+    
     int init_status = HAL_IWDG_Init(&hiwdg);
 
     if (init_status!= HAL_OK) {

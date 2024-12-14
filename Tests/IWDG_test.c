@@ -2,8 +2,6 @@
 // #include "stm32xx_hal.h"
 #include "stm32l4xx_hal.h"
 
-// #include <stm32l4xx_hal_gpio.h>
-// #include "stm32l4xx_hal_rcc.h"
 
 void initLED_l432() {
     /* LED config for stm32l432kcu (GPIOB, PIN_3)*/
@@ -32,7 +30,7 @@ void initLED_l432() {
 
 int main() {
     HAL_Init();
-    SystemClock_Config();
+    // SystemClock_Config();
 
     initLED_l432();
 
@@ -46,21 +44,21 @@ int main() {
     //     }
     // }
 
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_RESET); // l432kcu
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_SET); // l432kcu
     HAL_Delay(1000);
 
     IWDG_Init();
     
     while(1) {
         /* LED feedback (constantly on if IWDG is refreshed in time) */
-        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_SET); // l432kcu
+        // HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_SET); // l432kcu
         // HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
 
         // Toggle pin to read period on logic analyzer
         // HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_3); // l432kcu
 
         /* Refresh IWDG after a set timeout (system timeout) */
-        HAL_Delay(9);   // must refresh faster than IWDG timeout
+        HAL_Delay(16.9);   // must refresh faster than IWDG timeout
         IWDG_Refresh();
 
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_RESET); // l432kcu
