@@ -1,0 +1,21 @@
+# docker-compose.yml
+services:
+  dev:
+    build:
+      platforms:
+      - "linux/amd64"
+      context: .
+      dockerfile: Embedded-Sharepoint/Dockerfile
+    container_name: "BPS-Leader"
+    privileged: true
+
+    environment:
+      - SSH_AUTH_SOCK=/ssh-agent
+    volumes:
+      - ./:/BPS-Leader
+      - ${SSH_AUTH_SOCK:-/run/host-services/ssh-auth.sock}:/ssh-agent
+    working_dir: /BPS-Leader
+
+    tty: true
+    stdin_open: true
+    command: ["/bin/bash", "-i"]
