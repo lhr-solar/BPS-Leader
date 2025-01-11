@@ -14,7 +14,7 @@ services:
     volumes:
       - ./:/BPS-Leader
       - ${SSH_AUTH_SOCK:-/run/host-services/ssh-auth.sock}:/ssh-agent
-      - ~/.ssh:/root/.ssh:ro 
+      # - ~/.ssh:/root/.ssh:ro
 
     working_dir: /BPS-Leader
 
