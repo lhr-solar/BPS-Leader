@@ -14,6 +14,8 @@ services:
     volumes:
       - ./:/BPS-Leader
       - ${SSH_AUTH_SOCK:-/run/host-services/ssh-auth.sock}:/ssh-agent
+      - ~/.ssh:/root/.ssh:ro  # Mount the SSH folder (make sure SSH keys are available)
+
     working_dir: /BPS-Leader
 
     tty: true
