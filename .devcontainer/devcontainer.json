@@ -24,6 +24,10 @@
       ]
     }
   },
-  "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder} && git config --global --add safe.directory ${containerWorkspaceFolder}/Embedded-Sharepoint"
+  "postStartCommand": [
+    "git submodule update --init --recursive",
+    "git config --global --add safe.directory ${containerWorkspaceFolder}",
+    "git config --global --add safe.directory ${containerWorkspaceFolder}/Embedded-Sharepoint"
+  ]
 }
 
