@@ -78,7 +78,7 @@ else ifeq ($(MAKECMDGOALS), all)
 all: build_code
 else
 %:
-	$(MAKE) -C $(BUILD_MAKEFILE_DIR) $(MAKECMDGOALS)
+	$(BEAR_PREFIX) $(MAKE) -C $(BUILD_MAKEFILE_DIR) $(MAKECMDGOALS)
 endif
 
 
@@ -88,7 +88,7 @@ ifneq ($(TEST), main)
 else
 	@echo "Making STM32 build with ${ORANGE}no test.${NC}"
 endif
-	$(MAKE) -C $(BUILD_MAKEFILE_DIR) all
+	$(BEAR_PREFIX) $(MAKE) -C $(BUILD_MAKEFILE_DIR) all
 	@echo "${BLUE}Compiled for BPS-Leader! Splendid! Jolly Good!!${NC}"
 #-------------------------------
 
