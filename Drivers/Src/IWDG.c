@@ -46,23 +46,17 @@ Common Timeouts
 /* --------------------------------------------------------- */
 #include "IWDG.h"
 #include "stm32xx_hal.h"
-// #include "stm32l4xx_hal.h"
-// #include "stm32f4xx_hal.h"
-
-/* Coundown value macro */
-#define IWDG_COUNTDOWN 79 
 
 /* IWDG struct */
 IWDG_HandleTypeDef hiwdg;
 
-
 void IWDG_Init() {
     /* IDWG config */
     hiwdg.Instance = IWDG;
-    hiwdg.Init.Prescaler = IWDG_PRESCALER_8;
+    hiwdg.Init.Prescaler = IWDG_PRESCALER_4;
     hiwdg.Init.Reload = IWDG_COUNTDOWN;
-    hiwdg.Init.Window = 4095;
-    
+    // hiwdg.Init.Window = 4095;
+
     int init_status = HAL_IWDG_Init(&hiwdg);
 
     if (init_status!= HAL_OK) {

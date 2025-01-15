@@ -1,12 +1,12 @@
 #ifndef IWDG_H
 #define IWDG_H
-// #include "stm32f4xx_hal.h"
 
-/** @brief How long we want to wait (in ms) before we refresh 
- *  the IDWG to prevent it from resetting the system.
- *  Should be lower than the refresh time of the system itself.
+/** @brief Countdown value (corresponds to ms value) before we 
+ *  refresh the IDWG to prevent it from resetting the system.
  */
-// extern int IWDG_REFRESH_TIME;
+#define IWDG_COUNTDOWN 79 
+/* 10 ms timeout */
+
 
 /**
  * @brief Initialize the watchdog.

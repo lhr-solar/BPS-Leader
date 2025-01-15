@@ -1,4 +1,4 @@
-// placeholder for main.c
+#include "FreeRTOS.h"
 
 int main(void) {
   return 0;

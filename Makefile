@@ -16,9 +16,7 @@ NC=\033[0m # No Color
 
 # Project Configuration ----------
 TEST ?= main
-PROJECT_TARGET ?= stm32l432kcu
-# stm32f413rht
-# stm32l432kcu
+PROJECT_TARGET ?= stm32f446ret
 
 # source and include directories
 PROJECT_C_SOURCES = $(wildcard */Src/*.c)
