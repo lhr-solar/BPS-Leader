@@ -41,7 +41,7 @@ int main() {
     // }
 
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-    HAL_Delay(1000);
+    HAL_Delay(500);
 
     IWDG_Init();
     
@@ -51,9 +51,10 @@ int main() {
         // HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
 
         /* Refresh IWDG after a set timeout (system timeout) */
-        HAL_Delay(9);   // must refresh faster than IWDG timeout
+        HAL_Delay(8);   // must refresh faster than IWDG timeout
         IWDG_Refresh();
-        HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5); // f4
+        HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5); // toggle to see period on logic analyzer
+        // HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET); // or: keep LED on to signal that we have not reset
     }
 
     return 0;
