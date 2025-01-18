@@ -1,3 +1,7 @@
+/* Watchdog Test
+ - Attempts to pet watchdog within appropriate time interval
+*/
+
 #include "IWDG.h"
 #include "stm32xx_hal.h"
 

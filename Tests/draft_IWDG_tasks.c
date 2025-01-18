@@ -1,5 +1,6 @@
-/* Watchdog Task
- - Attempts to pet watchdog within appropriate time interval
+/* Draft Watchdog Task with 2 dummy tasks
+ - Attempts to pet watchdog while running two other tasks concurrently
+ - Rough draft: everything is defined here
 */
 
 #include "FreeRTOS.h"
@@ -72,13 +73,14 @@ static void Task_PetWatchdog(void *pvParameters) {
 
    // refresh within time limit for 50 cycles, then force watchdog to trip
    while(1) {
-      static int i = 1;
+      // static int i = 1;
       IWDG_Refresh();
-      i > 50 ? HAL_Delay(20) : HAL_Delay(SYS_REFRESH_MS);
+      // i > 50 ? HAL_Delay(20) : HAL_Delay(SYS_REFRESH_MS);
+      HAL_Delay(SYS_REFRESH_MS);
 
       // HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
       HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-      i++;
+      // i++;
    }
 }
 

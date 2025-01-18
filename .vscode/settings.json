@@ -9,6 +9,8 @@
         "stm32l4xx.h": "c",
         "bps_tasks.h": "c",
         "task.h": "c",
-        "freertos.h": "c"
+        "freertos.h": "c",
+        "semphr.h": "c",
+        "timers.h": "c"
     }
 }

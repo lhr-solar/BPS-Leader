@@ -38,6 +38,6 @@ extern StackType_t Task_Dummy2_Stack[configMINIMAL_STACK_SIZE];
 void Task_Init();
 void Task_PetWatchdog();
 void Task_DummyTask();
-
+void error_handler();
 
 #endif

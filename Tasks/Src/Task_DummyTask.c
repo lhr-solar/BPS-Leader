@@ -5,14 +5,14 @@
 #include "BPS_Tasks.h"
 
 static void GPIO_Init() {
-    GPIO_InitTypeDef led_init = {
+    GPIO_InitTypeDef init = {
         .Mode = GPIO_MODE_OUTPUT_PP,
         .Pull = GPIO_NOPULL,
         .Pin =  GPIO_PIN_6
     };
 
     __HAL_RCC_GPIOA_CLK_ENABLE();
-    HAL_GPIO_Init(GPIOA, &led_init);
+    HAL_GPIO_Init(GPIOA, &init);
 }
 
 
