@@ -48,14 +48,13 @@ Common Timeouts
 #include "stm32xx_hal.h"
 
 /* IWDG struct */
-IWDG_HandleTypeDef hiwdg;
+IWDG_HandleTypeDef hiwdg = {};
 
 void IWDG_Init() {
     /* IDWG config */
     hiwdg.Instance = IWDG;
     hiwdg.Init.Prescaler = IWDG_PRESCALER_4;
     hiwdg.Init.Reload = IWDG_COUNTDOWN;
-    // hiwdg.Init.Window = 4095;
 
     int init_status = HAL_IWDG_Init(&hiwdg);
 

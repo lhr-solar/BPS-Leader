@@ -4,7 +4,8 @@
 /** @brief Countdown value (corresponds to ms value) before we 
  *  refresh the IDWG to prevent it from resetting the system. */
 #define IWDG_COUNTDOWN 79 
-/* 10 ms timeout */
+// 10ms timeout ^
+
 
 #define IWDG_TIMEOUT_MS 10
 #define SYS_REFRESH_MS  8

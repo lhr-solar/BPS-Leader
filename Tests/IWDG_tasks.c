@@ -1,6 +1,6 @@
-// /* Watchdog Task
-//  - Attempts to pet watchdog within appropriate time interval
-// */
+/* Watchdog Task
+ - Attempts to pet watchdog within appropriate time interval
+*/
 
 #include "FreeRTOS.h"
 #include "task.h"
@@ -54,7 +54,8 @@ static void error_handler(void) {
 // }
 
 
-/* ===================== TASKS ===================== */
+/*-------------------------- TASKS ------------------------------*/
+
 
 /* TASK: Refreshes watchdog */
 static void Task_PetWatchdog(void *pvParameters) {
@@ -97,6 +98,7 @@ static void dummy_task_two(void *pvParameters) {
    }
 }
 
+/*-----------------------------------------------------------*/
 
 int main(void) {
    if (HAL_Init() != HAL_OK) {
