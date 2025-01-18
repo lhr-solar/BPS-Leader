@@ -1,5 +1,15 @@
+# Build Files
+Objects/
+
+# VSCode Files
+.vscode/
+!.vscode/c_cpp_properties.json
+
 # Prerequisites
 *.d
+
+# Mac Dump Files
+.DS_Store
 
 # Object files
 *.o

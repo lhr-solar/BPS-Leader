@@ -1,0 +1,30 @@
+// .devcontainer/devcontainer.json
+{
+  "name": "BPS Leader",
+  "dockerComposeFile": [
+    "../docker-compose.yml"
+  ],
+
+  "service": "dev",
+  "workspaceFolder": "/BPS-Leader",
+  "shutdownAction": "stopCompose",
+
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      },
+      "extensions": [
+        "ms-vscode.cpptools-extension-pack",
+        "ms-python.python",
+        "GitHub.vscode-pull-request-github",
+        "ms-vscode.makefile-tools",
+        "thecreativedodo.usbip-connect",
+        "eamodio.gitlens"
+      ]
+    }
+  },
+  "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder} && git config --global --add safe.directory ${containerWorkspaceFolder}/Embedded-Sharepoint"
+
+}
+
