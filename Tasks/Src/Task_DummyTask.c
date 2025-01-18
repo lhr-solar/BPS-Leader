@@ -20,7 +20,9 @@ static void GPIO_Init() {
 void Task_DummyTask() {
     GPIO_Init();
     while(1) {
+        xSemaphoreTake(xEventSemaphore, 0);
         HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_6);
-        HAL_Delay(500);
+        HAL_Delay(8);
+        xSemaphoreGive(xEventSemaphore);
     }
 }

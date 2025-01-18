@@ -1,3 +1,6 @@
+/*-----------------------------------------------------------*/
+// TASK PARAMETERS
+/*-----------------------------------------------------------*/
 #include "BPS_Tasks.h"
 
 // Task Buffers
@@ -11,6 +14,9 @@ StackType_t Task_Init_Stack[configMINIMAL_STACK_SIZE];
 StackType_t Task_PetWD_Stack[configMINIMAL_STACK_SIZE];
 StackType_t Task_Dummy_Stack[configMINIMAL_STACK_SIZE];
 StackType_t Task_Dummy2_Stack[configMINIMAL_STACK_SIZE];
+
+// Semaphore
+SemaphoreHandle_t xEventSemaphore = NULL;
 
 /* Blinks LED to signal we have faulted */
 void error_handler(void) {

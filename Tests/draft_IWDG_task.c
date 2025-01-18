@@ -71,16 +71,10 @@ static void Task_PetWatchdog(void *pvParameters) {
    HAL_Delay(500);
    IWDG_Init();
 
-   // refresh within time limit for 50 cycles, then force watchdog to trip
    while(1) {
-      // static int i = 1;
       IWDG_Refresh();
-      // i > 50 ? HAL_Delay(20) : HAL_Delay(SYS_REFRESH_MS);
       HAL_Delay(SYS_REFRESH_MS);
-
-      // HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
       HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-      // i++;
    }
 }
 

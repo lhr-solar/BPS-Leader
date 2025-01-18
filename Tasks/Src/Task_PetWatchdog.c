@@ -37,13 +37,12 @@ void Task_PetWatchdog() {
     IWDG_Init();
 
     // semaphore stuff (i don't really know what i'm doing
-    static SemaphoreHandle_t xEventSemaphore = NULL;
     xEventSemaphore = xSemaphoreCreateBinaryStatic(&xSemaphoreBuffer);
 
     // refresh and toggle LED
     while(1) {
         // take
-        xSemaphoreTake(xEventSemaphore, portMAX_DELAY);
+        xSemaphoreTake(xEventSemaphore, 0);
 
         IWDG_Refresh();
         // HAL_Delay(SYS_REFRESH_MS);
