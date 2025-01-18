@@ -9,7 +9,7 @@
 
 // Task Priorities
 #define TASK_PETWD_PRIORITY      tskIDLE_PRIORITY + 5
-#define TASK_DUMMY_PRIORITY      tskIDLE_PRIORITY + 4
+#define TASK_DUMMY_PRIORITY      tskIDLE_PRIORITY + 5
 
 // Task Stack Sizes
 #define TASK_PETWD_STACK_SIZE     configMINIMAL_STACK_SIZE
@@ -69,12 +69,12 @@ static void Task_PetWatchdog(void *pvParameters) {
    }
 }
 
-// static void dummy_task(void *pvParameters) {
-//    while(1) {
-//       HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_6);
-//       HAL_Delay(500);
-//    }
-// }
+static void dummy_task(void *pvParameters) {
+   while(1) {
+      HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_6);
+      HAL_Delay(500);
+   }
+}
 
 int main(void) {
    if (HAL_Init() != HAL_OK) {
@@ -93,15 +93,15 @@ int main(void) {
                   &petWD_task_buffer
    );
 
-   // xTaskCreateStatic(
-   //                dummy_task,
-   //                "DummyTask1",
-   //                TASK_DUMMY_STACK_SIZE,
-   //                NULL,
-   //                TASK_DUMMY_PRIORITY,
-   //                dummy_taskStack,
-   //                &dummy_task_buffer
-   // );
+   xTaskCreateStatic(
+                  dummy_task,
+                  "DummyTask1",
+                  TASK_DUMMY_STACK_SIZE,
+                  NULL,
+                  TASK_DUMMY_PRIORITY,
+                  dummy_taskStack,
+                  &dummy_task_buffer
+   );
 
    vTaskStartScheduler();
 
