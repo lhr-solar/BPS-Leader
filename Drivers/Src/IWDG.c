@@ -48,7 +48,7 @@ Common Timeouts
 #include "stm32xx_hal.h"
 
 /* IWDG struct */
-IWDG_HandleTypeDef hiwdg = {};
+IWDG_HandleTypeDef hiwdg = {0};
 
 void IWDG_Init() {
     /* IDWG config */

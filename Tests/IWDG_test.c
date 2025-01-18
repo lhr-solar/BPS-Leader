@@ -22,6 +22,14 @@ int main() {
     HAL_Init();
     initLED_f4();
 
+    // ESET CHECK
+    if(IWDG_CheckIfReset() == 1) {
+        while(1) {
+            HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+            HAL_Delay(100);
+        }
+    }
+
     // Set LED off to indicate we are in the init stage
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
     HAL_Delay(500);
@@ -29,10 +37,10 @@ int main() {
     
     while(1) {
         /* Refresh IWDG after a set timeout (system timeout) 
-        *  - Keep LED on to signal that we have not reset */
+        *  - Toggle LED every refresh */
         HAL_Delay(8);
         IWDG_Refresh();
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET); 
+        HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5); 
     }
 
     return 0;

@@ -1,9 +1,9 @@
 #include "BPS_Tasks.h"
 
 int main() {
-    if (HAL_Init() != HAL_OK) {
-        error_handler();
-    }
+    // if (HAL_Init() != HAL_OK) {
+    //     error_handler();
+    // }
 
     xTaskCreateStatic(  Task_Init,   
                         "Init",

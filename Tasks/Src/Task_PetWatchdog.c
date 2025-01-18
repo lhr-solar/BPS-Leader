@@ -19,44 +19,37 @@ static void GPIO_Init() {
    HAL_GPIO_Init(GPIOA, &led_init);
 }
 
-
-// /* Blinks LED to signal we have faulted */
-// static void error_handler(void) {
-//    // vTaskEndScheduler();
-//     while(1) {
-//         HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-//         HAL_Delay(100);
-//     }
-// }
-
+StaticSemaphore_t xSemaphoreBuffer;
 /*-----------------------------------------------------------*/
 
 /* TASK: Refreshes watchdog */
 void Task_PetWatchdog() {
     GPIO_Init();
     
-    // Don't fault on first run through
-    static int i = 0;
-    if(i > 0 && IWDG_CheckIfReset() == 1) {
+    // TO-DO: Don't fault on first run through
+    if(IWDG_CheckIfReset() == 1) {
         error_handler();
     }
 
     // Set LED off to indicate we are in the init stage
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
     HAL_Delay(500);
-    
     IWDG_Init();
-    i++;
 
-    // refresh within time limit for 50 cycles, then force watchdog to trip
+    // semaphore stuff (i don't really know what i'm doing
+    static SemaphoreHandle_t xEventSemaphore = NULL;
+    xEventSemaphore = xSemaphoreCreateBinaryStatic(&xSemaphoreBuffer);
+
+    // refresh and toggle LED
     while(1) {
-        // static int i = 1;
-        IWDG_Refresh();
-        // i > 50 ? HAL_Delay(20) : HAL_Delay(SYS_REFRESH_MS);
-        HAL_Delay(SYS_REFRESH_MS);
+        // take
+        xSemaphoreTake(xEventSemaphore, portMAX_DELAY);
 
-        // HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+        IWDG_Refresh();
+        // HAL_Delay(SYS_REFRESH_MS);
         HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-        // i++;
+
+        // give mutex
+        xSemaphoreGive(xEventSemaphore);
     }
 }

@@ -5,6 +5,10 @@
 #include "BPS_Tasks.h"
 
 void Task_Init() {
+    if (HAL_Init() != HAL_OK) {
+        error_handler();
+    }
+    
     xTaskCreateStatic(  Task_PetWatchdog,
                         "PetWatchdog",
                         TASK_PETWD_STACK_SIZE,
