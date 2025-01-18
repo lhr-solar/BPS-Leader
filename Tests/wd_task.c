@@ -83,21 +83,12 @@ int main(void) {
 
    GPIO_Init();
 
-   // xTaskCreateStatic(
-                  // Task_PetWatchdog,
-                  // "PetWatchdog",
-                  // TASK_PETWD_STACK_SIZE,
-                  // NULL,
-                  // TASK_PETWD_PRIORITY,
-                  // petWD_taskStack,
-                  // &petWD_task_buffer
-   // );
    xTaskCreateStatic(
                   Task_PetWatchdog,
-                  "task",
-                  configMINIMAL_STACK_SIZE,
+                  "PetWatchdog",
+                  TASK_PETWD_STACK_SIZE,
                   NULL,
-                  tskIDLE_PRIORITY + 2,
+                  TASK_PETWD_PRIORITY,
                   petWD_taskStack,
                   &petWD_task_buffer
    );
