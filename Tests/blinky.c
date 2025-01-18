@@ -1,5 +1,6 @@
 #include "stm32xx_hal.h"
 
+// useful comment useful comment
 int main(){
     HAL_Init();
 
