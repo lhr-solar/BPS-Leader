@@ -1,21 +1,21 @@
 /*-----------------------------------------------------------
  * PET WATCHDOG TASK
  - Attempts to pet watchdog within appropriate time interval
-/*-----------------------------------------------------------*/
+ -----------------------------------------------------------*/
 #include "BPS_Tasks.h"
 #include "IWDG.h"
 
-static void GPIO_Init() {
-   /* LED: GPIO A, Pin 5*/
-    GPIO_InitTypeDef led_init = {
-        .Mode = GPIO_MODE_OUTPUT_PP,
-        .Pull = GPIO_NOPULL,
-        .Pin = GPIO_PIN_5
-    };
+// static void GPIO_Init() {
+//    /* LED: GPIO A, Pin 5*/
+//     GPIO_InitTypeDef led_init = {
+//         .Mode = GPIO_MODE_OUTPUT_PP,
+//         .Pull = GPIO_NOPULL,
+//         .Pin = GPIO_PIN_5
+//     };
 
-   __HAL_RCC_GPIOA_CLK_ENABLE();
-   HAL_GPIO_Init(GPIOA, &led_init);
-}
+//    __HAL_RCC_GPIOA_CLK_ENABLE();
+//    HAL_GPIO_Init(GPIOA, &led_init);
+// }
 
 StaticSemaphore_t xSemaphoreBuffer;
 
@@ -23,7 +23,12 @@ StaticSemaphore_t xSemaphoreBuffer;
 
 /* TASK: Refreshes watchdog */
 void Task_PetWatchdog() {
-    GPIO_Init();
+    // GPIO_Init();
+    GPIO_InitTypeDef led_init = {
+        .Mode = GPIO_MODE_OUTPUT_PP,
+        .Pull = GPIO_NOPULL,
+        .Pin = GPIO_PIN_5
+    };
     
     // TO-DO: Don't fault on first run through
     if(IWDG_CheckIfReset() == 1) {
@@ -33,7 +38,7 @@ void Task_PetWatchdog() {
     // Set LED off to indicate we are in the init stage
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
     HAL_Delay(500);
-    IWDG_Init();
+    IWDG_Init(led_init);
 
     // semaphore stuff (i don't really know what i'm doing
     xEventSemaphore = xSemaphoreCreateBinaryStatic(&xSemaphoreBuffer);

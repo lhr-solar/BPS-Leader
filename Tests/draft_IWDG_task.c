@@ -61,7 +61,12 @@ static void error_handler(void) {
 /* TASK: Refreshes watchdog */
 static void Task_PetWatchdog(void *pvParameters) {
    // HAL_Init();
-   
+   GPIO_InitTypeDef led_init = {
+      .Mode = GPIO_MODE_OUTPUT_PP,
+      .Pull = GPIO_NOPULL,
+      .Pin = GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7
+   };
+
    if(IWDG_CheckIfReset() == 1) {
       error_handler();
    }
@@ -69,7 +74,7 @@ static void Task_PetWatchdog(void *pvParameters) {
    // Set LED off to indicate we are in the init stage
    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
    HAL_Delay(500);
-   IWDG_Init();
+   IWDG_Init(led_init);
 
    while(1) {
       IWDG_Refresh();

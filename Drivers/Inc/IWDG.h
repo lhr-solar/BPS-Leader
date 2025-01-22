@@ -1,22 +1,27 @@
 #ifndef IWDG_H
 #define IWDG_H
 
-/** @brief Countdown value (corresponds to ms value) before we 
+#include "stm32xx_hal.h"
+
+/* ------------------------------ MACROS ------------------------------*/
+/** @brief Countdown value (corresponds to ms value before we 
  *  refresh the IDWG to prevent it from resetting the system. */
 #define IWDG_COUNTDOWN 79 
 // 10ms timeout ^
 
-
 #define IWDG_TIMEOUT_MS 10
 #define SYS_REFRESH_MS  8
+/* ----------------------------------------------------------------*/
+
 
 /**
  * @brief Initialize the watchdog.
  * (1): Load IWDG with parameters (IWDG_COUNTDOWN, PRESCALAR)
  * (2): Initialize IWDG
  * (3): Wait until status flag is reset; check if Init failed
+ * @param gpio_config GPIO_InitTypeDef structure that contains GPIO config information
  */
-void IWDG_Init();
+void IWDG_Init(GPIO_InitTypeDef gpio_config);
 
 /**
  * @brief Refresh ("pet") the watchdog so it does not reset the system
