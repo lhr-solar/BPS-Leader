@@ -1,11 +1,9 @@
-/* Pet Watchdog Task
+/*-----------------------------------------------------------
+ * PET WATCHDOG TASK
  - Attempts to pet watchdog within appropriate time interval
-*/
-
+/*-----------------------------------------------------------*/
 #include "BPS_Tasks.h"
 #include "IWDG.h"
-
-/*-----------------------------------------------------------*/
 
 static void GPIO_Init() {
    /* LED: GPIO A, Pin 5*/
@@ -20,6 +18,7 @@ static void GPIO_Init() {
 }
 
 StaticSemaphore_t xSemaphoreBuffer;
+
 /*-----------------------------------------------------------*/
 
 /* TASK: Refreshes watchdog */

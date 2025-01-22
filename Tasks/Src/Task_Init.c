@@ -1,7 +1,7 @@
-/* Initialization Task
- - Inits all tasks
-*/
-
+/*-----------------------------------------------------------
+ * INIT TASK
+ - Initializes all tasks
+/*-----------------------------------------------------------*/
 #include "BPS_Tasks.h"
 
 void Task_Init() {

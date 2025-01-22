@@ -1,7 +1,7 @@
-/* Dummy Task
+/*-----------------------------------------------------------
+ * DUMMY TASK
  - Toggles output to GPIO Pin A6
-*/
-
+/*-----------------------------------------------------------*/
 #include "BPS_Tasks.h"
 
 static void GPIO_Init() {
