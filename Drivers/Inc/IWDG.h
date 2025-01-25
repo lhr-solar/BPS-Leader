@@ -38,20 +38,18 @@ Revised formula [finding RL from timeout (in ms)]
 
 -----------------------------------------------------------
 Common Timeouts
-  - 20 ms:  prescalar 8 (1), countdown 79
-  - 10 ms:  prescalar 4 (0), countdown 79
-  - 5 ms:   prescalar 4 (0), countdown 39
+  - 20 ms:  countdown 79, prescalar 8 (1)
+  - 10 ms:  countdown 79, prescalar 4 (0)
+  - 5 ms:   countdown 39, prescalar 4 (0)
 ----------------------------------------------------------- */
 
 
 #include "stm32xx_hal.h"
 
 /* ------------------------------ MACROS ------------------------------*/
-/** @brief Countdown value (corresponds to ms value before we 
- *  refresh the IDWG to prevent it from resetting the system. */
-#define IWDG_PRESCALAR IWDG_PRESCALER_4
-#define IWDG_COUNTDOWN 79 
-// 20ms timeout ^
+
+#define IWDG_PRESCALAR IWDG_PRESCALER_8 
+#define IWDG_COUNTDOWN 79               // Tick value before we refresh the IDWG (current value converts to ~20ms)
 
 #define IWDG_TIMEOUT_MS 10
 #define SYS_REFRESH_MS  8
@@ -64,9 +62,9 @@ Common Timeouts
  * (2): Initialize IWDG
  * (3): Wait until status flag is reset; check if Init failed
  * @param gpio_config GPIO_InitTypeDef structure that contains GPIO config information
- * @param _ptr_errorHandler Pointer to user defined function for error handling
+ * @param errorHandler Pointer to user defined function for error handling
  */
-void IWDG_Init(GPIO_InitTypeDef gpio_config, void(*_ptr_errorHandler)(void));
+void IWDG_Init(GPIO_InitTypeDef gpio_config, void(*errorHandler)(void));
 
 /**
  * @brief Refresh ("pet") the watchdog so it does not reset the system
