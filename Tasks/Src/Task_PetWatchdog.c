@@ -23,12 +23,12 @@ StaticSemaphore_t xSemaphoreBuffer;
 
 /* TASK: Refreshes watchdog */
 void Task_PetWatchdog() {
-    // GPIO_Init();
     GPIO_InitTypeDef led_init = {
         .Mode = GPIO_MODE_OUTPUT_PP,
         .Pull = GPIO_NOPULL,
         .Pin = GPIO_PIN_5
     };
+    IWDG_Init(led_init, IWDG_Error_Handler);
     
     // TO-DO: Don't fault on first run through
     if(IWDG_CheckIfReset() == 1) {
@@ -38,7 +38,6 @@ void Task_PetWatchdog() {
     // Set LED off to indicate we are in the init stage
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
     HAL_Delay(500);
-    IWDG_Init(led_init);
 
     // semaphore stuff (i don't really know what i'm doing
     xEventSemaphore = xSemaphoreCreateBinaryStatic(&xSemaphoreBuffer);

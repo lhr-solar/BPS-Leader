@@ -27,6 +27,7 @@ int main() {
         .Pin = GPIO_PIN_5
     };
 
+    IWDG_Init(led_config_f4, IWDG_Error_Handler);
     // RESET CHECK
     if(IWDG_CheckIfReset() == 1) {
         while(1) {
@@ -38,7 +39,6 @@ int main() {
     // Set LED off to indicate we are in the init stage
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
     HAL_Delay(500);
-    IWDG_Init(led_config_f4);
     
     while(1) {
         /* Refresh IWDG after a set timeout (system timeout) 
