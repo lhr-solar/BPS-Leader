@@ -25,6 +25,16 @@ void Task_Init(){
         &Task_Temperature_Buffer  /* Buffer for static allocation. */
    );
 
+       xTaskCreateStatic(
+        Task_Voltage_Monitor, /* The function that implements the task. */
+        "Voltage Monitor Task", /* Text name for the task. */
+        TASK_VOLTAGE_MONITOR_STACK_SIZE, /* The size (in words) of the stack that should be created for the task. */
+        (void*)NULL, /* Paramter passed into the task. */
+        TASK_VOLTAGE_MONITOR_PRIO, /* Task Prioriy. */
+        Task_Voltage_Stack_Array, /* Stack array. */
+        &Task_Voltage_Buffer  /* Buffer for static allocation. */
+   );
+
    // Task deletes itself after all other taks are init'd
     vTaskDelete(NULL);
 }

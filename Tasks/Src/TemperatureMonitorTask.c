@@ -4,19 +4,18 @@
 
 void Task_Temperature_Monitor(){
 
-        //Task deletes itself when all other tasks are Init'd
     GPIO_InitTypeDef led_config = {
         .Mode = GPIO_MODE_OUTPUT_PP,
         .Pull = GPIO_NOPULL,
-        .Pin = HEARTBEATPIN
+        .Pin = GPIO_PIN_0
     };
     
     __HAL_RCC_GPIOA_CLK_ENABLE(); // enable clock for GPIOA
     HAL_GPIO_Init(GPIOA, &led_config); // initialize GPIOA with led_config
 
     while(1){
-        HAL_GPIO_TogglePin(HEARTBEATPORT, HEARTBEATPIN);
-        HAL_Delay(500);
+        HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);
+        vTaskDelay(10);
     }
     
 }
