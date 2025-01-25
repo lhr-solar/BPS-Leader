@@ -49,8 +49,9 @@ Common Timeouts
 /* ------------------------------ MACROS ------------------------------*/
 /** @brief Countdown value (corresponds to ms value before we 
  *  refresh the IDWG to prevent it from resetting the system. */
+#define IWDG_PRESCALAR IWDG_PRESCALER_4
 #define IWDG_COUNTDOWN 79 
-// 10ms timeout ^
+// 20ms timeout ^
 
 #define IWDG_TIMEOUT_MS 10
 #define SYS_REFRESH_MS  8

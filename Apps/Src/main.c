@@ -1,21 +1,20 @@
-#include "BPS_Tasks.h"
+#include "stm32xx_hal.h"
 
+// Blinky
 int main() {
-    // if (HAL_Init() != HAL_OK) {
-    //     error_handler();
-    // }
+    HAL_Init();
 
-    xTaskCreateStatic(  Task_Init,   
-                        "Init",
-                        TASK_INIT_STACK_SIZE,
-                        NULL,
-                        TASK_INIT_PRIORITY,
-                        Task_Init_Stack,
-                        &Task_Init_Buffer);
+    GPIO_InitTypeDef led_config = {
+        .Mode = GPIO_MODE_OUTPUT_PP,
+        .Pull = GPIO_NOPULL,
+        .Pin = GPIO_PIN_5 
+    };
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    HAL_GPIO_Init(GPIOA, &led_config);
 
-    vTaskStartScheduler();
-    // scheduler started, code should not reach here
-    error_handler(); // replace with something more useful to this situation
-
+    while(1){ 
+        HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+        HAL_Delay(500);
+    }
     return 0;
 }
