@@ -7,7 +7,6 @@
 #include "timers.h" /* Software timer related API prototypes. */
 #include "semphr.h" /* Semaphore related API prototypes. */
 
-// #include "stm32xx_hal.h"
 
 // Task Priority 
 #define TASK_INIT_PRIO                      tskIDLE_PRIORITY + 2

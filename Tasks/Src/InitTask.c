@@ -1,24 +1,30 @@
 #include "BPS_Tasks.h"
 #include "stm32xx_hal.h"
-#include "pinConfig.h"
+
+// Task Stack Arrays
+StackType_t Task_Temperature_Stack_Array[ TASK_TEMPERATURE_MONITOR_STACK_SIZE ];
+StackType_t Task_Voltage_Stack_Array[ TASK_TEMPERATURE_MONITOR_STACK_SIZE ];
+StackType_t Task_Amperes_Stack_Array[ TASK_AMPERES_MONITOR_STACK_SIZE ];
+StackType_t Task_Petwdog_Stack_Array[ TASK_PETWDOG_STACK_SIZE ];
+
+// Task Buffers
+StaticTask_t Task_Temperature_Buffer;
+StaticTask_t Task_Voltage_Buffer;
+StaticTask_t Task_Amperes_Buffer;
+StaticTask_t Task_Petwdog_Buffer;
 
 void Task_Init(){
 
-    //Task deletes itself when all other tasks are Init'd
-    GPIO_InitTypeDef led_config = {
-        .Mode = GPIO_MODE_OUTPUT_PP,
-        .Pull = GPIO_NOPULL,
-        .Pin = HEARTBEATPIN
-    };
-    
-    __HAL_RCC_GPIOA_CLK_ENABLE(); // enable clock for GPIOA
-    HAL_GPIO_Init(GPIOA, &led_config); // initialize GPIOA with led_config
+    xTaskCreateStatic(
+        Task_Temperature_Monitor, /* The function that implements the task. */
+        "Temperature Monitor Task", /* Text name for the task. */
+        TASK_TEMPERATURE_MONITOR_STACK_SIZE, /* The size (in words) of the stack that should be created for the task. */
+        (void*)NULL, /* Paramter passed into the task. */
+        TASK_TEMPERATURE_MONITOR_PRIO, /* Task Prioriy. */
+        Task_Temperature_Stack_Array, /* Stack array. */
+        &Task_Temperature_Buffer  /* Buffer for static allocation. */
+   );
 
-    while(1){
-        HAL_GPIO_TogglePin(HEARTBEATPORT, HEARTBEATPIN);
-        HAL_Delay(500);
-    }
-
-
+   // Task deletes itself after all other taks are init'd
     vTaskDelete(NULL);
 }
