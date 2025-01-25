@@ -1,0 +1,1 @@
+./Embedded-Sharepoint/start.sh
