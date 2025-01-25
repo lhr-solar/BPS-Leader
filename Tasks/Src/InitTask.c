@@ -25,7 +25,7 @@ void Task_Init(){
         &Task_Temperature_Buffer  /* Buffer for static allocation. */
    );
 
-       xTaskCreateStatic(
+    xTaskCreateStatic(
         Task_Voltage_Monitor, /* The function that implements the task. */
         "Voltage Monitor Task", /* Text name for the task. */
         TASK_VOLTAGE_MONITOR_STACK_SIZE, /* The size (in words) of the stack that should be created for the task. */
