@@ -1,5 +1,9 @@
 #include "LEDs.h"
 
+/**
+ * Inits the Heartbeat pin based on HEARTBEATPIN and HEARTBEATPORT
+ * From PinConfig.h
+*/
 void Heartbeat_Init(){
     GPIO_InitTypeDef led_config = {
         .Mode = GPIO_MODE_OUTPUT_PP,
@@ -34,5 +38,5 @@ void Heartbeat_Toggle(){
 }
 
 void Heartbeat_WritePin(uint8_t new_val){
-    HAL_GPIO_WritePin(HEARTBEATPORT, HEARTBEATPIN, new_val);    
+    HAL_GPIO_WritePin(HEARTBEATPORT, HEARTBEATPIN, (new_val == GPIO_PIN_SET) ? GPIO_PIN_SET: GPIO_PIN_RESET);    
 }
