@@ -67,3 +67,6 @@ Objects/
 
 #VSCode Preferences
 .vscode
+
+# Mac Specific Files
+.DS_Store
