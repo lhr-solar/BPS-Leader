@@ -5,8 +5,8 @@ void Task_Voltage_Monitor(){
 
     while(1){
         
-        // Delays 10 ms
-        vTaskDelay(10);
+        // Delays 5 ms
+        vTaskDelay(5);
     }
     
 }
