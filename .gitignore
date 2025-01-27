@@ -63,7 +63,7 @@ dkms.conf
 
 
 # Build files
-Objects/
+Build/
 
 #VSCode Preferences
 .vscode
