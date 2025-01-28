@@ -1,5 +1,7 @@
 #include "LEDs.h"
 
+#define CLOCK_INIT(port) __HAL_RCC_##port##_CLK_ENABLE();
+
 /**
  * Inits the Heartbeat pin based on HEARTBEATPIN and HEARTBEATPORT
  * From PinConfig.h
@@ -16,21 +18,7 @@ void Heartbeat_Init(){
 }
 
 void Heartbeat_Clock_Init(){
-    if(HEARTBEATPORT == GPIOA){
-        __HAL_RCC_GPIOA_CLK_ENABLE();
-    }
-    if(HEARTBEATPORT == GPIOB){
-        __HAL_RCC_GPIOB_CLK_ENABLE();
-    }
-    if(HEARTBEATPORT == GPIOC){
-        __HAL_RCC_GPIOC_CLK_ENABLE();
-    }
-    if(HEARTBEATPORT == GPIOD){
-        __HAL_RCC_GPIOD_CLK_ENABLE();
-    }
-    if(HEARTBEATPORT == GPIOE){
-        __HAL_RCC_GPIOE_CLK_ENABLE();
-    }
+    CLOCK_INIT(HEARTBEATPORT);
 }
 
 void Heartbeat_Toggle(){
