@@ -64,8 +64,11 @@ BEAR_INSTALLED := $(shell command -v bear >/dev/null 2>&1 && echo yes || echo no
 
 # define path of .vscode
 VS_CODE_DIR := $(realpath .vscode/)
+#$(realpath .vscode/)
 
 ifeq ($(BEAR_INSTALLED),yes)
+$(info $(VS_CODE_DIR))
+$(info A wild bear has appeared!)
 BEAR_PREFIX := bear --output $(VS_CODE_DIR)/compile_commands.json --append --
 endif
 
