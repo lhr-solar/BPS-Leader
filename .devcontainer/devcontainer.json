@@ -1,6 +1,6 @@
 // .devcontainer/devcontainer.json
 {
-  "name": "BPS Leader",
+  "name": "Embedded Sharepoint",
   "dockerComposeFile": [
     "../docker-compose.yml"
   ],
