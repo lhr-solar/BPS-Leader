@@ -2,8 +2,7 @@
 Objects/
 
 # VSCode Files
-.vscode/
-!.vscode/c_cpp_properties.json
+
 
 # Prerequisites
 *.d
