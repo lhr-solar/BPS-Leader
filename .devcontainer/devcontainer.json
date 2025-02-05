@@ -25,7 +25,7 @@
       ]
     }
   },
-  "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder} && git config --global --add safe.directory ${containerWorkspaceFolder}/Embedded-Sharepoint"
+  "postStartCommand": "git config --global --add safe.directory ${localWorkspaceFolder} && git config --global --add safe.directory ${localWorkspaceFolder}/Embedded-Sharepoint"
 
 }
 
