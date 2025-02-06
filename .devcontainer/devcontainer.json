@@ -9,7 +9,12 @@
   "workspaceFolder": "/workdir",
   "shutdownAction": "stopCompose",
   "initializeCommand": "echo \"WORKDIR_MOUNT=${localWorkspaceFolder}\nREMOTE_USER=$USER\nREMOTE_UID=$(id -u)\nREMOTE_GID=$(id -g)\" > Embedded-Sharepoint/.env && docker compose -f Embedded-Sharepoint/docker-compose.yml down",
-
+  "mounts": [
+    "source=${env:SSH_AUTH_SOCK},target=/ssh-agent,type=bind"
+  ],
+  "containerEnv": {
+    "SSH_AUTH_SOCK": "/ssh-agent"
+  },
   "customizations": {
     "vscode": {
       "settings": {
@@ -25,7 +30,6 @@
       ]
     }
   },
-  "postStartCommand": "git config --global --add safe.directory ${localWorkspaceFolder} && git config --global --add safe.directory ${localWorkspaceFolder}/Embedded-Sharepoint"
-
+  "postCreateCommand": "chmod 600 ~/.ssh/config && ssh -T git@github.com || true"
 }
 
