@@ -2,7 +2,7 @@
 Objects/
 
 # VSCode Files
-
+.vscode/
 
 # Prerequisites
 *.d
