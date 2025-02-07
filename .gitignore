@@ -2,7 +2,7 @@
 Objects/
 
 # VSCode Files
-.vscode/
+.vscode/*
 
 # Prerequisites
 *.d
@@ -59,3 +59,10 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+
+# Build files
+Build/
+
+# Mac Specific Files
+.DS_Store
