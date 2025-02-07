@@ -7,7 +7,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 MAKEFILE_DIR="$(dirname "$SCRIPT_DIR")"
 
 echo "Testing production"
-make "$MAKEFILE_DIR"
+make "$MAKEFILE_DIR" -j
 if [ $? -eq 0 ]; then
         echo "✅ Compilation successful for production code"
 else
@@ -24,7 +24,7 @@ for FILE in "${C_FILES[@]}"; do
     
     echo "Compiling: $TEST_NAME.c"
 
-    make "$MAKEFILE_DIR" TEST="$TEST_NAME"
+    make "$MAKEFILE_DIR" TEST="$TEST_NAME" -j
 
     if [ $? -eq 0 ]; then
         echo "✅ Compilation successful for $TEST_NAME.c"
@@ -34,7 +34,7 @@ for FILE in "${C_FILES[@]}"; do
     fi
 
     echo "Cleaning up..."
-    make -C "$MAKEFILE_DIR" clean
+    make "$MAKEFILE_DIR" clean
 done
 
 echo "✅ All tests successful!"
