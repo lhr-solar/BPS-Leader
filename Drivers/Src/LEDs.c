@@ -19,24 +19,26 @@ void Heartbeat_Init(){
  * Inits the GPIO port clock based on HEARTBEATPORT
  * Can be called multiple times
  */
-void Heartbeat_Clock_Init(){
-    
-    if(HEARTBEATPORT == GPIOA){
-        __HAL_RCC_GPIOA_CLK_ENABLE();
-    }
-    if(HEARTBEATPORT == GPIOB){
-        __HAL_RCC_GPIOB_CLK_ENABLE();
-    }
-    if(HEARTBEATPORT == GPIOC){
-        __HAL_RCC_GPIOC_CLK_ENABLE();
-    }
-    if(HEARTBEATPORT == GPIOD){
-        __HAL_RCC_GPIOD_CLK_ENABLE();
-    }
-    if(HEARTBEATPORT == GPIOE){
-        __HAL_RCC_GPIOE_CLK_ENABLE();
+void Heartbeat_Clock_Init() {
+    switch ((uint32_t)HEARTBEATPORT) {
+        case (uint32_t)GPIOA:
+            __HAL_RCC_GPIOA_CLK_ENABLE();
+            break;
+        case (uint32_t)GPIOB:
+            __HAL_RCC_GPIOB_CLK_ENABLE();
+            break;
+        case (uint32_t)GPIOC:
+            __HAL_RCC_GPIOC_CLK_ENABLE();
+            break;
+        case (uint32_t)GPIOD:
+            __HAL_RCC_GPIOD_CLK_ENABLE();
+            break;
+        case (uint32_t)GPIOE:
+            __HAL_RCC_GPIOE_CLK_ENABLE();
+            break;
     }
 }
+
 
 void Heartbeat_Toggle(){
     HAL_GPIO_TogglePin(HEARTBEATPORT, HEARTBEATPIN);
