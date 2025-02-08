@@ -13,6 +13,10 @@ Independent Watch Dog (IWDG) Driver
 IWDG_HandleTypeDef hiwdg = {0};
 
 void IWDG_Init(GPIO_InitTypeDef gpio_config, void(*errorHandler)(void)) {
+	if (IWDG_CheckIfReset() == 1) {
+		errorHandler();
+	}
+
 	// IWDG Init
 	hiwdg.Instance = IWDG;
 	hiwdg.Init.Prescaler = IWDG_PRESCALAR;
@@ -28,10 +32,6 @@ void IWDG_Init(GPIO_InitTypeDef gpio_config, void(*errorHandler)(void)) {
 	if (init_status!= HAL_OK) {
 		errorHandler();
 	}
-
-	// if (IWDG_CheckIfReset() == 1) {
-	// 	errorHandler();
-	// }
 }
 
 
@@ -54,6 +54,15 @@ int IWDG_CheckIfReset() {
 void IWDG_Error_Handler(void) {
 	// __disable_irq(); 
 	vTaskEndScheduler();
+
+	GPIO_InitTypeDef led_config_f4 = {
+        .Mode = GPIO_MODE_OUTPUT_PP,
+        .Pull = GPIO_NOPULL,
+        .Pin = GPIO_PIN_5
+    };
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    HAL_GPIO_Init(GPIOA, &led_config_f4);
+	
 	while (1) {
 		/* If IWDG_Init fails, (for now) show blinky */
 		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);

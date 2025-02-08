@@ -3,7 +3,7 @@
 #include "Task_PetWatchdog.h"
 
 // Dummy Task 1
-#define TASK_DUMMY_PRIORITY         tskIDLE_PRIORITY + 2
+#define TASK_DUMMY_PRIORITY         tskIDLE_PRIORITY + 1
 #define TASK_DUMMY_STACK_SIZE       configMINIMAL_STACK_SIZE
 StackType_t Task_Dummy_Stack[configMINIMAL_STACK_SIZE];
 StaticTask_t Task_Dummy_Buffer;
@@ -13,18 +13,18 @@ void Task_DummyTask() {
    GPIO_InitTypeDef gpio_init = {
       .Mode = GPIO_MODE_OUTPUT_PP,
       .Pull = GPIO_NOPULL,
-      .Pin = GPIO_PIN_6 | GPIO_PIN_7
+      .Pin = GPIO_PIN_6
    };
    __HAL_RCC_GPIOA_CLK_ENABLE();
    HAL_GPIO_Init(GPIOA, &gpio_init);
 
    while(1) {
-      if(xIWDG_Semaphore != NULL) {
-         if (xSemaphoreTake(xIWDG_Semaphore, portMAX_DELAY) == pdTRUE) {
-            HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_6);
-            xSemaphoreGive(xIWDG_Semaphore);
+      if((xIWDG_Semaphore != NULL) && (xSemaphoreTake(xIWDG_Semaphore, portMAX_DELAY) == pdTRUE)) {
+         HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_6);
+         // Flags |= 0x1;
+         // xSemaphoreGive(xIWDG_Semaphore);
 
-            HAL_Delay(SYS_REFRESH_MS);
+         HAL_Delay(25);
          }
       }
 
@@ -32,7 +32,7 @@ void Task_DummyTask() {
       // HAL_Delay(50);
       // HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_6);
       // xSemaphoreGive(xSemaphore);
-   }
+   
 }
 
 static void HAL_init_error_handler() {

@@ -20,22 +20,17 @@ void initLED_f4() {
 
 int main() {
     HAL_Init();
-    initLED_f4();
+    // initLED_f4();
 
-    GPIO_InitTypeDef gpio_init = {0};
+    GPIO_InitTypeDef gpio_init = {
+        .Mode = GPIO_MODE_OUTPUT_PP,
+        .Pull = GPIO_NOPULL,
+        .Pin = GPIO_PIN_5
+    };
 
     // Set LED off to indicate we are in the init stage
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
     HAL_Delay(250);
-
-    // RESET CHECK
-    if(IWDG_CheckIfReset() == 1) {
-        while(1) {
-            // IWDG_Error_Handler();
-            HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-		    HAL_Delay(150);
-        }
-    }
 
     IWDG_Init(gpio_init, IWDG_Error_Handler);
 

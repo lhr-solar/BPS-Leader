@@ -51,8 +51,8 @@ Common Timeouts
 #define IWDG_PRESCALAR IWDG_PRESCALER_8 
 #define IWDG_COUNTDOWN 79               // Tick value before we refresh the IDWG (current value converts to ~20ms)
 
-#define IWDG_TIMEOUT_MS 10
-#define SYS_REFRESH_MS  8
+#define IWDG_TIMEOUT_MS 20
+#define TEST_REFRESH_MS 15
 /* ----------------------------------------------------------------*/
 
 

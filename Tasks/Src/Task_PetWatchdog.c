@@ -12,54 +12,81 @@
 #include "stm32xx_hal.h"
 
 #include "IWDG.h"
+#include "Task_PetWatchdog.h"
 
-// Task Parameters
-// StaticTask_t Task_PetWD_Buffer;
-// StackType_t Task_PetWD_Stack[configMINIMAL_STACK_SIZE];
+// Task
+StaticTask_t Task_PetWD_Buffer;
+StackType_t Task_PetWD_Stack[configMINIMAL_STACK_SIZE];
 
+// Semaphore (old)
+// SemaphoreHandle_t xIWDG_Semaphore = NULL;
+// StaticSemaphore_t xIWDG_SemaphoreBuffer;
+// uint8_t Flags = 0x0;
 
-SemaphoreHandle_t xIWDG_Semaphore = NULL;
-StaticSemaphore_t xIWDG_SemaphoreBuffer;
-
+// Event group
+EventGroupHandle_t xEventGroupHandle;
+StaticEventGroup_t xCreatedEventGroup;
+EventBits_t uxBits;
 /*-----------------------------------------------------------*/
 
 /* TASK: Refreshes watchdog */
-void Task_PetWatchdog() {
-    GPIO_InitTypeDef led_init = {
-        .Mode = GPIO_MODE_OUTPUT_PP,
-        .Pull = GPIO_NOPULL,
-        .Pin = GPIO_PIN_5
-    };
+// void Task_PetWatchdog() {
+//     GPIO_InitTypeDef led_init = {
+//         .Mode = GPIO_MODE_OUTPUT_PP,
+//         .Pull = GPIO_NOPULL,
+//         .Pin = GPIO_PIN_5
+//     };
+    
+//     // Set LED off to indicate we are in the init stage
+//     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+//     HAL_Delay(500);
 
-    if(IWDG_CheckIfReset() == 1) {
-        IWDG_Error_Handler();
-    }
+//     IWDG_Init(led_init, IWDG_Error_Handler);
+
+//     // refresh and toggle LED
+//     while(1) {
+//         if(xIWDG_Semaphore != NULL) {
+//             if (xSemaphoreTake(xIWDG_Semaphore, portMAX_DELAY) == pdTRUE) {
+//                 if((Flags & 0x2) == 0x2) {
+//                     IWDG_Refresh();
+//                     HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+//                     Flags = (Flags & 0x0);
+//                 }
+//                 xSemaphoreGive(xIWDG_Semaphore);
+//             }
+//         }
+//     }
+// }
+
+
+void Task_PetWatchdog(void *pvParameters) {
+    GPIO_InitTypeDef led_init = {
+       .Mode = GPIO_MODE_OUTPUT_PP,
+       .Pull = GPIO_NOPULL,
+       .Pin = GPIO_PIN_5
+    };
     
     // Set LED off to indicate we are in the init stage
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-    HAL_Delay(500);
-
+    // HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+    // HAL_Delay(500);
+    
     IWDG_Init(led_init, IWDG_Error_Handler);
-
-    // semaphore stuff 
-    // xIWDG_Semaphore = xSemaphoreCreateMutexStatic(&xIWDG_SemaphoreBuffer);
-
-    // refresh and toggle LED
+ 
+    const TickType_t xTicksToWait = 5 / portTICK_PERIOD_MS;
+ 
     while(1) {
-        // if(xIWDG_Semaphore != NULL) {
-        //     if (xSemaphoreTake(xIWDG_Semaphore, portMAX_DELAY) == pdTRUE) {
-        //         IWDG_Refresh();
-        //         HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-        //         xSemaphoreGive(xIWDG_Semaphore);
-        //     }
-
-        // }
-
-        // if we receive notif from other task, refresh IWDG
-
-        IWDG_Refresh();
-        // HAL_Delay(SYS_REFRESH_MS);
-        HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-
+       // Event group: wait until dummy task 1 and 2 have run before refreshing Watchdog
+       uxBits = xEventGroupWaitBits(
+                xEventGroupHandle,            /* The event group being tested. */
+                DUM1_DONE | DUM2_DONE,        /* The bits within the event group to wait for. */
+                pdTRUE,                       /* BIT_0 & BIT_4 should be cleared before returning. */
+                pdTRUE,                       /* Don't wait for both bits, either bit will do. */
+                xTicksToWait);               /* Wait a maximum of 100ms for either bit to be set. */
+ 
+     if((uxBits & (DUM1_DONE | DUM2_DONE)) == (DUM1_DONE | DUM2_DONE)) {
+       // xEventGroupWaitBits returned because bits 1,2 were set
+       IWDG_Refresh();
+       HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+     }
     }
-}
+ }
