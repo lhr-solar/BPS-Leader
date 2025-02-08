@@ -1,5 +1,5 @@
 // openocd -f openocd-stm32f4x.cfg
-// gdb-multiarch build/stm32f401re.elf
+// gdb-multiarch Build/stm32f401re.elf
 // target extended-remote :3333
 
 #include "stm32xx_hal.h"
@@ -24,7 +24,10 @@ StaticTask_t Task_TIM2_Buffer;
 StackType_t Task_TIM2_Stack[configMINIMAL_STACK_SIZE];
 
 static TIM_HandleTypeDef tim1;
-static TIM_HandleTypeDef tim2;
+static TIM_HandleTypeDef tim9;
+
+uint16_t duty = 0;
+uint16_t duty2 = 25;
 
 static void error_handler(void) {
     while(1) {
@@ -42,16 +45,18 @@ void Task_Toggle(void * pvParameters) {
 
 void Task_TIM1(void * pvParameters) {
     while(1) {
-        if(BSP_PWM_Set(&tim1, TIM_CHANNEL_1, 75, 100000 - 1) != HAL_OK)
+        if(BSP_PWM_Set(&tim1, TIM_CHANNEL_1, duty%100, 100000 - 1) != HAL_OK)
             error_handler();
+        duty+=25;
         vTaskDelay(500);
     }
 }
 
-void Task_TIM2(void * pvParameters) {
+void Task_TIM9(void * pvParameters) {
     while(1) {
-        if(BSP_PWM_Set(&tim2, TIM_CHANNEL_2, 50, 100000 - 1) != HAL_OK)
+        if(BSP_PWM_Set(&tim9, TIM_CHANNEL_1, duty2%100, 100000 - 1) != HAL_OK)
             error_handler();
+        duty2+=25;
         vTaskDelay(500);
     }
 }
@@ -65,21 +70,23 @@ void Task_Init_PWM() {
     tim1.Init.Period = 10000 - 1;
     tim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
 
-    tim2.Instance = TIM2;
-    tim2.Init.Prescaler = 8-1;
-    tim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-    tim2.Init.Period = 10000 - 1;
-    tim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+    tim9.Instance = TIM9;
+    tim9.Init.Prescaler = 8-1;
+    tim9.Init.CounterMode = TIM_COUNTERMODE_UP;
+    tim9.Init.Period = 10000 - 1;
+    tim9.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
 
     
     if (BSP_PWM_TIM_Init(&tim1) != HAL_OK) error_handler();
-    if (BSP_PWM_TIM_Init(&tim2) != HAL_OK) error_handler();
+    if (BSP_PWM_TIM_Init(&tim9) != HAL_OK) error_handler();
 
     // BSP_PWM_Channel_Init(&tim1, TIM_CHANNEL_1);
     // BSP_PWM_Channel_Init(&tim2, TIM_CHANNEL_2);
+    
     if (BSP_PWM_Channel_Init(&tim1, TIM_CHANNEL_1) != HAL_OK) error_handler();
-    if (BSP_PWM_Channel_Init(&tim2, TIM_CHANNEL_2) != HAL_OK) error_handler();
+    if (BSP_PWM_Channel_Init(&tim9, TIM_CHANNEL_1) != HAL_OK) error_handler();
 
+    // while(1);
     xTaskCreateStatic(
         Task_Toggle,
         "Toggle Task",
@@ -101,8 +108,8 @@ void Task_Init_PWM() {
         );
     
     xTaskCreateStatic(
-        Task_TIM2,
-        "PWM TIM2 Task",
+        Task_TIM9,
+        "PWM TIM9 Task",
         configMINIMAL_STACK_SIZE,
         NULL,
         TASK_TIM2_PRIORITY, //temporary

@@ -12,7 +12,7 @@ static QueueHandle_t pwm2_send_queue = NULL;  // need to add queue for each PWM 
 static StaticQueue_t pwm2_send_queue_buffer;
 static uint8_t pwm2_send_queue_storage[PWM_SEND_QUEUE_SIZE*sizeof(PWM_Info)];
 
-TIM_OC_InitTypeDef sConfigOC = {0};
+static TIM_OC_InitTypeDef sConfigOC = {0};
 
 void MX_GPIO_Init(){
     GPIO_InitTypeDef pwm_tim1_ch1 = {
@@ -32,22 +32,30 @@ void MX_GPIO_Init(){
     // GPIO_InitTypeDef pwm_tim1_ch2 = {
     //     .Mode = GPIO_MODE_AF_PP,
     //     .Pull = GPIO_NOPULL,
-    //     .Pin = GPIO_PIN_9,
+    //     .Pin = GPIO_PIN_1,
     //     .Speed = GPIO_SPEED_FREQ_LOW,
     //     .Alternate = GPIO_AF1_TIM1
     // };
 
-    GPIO_InitTypeDef pwm_tim2_ch2 = {
+    // GPIO_InitTypeDef pwm_tim2_ch1 = {
+    //     .Mode = GPIO_MODE_AF_PP,
+    //     .Pull = GPIO_NOPULL,
+    //     .Pin = GPIO_PIN_0,
+    //     .Speed = GPIO_SPEED_FREQ_LOW,
+    //     .Alternate = GPIO_AF1_TIM2
+    // };
+    
+    GPIO_InitTypeDef pwm_tim9_ch1 = {
         .Mode = GPIO_MODE_AF_PP,
         .Pull = GPIO_NOPULL,
-        .Pin = GPIO_PIN_1,
+        .Pin = GPIO_PIN_2,
         .Speed = GPIO_SPEED_FREQ_LOW,
-        .Alternate = GPIO_AF1_TIM2
+        .Alternate = GPIO_AF3_TIM9
     };
 
     HAL_GPIO_Init(GPIOA, &pwm_tim1_ch1);
     HAL_GPIO_Init(GPIOA, &led_config);
-    HAL_GPIO_Init(GPIOA, &pwm_tim2_ch2);
+    HAL_GPIO_Init(GPIOA, &pwm_tim9_ch1);
 }
 
 HAL_StatusTypeDef BSP_PWM_TIM_Init(TIM_HandleTypeDef* timHandle) {
@@ -64,7 +72,7 @@ HAL_StatusTypeDef BSP_PWM_TIM_Init(TIM_HandleTypeDef* timHandle) {
         if (pwm1_send_queue == NULL) 
             return HAL_ERROR; 
         }
-    else if (timHandle->Instance == TIM2 && pwm2_send_queue == NULL) {
+    else if (timHandle->Instance == TIM9 && pwm2_send_queue == NULL) {
         
         pwm2_send_queue = xQueueCreateStatic(PWM_SEND_QUEUE_SIZE, sizeof(PWM_Info),
         pwm2_send_queue_storage, &pwm2_send_queue_buffer); 
@@ -102,7 +110,7 @@ HAL_StatusTypeDef BSP_PWM_Set(TIM_HandleTypeDef* timHandle, uint8_t channel, uin
         QueueHandle_t tx_Queue = NULL;
         if (timHandle->Instance == TIM1) // get queue for specific timer
             tx_Queue = pwm1_send_queue;
-        else if (timHandle->Instance == TIM2)
+        else if (timHandle->Instance == TIM9)
             tx_Queue = pwm2_send_queue;
     
         PWM_Info pwmSend = { // for storing PWM info into queue
@@ -111,11 +119,15 @@ HAL_StatusTypeDef BSP_PWM_Set(TIM_HandleTypeDef* timHandle, uint8_t channel, uin
             .dutyCycle = dutyCycle,
             .speed = speed
         };
-        
+
+        // if (sConfigOC.Pulse != dutyCycle*(timHandle->Init.Period)/100) {
+            
+        // }
+
         if(!xQueueSend(tx_Queue, &pwmSend, 0)) {
             return HAL_ERROR;
         }
-
+            
         return HAL_OK;
     }
     return HAL_ERROR;
@@ -128,7 +140,7 @@ void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *timHandle) {
     
     if (timHandle->Instance == TIM1)
         tx_Queue = pwm1_send_queue;
-    else if (timHandle->Instance == TIM2)
+    else if (timHandle->Instance == TIM9)
         tx_Queue = pwm2_send_queue;
  
 
@@ -136,7 +148,7 @@ void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *timHandle) {
         PWM_Info pwmReceive; 
         xQueueReceiveFromISR(tx_Queue, &pwmReceive, 0);
         HAL_TIM_PWM_Stop_IT(pwmReceive.timHandle, pwmReceive.channel);
-        pwmReceive.timHandle->Init.Period = pwmReceive.speed;
+        // pwmReceive.timHandle->Init.Period = pwmReceive.speed;
         sConfigOC.Pulse = pwmReceive.dutyCycle*(pwmReceive.timHandle->Init.Period)/100;
         HAL_TIM_PWM_ConfigChannel(pwmReceive.timHandle, &sConfigOC, pwmReceive.channel);
         HAL_TIM_PWM_Start_IT(pwmReceive.timHandle, pwmReceive.channel);
