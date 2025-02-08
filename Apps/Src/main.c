@@ -1,20 +1,31 @@
+#include "FreeRTOS.h" /* Must come first. */
+#include "task.h" 
+#include "BPS_Tasks.h"
+#include "pinConfig.h"
 #include "stm32xx_hal.h"
 
-// Blinky
+StaticTask_t Task_Init_Buffer;
+StackType_t Task_Init_Stack_Array[ TASK_INIT_STACK_SIZE ];
+
 int main() {
     HAL_Init();
 
-    GPIO_InitTypeDef led_config = {
-        .Mode = GPIO_MODE_OUTPUT_PP,
-        .Pull = GPIO_NOPULL,
-        .Pin = GPIO_PIN_5 
-    };
-    __HAL_RCC_GPIOA_CLK_ENABLE();
-    HAL_GPIO_Init(GPIOA, &led_config);
+    xTaskCreateStatic(
+                    Task_Init, /* The function that implements the task. */
+                    "Init Task", /* Text name for the task. */
+                    configMINIMAL_STACK_SIZE, /* The size (in words) of the stack that should be created for the task. */
+                    (void*)NULL, /* Paramter passed into the task. */
+                    TASK_INIT_PRIO, /* Task Prioriy. */
+                    Task_Init_Stack_Array, /* Stack array. */
+                    &Task_Init_Buffer  /* Buffer for static allocation. */
+   );
+    // Start the scheduler
+    vTaskStartScheduler();
 
-    while(1){ 
-        HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-        HAL_Delay(500);
+    while(1){
+        // Scheduler should've started by now
+        // Code should never enter this point
     }
+    
     return 0;
 }
