@@ -1,29 +1,37 @@
 /** ===========================================================
-Independent Watch Dog (IWDG) Driver
+  Watchdog Driver
 ===============================================================
-- The IWDG will trigger a reset sequence if it is not refreshed 
+- The Watchdog will trigger a reset sequence if it is not refreshed 
   within an expected time window. 
 --------------------------------------------------------- */
 
 
-#include "IWDG.h"
+#include "WDog.h"
 #include "stm32xx_hal.h"
 
-/* IWDG struct */
-IWDG_HandleTypeDef hiwdg = {0};
+/* Watchdog struct */
+IWDG_HandleTypeDef wdog = {0};	// Independent Watchdog
+// WWDG_HandleTypeDef wdog = {0};	// Windowed Watchdog
 
-void IWDG_Init(GPIO_InitTypeDef gpio_config, void(*errorHandler)(void)) {
+
+void WDog_Init(GPIO_InitTypeDef gpio_config, void(*errorHandler)(void)) {
 	// Check for previous reset
-	if (IWDG_CheckIfReset() == 1) {
+	if (WDog_CheckIfReset() == 1) {
 		errorHandler();
 	}
 
-	// Watchdog init
-	hiwdg.Instance = IWDG;
-	hiwdg.Init.Prescaler = IWDG_PRESCALAR;
-	hiwdg.Init.Reload = IWDG_COUNTDOWN;
-	// hiwdg.Init.Window = 0x0FFF;				// Max window
-	uint8_t init_status = HAL_IWDG_Init(&hiwdg);
+	// IWDG Init
+	wdog.Instance = IWDG;
+	wdog.Init.Prescaler = WDOG_PRESCALAR;
+	wdog.Init.Reload = WDOG_COUNTDOWN;
+
+	// WWDG Init
+	// wdog.Instance = WWDG;
+	// wdog.Init.Prescaler = WDOG_PRESCALAR;
+	// wdog.Init.Counter = WDOG_COUNTDOWN;
+	// wdog.Init.Window = 0x0FFF;				// Max window
+
+	uint8_t init_status = HAL_IWDG_Init(&wdog);
 
 	// GPIO init
 	__HAL_RCC_GPIOA_CLK_ENABLE(); 
@@ -36,14 +44,14 @@ void IWDG_Init(GPIO_InitTypeDef gpio_config, void(*errorHandler)(void)) {
 }
 
 
-void IWDG_Refresh() {
+void WDog_Refresh() {
 	// __HAL_IWDG_RELOAD_COUNTER(&hiwdg);
 	// __HAL_IWDG_ENABLE_WRITE_ACCESS(&hiwdg);
-	HAL_IWDG_Refresh(&hiwdg);
+	HAL_IWDG_Refresh(&wdog);
 }
 
 
-int IWDG_CheckIfReset() {
+int WDog_CheckIfReset() {
 	if (__HAL_RCC_GET_FLAG(RCC_FLAG_IWDGRST) != RESET) {
 		__HAL_RCC_CLEAR_RESET_FLAGS();
 		return 1;
@@ -52,7 +60,7 @@ int IWDG_CheckIfReset() {
 }
 
 
-void IWDG_Error_Handler(void) {
+void WDog_Error_Handler(void) {
 	// __disable_irq(); 
 	vTaskEndScheduler();
 
@@ -65,7 +73,7 @@ void IWDG_Error_Handler(void) {
     HAL_GPIO_Init(GPIOA, &led_config_f4);
 	
 	while (1) {
-		/* If IWDG_Init fails, (for now) show blinky */
+		/* If Watchdog ini fails, (for now) show blinky */
 		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
 		HAL_Delay(150);
 	}

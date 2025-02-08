@@ -1,20 +1,18 @@
-#ifndef IWDG_H
-#define IWDG_H
+#ifndef WDOG_H
+#define WDOG_H
 
 /** ===========================================================
-Independent Watch Dog (IWDG) Driver
+  WatchDog Driver
 ===============================================================
-- The IWDG will trigger a reset sequence if it is not refreshed 
+- The Watchdog will trigger a reset sequence if it is not refreshed 
   within an expected time window. 
 
 
 -----------------------------------------------------------
 How to calculate COUNTDOWN value from desired refresh time
 -----------------------------------------------------------
-- Countdown / timeout value is how long the IDWG will 
-  count down before resetting the system. We think of this
-  in terms of seconds / milliseconds, but the IWDG will 
-  hold this value in terms of a tick countdown.
+- Countdown value is how many ticks the Watchdog will count 
+  from before it resets the system.
 
 
 -----------------------------------------------------------
@@ -48,10 +46,11 @@ Common Timeouts
 
 /* ---------------------------- MACROS ----------------------------*/
 
-#define IWDG_PRESCALAR IWDG_PRESCALER_8 
-#define IWDG_COUNTDOWN 79               // Tick value before we refresh the IDWG (current value converts to ~20ms)
+#define WDOG_PRESCALAR IWDG_PRESCALER_8 
+#define WDOG_COUNTDOWN 79               // Tick value before we refresh the IDWG (current value converts to ~20ms)
+#define WDOG_WINDOW   0xFFF
 
-#define IWDG_TIMEOUT_MS 20
+#define WDOG_TIMEOUT_MS 20
 #define TEST_REFRESH_MS 15
 /* ----------------------------------------------------------------*/
 
@@ -64,23 +63,23 @@ Common Timeouts
  * @param gpio_config GPIO_InitTypeDef structure that contains GPIO config information
  * @param errorHandler Pointer to user defined function for error handling
  */
-void IWDG_Init(GPIO_InitTypeDef gpio_config, void(*errorHandler)(void));
+void WDog_Init(GPIO_InitTypeDef gpio_config, void(*errorHandler)(void));
 
 /**
  * @brief Refresh ("pet") the watchdog so it does not reset the system
  * - Reloads IDWG with countown value.
  */
-void IWDG_Refresh();
+void WDog_Refresh();
 
 /**
  * @brief Check whether the watchdog has reset the system
  * @retval 1 if true (has reset); 0 is false (has not reset)
  */
-int IWDG_CheckIfReset();
+int WDog_CheckIfReset();
 
 /**
- * @brief Error Handler: Contains procedures for IWDG failure
+ * @brief Error Handler: Contains procedures for Watchdog failure
  */
-void IWDG_Error_Handler(void);
+void WDog_Error_Handler(void);
 
 #endif

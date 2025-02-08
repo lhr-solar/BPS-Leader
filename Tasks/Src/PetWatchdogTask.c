@@ -2,26 +2,18 @@
  * PET WATCHDOG TASK
  - Attempts to pet watchdog within appropriate time interval
  -----------------------------------------------------------*/
-#include "Task_PetWatchdog.h"
+#include "BPS_Tasks.h"
+#include "WDog.h"
 
-// Task
-StaticTask_t Task_PetWD_Buffer;
-StackType_t Task_PetWD_Stack[configMINIMAL_STACK_SIZE];
 
-// Event group
-EventGroupHandle_t xEventGroupHandle;
-StaticEventGroup_t xCreatedEventGroup;
-EventBits_t uxBits;
-/*-----------------------------------------------------------*/
-
-void Task_PetWatchdog(void *pvParameters) {
+void Task_PETWDOG() {
     GPIO_InitTypeDef led_init = {
         .Mode = GPIO_MODE_OUTPUT_PP,
         .Pull = GPIO_NOPULL,
         .Pin = GPIO_PIN_5
     };
 
-    IWDG_Init(led_init, IWDG_Error_Handler);
+    WDog_Init(led_init, WDog_Error_Handler);
 
     // const TickType_t xTicksToWait = 5 / portTICK_PERIOD_MS;
 
@@ -32,12 +24,12 @@ void Task_PetWatchdog(void *pvParameters) {
                     DUM1_DONE | DUM2_DONE,  /* The bits within the event group to wait for. */
                     pdTRUE,                 /* Clear bits before returning. */
                     pdTRUE,                 /* Don't wait for both bits, either bit will do. */
-                    portMAX_DELAY);          /* Wait a maximum of 100ms for either bit to be set. */
+                    portMAX_DELAY);         /* Maximum delay; block indefinitely?  */
 
         if((uxBits & (DUM1_DONE | DUM2_DONE)) == (DUM1_DONE | DUM2_DONE)) {
             // xEventGroupWaitBits returned because bits 1,2 were set
             
-            IWDG_Refresh();
+            WDog_Refresh();
             HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
         }
         xEventGroupClearBits(xEventGroupHandle, (DUM1_DONE | DUM2_DONE));   // Manually clear bits before next loop

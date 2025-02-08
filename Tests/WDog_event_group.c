@@ -11,9 +11,8 @@
 #include "semphr.h"     /* Semaphore related API prototypes. */
 #include "stm32xx_hal.h"
 
-#include "IWDG.h"
-#include "Task_PetWatchdog.h"
-#include <event_groups.h>
+#include "BPS_Tasks.h"
+#include "WDog.h"
 
 
 // Dummy Task 1
@@ -95,13 +94,13 @@ int main(void) {
                             0x0F );             /* The bits being cleared. */
 
     xTaskCreateStatic(
-                Task_PetWatchdog,
+                Task_PETWDOG,
                 "PetWatchdog",
-                TASK_PETWD_STACK_SIZE,
+                TASK_PETWDOG_STACK_SIZE,
                 NULL,
-                TASK_PETWD_PRIORITY,
-                Task_PetWD_Stack,
-                &Task_PetWD_Buffer);
+                TASK_PETWDOG_PRIO,
+                Task_Petwdog_Stack_Array,
+                &Task_Petwdog_Buffer);
 
     xTaskCreateStatic(
                 dummy_task,
