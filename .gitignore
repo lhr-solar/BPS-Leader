@@ -60,3 +60,13 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+
+# Build files
+Build/
+
+#VSCode Preferences
+.vscode
+
+# Mac Specific Files
+.DS_Store
