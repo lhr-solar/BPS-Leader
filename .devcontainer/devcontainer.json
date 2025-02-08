@@ -24,6 +24,6 @@
       ]
     }
   },
-  "postCreateCommand": "[ -f ~/.ssh/config ] && chmod 600 ~/.ssh/config && ssh -T git@github.com || true"
+  "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder} && git config --global --add safe.directory ${containerWorkspaceFolder}/Embedded-Sharepoint"
 }
 
