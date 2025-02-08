@@ -23,10 +23,6 @@
 extern StaticTask_t Task_PetWD_Buffer;
 extern StackType_t Task_PetWD_Stack[configMINIMAL_STACK_SIZE];
 
-// Semaphore (old)
-// extern SemaphoreHandle_t xIWDG_Semaphore;
-// extern StaticSemaphore_t xIWDG_SemaphoreBuffer;
-
 // Event group
 extern EventGroupHandle_t xEventGroupHandle;
 extern StaticEventGroup_t xCreatedEventGroup;

@@ -18,46 +18,11 @@
 StaticTask_t Task_PetWD_Buffer;
 StackType_t Task_PetWD_Stack[configMINIMAL_STACK_SIZE];
 
-// Semaphore (old)
-// SemaphoreHandle_t xIWDG_Semaphore = NULL;
-// StaticSemaphore_t xIWDG_SemaphoreBuffer;
-// uint8_t Flags = 0x0;
-
 // Event group
 EventGroupHandle_t xEventGroupHandle;
 StaticEventGroup_t xCreatedEventGroup;
 EventBits_t uxBits;
 /*-----------------------------------------------------------*/
-
-/* TASK: Refreshes watchdog */
-// void Task_PetWatchdog() {
-//     GPIO_InitTypeDef led_init = {
-//         .Mode = GPIO_MODE_OUTPUT_PP,
-//         .Pull = GPIO_NOPULL,
-//         .Pin = GPIO_PIN_5
-//     };
-    
-//     // Set LED off to indicate we are in the init stage
-//     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-//     HAL_Delay(500);
-
-//     IWDG_Init(led_init, IWDG_Error_Handler);
-
-//     // refresh and toggle LED
-//     while(1) {
-//         if(xIWDG_Semaphore != NULL) {
-//             if (xSemaphoreTake(xIWDG_Semaphore, portMAX_DELAY) == pdTRUE) {
-//                 if((Flags & 0x2) == 0x2) {
-//                     IWDG_Refresh();
-//                     HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-//                     Flags = (Flags & 0x0);
-//                 }
-//                 xSemaphoreGive(xIWDG_Semaphore);
-//             }
-//         }
-//     }
-// }
-
 
 void Task_PetWatchdog(void *pvParameters) {
     GPIO_InitTypeDef led_init = {
