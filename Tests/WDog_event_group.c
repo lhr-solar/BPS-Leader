@@ -75,7 +75,7 @@ static void dummy_task_two(void *pvParameters) {
         xEventGroupSetBits(xEventGroupHandle,     /* The event group being updated. */
                                     DUM2_DONE);    /* The bits being set. */
         HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_7);
-        HAL_Delay(TEST_REFRESH_MS - 10);
+        HAL_Delay(TEST_REFRESH_MS - 5);
     }
 }
 

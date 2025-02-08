@@ -15,6 +15,7 @@ How to calculate COUNTDOWN value from desired refresh time
   from before it resets the system.
 
 
+IWDG FORMULAS
 -----------------------------------------------------------
 Formula [finding timeout (in s) from RL]
 -----------------------------------------------------------
@@ -25,7 +26,6 @@ Parameters:
     - PR      : prescalar (PRESCALAR_4 = 0, PRESCALAR_8 = 1, etc)
     - RL      : reload time (in terms of IWDG ticks)
 
-
 -----------------------------------------------------------
 Revised formula [finding RL from timeout (in ms)]
 -----------------------------------------------------------
@@ -33,6 +33,10 @@ Revised formula [finding RL from timeout (in ms)]
 Parameters:
     - RL      : countdown value to put for IWDG_COUNTDOWN
     - t_IWDG  : the countdown timeout you want in ms
+
+
+
+
 
 -----------------------------------------------------------
 Common Timeouts
@@ -51,7 +55,7 @@ Common Timeouts
 #define WDOG_WINDOW   0xFFF
 
 #define WDOG_TIMEOUT_MS 20
-#define TEST_REFRESH_MS 15
+#define TEST_REFRESH_MS 10
 /* ----------------------------------------------------------------*/
 
 

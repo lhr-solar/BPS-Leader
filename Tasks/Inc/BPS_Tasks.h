@@ -11,20 +11,21 @@
 #include "stm32xx_hal.h"
 
 // Task Priority 
-#define TASK_INIT_PRIO                      tskIDLE_PRIORITY + 2
-#define TASK_TEMPERATURE_MONITOR_PRIO       tskIDLE_PRIORITY + 3
-#define TASK_VOLTAGE_MONITOR_PRIO           tskIDLE_PRIORITY + 4
-#define TASK_AMPERES_MONITOR_PRIO           tskIDLE_PRIORITY + 5
-#define TASK_PETWDOG_PRIO                   tskIDLE_PRIORITY + 6
+#define TASK_INIT_PRIO                  tskIDLE_PRIORITY + 2
+#define TASK_TEMPERATURE_MONITOR_PRIO   tskIDLE_PRIORITY + 3
+#define TASK_VOLTAGE_MONITOR_PRIO       tskIDLE_PRIORITY + 4
+#define TASK_AMPERES_MONITOR_PRIO       tskIDLE_PRIORITY + 5
+#define TASK_PETWDOG_PRIO               tskIDLE_PRIORITY + 6
 
 // Task Stack Size 
-#define TASK_INIT_STACK_SIZE                       configMINIMAL_STACK_SIZE
-#define TASK_TEMPERATURE_MONITOR_STACK_SIZE        configMINIMAL_STACK_SIZE
-#define TASK_VOLTAGE_MONITOR_STACK_SIZE            configMINIMAL_STACK_SIZE
-#define TASK_AMPERES_MONITOR_STACK_SIZE            configMINIMAL_STACK_SIZE
-#define TASK_PETWDOG_STACK_SIZE                    configMINIMAL_STACK_SIZE
+#define TASK_INIT_STACK_SIZE                    configMINIMAL_STACK_SIZE
+#define TASK_TEMPERATURE_MONITOR_STACK_SIZE     configMINIMAL_STACK_SIZE
+#define TASK_VOLTAGE_MONITOR_STACK_SIZE         configMINIMAL_STACK_SIZE
+#define TASK_AMPERES_MONITOR_STACK_SIZE         configMINIMAL_STACK_SIZE
+#define TASK_PETWDOG_STACK_SIZE                 configMINIMAL_STACK_SIZE
 
-// Task Stack Arrays
+// (exposed so that tests can init tasks)
+// Task Stack Arrays 
 extern StackType_t Task_Temperature_Stack_Array[ TASK_TEMPERATURE_MONITOR_STACK_SIZE ];
 extern StackType_t Task_Voltage_Stack_Array[ TASK_TEMPERATURE_MONITOR_STACK_SIZE ];
 extern StackType_t Task_Amperes_Stack_Array[ TASK_AMPERES_MONITOR_STACK_SIZE ];
