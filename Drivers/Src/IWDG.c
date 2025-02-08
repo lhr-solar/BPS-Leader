@@ -13,15 +13,16 @@ Independent Watch Dog (IWDG) Driver
 IWDG_HandleTypeDef hiwdg = {0};
 
 void IWDG_Init(GPIO_InitTypeDef gpio_config, void(*errorHandler)(void)) {
+	// Check for previous reset
 	if (IWDG_CheckIfReset() == 1) {
 		errorHandler();
 	}
 
-	// IWDG Init
+	// Watchdog init
 	hiwdg.Instance = IWDG;
 	hiwdg.Init.Prescaler = IWDG_PRESCALAR;
-	// hiwdg.Init.Window = 0x0FFF;				// Max window
 	hiwdg.Init.Reload = IWDG_COUNTDOWN;
+	// hiwdg.Init.Window = 0x0FFF;				// Max window
 
 	uint8_t init_status = HAL_IWDG_Init(&hiwdg);
 
@@ -29,7 +30,7 @@ void IWDG_Init(GPIO_InitTypeDef gpio_config, void(*errorHandler)(void)) {
 	__HAL_RCC_GPIOA_CLK_ENABLE(); 
 	HAL_GPIO_Init(GPIOA, &gpio_config);
 	
-	// Check IWDG init and reset status	
+	// Check IWDG init status	
 	if (init_status!= HAL_OK) {
 		errorHandler();
 	}

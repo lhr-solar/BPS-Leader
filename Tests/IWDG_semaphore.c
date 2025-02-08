@@ -1,7 +1,7 @@
 /* Better Watchdog Task (with 1 dummy task) */
 
 
-// DOES NOT WORK I"M TELLING YOU
+// does not work i"m telling you it doesn't work :(
 
 
 #include "FreeRTOS.h"   /* Must come first. */
@@ -49,68 +49,68 @@ void m_Task_PetWatchdog() {
     while(1) {
         if((xIWDG_Semaphore != NULL) && (xSemaphoreTake(xIWDG_Semaphore, portMAX_DELAY) == pdTRUE)) {
             if((Flags & TestBit) == TestBit) {
-               IWDG_Refresh();
-               HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-               Flags &= 0x0;
+                IWDG_Refresh();
+                HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+                Flags &= 0x0;
             }
             xSemaphoreGive(xIWDG_Semaphore);
-      }
-   }
+        }
+    }
 }
 
 void Task_DummyTask() {
-   GPIO_InitTypeDef gpio_init = {
-      .Mode = GPIO_MODE_OUTPUT_PP,
-      .Pull = GPIO_NOPULL,
-      .Pin = GPIO_PIN_6
-   };
-   __HAL_RCC_GPIOA_CLK_ENABLE();
-   HAL_GPIO_Init(GPIOA, &gpio_init);
+    GPIO_InitTypeDef gpio_init = {
+        .Mode = GPIO_MODE_OUTPUT_PP,
+        .Pull = GPIO_NOPULL,
+        .Pin = GPIO_PIN_6
+    };
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    HAL_GPIO_Init(GPIOA, &gpio_init);
 
-   while(1) {
-      if((xIWDG_Semaphore != NULL) && (xSemaphoreTake(xIWDG_Semaphore, portMAX_DELAY) == pdTRUE)) {
-         HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_6);
-         Flags |= TestBit;
-         xSemaphoreGive(xIWDG_Semaphore);
-         HAL_Delay(15);
-         }
-      }
+    while(1) {
+        if((xIWDG_Semaphore != NULL) && (xSemaphoreTake(xIWDG_Semaphore, portMAX_DELAY) == pdTRUE)) {
+            HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_6);
+            Flags |= TestBit;
+            xSemaphoreGive(xIWDG_Semaphore);
+            HAL_Delay(15);
+        }
+    }
 }
 
 static void HAL_init_error_handler() {
-   while(1){ 
-      HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_7);
-      HAL_Delay(50);
-   }
+    while(1){ 
+        HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_7);
+        HAL_Delay(50);
+    }
 }
 
 
 int main(void) {
-   if (HAL_Init() != HAL_OK) {
-      HAL_init_error_handler();
-   }
+    if (HAL_Init() != HAL_OK) {
+        HAL_init_error_handler();
+    }
 
-   xIWDG_Semaphore = xSemaphoreCreateMutexStatic(&xIWDG_SemaphoreBuffer);
+    xIWDG_Semaphore = xSemaphoreCreateMutexStatic(&xIWDG_SemaphoreBuffer);
 
-   xTaskCreateStatic(
-                  m_Task_PetWatchdog,
-                  "PetWatchdog",
-                  TASK_M_PETWD_STACK_SIZE,
-                  NULL,
-                  TASK_M_PETWD_PRIORITY,
-                  Task_m_PetWD_Stack,
-                  &Task_m_PetWD_Buffer);
+    xTaskCreateStatic(
+                    m_Task_PetWatchdog,
+                    "PetWatchdog",
+                    TASK_M_PETWD_STACK_SIZE,
+                    NULL,
+                    TASK_M_PETWD_PRIORITY,
+                    Task_m_PetWD_Stack,
+                    &Task_m_PetWD_Buffer);
 
-   xTaskCreateStatic(
-                  Task_DummyTask,
-                  "DummyTask1",
-                  TASK_DUMMY_STACK_SIZE,
-                  NULL,
-                  TASK_DUMMY_PRIORITY,
-                  Task_Dummy_Stack,
-                  &Task_Dummy_Buffer);
+    xTaskCreateStatic(
+                    Task_DummyTask,
+                    "DummyTask1",
+                    TASK_DUMMY_STACK_SIZE,
+                    NULL,
+                    TASK_DUMMY_PRIORITY,
+                    Task_Dummy_Stack,
+                    &Task_Dummy_Buffer);
 
-   vTaskStartScheduler();
+    vTaskStartScheduler();
 
    return 0;
 }
