@@ -15,11 +15,6 @@
 #include "Task_PetWatchdog.h"
 #include <event_groups.h>
 
-// // Pet Watchdog Task
-// #define TASK_PETWDOG_PRIORITY     tskIDLE_PRIORITY + 2
-// #define TASK_PETWDOG_STACK_SIZE   configMINIMAL_STACK_SIZE
-// StaticTask_t Task_PetWDOG_Buffer;
-// StackType_t Task_PetWDOG_Stack[configMINIMAL_STACK_SIZE];
 
 // Dummy Task 1
 #define TASK_DUMMY_PRIORITY      tskIDLE_PRIORITY + 2
@@ -32,7 +27,6 @@ StackType_t dummy_taskStack[configMINIMAL_STACK_SIZE];
 #define TASK_DUMMY2_STACK_SIZE    configMINIMAL_STACK_SIZE
 StaticTask_t dummy2_task_buffer;
 StackType_t dummy2_taskStack[configMINIMAL_STACK_SIZE];
-
 
 /*--------------------------------------------------------*/
 

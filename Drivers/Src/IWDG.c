@@ -23,7 +23,6 @@ void IWDG_Init(GPIO_InitTypeDef gpio_config, void(*errorHandler)(void)) {
 	hiwdg.Init.Prescaler = IWDG_PRESCALAR;
 	hiwdg.Init.Reload = IWDG_COUNTDOWN;
 	// hiwdg.Init.Window = 0x0FFF;				// Max window
-
 	uint8_t init_status = HAL_IWDG_Init(&hiwdg);
 
 	// GPIO init
