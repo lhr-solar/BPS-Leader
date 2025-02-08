@@ -1,5 +1,5 @@
-#ifndef BSP_PWM_H
-#define BSP_PWM_H
+#ifndef PWM_H
+#define PWM_H
 
 //figure out #includes
 #include <stdint.h>

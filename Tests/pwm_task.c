@@ -3,7 +3,7 @@
 // target extended-remote :3333
 
 #include "stm32xx_hal.h"
-#include "BSP_PWM.h"
+#include "PWM.h"
 // #include "PWM_Tasks.h"
 
 #define TASK_INIT_PRIORITY      tskIDLE_PRIORITY + 2
@@ -56,7 +56,7 @@ void Task_TIM2(void * pvParameters) {
     }
 }
 
-void Task_Init() {
+void Task_Init_PWM() {
     MX_GPIO_Init();
 
     tim1.Instance = TIM1;
@@ -119,7 +119,7 @@ int main(void) {
     __HAL_RCC_GPIOA_CLK_ENABLE();
     
     xTaskCreateStatic(
-        Task_Init,
+        Task_Init_PWM,
         "Initialization Task",
         configMINIMAL_STACK_SIZE,
         NULL,
