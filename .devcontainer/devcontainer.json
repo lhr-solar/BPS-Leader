@@ -8,7 +8,7 @@
   "service": "dev",
   "workspaceFolder": "/workdir",
   "shutdownAction": "stopCompose",
-"initializeCommand": "/bin/bash -c \"$(realpath ../Embedded-Sharepoint/scripts/dockerInitialize.sh)\"",
+  "initializeCommand": "/bin/bash -c \"$(realpath ../Embedded-Sharepoint/scripts/dockerInitialize.sh)\"",
   "customizations": {
     "vscode": {
       "settings": {
