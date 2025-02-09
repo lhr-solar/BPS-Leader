@@ -6,6 +6,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Makefile is in the parent directory
 MAKEFILE_DIR="$(dirname "$SCRIPT_DIR")"
 
+make -C "$MAKEFILE_DIR" clean -j
+
 echo "Testing production"
 make "$MAKEFILE_DIR" -j
 if [ $? -eq 0 ]; then
@@ -24,7 +26,7 @@ for FILE in "${C_FILES[@]}"; do
     
     echo "Compiling: $TEST_NAME.c"
 
-    make "$MAKEFILE_DIR" TEST="$TEST_NAME" -j
+    make -C "$MAKEFILE_DIR" TEST="$TEST_NAME" -j
 
     if [ $? -eq 0 ]; then
         echo "✅ Compilation successful for $TEST_NAME.c"
@@ -34,7 +36,7 @@ for FILE in "${C_FILES[@]}"; do
     fi
 
     echo "Cleaning up..."
-    make "$MAKEFILE_DIR" clean
+    make -C "$MAKEFILE_DIR" clean
 done
 
 echo "✅ All tests successful!"
