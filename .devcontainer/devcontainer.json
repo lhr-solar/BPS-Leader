@@ -2,13 +2,13 @@
 {
   "name": "BPS Leader",
   "dockerComposeFile": [
-    "../docker-compose.yml"
+    "../Embedded-Sharepoint/docker-compose.yml"
   ],
 
   "service": "dev",
-  "workspaceFolder": "/BPS-Leader",
+  "workspaceFolder": "/workdir",
   "shutdownAction": "stopCompose",
-
+  "initializeCommand": "../Embedded-Sharepoint/scripts/dockerInitialize.sh ${localWorkspaceFolder}",  
   "customizations": {
     "vscode": {
       "settings": {
@@ -25,6 +25,5 @@
     }
   },
   "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder} && git config --global --add safe.directory ${containerWorkspaceFolder}/Embedded-Sharepoint"
-
 }
 
