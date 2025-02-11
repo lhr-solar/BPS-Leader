@@ -2,6 +2,7 @@
 #define _LED_H__
 
 #include "stm32xx_hal.h"
+#include "Common.h"
 #include "pinConfig.h"
 
 void Heartbeat_Init();

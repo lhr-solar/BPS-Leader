@@ -70,3 +70,6 @@ Build/
 
 # Mac Specific Files
 .DS_Store
+
+# Python Cache
+__pycache__/

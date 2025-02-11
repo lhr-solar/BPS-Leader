@@ -15,6 +15,9 @@ StaticTask_t Task_Petwdog_Buffer;
 
 void Task_Init(){
 
+    carCANInit();
+    internalCANInit();
+
     xTaskCreateStatic(
         Task_Temperature_Monitor, /* The function that implements the task. */
         "Temperature Monitor Task", /* Text name for the task. */

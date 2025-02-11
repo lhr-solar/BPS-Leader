@@ -5,37 +5,52 @@ HAL_StatusTypeDef internalCANInit(){
 }
 
 HAL_StatusTypeDef carCANInit(){
+    CAN_FilterTypeDef  sFilterConfig;
+    sFilterConfig.FilterBank = 0;
+    sFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;
+    sFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT;
+    sFilterConfig.FilterIdHigh = 0x0000;
+    sFilterConfig.FilterIdLow = 0x0000;
+    sFilterConfig.FilterMaskIdHigh = 0x0000;
+    sFilterConfig.FilterMaskIdLow = 0x0000;
+    sFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0;
+    sFilterConfig.FilterActivation = ENABLE;
+    sFilterConfig.SlaveStartFilterBank = 14;
 
-  // create filter
-  CAN_FilterTypeDef  sFilterConfig;
-  sFilterConfig.FilterBank = 0;
-  sFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;
-  sFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT;
-  sFilterConfig.FilterIdHigh = 0x0000;
-  sFilterConfig.FilterIdLow = 0x0000;
-  sFilterConfig.FilterMaskIdHigh = 0x0000;
-  sFilterConfig.FilterMaskIdLow = 0x0000;
-  sFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0;
-  sFilterConfig.FilterActivation = ENABLE;
-  sFilterConfig.SlaveStartFilterBank = 14;
-
-  // setup can1 init
-  hcan1->Init.Prescaler = 5;
-  hcan1->Init.Mode = CAN_MODE_LOOPBACK;
-  hcan1->Init.SyncJumpWidth = CAN_SJW_1TQ;
-  hcan1->Init.TimeSeg1 = CAN_BS1_6TQ;
-  hcan1->Init.TimeSeg2 = CAN_BS2_2TQ;
-  hcan1->Init.TimeTriggeredMode = DISABLE;
-  hcan1->Init.AutoBusOff = DISABLE;
-  hcan1->Init.AutoWakeUp = DISABLE;
-  hcan1->Init.AutoRetransmission = ENABLE;
-  hcan1->Init.ReceiveFifoLocked = DISABLE;
-  hcan1->Init.TransmitFifoPriority = DISABLE;
-
-  // initialize CAN1
-  if(can_init(hcan1, &sFilterConfig) != CAN_OK || can_start(hcan1) != CAN_OK ){
-    return HAL_ERROR;
-  }
-  return HAL_OK;
-
+    // setup can1 init
+    hcan1->Init.Prescaler = 5;
+    hcan1->Init.Mode = CAN_MODE_LOOPBACK;
+    hcan1->Init.SyncJumpWidth = CAN_SJW_1TQ;
+    hcan1->Init.TimeSeg1 = CAN_BS1_6TQ;
+    hcan1->Init.TimeSeg2 = CAN_BS2_2TQ;
+    hcan1->Init.TimeTriggeredMode = DISABLE;
+    hcan1->Init.AutoBusOff = DISABLE;
+    hcan1->Init.AutoWakeUp = DISABLE;
+    hcan1->Init.AutoRetransmission = ENABLE;
+    hcan1->Init.ReceiveFifoLocked = DISABLE;
+    hcan1->Init.TransmitFifoPriority = DISABLE;
+    // initialize CAN1
+    if(can_init(hcan1, &sFilterConfig) != CAN_OK || can_start(hcan1) != CAN_OK ){
+      return HAL_ERROR;
+    }
+    return HAL_OK;
 }
+// void Heartbeat_Clock_Init() {
+//   switch ((uint32_t)HEARTBEATPORT) {
+//       case (uint32_t)GPIOA:
+//           __HAL_RCC_GPIOA_CLK_ENABLE();
+//           break;
+//       case (uint32_t)GPIOB:
+//           __HAL_RCC_GPIOB_CLK_ENABLE();
+//           break;
+//       case (uint32_t)GPIOC:
+//           __HAL_RCC_GPIOC_CLK_ENABLE();
+//           break;
+//       case (uint32_t)GPIOD:
+//           __HAL_RCC_GPIOD_CLK_ENABLE();
+//           break;
+//       case (uint32_t)GPIOE:
+//           __HAL_RCC_GPIOE_CLK_ENABLE();
+//           break;
+//   }
+// }
