@@ -66,3 +66,6 @@ Build/
 
 # Mac Specific Files
 .DS_Store
+
+# Environment Files
+.env
