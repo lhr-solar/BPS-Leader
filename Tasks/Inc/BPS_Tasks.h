@@ -6,6 +6,7 @@
 #include "queue.h" /* RTOS queue related API prototypes. */
 #include "timers.h" /* Software timer related API prototypes. */
 #include "semphr.h" /* Semaphore related API prototypes. */
+#include "CAN.h"
 
 
 // Task Priority 
