@@ -13,27 +13,49 @@ StaticTask_t Task_Voltage_Buffer;
 StaticTask_t Task_Amperes_Buffer;
 StaticTask_t Task_Petwdog_Buffer;
 
+// Event Group
+EventGroupHandle_t xEventGroupHandle;
+StaticEventGroup_t xCreatedEventGroup;
+EventBits_t uxBits;
+
+
 void Task_Init(){
+    // Event Group init
+    xEventGroupHandle = xEventGroupCreateStatic( &xCreatedEventGroup );
+    configASSERT( xEventGroupHandle );          // check if handle is set 
+    xEventGroupClearBits(xEventGroupHandle,     /* The event group being updated. */
+                        0x0F );                 /* The bits being cleared. */
 
     xTaskCreateStatic(
-        Task_Temperature_Monitor, /* The function that implements the task. */
-        "Temperature Monitor Task", /* Text name for the task. */
-        TASK_TEMPERATURE_MONITOR_STACK_SIZE, /* The size (in words) of the stack that should be created for the task. */
-        (void*)NULL, /* Paramter passed into the task. */
-        TASK_TEMPERATURE_MONITOR_PRIO, /* Task Prioriy. */
-        Task_Temperature_Stack_Array, /* Stack array. */
-        &Task_Temperature_Buffer  /* Buffer for static allocation. */
+        Task_Temperature_Monitor,           /* The function that implements the task. */
+        "Temperature Monitor Task",         /* Text name for the task. */
+        TASK_TEMPERATURE_MONITOR_STACK_SIZE,/* The size (in words) of the stack that should be created for the task. */
+        (void*)NULL,                        /* Paramter passed into the task. */
+        TASK_TEMPERATURE_MONITOR_PRIO,      /* Task Prioriy. */
+        Task_Temperature_Stack_Array,       /* Stack array. */
+        &Task_Temperature_Buffer            /* Buffer for static allocation. */
    );
 
     xTaskCreateStatic(
-        Task_Voltage_Monitor, /* The function that implements the task. */
-        "Voltage Monitor Task", /* Text name for the task. */
-        TASK_VOLTAGE_MONITOR_STACK_SIZE, /* The size (in words) of the stack that should be created for the task. */
-        (void*)NULL, /* Paramter passed into the task. */
-        TASK_VOLTAGE_MONITOR_PRIO, /* Task Prioriy. */
-        Task_Voltage_Stack_Array, /* Stack array. */
-        &Task_Voltage_Buffer  /* Buffer for static allocation. */
+        Task_Voltage_Monitor,               /* The function that implements the task. */
+        "Voltage Monitor Task",             /* Text name for the task. */
+        TASK_VOLTAGE_MONITOR_STACK_SIZE,    /* The size (in words) of the stack that should be created for the task. */
+        (void*)NULL,                        /* Paramter passed into the task. */
+        TASK_VOLTAGE_MONITOR_PRIO,          /* Task Prioriy. */
+        Task_Voltage_Stack_Array,           /* Stack array. */
+        &Task_Voltage_Buffer                /* Buffer for static allocation. */
    );
+
+   xTaskCreateStatic(
+        Task_PETWDOG,                       /* The function that implements the task. */
+        "PetWatchdog",                      /* Text name for the task. */
+        TASK_PETWDOG_STACK_SIZE,            /* The size (in words) of the stack that should be created for the task. */
+        (void*)NULL,                        /* Paramter passed into the task. */
+        TASK_PETWDOG_PRIO,                  /* Task Prioriy. */
+        Task_Petwdog_Stack_Array,           /* Stack array. */
+        &Task_Petwdog_Buffer                /* Buffer for static allocation. */
+   );
+
 
    // Task deletes itself after all other taks are init'd
     vTaskDelete(NULL);
