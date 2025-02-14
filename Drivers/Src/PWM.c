@@ -4,10 +4,7 @@
 #define PWM_SEND_QUEUE_SIZE (10)
 #endif
 
-#ifndef PWM_INFO_SIZE 
-#define PWM_INFO_SIZE sizeof(PWM_Info)
-#endif
-
+enum {PWM_INFO_SIZE = sizeof(PWM_Info) };
 BaseType_t higherPriorityTaskWoken = pdFALSE;
 
 static QueueHandle_t pwm1_send_queue = NULL;  // need to add queue for each PWM timer
