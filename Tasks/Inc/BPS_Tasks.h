@@ -42,6 +42,10 @@ extern EventGroupHandle_t xEventGroupHandle;
 extern StaticEventGroup_t xCreatedEventGroup;
 extern EventBits_t uxBits;
 
+// // Watchdog window timer
+// extern TimerHandle_t xWindowTimer;
+// extern StaticTimer_t xTimerBuffer;
+
 // Dummy Tasks
 #define TASK1_BIT   0x01
 #define TASK2_BIT   0x02

@@ -5,7 +5,7 @@ void Task_Voltage_Monitor(){
 
     while(1){
         // Delays 5 ms
-        vTaskDelay(5);
+        vTaskDelay(2);
         
         // Set event group bit
         xEventGroupSetBits(xEventGroupHandle,   /* The event group being updated. */

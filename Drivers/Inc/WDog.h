@@ -51,6 +51,7 @@ Common Timeouts
 #define WDOG_WINDOW   0xFFF             // If using windowed watchdog (WWDG)
 
 #define WDOG_TIMEOUT_MS 20
+#define WDOG_WINDOW_MS  8
 #define TEST_REFRESH_MS 10
 /* ----------------------------------------------------------------*/
 

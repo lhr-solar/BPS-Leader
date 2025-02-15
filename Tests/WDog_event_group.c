@@ -80,10 +80,11 @@ int main(void) {
 
     GPIO_Init();
 
-    xEventGroupHandle = xEventGroupCreateStatic( &xCreatedEventGroup );
-    configASSERT( xEventGroupHandle );          // check if handle is set 
-    xEventGroupClearBits(xEventGroupHandle,     /* The event group being updated. */
-                            0x0F );             /* The bits being cleared. */
+    // xEventGroupHandle = xEventGroupCreateStatic( &xCreatedEventGroup );
+    // configASSERT( xEventGroupHandle );          // check if handle is set 
+    // xEventGroupClearBits(xEventGroupHandle,     /* The event group being updated. */
+    //                         0x0F );             /* The bits being cleared. */
+    Init_WDogEventGroup();
 
     xTaskCreateStatic(
                 Task_PETWDOG,

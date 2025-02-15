@@ -5,7 +5,7 @@ void Task_Temperature_Monitor(){
 
     while(1){
         // Delays 10 ms
-        vTaskDelay(10);
+        vTaskDelay(2);
 
         // Set event group bit
         xEventGroupSetBits(xEventGroupHandle,   /* The event group being updated. */

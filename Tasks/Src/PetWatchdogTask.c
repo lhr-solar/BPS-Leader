@@ -27,23 +27,23 @@ void Task_PETWDOG() {
     WDog_Init(gpio_config, WDog_Error_Handler);
 
     /* RTOS Timer */
-    // vTimerResetState();
+    vTimerResetState();
     TimerHandle_t xWindowTimer;
     StaticTimer_t xTimerBuffer;
 
     xWindowTimer = xTimerCreateStatic( 
                     "Timer",            /* Just a text name, not used by the RTOS kernel. */
-                    5,   /* The timer period in ticks, must be greater than 0. */ 
+                    10 * 80000,          /* The timer period in ticks, must be greater than 0. */ 
                     pdFALSE,            /* Whether timer will auto-reload after expiring. */
                     NULL,               /* ID assigned to timer being created */
-                    NULL,               /* Callback when timer expires */
-                    &xTimerBuffer);     
+                    (void*)0,           /* Callback when timer expires */
+                    &xTimerBuffer);    
     
     // Start timer; wait up to 1ms for timer to be sent to timer command queue
-    xTimerStart(xWindowTimer, 1);  // pdMS_TO_TICKS(1)
+    xTimerStart(xWindowTimer, 2);  // pdMS_TO_TICKS(1)
 
     // const TickType_t xTicksToWait = portMAX_DELAY;  // (5 / portTICK_PERIOD_MS)
-
+    
     while(1) {
         // Event group: wait until Tasks 1 and 2 are done before refreshing Watchdog
         uxBits = xEventGroupWaitBits(
@@ -58,7 +58,7 @@ void Task_PETWDOG() {
             
             // window for refresh
             if(xTimerIsTimerActive(xWindowTimer) == pdFALSE) {
-                // Window timer has run down; can now refresh Watchdog
+                // Window timer has run down; can refresh Watchdog
                 WDog_Refresh();
                 HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
 
@@ -67,12 +67,12 @@ void Task_PETWDOG() {
                 // uxBits = xEventGroupGetBits(xEventGroupHandle);
 
                 // Reset timer
-                xTimerReset(xWindowTimer, 1);   
+                xTimerStart(xWindowTimer, 0);   
                 break;
             }
-            vTaskDelay(1);
-            
+            else {vTaskDelay(1);}
         }
+
     }
 
 }
