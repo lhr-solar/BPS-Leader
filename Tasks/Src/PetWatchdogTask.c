@@ -6,6 +6,13 @@
 #include "WDog.h"
 #include <timers.h>
 
+void WDog_InitEventGroup() {
+    // Event Group init
+    xEventGroupHandle = xEventGroupCreateStatic( &xCreatedEventGroup );
+    configASSERT( xEventGroupHandle );          // check if handle is set 
+    xEventGroupClearBits(xEventGroupHandle,     /* The event group being updated. */
+                         0x0F );                /* The bits being cleared. */
+}
 
 void Task_PETWDOG() {
     GPIO_InitTypeDef led_init = {
@@ -15,8 +22,8 @@ void Task_PETWDOG() {
     };
 
     WDog_Init(led_init, WDog_Error_Handler);
-    // const TickType_t xTicksToWait = 5 / portTICK_PERIOD_MS;
 
+    /* RTOS Timer */
     // vTimerResetState();
     // TimerHandle_t xWindowTimer;
     // StaticTimer_t xTimerBuffer;
@@ -32,25 +39,31 @@ void Task_PETWDOG() {
     
     // xTimerStart(xWindowTimer, 50);
 
+    // const TickType_t xTicksToWait = portMAX_DELAY;  // (5 / portTICK_PERIOD_MS)
+
     while(1) {
         // Event group: wait until dummy task 1 and 2 have run before refreshing Watchdog
         uxBits = xEventGroupWaitBits(
                     xEventGroupHandle,      /* The event group being tested. */
-                    DUM1_DONE | DUM2_DONE,  /* The bits within the event group to wait for. */
-                    pdFALSE,                 /* Clear bits before returning. */
-                    pdTRUE,                 /* Don't wait for both bits, either bit will do. */
+                    TASK1_BIT | TASK2_BIT,  /* The bits within the event group to wait for. */
+                    pdFALSE,                /* Do not clear bits before returning. */
+                    pdTRUE,                 /* Wait for both all bits to be set. */
                     portMAX_DELAY);         /* Maximum delay; block indefinitely?  */
 
-        if((uxBits & (DUM1_DONE | DUM2_DONE)) == (DUM1_DONE | DUM2_DONE)) {
+        if((uxBits & ALL_TASKS_BITS) == ALL_TASKS_BITS) {
             // If we are here, xEventGroupWaitBits returned because bits were set
             
             // window for refresh
             // if(xTimerIsTimerActive(xWindowTimer) == pdFALSE) {
-                WDog_Refresh();                 // Window timer has run down; can now refresh Watchdog
+                // Window timer has run down; can now refresh Watchdog
+                WDog_Refresh();               
                 HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
 
-                // xTimerReset(xWindowTimer, 50);   // Reset timer
-                xEventGroupClearBits(xEventGroupHandle, (DUM1_DONE | DUM2_DONE));   // Manually clear bits
+                // Reset timer
+                // xTimerReset(xWindowTimer, 50);   
+
+                // Manually clear bits
+                xEventGroupClearBits(xEventGroupHandle, ALL_TASKS_BITS);   
             // }
             
         }

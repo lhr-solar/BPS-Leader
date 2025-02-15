@@ -3,14 +3,6 @@
  - Rough draft: everything is defined here
 */
 
-// Kernel Includes
-#include "FreeRTOS.h"   /* Must come first. */
-#include "task.h"       /* RTOS task related API prototypes. */
-#include "queue.h"      /* RTOS queue related API prototypes. */
-#include "timers.h"     /* Software timer related API prototypes. */
-#include "semphr.h"     /* Semaphore related API prototypes. */
-#include "stm32xx_hal.h"
-
 #include "BPS_Tasks.h"
 #include "WDog.h"
 
@@ -62,7 +54,7 @@ static void dummy_task(void *pvParameters) {
     while(1) {
         // event group 
         xEventGroupSetBits(xEventGroupHandle,     /* The event group being updated. */
-                                    DUM1_DONE);    /* The bits being set. */
+                                    TASK1_BIT);    /* The bits being set. */
         HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_6);
         HAL_Delay(TEST_REFRESH_MS);
     }
@@ -73,7 +65,7 @@ static void dummy_task_two(void *pvParameters) {
     while(1) {
         // event group 
         xEventGroupSetBits(xEventGroupHandle,     /* The event group being updated. */
-                                    DUM2_DONE);    /* The bits being set. */
+                                    TASK2_BIT);    /* The bits being set. */
         HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_7);
         HAL_Delay(TEST_REFRESH_MS - 5);
     }

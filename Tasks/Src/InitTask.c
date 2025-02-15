@@ -20,11 +20,7 @@ EventBits_t uxBits;
 
 
 void Task_Init(){
-    // Event Group init
-    xEventGroupHandle = xEventGroupCreateStatic( &xCreatedEventGroup );
-    configASSERT( xEventGroupHandle );          // check if handle is set 
-    xEventGroupClearBits(xEventGroupHandle,     /* The event group being updated. */
-                        0x0F );                 /* The bits being cleared. */
+    WDog_InitEventGroup();
 
     xTaskCreateStatic(
         Task_Temperature_Monitor,           /* The function that implements the task. */

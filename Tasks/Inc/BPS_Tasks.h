@@ -11,11 +11,11 @@
 #include "stm32xx_hal.h"
 
 // Task Priority 
-#define TASK_INIT_PRIO                  tskIDLE_PRIORITY + 2
+#define TASK_INIT_PRIO                  tskIDLE_PRIORITY + 1
 #define TASK_TEMPERATURE_MONITOR_PRIO   tskIDLE_PRIORITY + 3
 #define TASK_VOLTAGE_MONITOR_PRIO       tskIDLE_PRIORITY + 4
 #define TASK_AMPERES_MONITOR_PRIO       tskIDLE_PRIORITY + 5
-#define TASK_PETWDOG_PRIO               tskIDLE_PRIORITY + 6
+#define TASK_PETWDOG_PRIO               tskIDLE_PRIORITY + 2
 
 // Task Stack Size 
 #define TASK_INIT_STACK_SIZE                    configMINIMAL_STACK_SIZE
@@ -43,14 +43,17 @@ extern StaticEventGroup_t xCreatedEventGroup;
 extern EventBits_t uxBits;
 
 // Dummy Tasks
-#define DUM1_DONE   0x01
-#define DUM2_DONE   0x02
-#define BOTH_TASKS_DONE (DUM1_DONE | DUM2_DONE)
+#define TASK1_BIT   0x01
+#define TASK2_BIT   0x02
+#define ALL_TASKS_BITS (TASK1_BIT | TASK2_BIT)
 
 // Task Inits
 void Task_Init();
 void Task_Voltage_Monitor();
 void Task_Temperature_Monitor();
 void Task_PETWDOG();
+
+// Watchdog
+void WDog_InitEventGroup();
 
 #endif

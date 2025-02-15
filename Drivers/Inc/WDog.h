@@ -72,14 +72,15 @@ void WDog_Init(GPIO_InitTypeDef gpio_config, void(*errorHandler)(void));
 /**
  * @brief Refresh ("pet") the watchdog so it does not reset the system
  * - Reloads IDWG with countown value.
+ * @retval Returns HAL status
  */
-void WDog_Refresh();
+HAL_StatusTypeDef WDog_Refresh();
 
 /**
  * @brief Check whether the watchdog has reset the system
  * @retval 1 if true (has reset); 0 is false (has not reset)
  */
-int WDog_CheckIfReset();
+uint8_t WDog_CheckIfReset();
 
 /**
  * @brief Error Handler: Contains procedures for Watchdog failure

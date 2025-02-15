@@ -51,19 +51,19 @@ void WDog_Init(GPIO_InitTypeDef gpio_config, void(*errorHandler)(void)) {
 }
 
 
-void WDog_Refresh() {
+HAL_StatusTypeDef WDog_Refresh() {
 	// __HAL_IWDG_RELOAD_COUNTER(&hiwdg);
 	// __HAL_IWDG_ENABLE_WRITE_ACCESS(&hiwdg);
 
 	#ifdef USING_IWDG
-		HAL_IWDG_Refresh(&wdog);
+		return HAL_IWDG_Refresh(&wdog);
 	#else
-		HAL_WWDG_Refresh(&wdog);
+		return HAL_WWDG_Refresh(&wdog);
 	#endif
 }
 
 
-int WDog_CheckIfReset() {
+uint8_t WDog_CheckIfReset() {
 	#ifdef USING_IWDG
 		if (__HAL_RCC_GET_FLAG(RCC_FLAG_IWDGRST) != RESET) {
 			__HAL_RCC_CLEAR_RESET_FLAGS();
@@ -92,7 +92,7 @@ void WDog_Error_Handler(void) {
     HAL_GPIO_Init(GPIOA, &led_config_f4);
 	
 	while (1) {
-		/* If Watchdog ini fails, (for now) show blinky */
+		/* If Watchdog init fails, (for now) show blinky */
 		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
 		HAL_Delay(150);
 	}
