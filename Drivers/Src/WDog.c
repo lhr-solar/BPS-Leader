@@ -10,13 +10,8 @@
 #include "stm32xx_hal.h"
 
 /* Watchdog struct */
-#define USING_IWDG
+IWDG_HandleTypeDef wdog = {0};	// Independent Watchdog
 
-#ifdef USING_IWDG
-	IWDG_HandleTypeDef wdog = {0};	// Independent Watchdog
-#else
-	WWDG_HandleTypeDef wdog = {0};	// Windowed Watchdog
-#endif
 
 void WDog_Init(GPIO_InitTypeDef gpio_config, void(*errorHandler)(void)) {
 	// Check for previous reset
@@ -25,20 +20,12 @@ void WDog_Init(GPIO_InitTypeDef gpio_config, void(*errorHandler)(void)) {
 	}
 	
 	// IWDG Init
-	#ifdef USING_IWDG
-		wdog.Instance = IWDG;
-		wdog.Init.Prescaler = WDOG_PRESCALAR;
-		wdog.Init.Reload = WDOG_COUNTDOWN;
+	wdog.Instance = IWDG;
+	wdog.Init.Prescaler = WDOG_PRESCALAR;
+	wdog.Init.Reload = WDOG_COUNTDOWN;
 
-		HAL_StatusTypeDef init_status = HAL_IWDG_Init(&wdog);
-	#else
-		wdog.Instance = WWDG;
-		wdog.Init.Prescaler = WDOG_PRESCALAR;
-		wdog.Init.Counter = WDOG_COUNTDOWN;
-		wdog.Init.Window = 0x0FFF;				// Max window
+	HAL_StatusTypeDef init_status = HAL_IWDG_Init(&wdog);
 
-		uint8_t init_status = HAL_WWDG_Init(&wdog);
-	#endif
 
 	// GPIO init
 	__HAL_RCC_GPIOA_CLK_ENABLE(); 
@@ -54,37 +41,20 @@ void WDog_Init(GPIO_InitTypeDef gpio_config, void(*errorHandler)(void)) {
 HAL_StatusTypeDef WDog_Refresh() {
 	// __HAL_IWDG_RELOAD_COUNTER(&hiwdg);
 	// __HAL_IWDG_ENABLE_WRITE_ACCESS(&hiwdg);
-
-	#ifdef USING_IWDG
-		return HAL_IWDG_Refresh(&wdog);
-	#else
-		return HAL_WWDG_Refresh(&wdog);
-	#endif
+	return HAL_IWDG_Refresh(&wdog);
 }
 
 
 uint8_t WDog_CheckIfReset() {
-	#ifdef USING_IWDG
-		if (__HAL_RCC_GET_FLAG(RCC_FLAG_IWDGRST) == SET) {
-			__HAL_RCC_CLEAR_RESET_FLAGS();
-			return 1;
-		}
-		return 0;
-	#else
-		if (__HAL_RCC_GET_FLAG(RCC_FLAG_WWDGRST) != RESET) {
-			__HAL_RCC_CLEAR_RESET_FLAGS();
-			return 1;
-		}
-		return 0;
-	#endif
+	if (__HAL_RCC_GET_FLAG(RCC_FLAG_IWDGRST) == SET) {
+		__HAL_RCC_CLEAR_RESET_FLAGS();
+		return 1;
+	}
+	return 0;
 }
 
 // TODO - don't fault on first run :(
 void WDog_Error_Handler(void) {
-	// So we don't fault again??
-	// __HAL_RCC_CLEAR_RESET_FLAGS();
-
-	// __disable_irq(); 
 	// if(xTaskGetSchedulerState() == taskSCHEDULER_RUNNING) {
 	// 	vTaskEndScheduler();
 	// }

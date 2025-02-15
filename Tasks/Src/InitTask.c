@@ -14,8 +14,8 @@ StaticTask_t Task_Amperes_Buffer;
 StaticTask_t Task_Petwdog_Buffer;
 
 // Event Group
-EventGroupHandle_t xEventGroupHandle;
-StaticEventGroup_t xCreatedEventGroup;
+EventGroupHandle_t xWDogEventGroup_handle;
+StaticEventGroup_t xWDogEventGroup;
 EventBits_t uxBits;
 
 

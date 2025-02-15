@@ -48,11 +48,10 @@ Common Timeouts
 
 #define WDOG_PRESCALAR IWDG_PRESCALER_8 
 #define WDOG_COUNTDOWN 79               // Tick value before we refresh the IDWG (current value converts to ~20ms)
-#define WDOG_WINDOW   0xFFF             // If using windowed watchdog (WWDG)
+// #define WDOG_WINDOW   0xFFF             // If using windowed watchdog (WWDG)
 
 #define WDOG_TIMEOUT_MS 20
 #define WDOG_WINDOW_MS  8
-#define TEST_REFRESH_MS 10
 /* ----------------------------------------------------------------*/
 
 

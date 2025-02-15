@@ -37,19 +37,9 @@ extern StaticTask_t Task_Voltage_Buffer;
 extern StaticTask_t Task_Amperes_Buffer;
 extern StaticTask_t Task_Petwdog_Buffer;
 
-// Event group
-extern EventGroupHandle_t xEventGroupHandle;
-extern StaticEventGroup_t xCreatedEventGroup;
-extern EventBits_t uxBits;
-
-// // Watchdog window timer
-// extern TimerHandle_t xWindowTimer;
-// extern StaticTimer_t xTimerBuffer;
-
-// Dummy Tasks
-#define TASK1_BIT   0x01
-#define TASK2_BIT   0x02
-#define ALL_TASKS_BITS (TASK1_BIT | TASK2_BIT)
+// Task Delays
+#define TEMP_MONIT_TASK_DELAY 10
+#define VOLT_MONIT_TASK_DELAY 5
 
 // Task Inits
 void Task_Init();
@@ -57,7 +47,14 @@ void Task_Voltage_Monitor();
 void Task_Temperature_Monitor();
 void Task_PETWDOG();
 
-// Watchdog
+/* ---- Watchdog Event Group ---- */
 void Init_WDogEventGroup();
+extern EventGroupHandle_t xWDogEventGroup_handle;
+extern StaticEventGroup_t xWDogEventGroup;
+extern EventBits_t uxBits;
+#define TASK1_BIT   (1 << 0)
+#define TASK2_BIT   (1 << 1)
+#define TIMER_DONE  (1 << 2)
+#define ALL_TASKS_BITS (TASK1_BIT | TASK2_BIT | TIMER_DONE)
 
 #endif
