@@ -14,7 +14,6 @@ IWDG_HandleTypeDef wdog = {0};	// Independent Watchdog
 
 
 void WDog_Init(GPIO_InitTypeDef gpio_config, void(*errorHandler)(void)) {
-	// Check for previous reset
 	if (WDog_CheckIfReset() == 1) {
 		errorHandler();
 	}
@@ -23,9 +22,7 @@ void WDog_Init(GPIO_InitTypeDef gpio_config, void(*errorHandler)(void)) {
 	wdog.Instance = IWDG;
 	wdog.Init.Prescaler = WDOG_PRESCALAR;
 	wdog.Init.Reload = WDOG_COUNTDOWN;
-
 	HAL_StatusTypeDef init_status = HAL_IWDG_Init(&wdog);
-
 
 	// GPIO init
 	__HAL_RCC_GPIOA_CLK_ENABLE(); 
@@ -53,11 +50,12 @@ uint8_t WDog_CheckIfReset() {
 	return 0;
 }
 
-// TODO - don't fault on first run :(
+
 void WDog_Error_Handler(void) {
-	// if(xTaskGetSchedulerState() == taskSCHEDULER_RUNNING) {
-	// 	vTaskEndScheduler();
-	// }
+	if(xTaskGetSchedulerState() == taskSCHEDULER_RUNNING) {
+		vTaskEndScheduler();	// jumps back to when vTaskStartScheduler() was called, so nothing past this actually runs :(
+		// vTaskSuspendAll();	// just suspends, can still run stuff after this?
+	}
 
 	GPIO_InitTypeDef led_config_f4 = {
         .Mode = GPIO_MODE_OUTPUT_PP,
