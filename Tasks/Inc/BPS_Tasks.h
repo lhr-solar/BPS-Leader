@@ -54,6 +54,6 @@ void Task_Temperature_Monitor();
 void Task_PETWDOG();
 
 // Watchdog
-void WDog_InitEventGroup();
+void Init_WDogEventGroup();
 
 #endif

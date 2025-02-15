@@ -9,13 +9,13 @@
 
 
 -----------------------------------------------------------
-How to calculate COUNTDOWN value from desired refresh time
+  INDEPENDENT WATCHDOG
 -----------------------------------------------------------
 - Countdown value is how many ticks the Watchdog will count 
   from before it resets the system.
 
 
-IWDG FORMULAS
+Calculating COUNTDOWN for IWDG
 -----------------------------------------------------------
 Formula [finding timeout (in s) from RL]
 -----------------------------------------------------------
@@ -34,10 +34,6 @@ Parameters:
     - RL      : countdown value to put for IWDG_COUNTDOWN
     - t_IWDG  : the countdown timeout you want in ms
 
-
-
-
-
 -----------------------------------------------------------
 Common Timeouts
 - 20 ms:  countdown 79, prescalar 8 (1)
@@ -52,7 +48,7 @@ Common Timeouts
 
 #define WDOG_PRESCALAR IWDG_PRESCALER_8 
 #define WDOG_COUNTDOWN 79               // Tick value before we refresh the IDWG (current value converts to ~20ms)
-#define WDOG_WINDOW   0xFFF
+#define WDOG_WINDOW   0xFFF             // If using windowed watchdog (WWDG)
 
 #define WDOG_TIMEOUT_MS 20
 #define TEST_REFRESH_MS 10

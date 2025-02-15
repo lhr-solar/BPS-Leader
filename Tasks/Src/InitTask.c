@@ -20,7 +20,7 @@ EventBits_t uxBits;
 
 
 void Task_Init(){
-    WDog_InitEventGroup();
+    Init_WDogEventGroup();
 
     xTaskCreateStatic(
         Task_Temperature_Monitor,           /* The function that implements the task. */

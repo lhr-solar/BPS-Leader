@@ -23,14 +23,14 @@ void WDog_Init(GPIO_InitTypeDef gpio_config, void(*errorHandler)(void)) {
 	if (WDog_CheckIfReset() == 1) {
 		errorHandler();
 	}
-		
+	
 	// IWDG Init
 	#ifdef USING_IWDG
 		wdog.Instance = IWDG;
 		wdog.Init.Prescaler = WDOG_PRESCALAR;
 		wdog.Init.Reload = WDOG_COUNTDOWN;
 
-		uint8_t init_status = HAL_IWDG_Init(&wdog);
+		HAL_StatusTypeDef init_status = HAL_IWDG_Init(&wdog);
 	#else
 		wdog.Instance = WWDG;
 		wdog.Init.Prescaler = WDOG_PRESCALAR;
@@ -45,7 +45,7 @@ void WDog_Init(GPIO_InitTypeDef gpio_config, void(*errorHandler)(void)) {
 	HAL_GPIO_Init(GPIOA, &gpio_config);
 	
 	// Check IWDG init status	
-	if (init_status!= HAL_OK) {
+	if (init_status != HAL_OK) {
 		errorHandler();
 	}
 }
@@ -65,23 +65,29 @@ HAL_StatusTypeDef WDog_Refresh() {
 
 uint8_t WDog_CheckIfReset() {
 	#ifdef USING_IWDG
-		if (__HAL_RCC_GET_FLAG(RCC_FLAG_IWDGRST) != RESET) {
+		if (__HAL_RCC_GET_FLAG(RCC_FLAG_IWDGRST) == SET) {
 			__HAL_RCC_CLEAR_RESET_FLAGS();
 			return 1;
 		}
+		return 0;
 	#else
 		if (__HAL_RCC_GET_FLAG(RCC_FLAG_WWDGRST) != RESET) {
 			__HAL_RCC_CLEAR_RESET_FLAGS();
 			return 1;
 		}
+		return 0;
 	#endif
-	return 0;
 }
 
-
+// TODO - don't fault on first run :(
 void WDog_Error_Handler(void) {
+	// So we don't fault again??
+	// __HAL_RCC_CLEAR_RESET_FLAGS();
+
 	// __disable_irq(); 
-	vTaskEndScheduler();
+	// if(xTaskGetSchedulerState() == taskSCHEDULER_RUNNING) {
+	// 	vTaskEndScheduler();
+	// }
 
 	GPIO_InitTypeDef led_config_f4 = {
         .Mode = GPIO_MODE_OUTPUT_PP,
