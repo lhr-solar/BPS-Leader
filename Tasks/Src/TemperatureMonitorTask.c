@@ -9,9 +9,11 @@ void Task_Temperature_Monitor(){
         // Set event group bit
         xEventGroupSetBits(xWDogEventGroup_handle,   /* The event group being updated. */
                            TASK1_BIT);          /* The bits being set. */
-
+        
+        #ifdef DEBUG
         // Toggle Pin for debug
         HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_6);
+        #endif
     }
     
 }

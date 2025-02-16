@@ -60,10 +60,9 @@ Common Timeouts
  * (1): Load IWDG with parameters (IWDG_COUNTDOWN, PRESCALAR)
  * (2): Initialize IWDG
  * (3): Wait until status flag is reset; check if Init failed
- * @param gpio_config GPIO_InitTypeDef structure that contains GPIO config information
  * @param errorHandler Pointer to user defined function for error handling
  */
-void WDog_Init(GPIO_InitTypeDef gpio_config, void(*errorHandler)(void));
+void WDog_Init(void(*errorHandler)(void));
 
 /**
  * @brief Refresh ("pet") the watchdog so it does not reset the system

@@ -12,12 +12,14 @@ int main() {
         .Pull = GPIO_NOPULL,
         .Pin = GPIO_PIN_5
     };
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    HAL_GPIO_Init(GPIOA, &gpio_init);
 
     // Set LED off to indicate we are in the init stage
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
     HAL_Delay(250);
 
-    WDog_Init(gpio_init, WDog_Error_Handler);
+    WDog_Init(WDog_Error_Handler);
 
     while(1) {
         /* Refresh IWDG after a set timeout: Toggle LED every refresh */

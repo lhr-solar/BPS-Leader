@@ -1,4 +1,5 @@
 #include "BPS_Tasks.h"
+#include "LEDs.h"
 
 // Task Stack Arrays
 StackType_t Task_Temperature_Stack_Array[ TASK_TEMPERATURE_MONITOR_STACK_SIZE ];
@@ -20,6 +21,7 @@ EventBits_t uxBits;
 
 void Task_Init(){
     Init_WDogEventGroup();
+    Heartbeat_Init();
 
     xTaskCreateStatic(
         Task_Temperature_Monitor,           /* The function that implements the task. */

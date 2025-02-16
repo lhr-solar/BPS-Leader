@@ -30,14 +30,16 @@ void WDog_WindowCallback(TimerHandle_t xTimer) {
 /*--------------------------------------------------------*/
 
 void Task_PetWatchdog() {
-    // Initialize GPIO output for Pins 5 (LED), 6 (Task 1), 7 (Task 2)
-    GPIO_InitTypeDef gpio_config = {
+    #ifdef DEBUG
+    GPIO_InitTypeDef gpio_init = {
         .Mode = GPIO_MODE_OUTPUT_PP,
         .Pull = GPIO_NOPULL,
         .Pin = GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7
     };
-
-    WDog_Init(gpio_config, WDog_Error_Handler);
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    HAL_GPIO_Init(GPIOA, &gpio_init);
+    #endif
+    WDog_Init(WDog_Error_Handler);
 
     /* RTOS Timer */
     // vTimerResetState();

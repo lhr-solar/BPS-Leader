@@ -11,23 +11,18 @@
 IWDG_HandleTypeDef wdog = {0};	// Independent Watchdog
 
 
-void WDog_Init(GPIO_InitTypeDef gpio_config, void(*errorHandler)(void)) {
+void WDog_Init(void(*errorHandler)(void)) {
 	if (WDog_CheckIfReset() == 1) {
 		errorHandler();
 	}
 	
-	// IWDG Init
+	// Set IWDG values
 	wdog.Instance = IWDG;
 	wdog.Init.Prescaler = WDOG_PRESCALAR;
 	wdog.Init.Reload = WDOG_COUNTDOWN;
-	HAL_StatusTypeDef init_status = HAL_IWDG_Init(&wdog);
 
-	// GPIO init
-	__HAL_RCC_GPIOA_CLK_ENABLE(); 
-	HAL_GPIO_Init(GPIOA, &gpio_config);
-	
-	// Check IWDG init status	
-	if (init_status != HAL_OK) {
+	// Initialize IWDG and check init status
+	if (HAL_IWDG_Init(&wdog) != HAL_OK) {
 		errorHandler();
 	}
 }
