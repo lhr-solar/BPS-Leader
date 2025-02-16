@@ -61,7 +61,7 @@ void MX_GPIO_Init(){
     HAL_GPIO_Init(GPIOA, &pwm_tim9_ch1);
 }
 
-QueueHandle_t* BSP_PWM_Get_Queue(TIM_HandleTypeDef* timHandle) {
+QueueHandle_t* PWM_Get_Queue(TIM_HandleTypeDef* timHandle) {
     switch((uint32_t)timHandle->Instance) {
         case (uint32_t)TIM1:
             return &pwm1_send_queue;
@@ -72,7 +72,7 @@ QueueHandle_t* BSP_PWM_Get_Queue(TIM_HandleTypeDef* timHandle) {
     return 0;
 }
 
-HAL_StatusTypeDef BSP_PWM_TIM_Init(TIM_HandleTypeDef* timHandle) {
+HAL_StatusTypeDef PWM_TIM_Init(TIM_HandleTypeDef* timHandle) {
     HAL_StatusTypeDef stat = HAL_OK;
     
     if(__HAL_RCC_GPIOA_IS_CLK_DISABLED())
@@ -100,7 +100,7 @@ HAL_StatusTypeDef BSP_PWM_TIM_Init(TIM_HandleTypeDef* timHandle) {
     return stat;
 }
 
-HAL_StatusTypeDef BSP_PWM_Channel_Init(TIM_HandleTypeDef* timHandle, uint8_t channel) {    
+HAL_StatusTypeDef PWM_Channel_Init(TIM_HandleTypeDef* timHandle, uint8_t channel) {    
     HAL_StatusTypeDef stat = HAL_OK;
     
     sConfigOC.OCMode = TIM_OCMODE_PWM1;  
@@ -115,25 +115,24 @@ HAL_StatusTypeDef BSP_PWM_Channel_Init(TIM_HandleTypeDef* timHandle, uint8_t cha
     return stat;
 }
 
-HAL_StatusTypeDef BSP_PWM_Set(TIM_HandleTypeDef* timHandle, uint8_t channel, uint8_t dutyCycle, uint64_t speed) {
-    if(dutyCycle <= 100 && dutyCycle >= 0) {
+HAL_StatusTypeDef PWM_Set(TIM_HandleTypeDef* timHandle, uint8_t channel, uint8_t dutyCycle, uint64_t speed) {
+    if(dutyCycle > 100) return HAL_ERROR;
 
-        QueueHandle_t* tx_Queue = BSP_PWM_Get_Queue(timHandle);
+    QueueHandle_t* tx_Queue = BSP_PWM_Get_Queue(timHandle);
     
-        PWM_Info pwmSend = { // for storing PWM info into queue
-            .timHandle = timHandle,
-            .channel = channel,
-            .dutyCycle = dutyCycle,
-            .speed = speed
-        };
+    PWM_Info pwmSend = { // for storing PWM info into queue
+        .timHandle = timHandle,
+        .channel = channel,
+        .dutyCycle = dutyCycle,
+        .speed = speed
+    };
 
-        if(!xQueueSend(*tx_Queue, &pwmSend, 0)) {
-            return HAL_ERROR;
-        }
-            
-        return HAL_OK;
+    if(!xQueueSend(*tx_Queue, &pwmSend, 0)) {
+        return HAL_ERROR;
     }
-    return HAL_ERROR;
+            
+    return HAL_OK;
+    
 }
 
 void HAL_TIM_PWM_PeriodElapsedCallback(TIM_HandleTypeDef *timHandle) {
@@ -146,8 +145,7 @@ void HAL_TIM_PWM_PeriodElapsedCallback(TIM_HandleTypeDef *timHandle) {
         PWM_Info pwmReceive; 
         xQueueReceiveFromISR(*tx_Queue, &pwmReceive, &higherPriorityTaskWoken);
         HAL_TIM_PWM_Stop_IT(pwmReceive.timHandle, pwmReceive.channel);
-        // pwmReceive.timHandle->Init.Period = pwmReceive.speed;
-        sConfigOC.Pulse = pwmReceive.dutyCycle*(pwmReceive.timHandle->Init.Period)/100;
+        sConfigOC.Pulse = (pwmReceive.dutyCycle*pwmReceive.timHandle->Init.Period)/100;
         HAL_TIM_PWM_ConfigChannel(pwmReceive.timHandle, &sConfigOC, pwmReceive.channel);
         HAL_TIM_PWM_Start_IT(pwmReceive.timHandle, pwmReceive.channel);
     }
