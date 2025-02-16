@@ -1,5 +1,4 @@
 #include "BPS_Tasks.h"
-#include "stm32xx_hal.h"
 
 // Task Stack Arrays
 StackType_t Task_Temperature_Stack_Array[ TASK_TEMPERATURE_MONITOR_STACK_SIZE ];
@@ -43,7 +42,7 @@ void Task_Init(){
    );
 
    xTaskCreateStatic(
-        Task_PETWDOG,                       /* The function that implements the task. */
+        Task_PetWatchdog,                   /* The function that implements the task. */
         "PetWatchdog",                      /* Text name for the task. */
         TASK_PETWDOG_STACK_SIZE,            /* The size (in words) of the stack that should be created for the task. */
         (void*)NULL,                        /* Paramter passed into the task. */

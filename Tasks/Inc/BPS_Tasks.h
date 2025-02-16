@@ -1,14 +1,8 @@
 #ifndef TASK_H__
 #define TASK_H__
-/* Kernel includes. */
-#include "FreeRTOS.h"       /* Must come first. */
-#include "task.h"           /* RTOS task related API prototypes. */
-#include "queue.h"          /* RTOS queue related API prototypes. */
-#include "timers.h"         /* Software timer related API prototypes. */
-#include "semphr.h"         /* Semaphore related API prototypes. */
-#include <event_groups.h>   /* Event groups */
 
 #include "stm32xx_hal.h"
+#include <event_groups.h>
 
 // Task Priority 
 #define TASK_INIT_PRIO                  tskIDLE_PRIORITY + 1
@@ -38,14 +32,14 @@ extern StaticTask_t Task_Amperes_Buffer;
 extern StaticTask_t Task_Petwdog_Buffer;
 
 // Task Delays
-#define TEMP_MONIT_TASK_DELAY 10
-#define VOLT_MONIT_TASK_DELAY 5
+#define TEMP_MONITOR_TASK_DELAY 10
+#define VOLT_MONITOR_TASK_DELAY 5
 
 // Task Inits
 void Task_Init();
 void Task_Voltage_Monitor();
 void Task_Temperature_Monitor();
-void Task_PETWDOG();
+void Task_PetWatchdog();
 
 /* ---- Watchdog Event Group ---- */
 void Init_WDogEventGroup();

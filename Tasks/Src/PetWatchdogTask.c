@@ -29,7 +29,7 @@ void WDog_WindowCallback(TimerHandle_t xTimer) {
 
 /*--------------------------------------------------------*/
 
-void Task_PETWDOG() {
+void Task_PetWatchdog() {
     // Initialize GPIO output for Pins 5 (LED), 6 (Task 1), 7 (Task 2)
     GPIO_InitTypeDef gpio_config = {
         .Mode = GPIO_MODE_OUTPUT_PP,
@@ -46,10 +46,10 @@ void Task_PETWDOG() {
 
     xWindowTimer = xTimerCreateStatic( 
                     "Timer",                /* Just a text name, not used by the RTOS kernel. */
-                    WDOG_WINDOW_MS,         /* The timer period in ticks????, must be greater than 0. */ 
+                    WDOG_WINDOW_MS,         /* The timer period in ms (must be > 0). */ 
                     pdFALSE,                /* Whether timer will auto-reload after expiring. */
-                    NULL,                   /* ID assigned to timer being created */
-                    WDog_WindowCallback,          /* Callback when timer expires */
+                    NULL,                   /* ID assigned to timer being created. */
+                    WDog_WindowCallback,    /* Callback when timer expires. */
                     &xTimerBuffer);    
     
     // Start timer; do not wait for timer to be sent to timer command queue
@@ -65,15 +65,13 @@ void Task_PETWDOG() {
                     portMAX_DELAY);         /* Maximum delay; block indefinitely */
 
         if((uxBits & ALL_TASKS_BITS) == ALL_TASKS_BITS) {
-            // If we are here, xEventGroupWaitBits returned because bits were set
-
-            // Window timer has run down; can refresh Watchdog
+            /** 
+             * If we are here, xEventGroupWaitBits returned because bits were set
+             * and window timer has run down; can refresh Watchdog.
+             */
             WDog_Refresh();
             HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-
-            // Manually clear bits
             xEventGroupClearBits(xWDogEventGroup_handle, ALL_TASKS_BITS);
-            // uxBits = xEventGroupGetBits(xEventGroupHandle);
 
             // Reset timer and do not wait for it to be sent to timer queue
             xTimerStart(xWindowTimer, 0);

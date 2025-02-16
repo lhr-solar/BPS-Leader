@@ -1,11 +1,10 @@
 #include "BPS_Tasks.h"
-#include "stm32xx_hal.h"
 
 void Task_Temperature_Monitor(){
 
     while(1){
         // Delays 10 ms
-        vTaskDelay(TEMP_MONIT_TASK_DELAY);
+        vTaskDelay(TEMP_MONITOR_TASK_DELAY);
 
         // Set event group bit
         xEventGroupSetBits(xWDogEventGroup_handle,   /* The event group being updated. */

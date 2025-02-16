@@ -1,6 +1,5 @@
-/* Draft Watchdog Task with 2 dummy tasks
+/* Pet Watchdog based on running tasks
  - Attempts to pet watchdog while running two other tasks concurrently
- - Rough draft: everything is defined here
 */
 
 #include "BPS_Tasks.h"
@@ -42,10 +41,6 @@ static void error_handler(void) {
     }
 }
 
-// static void success_handler(void) {
-// }
-
-
 /*-------------------------- TASKS ------------------------------*/
 
 
@@ -77,17 +72,14 @@ int main(void) {
     if (HAL_Init() != HAL_OK) {
         error_handler();
     }
-
+    
+    SystemClock_Config();
     GPIO_Init();
 
-    // xEventGroupHandle = xEventGroupCreateStatic( &xCreatedEventGroup );
-    // configASSERT( xEventGroupHandle );          // check if handle is set 
-    // xEventGroupClearBits(xEventGroupHandle,     /* The event group being updated. */
-    //                         0x0F );             /* The bits being cleared. */
     Init_WDogEventGroup();
 
     xTaskCreateStatic(
-                Task_PETWDOG,
+                Task_PetWatchdog,
                 "PetWatchdog",
                 TASK_PETWDOG_STACK_SIZE,
                 NULL,

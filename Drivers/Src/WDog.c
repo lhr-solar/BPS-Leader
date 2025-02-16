@@ -5,9 +5,7 @@
   within an expected time window. 
 --------------------------------------------------------- */
 
-
 #include "WDog.h"
-#include "stm32xx_hal.h"
 
 /* Watchdog struct */
 IWDG_HandleTypeDef wdog = {0};	// Independent Watchdog
@@ -36,8 +34,6 @@ void WDog_Init(GPIO_InitTypeDef gpio_config, void(*errorHandler)(void)) {
 
 
 HAL_StatusTypeDef WDog_Refresh() {
-	// __HAL_IWDG_RELOAD_COUNTER(&hiwdg);
-	// __HAL_IWDG_ENABLE_WRITE_ACCESS(&hiwdg);
 	return HAL_IWDG_Refresh(&wdog);
 }
 

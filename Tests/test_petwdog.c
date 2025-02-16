@@ -3,24 +3,9 @@
 */
 
 #include "WDog.h"
-#include "stm32xx_hal.h"
-
-
-void initLED_f4() {
-    /* LED setup for stm32f4xx (LED is GPIOA, PIN_5) */
-    GPIO_InitTypeDef led_config_f4 = {
-        .Mode = GPIO_MODE_OUTPUT_PP,
-        .Pull = GPIO_NOPULL,
-        .Pin = GPIO_PIN_5
-    };
-    __HAL_RCC_GPIOA_CLK_ENABLE();
-    HAL_GPIO_Init(GPIOA, &led_config_f4);
-}
-
 
 int main() {
     HAL_Init();
-    // initLED_f4();
 
     GPIO_InitTypeDef gpio_init = {
         .Mode = GPIO_MODE_OUTPUT_PP,
