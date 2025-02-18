@@ -22,7 +22,6 @@
         "eamodio.gitlens"
       ]
     }
-  },
-  "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder} && git config --global --add safe.directory ${containerWorkspaceFolder}/Embedded-Sharepoint"
+  }
 }
 
