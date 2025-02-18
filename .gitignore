@@ -69,3 +69,8 @@ Build/
 
 # Environment Files
 .env
+
+# Vim
+*.swp
+*.swo
+*.swn

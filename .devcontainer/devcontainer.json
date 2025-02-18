@@ -8,8 +8,7 @@
   "service": "dev",
   "workspaceFolder": "/workdir",
   "shutdownAction": "stopCompose",
-  "initializeCommand": "../Embedded-Sharepoint/scripts/dockerInitialize.sh ${localWorkspaceFolder}",  
-  "customizations": {
+  "initializeCommand": "echo \"WORKDIR_MOUNT=${localWorkspaceFolder}\nREMOTE_USER=$USER\nREMOTE_UID=$(id -u)\nREMOTE_GID=$(id -g)\" > Embedded-Sharepoint/.env && docker compose -f Embedded-Sharepoint/docker-compose.yml down",  "customizations": {
     "vscode": {
       "settings": {
         "terminal.integrated.defaultProfile.linux": "bash"
