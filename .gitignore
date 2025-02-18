@@ -2,8 +2,7 @@
 Objects/
 
 # VSCode Files
-.vscode/
-!.vscode/c_cpp_properties.json
+.vscode/*
 
 # Prerequisites
 *.d
@@ -65,8 +64,13 @@ dkms.conf
 # Build files
 Build/
 
-#VSCode Preferences
-.vscode
-
 # Mac Specific Files
 .DS_Store
+
+# Environment Files
+.env
+
+# Vim
+*.swp
+*.swo
+*.swn
