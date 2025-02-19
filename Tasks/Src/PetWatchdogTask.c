@@ -3,8 +3,10 @@
  - Attempts to pet watchdog within appropriate time interval
  -----------------------------------------------------------*/
 #include "BPS_Tasks.h"
-#include "WDog.h"
+#include "IWDG.h"
+#include "LEDs.h"
 #include <timers.h>
+
 
 
 /**
@@ -24,22 +26,13 @@ void Init_WDogEventGroup() {
  *        Sets event group bit to signal Watchdog.
  */
 void WDog_WindowCallback(TimerHandle_t xTimer) {
-    xEventGroupSetBits(xWDogEventGroup_handle, TIMER_DONE);
+    xEventGroupSetBits(xWDogEventGroup_handle, WINDOW_TIMER_DONE);
 }
 
 /*--------------------------------------------------------*/
 
 void Task_PetWatchdog() {
-    #ifdef DEBUG
-    GPIO_InitTypeDef gpio_init = {
-        .Mode = GPIO_MODE_OUTPUT_PP,
-        .Pull = GPIO_NOPULL,
-        .Pin = GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7
-    };
-    __HAL_RCC_GPIOA_CLK_ENABLE();
-    HAL_GPIO_Init(GPIOA, &gpio_init);
-    #endif
-    WDog_Init(WDog_Error_Handler);
+    IWDG_Init();
 
     /* RTOS Timer */
     // vTimerResetState();
@@ -48,7 +41,7 @@ void Task_PetWatchdog() {
 
     xWindowTimer = xTimerCreateStatic( 
                     "Timer",                /* Just a text name, not used by the RTOS kernel. */
-                    WDOG_WINDOW_MS,         /* The timer period in ms (must be > 0). */ 
+                    IWDG_WINDOW_MS,         /* The timer period in ms (must be > 0). */ 
                     pdFALSE,                /* Whether timer will auto-reload after expiring. */
                     NULL,                   /* ID assigned to timer being created. */
                     WDog_WindowCallback,    /* Callback when timer expires. */
@@ -57,23 +50,25 @@ void Task_PetWatchdog() {
     // Start timer; do not wait for timer to be sent to timer command queue
     xTimerStart(xWindowTimer, 0);
     
+    IWDG_Start(IWDG_Error_Handler);
+
     while(1) {
         // Event group: wait until tasks + window timer are ready before refreshing
         uxBits = xEventGroupWaitBits(
                     xWDogEventGroup_handle, /* The event group being tested. */
-                    ALL_TASKS_BITS,         /* The bits within the event group to wait for. */
+                    ALL_TASKS_DONE,         /* The bits within the event group to wait for. */
                     pdFALSE,                /* Do not clear bits before returning. */
                     pdTRUE,                 /* Wait for both all bits to be set. */
                     portMAX_DELAY);         /* Maximum delay; block indefinitely */
 
-        if((uxBits & ALL_TASKS_BITS) == ALL_TASKS_BITS) {
+        if((uxBits & ALL_TASKS_DONE) == ALL_TASKS_DONE) {
             /** 
              * If we are here, xEventGroupWaitBits returned because bits were set
              * and window timer has run down; can refresh Watchdog.
              */
-            WDog_Refresh();
-            HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-            xEventGroupClearBits(xWDogEventGroup_handle, ALL_TASKS_BITS);
+            IWDG_Refresh();
+            Heartbeat_Toggle();
+            xEventGroupClearBits(xWDogEventGroup_handle, ALL_TASKS_DONE);
 
             // Reset timer and do not wait for it to be sent to timer queue
             xTimerStart(xWindowTimer, 0);

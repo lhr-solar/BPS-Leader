@@ -1,18 +1,13 @@
-#ifndef WDOG_H
-#define WDOG_H
+#ifndef IWDG_H
+#define IWDG_H
 
 #include "stm32xx_hal.h"
 
 /** ===========================================================
-  WatchDog Driver
+  Independent Watchdog (IWDG)
 ===============================================================
 - The Watchdog will trigger a reset sequence if it is not refreshed 
   within an expected time window. 
-
-
------------------------------------------------------------
-  INDEPENDENT WATCHDOG
------------------------------------------------------------
 - Countdown value is how many ticks the Watchdog will count 
   from before it resets the system.
 
@@ -46,40 +41,44 @@ Common Timeouts
 
 /* ---------------------------- MACROS ----------------------------*/
 
-#define WDOG_PRESCALAR IWDG_PRESCALER_8 
-#define WDOG_COUNTDOWN 79               // Tick value before we refresh the IDWG (current value converts to ~20ms)
-// #define WDOG_WINDOW   0xFFF             // If using windowed watchdog (WWDG)
+#define IWDG_PRESCALAR IWDG_PRESCALER_8 
+#define IWDG_COUNTDOWN 79               // Tick value before we refresh the IDWG (current value converts to ~20ms)
 
-#define WDOG_TIMEOUT_MS 20
-#define WDOG_WINDOW_MS  8
+#define IWDG_TIMEOUT_MS 20
+#define IWDG_WINDOW_MS  8
 /* ----------------------------------------------------------------*/
 
 
 /**
- * @brief Initialize the watchdog.
- * (1): Load IWDG with parameters (IWDG_COUNTDOWN, PRESCALAR)
- * (2): Initialize IWDG
- * (3): Wait until status flag is reset; check if Init failed
+ * @brief Initialize the Watchdog parameters.
+ * (1): Loads IWDG_COUNTDOWN and PRESCALAR
+ */
+void IWDG_Init();
+
+/**
+ * @brief Starts the Watchdog
+ * (1): Initializes IWDG
+ * (2): Waits until status flag is reset; check if Init failed
  * @param errorHandler Pointer to user defined function for error handling
  */
-void WDog_Init(void(*errorHandler)(void));
+void IWDG_Start(void(*errorHandler)(void));
 
 /**
  * @brief Refresh ("pet") the watchdog so it does not reset the system
  * - Reloads IDWG with countown value.
  * @retval Returns HAL status
  */
-HAL_StatusTypeDef WDog_Refresh();
+HAL_StatusTypeDef IWDG_Refresh();
 
 /**
  * @brief Check whether the watchdog has reset the system
  * @retval 1 if true (has reset); 0 is false (has not reset)
  */
-uint8_t WDog_CheckIfReset();
+uint8_t IWDG_CheckIfReset();
 
 /**
  * @brief Error Handler: Contains procedures for Watchdog failure
  */
-void WDog_Error_Handler(void);
+void IWDG_Error_Handler(void);
 
 #endif

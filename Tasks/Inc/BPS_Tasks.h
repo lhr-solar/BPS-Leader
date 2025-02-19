@@ -46,9 +46,9 @@ void Init_WDogEventGroup();
 extern EventGroupHandle_t xWDogEventGroup_handle;
 extern StaticEventGroup_t xWDogEventGroup;
 extern EventBits_t uxBits;
-#define TASK1_BIT   (1 << 0)
-#define TASK2_BIT   (1 << 1)
-#define TIMER_DONE  (1 << 2)
-#define ALL_TASKS_BITS (TASK1_BIT | TASK2_BIT | TIMER_DONE)
+#define TEMP_MONITOR_DONE   (1 << 0)
+#define VOLT_MONITOR_DONE   (1 << 1)
+#define WINDOW_TIMER_DONE   (1 << 2)
+#define ALL_TASKS_DONE (TEMP_MONITOR_DONE | VOLT_MONITOR_DONE | WINDOW_TIMER_DONE)
 
 #endif

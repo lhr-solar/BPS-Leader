@@ -2,7 +2,7 @@
  - Attempts to pet watchdog within appropriate time interval
 */
 
-#include "WDog.h"
+#include "IWDG.h"
 
 int main() {
     HAL_Init();
@@ -19,12 +19,13 @@ int main() {
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
     HAL_Delay(250);
 
-    WDog_Init(WDog_Error_Handler);
-
+    IWDG_Init();
+    IWDG_Start(IWDG_Error_Handler);
+    
     while(1) {
         /* Refresh IWDG after a set timeout: Toggle LED every refresh */
         HAL_Delay(15);
-        WDog_Refresh();
+        IWDG_Refresh();
         HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5); 
     }
 

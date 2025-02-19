@@ -3,17 +3,17 @@
 */
 
 #include "BPS_Tasks.h"
-#include "WDog.h"
+#include "IWDG.h"
 
 
 // Dummy Task 1
-#define TASK_DUMMY_PRIORITY      tskIDLE_PRIORITY + 2
+#define TASK_DUMMY_PRIORITY      tskIDLE_PRIORITY + 3
 #define TASK_DUMMY_STACK_SIZE     configMINIMAL_STACK_SIZE
 StaticTask_t dummy_task_buffer;
 StackType_t dummy_taskStack[configMINIMAL_STACK_SIZE];
 
 // Dummy Task 2
-#define TASK_DUMMY2_PRIORITY     tskIDLE_PRIORITY + 2
+#define TASK_DUMMY2_PRIORITY     tskIDLE_PRIORITY + 4
 #define TASK_DUMMY2_STACK_SIZE    configMINIMAL_STACK_SIZE
 StaticTask_t dummy2_task_buffer;
 StackType_t dummy2_taskStack[configMINIMAL_STACK_SIZE];
@@ -47,22 +47,20 @@ static void error_handler(void) {
 /* TASK: Toggles Pin A6 */
 static void dummy_task(void *pvParameters) {
     while(1) {
-        // event group 
         xEventGroupSetBits(xWDogEventGroup_handle, /* The event group being updated. */
-                                    TASK1_BIT);    /* The bits being set. */
+                                    VOLT_MONITOR_DONE);    /* The bits being set. */
         HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_6);
-        HAL_Delay(10);
+        vTaskDelay(10);
     }
 }
 
 /* TASK: Toggles Pin A7 */
 static void dummy_task_two(void *pvParameters) {
     while(1) {
-        // event group 
         xEventGroupSetBits(xWDogEventGroup_handle, /* The event group being updated. */
-                                    TASK2_BIT);    /* The bits being set. */
+                                    TEMP_MONITOR_DONE);    /* The bits being set. */
         HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_7);
-        HAL_Delay(5);
+        vTaskDelay(5);
     }
 }
 
