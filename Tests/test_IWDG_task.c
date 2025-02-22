@@ -74,7 +74,7 @@ int main(void) {
     SystemClock_Config();
     GPIO_Init();
 
-    Init_WDogEventGroup();
+    Init_WDogTask();
 
     xTaskCreateStatic(
                 Task_PetWatchdog,
