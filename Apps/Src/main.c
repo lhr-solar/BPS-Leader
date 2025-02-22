@@ -9,7 +9,8 @@ StackType_t Task_Init_Stack_Array[ TASK_INIT_STACK_SIZE ];
 
 int main() {
     HAL_Init();
-
+    SystemClock_Config();
+    
     xTaskCreateStatic(
                     Task_Init, /* The function that implements the task. */
                     "Init Task", /* Text name for the task. */
