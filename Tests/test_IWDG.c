@@ -1,4 +1,4 @@
-/* Watchdog Test
+/* IWDG Test
  - Attempts to pet watchdog within appropriate time interval
 */
 

@@ -9,9 +9,6 @@ void Task_Voltage_Monitor(){
         // Set event group bit
         xEventGroupSetBits(xWDogEventGroup_handle,      /* The event group being updated. */
                            VOLT_MONITOR_DONE);          /* The bits being set. */
-
-        // Toggle Pin for debug
-        // HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_7);
     }
     
 }

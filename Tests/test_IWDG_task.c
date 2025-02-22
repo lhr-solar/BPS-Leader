@@ -1,4 +1,4 @@
-/* Pet Watchdog based on running tasks
+/* Pet IWDG based on running tasks
  - Attempts to pet watchdog while running two other tasks concurrently
 */
 

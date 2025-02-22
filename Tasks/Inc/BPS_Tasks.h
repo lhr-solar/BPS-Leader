@@ -42,10 +42,8 @@ void Task_Temperature_Monitor();
 void Task_PetWatchdog();
 
 /* ---- Watchdog Event Group ---- */
-void Init_WDogEventGroup();
+void Init_WDogTask();
 extern EventGroupHandle_t xWDogEventGroup_handle;
-extern StaticEventGroup_t xWDogEventGroup;
-extern EventBits_t uxBits;
 #define TEMP_MONITOR_DONE   (1 << 0)
 #define VOLT_MONITOR_DONE   (1 << 1)
 #define WINDOW_TIMER_DONE   (1 << 2)

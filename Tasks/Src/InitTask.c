@@ -15,12 +15,10 @@ StaticTask_t Task_Petwdog_Buffer;
 
 // Event Group
 EventGroupHandle_t xWDogEventGroup_handle;
-StaticEventGroup_t xWDogEventGroup;
-EventBits_t uxBits;
 
 
 void Task_Init(){
-    Init_WDogEventGroup();
+    Init_WDogTask();
     Heartbeat_Init();
 
     xTaskCreateStatic(

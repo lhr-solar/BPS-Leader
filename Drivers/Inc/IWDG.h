@@ -50,7 +50,7 @@ Common Timeouts
 
 
 /**
- * @brief Initialize the Watchdog parameters.
+ * @brief Initializes IWDG parameters; does not start IWDG.
  * (1): Loads IWDG_COUNTDOWN and PRESCALAR
  */
 void IWDG_Init();
