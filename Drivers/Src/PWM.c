@@ -28,6 +28,30 @@ QueueHandle_t* PWM_Get_Queue(TIM_HandleTypeDef* timHandle) {
     return 0;
 }
 
+void PWM_IRQ_Enable(TIM_HandleTypeDef* timHandle) {
+    switch((uint32_t)timHandle->Instance) {
+        case (uint32_t)TIM1:
+            break;
+        case (uint32_t)TIM2:
+            if(!HAL_NVIC_GetActive(TIM2_IRQn))
+                HAL_NVIC_EnableIRQ(TIM2_IRQn); 
+            break;
+        //add more timers later maybes
+    }
+    
+}
+
+void PWM_IRQ_Disable(TIM_HandleTypeDef* timHandle) {
+    switch((uint32_t)timHandle->Instance) {
+        case (uint32_t)TIM1:
+            break;
+        case (uint32_t)TIM2:
+            HAL_NVIC_DisableIRQ(TIM2_IRQn); break;
+        //add more timers later maybes
+    }
+    
+}
+
 HAL_StatusTypeDef PWM_TIM_Init(TIM_HandleTypeDef* timHandle) {
     HAL_StatusTypeDef stat = HAL_OK;
     
@@ -67,14 +91,15 @@ HAL_StatusTypeDef PWM_Channel_Init(TIM_HandleTypeDef* timHandle, uint8_t channel
     stat = HAL_TIM_PWM_ConfigChannel(timHandle, &sConfigOC, channel);
     if(stat == HAL_ERROR) return stat;
 
-    stat = HAL_TIM_PWM_Start_IT(timHandle, channel); 
+    stat = HAL_TIM_PWM_Start(timHandle, channel); 
     return stat;
 }
 
 HAL_StatusTypeDef PWM_Set(TIM_HandleTypeDef* timHandle, uint8_t channel, uint8_t dutyCycle, uint64_t speed) {
     
-    // HAL_TIM_PWM_Stop_IT(timHandle, channel); 
+    // HAL_TIM_PWM_Stop(timHandle, channel); 
     // HAL_TIM_PWM_Start_IT(timHandle, channel);
+    // PWM_IRQ_Enable(timHandle);
     if(dutyCycle > 100) return HAL_ERROR;
 
     QueueHandle_t tx_Queue = *PWM_Get_Queue(timHandle);
@@ -96,27 +121,27 @@ HAL_StatusTypeDef PWM_Set(TIM_HandleTypeDef* timHandle, uint8_t channel, uint8_t
     
 }
 
-void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *timHandle) {
+void PWM_PeriodElapsed(TIM_HandleTypeDef *timHandle) {
     
     BaseType_t higherPriorityTaskWoken = pdFALSE;
     QueueHandle_t tx_Queue = *PWM_Get_Queue(timHandle);
     
 
-    if(!xQueueIsQueueEmptyFromISR(tx_Queue)) {
-        PWM_Info pwmReceive; 
-        xQueueReceiveFromISR(tx_Queue, &pwmReceive, &higherPriorityTaskWoken);
-        // HAL_TIM_PWM_Stop(pwmReceive.timHandle, pwmReceive.channel);
-        HAL_TIM_PWM_Stop_IT(pwmReceive.timHandle, pwmReceive.channel);
-        sConfigOC.Pulse = (pwmReceive.dutyCycle*pwmReceive.timHandle->Init.Period)/100;
-        // portENTER_CRITICAL();
-        HAL_TIM_PWM_ConfigChannel(pwmReceive.timHandle, &sConfigOC, pwmReceive.channel);
-        HAL_TIM_PWM_Start_IT(pwmReceive.timHandle, pwmReceive.channel);
-        // portEXIT_CRITICAL();
-    } else {
-        // HAL_TIM_PWM_Stop_IT(timHandle, TIM_CHANNEL_1);
-        // HAL_TIM_PWM_Stop_IT(timHandle, TIM_CHANNEL_2);
-        // HAL_TIM_PWM_Stop_IT(timHandle, TIM_CHANNEL_3);
-        // HAL_TIM_PWM_Stop_IT(timHandle, TIM_CHANNEL_4);
+    if(tx_Queue) {
+        if(!xQueueIsQueueEmptyFromISR(tx_Queue)) {
+            PWM_Info pwmReceive; 
+            xQueueReceiveFromISR(tx_Queue, &pwmReceive, &higherPriorityTaskWoken);
+            // HAL_TIM_PWM_Stop(pwmReceive.timHandle, pwmReceive.channel);
+            HAL_TIM_PWM_Stop(pwmReceive.timHandle, pwmReceive.channel);
+            sConfigOC.Pulse = (pwmReceive.dutyCycle*pwmReceive.timHandle->Init.Period)/100;
+            // portENTER_CRITICAL();
+            HAL_TIM_PWM_ConfigChannel(pwmReceive.timHandle, &sConfigOC, pwmReceive.channel);
+            HAL_TIM_PWM_Start(pwmReceive.timHandle, pwmReceive.channel);
+            // portEXIT_CRITICAL();
+        } else {
+            // PWM_IRQ_Disable(timHandle);
+        }
     }
+
     portYIELD_FROM_ISR(higherPriorityTaskWoken);
 }
