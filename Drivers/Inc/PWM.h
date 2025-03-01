@@ -3,7 +3,7 @@
 
 //figure out #includes
 #include <stdint.h>
-#include "stm32xx_hal.h"s
+#include "stm32xx_hal.h"
 
 typedef struct{
     TIM_HandleTypeDef* timHandle; 
@@ -38,5 +38,6 @@ HAL_StatusTypeDef PWM_Set(TIM_HandleTypeDef* timHandle, uint8_t channel, uint8_t
  * @return HAL_StatusTypeDef
  */
 // uint32_t BSP_PWM_GetSpeed(TIM_HandleTypeDef* timHandle, uint32_t channel);
+// void PWM_PeriodElapsed(TIM_HandleTypeDef *timHandle);
 
 #endif

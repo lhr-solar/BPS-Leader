@@ -1,71 +1,27 @@
 #include "PWM.h"
+#include "LEDs.h"
 
 #ifndef PWM_SEND_QUEUE_SIZE
 #define PWM_SEND_QUEUE_SIZE (10)
 #endif
 
 enum {PWM_INFO_SIZE = sizeof(PWM_Info) };
-BaseType_t higherPriorityTaskWoken = pdFALSE;
 
-static QueueHandle_t pwm1_send_queue = NULL;  // need to add queue for each PWM timer
+static QueueHandle_t pwm1_send_queue = NULL; 
 static StaticQueue_t pwm1_send_queue_buffer;
 static uint8_t pwm1_send_queue_storage[PWM_SEND_QUEUE_SIZE*PWM_INFO_SIZE];
         
-static QueueHandle_t pwm2_send_queue = NULL;  // need to add queue for each PWM timer
+static QueueHandle_t pwm2_send_queue = NULL; 
 static StaticQueue_t pwm2_send_queue_buffer;
 static uint8_t pwm2_send_queue_storage[PWM_SEND_QUEUE_SIZE*PWM_INFO_SIZE];
 
 static TIM_OC_InitTypeDef sConfigOC = {0};
 
-void MX_GPIO_Init(){
-    GPIO_InitTypeDef pwm_tim1_ch1 = {
-        .Mode = GPIO_MODE_AF_PP,
-        .Pull = GPIO_NOPULL,
-        .Pin = GPIO_PIN_8,
-        .Speed = GPIO_SPEED_FREQ_LOW,
-        .Alternate = GPIO_AF1_TIM1
-    };
-
-    GPIO_InitTypeDef led_config = {
-        .Mode = GPIO_MODE_OUTPUT_PP,
-        .Pull = GPIO_NOPULL,
-        .Pin = GPIO_PIN_5
-    };
-    
-    // GPIO_InitTypeDef pwm_tim1_ch2 = {
-    //     .Mode = GPIO_MODE_AF_PP,
-    //     .Pull = GPIO_NOPULL,
-    //     .Pin = GPIO_PIN_1,
-    //     .Speed = GPIO_SPEED_FREQ_LOW,
-    //     .Alternate = GPIO_AF1_TIM1
-    // };
-
-    // GPIO_InitTypeDef pwm_tim2_ch1 = {
-    //     .Mode = GPIO_MODE_AF_PP,
-    //     .Pull = GPIO_NOPULL,
-    //     .Pin = GPIO_PIN_0,
-    //     .Speed = GPIO_SPEED_FREQ_LOW,
-    //     .Alternate = GPIO_AF1_TIM2
-    // };
-    
-    GPIO_InitTypeDef pwm_tim9_ch1 = {
-        .Mode = GPIO_MODE_AF_PP,
-        .Pull = GPIO_NOPULL,
-        .Pin = GPIO_PIN_2,
-        .Speed = GPIO_SPEED_FREQ_LOW,
-        .Alternate = GPIO_AF3_TIM9
-    };
-
-    HAL_GPIO_Init(GPIOA, &pwm_tim1_ch1);
-    HAL_GPIO_Init(GPIOA, &led_config);
-    HAL_GPIO_Init(GPIOA, &pwm_tim9_ch1);
-}
-
 QueueHandle_t* PWM_Get_Queue(TIM_HandleTypeDef* timHandle) {
     switch((uint32_t)timHandle->Instance) {
         case (uint32_t)TIM1:
             return &pwm1_send_queue;
-        case (uint32_t)TIM9:
+        case (uint32_t)TIM2:
             return &pwm2_send_queue;
         //add more timers later maybe
     }
@@ -85,7 +41,7 @@ HAL_StatusTypeDef PWM_TIM_Init(TIM_HandleTypeDef* timHandle) {
         if (pwm1_send_queue == NULL) 
             return HAL_ERROR; 
     }
-    else if (timHandle->Instance == TIM9 && pwm2_send_queue == NULL) {
+    else if (timHandle->Instance == TIM2 && pwm2_send_queue == NULL) {
         
         pwm2_send_queue = xQueueCreateStatic(PWM_SEND_QUEUE_SIZE, PWM_INFO_SIZE,
         pwm2_send_queue_storage, &pwm2_send_queue_buffer); 
@@ -116,38 +72,51 @@ HAL_StatusTypeDef PWM_Channel_Init(TIM_HandleTypeDef* timHandle, uint8_t channel
 }
 
 HAL_StatusTypeDef PWM_Set(TIM_HandleTypeDef* timHandle, uint8_t channel, uint8_t dutyCycle, uint64_t speed) {
+    
+    // HAL_TIM_PWM_Stop_IT(timHandle, channel); 
+    // HAL_TIM_PWM_Start_IT(timHandle, channel);
     if(dutyCycle > 100) return HAL_ERROR;
 
-    QueueHandle_t* tx_Queue = BSP_PWM_Get_Queue(timHandle);
+    QueueHandle_t tx_Queue = *PWM_Get_Queue(timHandle);
     
+    portENTER_CRITICAL();
     PWM_Info pwmSend = { // for storing PWM info into queue
         .timHandle = timHandle,
         .channel = channel,
         .dutyCycle = dutyCycle,
         .speed = speed
     };
+    portEXIT_CRITICAL();
 
-    if(!xQueueSend(*tx_Queue, &pwmSend, 0)) {
+    if(!xQueueSend(tx_Queue, &pwmSend, 0)) {
         return HAL_ERROR;
     }
-            
+
     return HAL_OK;
     
 }
 
-void HAL_TIM_PWM_PeriodElapsedCallback(TIM_HandleTypeDef *timHandle) {
+void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *timHandle) {
+    
+    BaseType_t higherPriorityTaskWoken = pdFALSE;
+    QueueHandle_t tx_Queue = *PWM_Get_Queue(timHandle);
+    
 
-    // HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5); // testing interrupt callback
-    QueueHandle_t* tx_Queue = BSP_PWM_Get_Queue(timHandle);
- 
-
-    if(!xQueueIsQueueEmptyFromISR(*tx_Queue)) {
+    if(!xQueueIsQueueEmptyFromISR(tx_Queue)) {
         PWM_Info pwmReceive; 
-        xQueueReceiveFromISR(*tx_Queue, &pwmReceive, &higherPriorityTaskWoken);
+        xQueueReceiveFromISR(tx_Queue, &pwmReceive, &higherPriorityTaskWoken);
+        // HAL_TIM_PWM_Stop(pwmReceive.timHandle, pwmReceive.channel);
         HAL_TIM_PWM_Stop_IT(pwmReceive.timHandle, pwmReceive.channel);
         sConfigOC.Pulse = (pwmReceive.dutyCycle*pwmReceive.timHandle->Init.Period)/100;
+        // portENTER_CRITICAL();
         HAL_TIM_PWM_ConfigChannel(pwmReceive.timHandle, &sConfigOC, pwmReceive.channel);
         HAL_TIM_PWM_Start_IT(pwmReceive.timHandle, pwmReceive.channel);
+        // portEXIT_CRITICAL();
+    } else {
+        // HAL_TIM_PWM_Stop_IT(timHandle, TIM_CHANNEL_1);
+        // HAL_TIM_PWM_Stop_IT(timHandle, TIM_CHANNEL_2);
+        // HAL_TIM_PWM_Stop_IT(timHandle, TIM_CHANNEL_3);
+        // HAL_TIM_PWM_Stop_IT(timHandle, TIM_CHANNEL_4);
     }
     portYIELD_FROM_ISR(higherPriorityTaskWoken);
 }
