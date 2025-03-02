@@ -49,18 +49,5 @@ void IWDG_Error_Handler(void) {
         vTaskEndScheduler();	// jumps back to when vTaskStartScheduler() was called, so nothing past this actually runs :(
         // vTaskSuspendAll();	// just suspends, can still run stuff after this?
     }
-
-    GPIO_InitTypeDef led_config_f4 = {
-    .Mode = GPIO_MODE_OUTPUT_PP,
-    .Pull = GPIO_NOPULL,
-    .Pin = GPIO_PIN_5
-    };
-    __HAL_RCC_GPIOA_CLK_ENABLE();
-    HAL_GPIO_Init(GPIOA, &led_config_f4);
-
-    while (1) {
-        /* If Watchdog init fails, (for now) show blinky */
-        HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-        HAL_Delay(150);
-    }
+    while (1) {}
 }
