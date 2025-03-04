@@ -9,7 +9,7 @@ typedef struct{
     TIM_HandleTypeDef* timHandle; 
     uint8_t channel;
     uint64_t speed;
-    uint8_t dutyCycle; 
+    uint32_t dutyCycle; 
 } PWM_Info;
 
 void MX_GPIO_Init();
@@ -29,7 +29,7 @@ HAL_StatusTypeDef PWM_Channel_Init(TIM_HandleTypeDef* timHandle, uint8_t channel
  * @param timer handle that being configured
  * @return HAL_StatusTypeDef
  */
-HAL_StatusTypeDef PWM_Set(TIM_HandleTypeDef* timHandle, uint8_t channel, uint8_t dutyCycle, uint64_t speed);
+HAL_StatusTypeDef PWM_Set(TIM_HandleTypeDef* timHandle, uint8_t channel, uint32_t dutyCycle, uint64_t speed);
 
 /**
  * @brief Get PWM speed
