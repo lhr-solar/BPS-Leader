@@ -65,7 +65,7 @@ void PWM_IRQ_Disable(TIM_HandleTypeDef* timHandle) {
 HAL_StatusTypeDef PWM_TIM_Init(TIM_HandleTypeDef* timHandle) {
     HAL_StatusTypeDef stat = HAL_OK;
     
-    else if (timHandle->Instance == TIM2 && pwm2_send_queue == NULL) {
+    if (timHandle->Instance == TIM2 && pwm2_send_queue == NULL) {
         tim2 = *timHandle;
         pwm2_send_queue = xQueueCreateStatic(PWM_SEND_QUEUE_SIZE, PWM_INFO_SIZE,
         pwm2_send_queue_storage, &pwm2_send_queue_buffer); 
@@ -121,7 +121,6 @@ HAL_StatusTypeDef PWM_Set(TIM_HandleTypeDef* timHandle, uint8_t channel, uint32_
         .timHandle = timHandle,
         .channel = channel,
         .dutyCycle = (dutyCycle*timHandle->Init.Period)/100,
-        .speed = speed
     };
     portEXIT_CRITICAL();
 

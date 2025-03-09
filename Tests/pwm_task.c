@@ -47,7 +47,7 @@ void Task_Toggle(void * pvParameters) {
 
 void Task_TIM2_1(void * pvParameters) {
     while(1) {
-        if(PWM_Set(&tim2, TIM_CHANNEL_1, duty%100, 100000 - 1) != HAL_OK)
+        if(PWM_Set(&tim2, TIM_CHANNEL_1, duty%100) != HAL_OK)
             error_handler();
         duty+=25;
         vTaskDelay(500);
@@ -56,7 +56,7 @@ void Task_TIM2_1(void * pvParameters) {
 
 void Task_TIM2_2(void * pvParameters) {
     while(1) {
-        if(PWM_Set(&tim2, TIM_CHANNEL_2, duty2%100, 100000 - 1) != HAL_OK)
+        if(PWM_Set(&tim2, TIM_CHANNEL_2, duty2%100) != HAL_OK)
             error_handler();
         duty2+=50;
         vTaskDelay(500);
@@ -65,7 +65,7 @@ void Task_TIM2_2(void * pvParameters) {
 
 void Task_TIM3_1(void * pvParameters) {
     while(1) {
-        if(PWM_Set(&tim3, TIM_CHANNEL_1, duty3%100, 100000 - 1) != HAL_OK)
+        if(PWM_Set(&tim3, TIM_CHANNEL_1, duty3%100) != HAL_OK)
             error_handler();
         duty3+=75;
         vTaskDelay(500);
