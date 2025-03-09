@@ -1,4 +1,4 @@
-/*  Changes PWM on TIM2 and TIM3, multiple channels on TIM2
+/*  Changes PWM on TIM2 and TIM3 channels, two channels on TIM2
     Duty cycle changes every 500 ms for each channel
 */
 
@@ -120,13 +120,11 @@ void TIM_Init() {
     __HAL_RCC_TIM2_CLK_ENABLE();
     if (HAL_TIM_Base_Init(&tim2) != HAL_OK) error_handler();
     if (HAL_TIM_Base_Start_IT(&tim2) != HAL_OK) error_handler();
-    // HAL_NVIC_EnableIRQ(TIM2_IRQn);
     HAL_NVIC_SetPriority(TIM2_IRQn, 15U, 0U);
 
     __HAL_RCC_TIM3_CLK_ENABLE();
     if (HAL_TIM_Base_Init(&tim3) != HAL_OK) error_handler();
     if (HAL_TIM_Base_Start_IT(&tim3) != HAL_OK) error_handler();
-    // HAL_NVIC_EnableIRQ(TIM3_IRQn);
     HAL_NVIC_SetPriority(TIM3_IRQn, 15U, 0U);
 }
 
@@ -189,7 +187,8 @@ void Task_Init_PWM() {
 int main(void) {
 
     HAL_Init();
-    __HAL_RCC_GPIOA_CLK_ENABLE();
+    if(__HAL_RCC_GPIOA_IS_CLK_DISABLED())
+        __HAL_RCC_GPIOA_CLK_ENABLE();\
     
     xTaskCreateStatic(
         Task_Init_PWM,
