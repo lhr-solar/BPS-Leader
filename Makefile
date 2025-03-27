@@ -113,9 +113,3 @@ help:
 	@echo "PRINT_DEBUG:"
 	@echo "- For debugs, specify ${BLUE}PRINT_DEBUG=${PURPLE}true${NC}."
 	@echo "- For now, this will print the directories that will be compiled (can be useful for troubleshooting)."
-
-#-------------- 
-# Documentation
-# .PHONY: docs
-# docs:
-# 	cd $(BUILD_MAKEFILE_DIR) && mkdocs serve
