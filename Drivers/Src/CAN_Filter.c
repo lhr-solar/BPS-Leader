@@ -1,18 +1,20 @@
 #include "CAN_Filter.h"
 
+// To shift standard ID into correct position; see STM32F4 reference manual
+#define SHIFT_AMOUNT 5
 
 void CAN_Filter_Mask_Init(CAN_FilterTypeDef *filter, uint8_t id, uint32_t mask) {
   // ID, Mask mode: only accept IDs specified by intersection of ID and masks
   filter->FilterMode = CAN_FILTERMODE_IDMASK;
 
-  // For 16-bit config, high is MS bytes and low is LS bytes
-  filter->FilterIdHigh = 0x0000;
-  filter->FilterIdLow = id;
-  filter->FilterMaskIdHigh = 0x0000;
-  filter->FilterMaskIdLow = mask;
+  // For 16-bit config, can use either high or low
+  filter->FilterIdHigh =  id << SHIFT_AMOUNT;
+  filter->FilterIdLow =   id << SHIFT_AMOUNT;
+  filter->FilterMaskIdHigh =  mask << SHIFT_AMOUNT;
+  filter->FilterMaskIdLow =   mask << SHIFT_AMOUNT;
   
   filter->FilterFIFOAssignment = CAN_RX_FIFO0;
-  filter->FilterScale = CAN_FILTERSCALE_32BIT;
+  filter->FilterScale = CAN_FILTERSCALE_16BIT;
   filter->FilterActivation = ENABLE;
 }
 
@@ -32,19 +34,19 @@ uint8_t CAN_Filter_List_Init(CAN_FilterTypeDef *filter, const uint16_t *ID_array
         filter->FilterBank = j;
         j += 1;
         // First ID
-        filter->FilterIdHigh = ID_array[i] << 5;
+        filter->FilterIdHigh = ID_array[i] << SHIFT_AMOUNT;
         break;
       case 1:
         // Second ID
-        filter->FilterIdLow = ID_array[i] << 5;
+        filter->FilterIdLow = ID_array[i] << SHIFT_AMOUNT;
         break;
       case 2:
         // Third ID
-        filter->FilterMaskIdHigh = ID_array[i] << 5;
+        filter->FilterMaskIdHigh = ID_array[i] << SHIFT_AMOUNT;
         break;
       case 3:
         // Fourth ID
-        filter->FilterMaskIdLow = ID_array[i] << 5;
+        filter->FilterMaskIdLow = ID_array[i] << SHIFT_AMOUNT;
         break;
 
       default:

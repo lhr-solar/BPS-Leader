@@ -5,8 +5,8 @@
 #define CAN_FILTER_MAX_IDS 56
 
 /**
- * @brief Initializes a CAN filter in Mask Mode for 16-bit IDs. 
- *        Mask specifies which bits of ID we do / do not care about.
+ * @brief Initializes a CAN filter in ID Mask Mode (for 16-bit IDs). 
+ *        The set bits in the Mask specify which bits we care about (not set = ignore for filtering).
  *        To accept all IDs, set both ID and Mask to 0.
  * @param filter Pointer to CAN filter
  * @param id 16-bit ID
@@ -15,7 +15,7 @@
 void CAN_Filter_Mask_Init(CAN_FilterTypeDef *filter, uint8_t id, uint32_t mask);
 
 /**
- * @brief Initializes a CAN filter in Identifier List Mode for 16-bit IDs. 
+ * @brief Initializes a CAN filter in ID List Mode (for 16-bit IDs). 
  *        Pass in an array of 16-bit IDs with at most 56 IDs 
  *        (4 IDs per filter, 14 filters in filterBank = max 56 IDs).
  * @param filter Pointer to CAN filter
