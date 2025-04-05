@@ -46,9 +46,9 @@ static void task(void *pvParameters) {
   // if (can_send(hcan1, &tx_header, tx_data, portMAX_DELAY) != CAN_SENT) error_handler();
 
   // send two payloads to 0x3
-  // tx_data[0] = 0x03;
-  // tx_header.StdId = 0x003;
-  // if (can_send(hcan1, &tx_header, tx_data, portMAX_DELAY) != CAN_SENT) error_handler();
+  tx_data[0] = 0x03;
+  tx_header.StdId = 0x003;
+  if (can_send(hcan1, &tx_header, tx_data, portMAX_DELAY) != CAN_SENT) error_handler();
   // tx_data[0] = 0x04;
   // if (can_send(hcan1, &tx_header, tx_data, portMAX_DELAY) != CAN_SENT) error_handler();
 
@@ -59,14 +59,14 @@ static void task(void *pvParameters) {
 
   status = can_recv(hcan1, 0x1, &rx_header, rx_data, portMAX_DELAY);
   if (status != CAN_RECV && rx_data[0] != 0x1) error_handler();
-  // status = can_recv(hcan1, 0x1, &rx_header, rx_data, portMAX_DELAY);
-  // if (status != CAN_RECV && rx_data[0] != 0x2) error_handler();
+  status = can_recv(hcan1, 0x3, &rx_header, rx_data, portMAX_DELAY);
+  if (status != CAN_RECV && rx_data[0] != 0x2) error_handler();
 
   // make sure we don't receive from wrong ID and nonblocking works
   status = can_recv(hcan1, 0x1, &rx_header, rx_data, 0);
   if (status != CAN_EMPTY) error_handler();
-  // status = can_recv(hcan1, 0x1, &rx_header, rx_data, 0);
-  // if (status != CAN_EMPTY) error_handler();
+  status = can_recv(hcan1, 0x3, &rx_header, rx_data, 0);
+  if (status != CAN_EMPTY) error_handler();
 
   success_handler();
 }
@@ -77,9 +77,15 @@ int main(void) {
   if (HAL_Init() != HAL_OK) error_handler();
   // SystemClock_Config();
 
-  // Filter only for ID 0x01
+  /* ---- FILTER TESTS ---- */ 
   CAN_FilterTypeDef  sFilterConfig;
-  CAN_Filter_Mask_Init(&sFilterConfig, 0x01, 0, 0xFFFF);
+
+  // Filter only for ID 0x01 using Mask mode
+  // CAN_Filter_Mask_Init(&sFilterConfig, 0x1, 0x0);
+
+  // Filter 5 IDs using List mode
+  uint16_t ids[5] = {0x001, 0x003};
+  CAN_Filter_List_Init(&sFilterConfig, ids, 2);
 
   // setup can1 init
   hcan1->Init.Prescaler = 5;
