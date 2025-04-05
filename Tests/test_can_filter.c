@@ -60,7 +60,7 @@ static void task(void *pvParameters) {
   status = can_recv(hcan1, 0x1, &rx_header, rx_data, portMAX_DELAY);
   if (status != CAN_RECV && rx_data[0] != 0x1) error_handler();
   status = can_recv(hcan1, 0x3, &rx_header, rx_data, portMAX_DELAY);
-  if (status != CAN_RECV && rx_data[0] != 0x2) error_handler();
+  if (status != CAN_RECV && rx_data[0] != 0x3) error_handler();
 
   // make sure we don't receive from wrong ID and nonblocking works
   status = can_recv(hcan1, 0x1, &rx_header, rx_data, 0);
@@ -78,8 +78,7 @@ int main(void) {
   // SystemClock_Config();
 
   /* ---- FILTER TESTS ---- */ 
-  CAN_FilterTypeDef  sFilterConfig;
-
+  CAN_FilterTypeDef  sFilterConfig = {0};
   // Filter only for ID 0x01 using Mask mode
   // CAN_Filter_Mask_Init(&sFilterConfig, 0x1, 0x0);
 
