@@ -18,6 +18,7 @@ void CAN_Filter_Mask_Init(CAN_FilterTypeDef *filter, uint8_t id, uint32_t mask);
  * @brief Initializes a CAN filter in ID List Mode (for 16-bit IDs). 
  *        Pass in an array of 16-bit IDs with at most 56 IDs 
  *        (4 IDs per filter, 14 filters in filterBank = max 56 IDs).
+ *        To accept all IDs, pass in NULL array or set numIDs to 0.
  * @param filter Pointer to CAN filter
  * @param ID_array Array of 16-bit IDs to accept (must have at most 56 IDs)
  * @param numIDs Number of IDs to set

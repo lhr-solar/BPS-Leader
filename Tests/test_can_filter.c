@@ -102,9 +102,12 @@ int main(void) {
 
 
   /* ---- LIST MODE Tests ---- */
+  // LIST MODE: Filter for all IDs by passing in NULL  - blink LED for success
+  CAN_Filter_List_Init(&sFilterConfig, NULL, 0);
+
   // LIST MODE: Filter for correct IDs using List mode  - blink LED for success
-  uint16_t ids[2] = {TEST_ID_1, TEST_ID_2};
-  CAN_Filter_List_Init(&sFilterConfig, ids, 2);
+  // uint16_t ids[2] = {TEST_ID_1, TEST_ID_2};
+  // CAN_Filter_List_Init(&sFilterConfig, ids, 2);
 
   // LIST MODE: Filter for different IDs using List     - no LED (fail)
   // uint16_t ids[2] = {TEST_ID_1 + 0x1, TEST_ID_2 + 0x1};

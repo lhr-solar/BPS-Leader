@@ -22,6 +22,25 @@ void CAN_Filter_Mask_Init(CAN_FilterTypeDef *filter, uint8_t id, uint32_t mask) 
 uint8_t CAN_Filter_List_Init(CAN_FilterTypeDef *filter, const uint16_t *ID_array, uint8_t numIDs) {
   // Can only accept up to 56 IDs in list
   if (numIDs > CAN_FILTER_MAX_IDS) return 0;
+
+  // If NULL array or no IDs, accept all IDs
+  if (ID_array == NULL || numIDs == 0) {
+    // Actually set to Mask mode
+    filter->FilterMode = CAN_FILTERMODE_IDMASK;
+
+    // Set IDs to 0 to accept all IDs
+    filter->FilterIdHigh = 0;
+    filter->FilterIdLow = 0;
+    filter->FilterMaskIdHigh = 0;
+    filter->FilterMaskIdLow = 0;
+
+    filter->FilterFIFOAssignment = CAN_RX_FIFO0;
+    filter->FilterScale = CAN_FILTERSCALE_16BIT;
+    filter->FilterActivation = ENABLE;
+    return 1;
+  }
+
+  // Otherwise, set up ID filters
   filter->FilterMode = CAN_FILTERMODE_IDLIST;
 
   // 14 filters in bank, 4 IDs per filter
