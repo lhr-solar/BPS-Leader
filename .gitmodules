@@ -1,3 +1,3 @@
-[submodule "Embedded-Sharepoint"]
-	path = Embedded-Sharepoint
-	url = https://github.com/lhr-solar/Embedded-Sharepoint.git
+[submodule "Software/Embedded-Sharepoint"]
+	path = Software/Embedded-Sharepoint
+	url = git@github.com:lhr-solar/Embedded-Sharepoint
