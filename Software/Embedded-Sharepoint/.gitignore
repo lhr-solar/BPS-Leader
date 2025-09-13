@@ -1,0 +1,6 @@
+.vscode/*
+!.vscode/c_cpp_properties.json
+build
+site
+.dockerfile.hash
+.env
