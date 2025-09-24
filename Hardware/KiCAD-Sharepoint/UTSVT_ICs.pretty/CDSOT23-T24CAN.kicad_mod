@@ -1,0 +1,294 @@
+(footprint "CDSOT23-T24CAN"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(descr "SOT-23W http://www.allegromicro.com/~/media/Files/Datasheets/A112x-Datasheet.ashx?la=en&hash=7BC461E058CC246E0BAB62433B2F1ECA104CA9D3")
+	(tags "SOT-23W")
+	(property "Reference" "U5"
+		(at 0 0 90)
+		(layer "F.SilkS")
+		(hide yes)
+		(uuid "29f12180-84fa-4b6f-864a-1e467e1a284c")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "CDSOT23-T24CAN"
+		(at 0 2.5 0)
+		(layer "F.Fab")
+		(uuid "bc0be689-d748-4836-95c2-1bf4879229ce")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" "https://www.mouser.com/ProductDetail/652-CDSOT23-T24CAN"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "9f3e6bb3-87be-48f0-a3e0-a204cbdcb1c0")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "CAN Bus Protector"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "1d2af5f4-c7a9-45eb-9b7f-30f78a72d2a5")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Mouser Part Number" "652-CDSOT23-T24CAN"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "f5172ae5-b06a-4c40-b97f-c54bd300b8c1")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "P/N" "CDSOT23-T24CAN"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "2c4196e1-bad3-4d0d-b905-108425168b4f")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "PN" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "654f2c94-7fb1-4f6e-9557-d65405faf203")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "p/n" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "0a3983c0-94f0-4419-8092-1e799e112de4")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(fp_line
+		(start -1.075 1.61)
+		(end 1.075 1.61)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "7fd8f6d1-80bd-4f61-8cea-12357a4ed033")
+	)
+	(fp_line
+		(start -0.525 -1.61)
+		(end 1.075 -1.61)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "4c22bd5b-702a-4221-8f60-72285f6f4a4c")
+	)
+	(fp_line
+		(start 1.075 -1.61)
+		(end 1.075 -0.7)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "0706a345-ef08-415a-9fae-0bb6cb9f5a5e")
+	)
+	(fp_line
+		(start 1.075 0.7)
+		(end 1.075 1.61)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "0e9edc91-2a9b-433b-acd8-5fa08ace2982")
+	)
+	(fp_poly
+		(pts
+			(xy -1.025 -1.56) (xy -1.265 -1.89) (xy -0.785 -1.89) (xy -1.025 -1.56)
+		)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(fill yes)
+		(layer "F.SilkS")
+		(uuid "af948a62-f45b-4f94-9bdd-ad28491e011e")
+	)
+	(fp_line
+		(start -1.95 -1.74)
+		(end 1.95 -1.74)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "1c46b541-5e16-4f27-aac2-b905cc070a05")
+	)
+	(fp_line
+		(start -1.95 1.74)
+		(end -1.95 -1.74)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "f04836b0-f2f6-4e78-b5bc-09dc9a4261cb")
+	)
+	(fp_line
+		(start 1.95 -1.74)
+		(end 1.95 1.74)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "c6b3d1e4-9abb-47f5-8612-afb056181c7b")
+	)
+	(fp_line
+		(start 1.95 1.74)
+		(end -1.95 1.74)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "92b0e4b6-ab9f-4593-8610-9517564d60dc")
+	)
+	(fp_line
+		(start -0.955 -0.49)
+		(end -0.955 1.49)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "682fd9aa-ee1f-4264-a6a9-840f8fcb0478")
+	)
+	(fp_line
+		(start -0.955 -0.49)
+		(end 0.045 -1.49)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "ccb7ee97-4006-4f13-b908-707321b4fac1")
+	)
+	(fp_line
+		(start -0.955 1.49)
+		(end 0.955 1.49)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "ba6fbcca-3eaf-4fe9-a069-136b1f8982af")
+	)
+	(fp_line
+		(start 0.045 -1.49)
+		(end 0.955 -1.49)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "8fdce23b-aa53-41d5-a1b4-9b8b6946a5d5")
+	)
+	(fp_line
+		(start 0.955 -1.49)
+		(end 0.955 1.49)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "e00c92e0-7dca-4e1b-813d-bdeca3062f30")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 0 90)
+		(layer "F.Fab")
+		(uuid "601194db-48da-47ed-aad6-fbb72cd64e86")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.075)
+			)
+		)
+	)
+	(pad "1" smd roundrect
+		(at -1.2 -0.95)
+		(size 1 0.7)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "7b11ea52-5afd-4660-9da5-d7c891454ef2")
+	)
+	(pad "2" smd roundrect
+		(at -1.2 0.95)
+		(size 1 0.7)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "21048a45-5c61-467b-a0f5-b45d853e11e5")
+	)
+	(pad "3" smd roundrect
+		(at 1.2 0)
+		(size 1 0.7)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "6951f8d5-998e-4957-8062-dbc5206f2cf1")
+	)
+	(embedded_fonts no)
+	(model "${KICAD8_3DMODEL_DIR}/Package_TO_SOT_SMD.3dshapes/SOT-23W.wrl"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

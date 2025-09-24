@@ -1,0 +1,5 @@
+{
+"description": "24V application schematic for LM76202 power protection IC. Modify passives as needed for the specific application.\nDefault values:\n- Current Limit: 1.2A\n- Overvoltage: ~27v\n- Undervoltage: ~20v\n",
+"keywords": "",
+"fields": {}
+}
