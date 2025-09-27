@@ -3943,6 +3943,10 @@
 		(uuid "f6477084-1372-4c32-b7ae-0738b1ade598")
 	)
 	(no_connect
+		(at 254 74.93)
+		(uuid "46c5f178-ca9b-475f-88ed-40762a64b62e")
+	)
+	(no_connect
 		(at 52.07 63.5)
 		(uuid "54aaacf4-ab7b-4454-a696-f468cc647a6b")
 	)
@@ -3951,8 +3955,24 @@
 		(uuid "643d598b-da19-4aab-9a30-669cfe8dd20a")
 	)
 	(no_connect
+		(at 254 69.85)
+		(uuid "98dd4ac9-f73b-40a6-96fe-62610aab0102")
+	)
+	(no_connect
+		(at 254 64.77)
+		(uuid "b6d70e94-c90d-4068-bd2d-70b15f331b8a")
+	)
+	(no_connect
+		(at 254 67.31)
+		(uuid "ca3e9567-f319-4280-9824-99faf161486a")
+	)
+	(no_connect
 		(at 52.07 60.96)
 		(uuid "dfc9f3e8-8666-4d72-99db-e82a9e7f01d7")
+	)
+	(no_connect
+		(at 254 72.39)
+		(uuid "f555a5bf-1a07-44af-b354-b96674b2aecd")
 	)
 	(wire
 		(pts
@@ -6689,7 +6709,7 @@
 				)
 			)
 		)
-		(property "Footprint" "UTSVT_Connectors:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+		(property "Footprint" "UTSVT_Special:LeaderSOM"
 			(at 40.64 48.26 0)
 			(effects
 				(font
@@ -7066,7 +7086,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "UTSVT_Special:ESP32-C6-MINI-1"
 			(at 228.6 24.13 0)
 			(effects
 				(font
@@ -7271,7 +7291,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "799fd8d4-06af-4980-a593-97b601e775b8")
-		(property "Reference" "D3"
+		(property "Reference" "D11"
 			(at 45.72 170.4974 90)
 			(effects
 				(font
@@ -7343,7 +7363,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/dabc680e-023d-4bcf-9356-bacd091b1cc9"
-					(reference "D3")
+					(reference "D11")
 					(unit 1)
 				)
 			)

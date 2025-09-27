@@ -4481,7 +4481,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f0c9e3fa-4f61-4d9d-9c40-d367aa4f3141")
-		(property "Reference" "R18"
+		(property "Reference" "R51"
 			(at 123.19 81.28 90)
 			(effects
 				(font
@@ -4533,7 +4533,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/a39d8cf5-dc9c-4f60-80f8-399517c69b53"
-					(reference "R18")
+					(reference "R51")
 					(unit 1)
 				)
 			)
