@@ -2068,6 +2068,12 @@
 		(uuid "a3167f51-ac6d-4c05-9bf7-8413883c3fea")
 	)
 	(junction
+		(at 50.165 51.1574)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a530f34d-4529-4d2a-a8c4-cad77357b4c1")
+	)
+	(junction
 		(at 113.03 53.34)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2252,6 +2258,16 @@
 			(type default)
 		)
 		(uuid "2b60c2b1-fe2a-42fe-978c-1916339f6d53")
+	)
+	(wire
+		(pts
+			(xy 50.165 51.1574) (xy 50.165 64.135)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "35ae82c4-2805-4635-8145-a7808a07ec8b")
 	)
 	(wire
 		(pts
@@ -2555,7 +2571,7 @@
 	)
 	(wire
 		(pts
-			(xy 50.165 48.26) (xy 50.165 64.135)
+			(xy 50.165 48.26) (xy 50.165 51.1574)
 		)
 		(stroke
 			(width 0)
@@ -4125,6 +4141,70 @@
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/a39d8cf5-dc9c-4f60-80f8-399517c69b53"
 					(reference "24V_TP1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 50.165 51.1574 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c8b27b41-44b8-4a64-8d9b-c9e1590ca494")
+		(property "Reference" "LVPRW_TP2"
+			(at 40.005 52.6814 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 39.751 50.1414 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
+			(at 50.165 46.0774 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 50.165 46.0774 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 50.165 51.1574 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "38436c16-e767-453d-baf4-1a03e4251335")
+		)
+		(instances
+			(project "BPS-Leader"
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/a39d8cf5-dc9c-4f60-80f8-399517c69b53"
+					(reference "LVPRW_TP2")
 					(unit 1)
 				)
 			)
