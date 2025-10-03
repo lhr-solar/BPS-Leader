@@ -2038,10 +2038,6 @@
 		(uuid "078534ad-7622-426f-94d9-de5c0697c95b")
 	)
 	(no_connect
-		(at 100.33 49.53)
-		(uuid "2a46cabb-191a-4dfe-82cc-4ca06e744bbf")
-	)
-	(no_connect
 		(at 151.13 57.15)
 		(uuid "3bdcd4dd-b228-42ef-bb8e-aa32eda51048")
 	)
@@ -2060,10 +2056,6 @@
 	(no_connect
 		(at 151.13 44.45)
 		(uuid "e70f66dc-eb2b-453b-9174-ee039d27bbfd")
-	)
-	(no_connect
-		(at 100.33 54.61)
-		(uuid "fa74278d-ee73-44f5-9092-acd320cde8d4")
 	)
 	(wire
 		(pts
@@ -2144,6 +2136,16 @@
 			(type default)
 		)
 		(uuid "1aa3eac2-101d-45fb-b2ab-b35dde3f6b93")
+	)
+	(wire
+		(pts
+			(xy 87.63 49.53) (xy 100.33 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1e48e67a-7f72-4872-a8a8-5b3b9b98384e")
 	)
 	(wire
 		(pts
@@ -2604,6 +2606,16 @@
 			(type default)
 		)
 		(uuid "c7c99330-4e21-4c0a-926a-b706859d7e3e")
+	)
+	(wire
+		(pts
+			(xy 87.63 54.61) (xy 100.33 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c814a1b8-5379-47f1-b0ee-353273adbcd1")
 	)
 	(wire
 		(pts
@@ -3155,6 +3167,16 @@
 		)
 		(uuid "768e8cc2-dcc9-44a3-8f79-b8a74520de48")
 	)
+	(label "FAN_1_TACH"
+		(at 87.63 49.53 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "7afff200-6caf-4451-9ba6-f43c45c836d8")
+	)
 	(label "CLK_PULLUP"
 		(at 182.88 52.07 180)
 		(effects
@@ -3174,6 +3196,16 @@
 			(justify left bottom)
 		)
 		(uuid "92c9a393-9452-4d6b-b5c7-37b93f1e0481")
+	)
+	(label "FAN_2_TACH"
+		(at 87.63 54.61 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "cf884817-c20d-4c19-880e-0326f82d8abc")
 	)
 	(label "FAN_1_FLYBACK"
 		(at 31.75 172.72 0)
@@ -4622,7 +4654,7 @@
 				)
 			)
 		)
-		(property "Footprint" "FanControl:QFN16_4x4MC_MCH"
+		(property "Footprint" ""
 			(at 100.33 36.83 0)
 			(effects
 				(font
@@ -5094,7 +5126,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "9728de65-1ad1-4dec-9d34-ff351190d27f")
 		(property "Reference" "R16"
@@ -5708,7 +5740,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "dde51daf-f5c2-400e-9fa7-59c9221e24ac")
 		(property "Reference" "R17"

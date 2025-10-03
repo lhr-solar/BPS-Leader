@@ -3784,7 +3784,7 @@
 		(uuid c31531af-789b-45c6-ad43-d88e35b8727a)
 	)
 	(rectangle
-		(start 17.78 143.51)
+		(start 16.002 143.51)
 		(end 53.34 190.5)
 		(stroke
 			(width 0)
@@ -3907,7 +3907,7 @@
 		)
 		(uuid "3d17cec2-5d21-43bf-ac7c-aedf85c1a01f")
 	)
-	(text "This is taken from VCU's ESP.kicad_sch (circa 09/09/2025) \nOnly minimal cosmetic changes were made (i.e. 3V3 to +3.3V)\nNOTE TO AUTHOR: CONFIRM PART DESIGNATION PARITY (i.e. J1 and U2)"
+	(text "This is taken from VCU's ESP.kicad_sch (circa 09/09/2025) \nOnly minimal cosmetic changes were made (i.e. 3V3 to +3.3V)\n"
 		(exclude_from_sim no)
 		(at 214.884 172.212 0)
 		(effects
@@ -4008,6 +4008,12 @@
 		(uuid "4adc5d67-620a-4f74-a265-3151799969aa")
 	)
 	(junction
+		(at 29.21 154.94)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4e166096-c5ed-4427-9848-1046a912681d")
+	)
+	(junction
 		(at 123.825 146.05)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4048,6 +4054,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "dc68422e-6018-456e-b04f-92e01c055083")
+	)
+	(junction
+		(at 41.91 153.67)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "dff6f42c-1fc8-46ce-a6d9-6116a1afaab9")
 	)
 	(junction
 		(at 116.84 118.11)
@@ -4122,6 +4134,16 @@
 			(type default)
 		)
 		(uuid "0631c48d-ed35-45f6-989c-cab3d5e4c397")
+	)
+	(wire
+		(pts
+			(xy 41.91 153.67) (xy 41.91 156.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "06caf3b6-1701-4b60-b713-34f9e7370f2e")
 	)
 	(wire
 		(pts
@@ -4755,7 +4777,7 @@
 	)
 	(wire
 		(pts
-			(xy 41.91 144.78) (xy 41.91 156.21)
+			(xy 41.91 144.78) (xy 41.91 153.67)
 		)
 		(stroke
 			(width 0)
@@ -4822,6 +4844,16 @@
 			(type default)
 		)
 		(uuid "9d074065-5533-4274-8751-70d0d8e1a597")
+	)
+	(wire
+		(pts
+			(xy 26.67 154.94) (xy 29.21 154.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9da62eab-f74a-44fc-ac6f-76cc6c2ae001")
 	)
 	(wire
 		(pts
@@ -4995,7 +5027,7 @@
 	)
 	(wire
 		(pts
-			(xy 29.21 144.78) (xy 29.21 156.21)
+			(xy 29.21 144.78) (xy 29.21 154.94)
 		)
 		(stroke
 			(width 0)
@@ -5032,6 +5064,16 @@
 			(type default)
 		)
 		(uuid "d187f033-043a-4b18-a205-80f9d43513fb")
+	)
+	(wire
+		(pts
+			(xy 29.21 154.94) (xy 29.21 156.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d77c118a-a7ac-4089-bbfd-9df7f605e0fd")
 	)
 	(wire
 		(pts
@@ -5212,6 +5254,16 @@
 			(type default)
 		)
 		(uuid "fd5eefb5-2487-4d68-b20f-20d8978a76d4")
+	)
+	(wire
+		(pts
+			(xy 44.45 153.67) (xy 41.91 153.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fe85f6a9-dc15-44e2-9cce-12a177e8740c")
 	)
 	(label "IO12"
 		(at 187.96 41.91 0)
@@ -5872,7 +5924,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+3.3V"
+		(property "Value" "+3.3V_ESP"
 			(at 226.06 17.78 0)
 			(effects
 				(font
@@ -6294,6 +6346,70 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 26.67 154.94 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "34adde02-252b-4cc7-9a0d-63f35499feb2")
+		(property "Reference" "TP48"
+			(at 20.574 150.622 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 21.082 152.908 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
+			(at 26.67 149.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 26.67 149.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 26.67 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ced7b208-17f5-45fe-b3ab-7badb61d3d18")
+		)
+		(instances
+			(project "BPS-Leader"
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/dabc680e-023d-4bcf-9356-bacd091b1cc9"
+					(reference "TP48")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R_US")
 		(at 29.21 160.02 0)
 		(unit 1)
@@ -6380,8 +6496,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+3.3V"
-			(at 182.245 114.2999 0)
+		(property "Value" "+3.3V_ESP"
+			(at 176.784 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6988,7 +7104,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
 			(at 25.4 160.02 0)
 			(effects
 				(font
@@ -7811,7 +7927,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8c0cf011-a3f7-4ad1-ac6b-373f85ff1fd4")
-		(property "Reference" "#PWR070"
+		(property "Reference" "#+3.3V_ESP0101"
 			(at 59.69 161.925 0)
 			(effects
 				(font
@@ -7820,7 +7936,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+3.3V"
+		(property "Value" "+3.3V_ESP"
 			(at 62.23 156.8449 0)
 			(effects
 				(font
@@ -7862,7 +7978,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/dabc680e-023d-4bcf-9356-bacd091b1cc9"
-					(reference "#PWR070")
+					(reference "#+3.3V_ESP0101")
 					(unit 1)
 				)
 			)
@@ -8316,6 +8432,71 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 44.45 153.67 270)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c3630ae2-3b0c-487f-b158-d8d8adb9d54e")
+		(property "Reference" "TP47"
+			(at 46.482 147.828 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 46.482 150.368 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
+			(at 44.45 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 44.45 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 44.45 153.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "740ab369-c4d3-4615-ba3f-a7c290fd5871")
+		)
+		(instances
+			(project "BPS-Leader"
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/dabc680e-023d-4bcf-9356-bacd091b1cc9"
+					(reference "TP47")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 74.93 176.53 0)
 		(unit 1)
@@ -8551,7 +8732,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
 			(at 46.99 160.02 0)
 			(effects
 				(font
@@ -8608,7 +8789,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+3.3V"
+		(property "Value" "+3.3V_ESP"
 			(at 76.708 156.718 0)
 			(effects
 				(font

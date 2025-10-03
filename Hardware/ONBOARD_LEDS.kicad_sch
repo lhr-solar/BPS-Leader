@@ -1205,6 +1205,12 @@
 		)
 	)
 	(junction
+		(at 162.56 82.55)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "0ba271fd-9eaf-4523-a27b-f384cdfab119")
+	)
+	(junction
 		(at 179.07 149.86)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1227,6 +1233,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "1d96df48-9c3b-4ccc-ba25-1ab973d84450")
+	)
+	(junction
+		(at 149.86 91.44)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "277d401d-eaa8-4f11-a547-c99fcef9ef82")
 	)
 	(junction
 		(at 204.47 149.86)
@@ -1409,6 +1421,12 @@
 		(uuid "e2fb1825-1726-4412-a242-8faa6b2c1411")
 	)
 	(junction
+		(at 149.86 34.29)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e4d3f3b6-cd95-4750-9a9c-7464d042f220")
+	)
+	(junction
 		(at 204.47 110.49)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1496,7 +1514,7 @@
 	)
 	(wire
 		(pts
-			(xy 128.27 115.57) (xy 128.27 110.49)
+			(xy 128.27 102.87) (xy 128.27 115.57)
 		)
 		(stroke
 			(width 0)
@@ -1706,7 +1724,7 @@
 	)
 	(wire
 		(pts
-			(xy 149.86 41.91) (xy 149.86 45.72)
+			(xy 149.86 33.02) (xy 149.86 34.29)
 		)
 		(stroke
 			(width 0)
@@ -1733,6 +1751,16 @@
 			(type default)
 		)
 		(uuid "4f929fee-e2d2-4404-9f96-81470049a664")
+	)
+	(wire
+		(pts
+			(xy 149.86 34.29) (xy 149.86 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "57c551a5-39d5-46d1-b0af-5fcac028434b")
 	)
 	(wire
 		(pts
@@ -1846,7 +1874,7 @@
 	)
 	(wire
 		(pts
-			(xy 138.43 90.17) (xy 138.43 107.95)
+			(xy 138.43 82.55) (xy 138.43 107.95)
 		)
 		(stroke
 			(width 0)
@@ -1896,6 +1924,16 @@
 	)
 	(wire
 		(pts
+			(xy 144.78 35.56) (xy 144.78 34.29)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7b6a783c-c966-4c26-9a2b-0e93e2b592c4")
+	)
+	(wire
+		(pts
 			(xy 160.02 58.42) (xy 162.56 58.42)
 		)
 		(stroke
@@ -1936,13 +1974,13 @@
 	)
 	(wire
 		(pts
-			(xy 162.56 90.17) (xy 138.43 90.17)
+			(xy 149.86 90.17) (xy 149.86 91.44)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "8517587d-e6c3-43a6-9db5-d8cbea35bf3b")
+		(uuid "87afa4a4-4f2a-4e72-88b1-cfbd4c2f3974")
 	)
 	(wire
 		(pts
@@ -1996,7 +2034,7 @@
 	)
 	(wire
 		(pts
-			(xy 162.56 73.66) (xy 162.56 90.17)
+			(xy 162.56 73.66) (xy 162.56 82.55)
 		)
 		(stroke
 			(width 0)
@@ -2106,6 +2144,16 @@
 	)
 	(wire
 		(pts
+			(xy 149.86 91.44) (xy 149.86 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b0ae672d-4ae1-4ea3-95fe-e0188eeb899b")
+	)
+	(wire
+		(pts
 			(xy 199.39 55.88) (xy 199.39 88.9)
 		)
 		(stroke
@@ -2136,7 +2184,17 @@
 	)
 	(wire
 		(pts
-			(xy 116.84 53.34) (xy 116.84 58.42)
+			(xy 144.78 91.44) (xy 149.86 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b7eeb67f-1f11-49da-909a-d4577979eddf")
+	)
+	(wire
+		(pts
+			(xy 116.84 45.72) (xy 116.84 58.42)
 		)
 		(stroke
 			(width 0)
@@ -2173,6 +2231,26 @@
 			(type default)
 		)
 		(uuid "bd0ba81d-4f78-4d07-b25d-7cf87f3513cc")
+	)
+	(wire
+		(pts
+			(xy 144.78 100.33) (xy 144.78 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "beaa9e67-5acc-418f-8e15-abf62355d213")
+	)
+	(wire
+		(pts
+			(xy 144.78 92.71) (xy 144.78 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bfc9d0be-0cd2-425c-8bf2-bc44488ad0c4")
 	)
 	(wire
 		(pts
@@ -2216,6 +2294,16 @@
 	)
 	(wire
 		(pts
+			(xy 144.78 43.18) (xy 144.78 44.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c5b0b761-1c7a-4e1c-bb77-3178c4f6f0cd")
+	)
+	(wire
+		(pts
 			(xy 162.56 110.49) (xy 160.02 110.49)
 		)
 		(stroke
@@ -2236,6 +2324,16 @@
 	)
 	(wire
 		(pts
+			(xy 144.78 34.29) (xy 149.86 34.29)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c8486571-da1c-4c19-b8d9-0c15cdc7a220")
+	)
+	(wire
+		(pts
 			(xy 149.86 135.89) (xy 149.86 137.16)
 		)
 		(stroke
@@ -2243,6 +2341,16 @@
 			(type default)
 		)
 		(uuid "caadeb0f-3077-40b3-a42d-a7cb661dab5a")
+	)
+	(wire
+		(pts
+			(xy 138.43 82.55) (xy 162.56 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cf3cbdb4-6fe2-4772-91d8-546f5224f200")
 	)
 	(wire
 		(pts
@@ -2283,16 +2391,6 @@
 			(type default)
 		)
 		(uuid "d81beb86-e8ed-414a-a684-93b2f5b62490")
-	)
-	(wire
-		(pts
-			(xy 149.86 101.6) (xy 149.86 102.87)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d9f22eb5-5e48-4df7-9c2c-781815efa7ad")
 	)
 	(wire
 		(pts
@@ -2456,6 +2554,16 @@
 	)
 	(wire
 		(pts
+			(xy 162.56 85.09) (xy 162.56 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fa28ee71-4647-4602-984b-fda2d06b3cdd")
+	)
+	(wire
+		(pts
 			(xy 184.15 99.06) (xy 189.23 99.06)
 		)
 		(stroke
@@ -2548,71 +2656,6 @@
 		(uuid "bbf06e50-387e-43f0-8ef0-bcbebc7ea096")
 	)
 	(symbol
-		(lib_id "power:+3.3V")
-		(at 149.86 101.6 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "02615cd5-022a-43a4-bd29-632a166d732b")
-		(property "Reference" "#PWR0111"
-			(at 149.86 105.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+3.3V"
-			(at 145.034 100.584 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 149.86 101.6 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 149.86 101.6 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
-			(at 149.86 101.6 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "244298d0-b67e-468d-9b67-bd98668461bc")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "#PWR0111")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 128.27 133.35 0)
 		(unit 1)
@@ -2679,34 +2722,33 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R_US")
-		(at 128.27 106.68 0)
+		(lib_id "power:GND")
+		(at 144.78 44.45 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "03b200fd-f2c7-4fc6-8c4b-f99590b0d8c1")
-		(property "Reference" "R15"
-			(at 121.158 105.918 0)
+		(uuid "0428fa74-23c1-4ddf-9e77-f4c8917eb6ce")
+		(property "Reference" "#PWR0141"
+			(at 144.78 50.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(hide yes)
 			)
 		)
-		(property "Value" "R_US"
-			(at 121.158 108.458 0)
+		(property "Value" "GND"
+			(at 140.462 46.228 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" ""
-			(at 129.286 106.934 90)
+			(at 144.78 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2714,8 +2756,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
-			(at 128.27 106.68 0)
+		(property "Datasheet" ""
+			(at 144.78 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2723,25 +2765,22 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Resistor, US symbol"
-			(at 128.27 106.68 0)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 144.78 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(hide yes)
 			)
-		)
-		(pin "2"
-			(uuid "1c461078-65cc-41f5-8e62-8bd0863be955")
 		)
 		(pin "1"
-			(uuid "b868db85-16d0-4273-a146-672ecd673a6e")
+			(uuid "a4d85227-71ee-49fa-99e3-5dd687cece1b")
 		)
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "R15")
+					(reference "#PWR0141")
 					(unit 1)
 				)
 			)
@@ -2775,7 +2814,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
 			(at 179.07 71.12 0)
 			(effects
 				(font
@@ -2840,7 +2879,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 184.15 92.71 0)
 			(effects
 				(font
@@ -2893,75 +2932,6 @@
 	)
 	(symbol
 		(lib_id "Device:R_US")
-		(at 116.84 49.53 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "0d9ff354-a65c-4526-933d-7293cc67e946")
-		(property "Reference" "R14"
-			(at 109.728 48.768 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "R_US"
-			(at 109.728 51.308 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 117.856 49.784 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 116.84 49.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor, US symbol"
-			(at 116.84 49.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "1ccc70dd-9da9-4615-936f-37bb01c4d14c")
-		)
-		(pin "1"
-			(uuid "751f0677-dfbf-45d2-8e30-8443e073e952")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "R14")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R_US")
 		(at 166.37 66.04 90)
 		(unit 1)
 		(exclude_from_sim no)
@@ -2988,7 +2958,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 166.624 65.024 90)
 			(effects
 				(font
@@ -3058,7 +3028,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
 			(at 204.47 115.57 0)
 			(effects
 				(font
@@ -3116,7 +3086,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "C"
+		(property "Value" "0.1u"
 			(at 120.65 72.3899 0)
 			(effects
 				(font
@@ -3125,7 +3095,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
 			(at 117.8052 74.93 0)
 			(effects
 				(font
@@ -3193,7 +3163,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 189.23 143.51 0)
 			(effects
 				(font
@@ -3272,7 +3242,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 166.624 54.864 90)
 			(effects
 				(font
@@ -3316,7 +3286,7 @@
 	)
 	(symbol
 		(lib_id "power:+3.3V")
-		(at 149.86 41.91 0)
+		(at 149.86 33.02 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3325,7 +3295,7 @@
 		(fields_autoplaced yes)
 		(uuid "20902830-0850-44ba-a52b-b6922cf2e7cb")
 		(property "Reference" "#PWR0110"
-			(at 149.86 45.72 0)
+			(at 149.86 36.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3334,7 +3304,7 @@
 			)
 		)
 		(property "Value" "+3.3V"
-			(at 149.86 36.83 0)
+			(at 149.86 27.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3342,7 +3312,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 149.86 41.91 0)
+			(at 149.86 33.02 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3351,7 +3321,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 149.86 41.91 0)
+			(at 149.86 33.02 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3360,7 +3330,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
-			(at 149.86 41.91 0)
+			(at 149.86 33.02 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3406,7 +3376,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 184.15 143.51 0)
 			(effects
 				(font
@@ -3483,7 +3453,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 209.55 92.71 0)
 			(effects
 				(font
@@ -3535,6 +3505,71 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 144.78 101.6 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "306bb6fb-35ab-431e-a779-5b86b3e92aca")
+		(property "Reference" "#PWR0111"
+			(at 144.78 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 141.732 104.394 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 144.78 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 144.78 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 144.78 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "31ac092e-7f54-4255-8d29-89f8a0df0c93")
+		)
+		(instances
+			(project "BPS-Leader"
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
+					(reference "#PWR0111")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R_US")
 		(at 166.37 123.19 90)
 		(unit 1)
@@ -3562,7 +3597,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 166.624 122.174 90)
 			(effects
 				(font
@@ -3630,7 +3665,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 194.31 92.71 0)
 			(effects
 				(font
@@ -3707,7 +3742,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 173.99 143.51 0)
 			(effects
 				(font
@@ -3784,7 +3819,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 179.07 92.71 0)
 			(effects
 				(font
@@ -3863,7 +3898,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
 			(at 173.99 130.81 0)
 			(effects
 				(font
@@ -3928,7 +3963,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 179.07 143.51 0)
 			(effects
 				(font
@@ -4007,7 +4042,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
 			(at 173.99 73.66 0)
 			(effects
 				(font
@@ -4140,7 +4175,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 166.624 117.094 90)
 			(effects
 				(font
@@ -4210,7 +4245,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
 			(at 184.15 68.58 0)
 			(effects
 				(font
@@ -4277,7 +4312,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 166.624 112.014 90)
 			(effects
 				(font
@@ -4347,7 +4382,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 166.624 59.944 90)
 			(effects
 				(font
@@ -4417,7 +4452,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 166.624 57.404 90)
 			(effects
 				(font
@@ -4487,7 +4522,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
 			(at 194.31 63.5 0)
 			(effects
 				(font
@@ -4527,6 +4562,76 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:C")
+		(at 144.78 39.37 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8f187855-8b96-4f75-b66e-a6f22934e405")
+		(property "Reference" "C34"
+			(at 140.97 38.0999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "0.1u"
+			(at 140.97 40.6399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
+			(at 143.8148 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 144.78 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 144.78 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5f6ca4b6-05e2-4f06-9ca1-e26a847488d2")
+		)
+		(pin "2"
+			(uuid "b5b52163-c74f-4919-9ec4-aa5fd74784b3")
+		)
+		(instances
+			(project "BPS-Leader"
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
+					(reference "C34")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:LED")
 		(at 173.99 92.71 90)
 		(unit 1)
@@ -4552,7 +4657,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 173.99 92.71 0)
 			(effects
 				(font
@@ -4629,7 +4734,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 199.39 143.51 0)
 			(effects
 				(font
@@ -4708,7 +4813,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 166.624 106.934 90)
 			(effects
 				(font
@@ -4844,7 +4949,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
 			(at 189.23 66.04 0)
 			(effects
 				(font
@@ -4909,7 +5014,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 204.47 143.51 0)
 			(effects
 				(font
@@ -5098,7 +5203,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 194.31 143.51 0)
 			(effects
 				(font
@@ -5177,7 +5282,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
 			(at 184.15 125.73 0)
 			(effects
 				(font
@@ -5244,7 +5349,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
 			(at 204.47 58.42 0)
 			(effects
 				(font
@@ -5311,7 +5416,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 166.624 62.484 90)
 			(effects
 				(font
@@ -5381,7 +5486,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 166.624 67.564 90)
 			(effects
 				(font
@@ -5449,7 +5554,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 189.23 92.71 0)
 			(effects
 				(font
@@ -5528,7 +5633,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
 			(at 209.55 55.88 0)
 			(effects
 				(font
@@ -5593,7 +5698,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 209.55 143.51 0)
 			(effects
 				(font
@@ -5670,7 +5775,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 204.47 92.71 0)
 			(effects
 				(font
@@ -5860,7 +5965,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
 			(at 179.07 128.27 0)
 			(effects
 				(font
@@ -5927,7 +6032,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 166.624 119.634 90)
 			(effects
 				(font
@@ -5997,7 +6102,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 166.624 124.714 90)
 			(effects
 				(font
@@ -6131,7 +6236,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 199.39 92.71 0)
 			(effects
 				(font
@@ -6276,7 +6381,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 166.624 52.324 90)
 			(effects
 				(font
@@ -6319,6 +6424,72 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+3.3V")
+		(at 149.86 90.17 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d5aa4045-2acb-4117-b4ac-33445f40c89a")
+		(property "Reference" "#PWR0142"
+			(at 149.86 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3.3V"
+			(at 149.86 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 149.86 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 149.86 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
+			(at 149.86 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8983db46-0610-4976-8e53-dac35b500960")
+		)
+		(instances
+			(project "BPS-Leader"
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
+					(reference "#PWR0142")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Connector:TestPoint")
 		(at 189.23 118.11 270)
 		(unit 1)
@@ -6346,7 +6517,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
 			(at 189.23 123.19 0)
 			(effects
 				(font
@@ -6413,7 +6584,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
 			(at 209.55 113.03 0)
 			(effects
 				(font
@@ -6480,7 +6651,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
 			(at 194.31 120.65 0)
 			(effects
 				(font
@@ -6547,7 +6718,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
 			(at 199.39 118.11 0)
 			(effects
 				(font
@@ -6614,7 +6785,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
 			(at 199.39 60.96 0)
 			(effects
 				(font
@@ -6681,7 +6852,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 166.624 49.784 90)
 			(effects
 				(font
@@ -6751,7 +6922,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 166.624 109.474 90)
 			(effects
 				(font
@@ -6942,7 +7113,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "C"
+		(property "Value" "0.1u"
 			(at 132.08 129.5399 0)
 			(effects
 				(font
@@ -6951,7 +7122,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
 			(at 129.2352 132.08 0)
 			(effects
 				(font
@@ -7021,7 +7192,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 166.624 114.554 90)
 			(effects
 				(font
@@ -7058,6 +7229,143 @@
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
 					(reference "R59")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 162.56 85.09 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "fdc2cedf-8a1d-4115-9ae5-b2656d1456e7")
+		(property "Reference" "TP46"
+			(at 161.544 88.138 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 160.02 87.1221 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
+			(at 157.48 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 157.48 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 162.56 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8ba72ddf-4444-46a5-96fa-b59ae36166ac")
+		)
+		(instances
+			(project "BPS-Leader"
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
+					(reference "TP46")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 144.78 96.52 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "fe71ae04-286c-4dec-935d-06b7f691451d")
+		(property "Reference" "C35"
+			(at 143.002 93.472 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "0.1u"
+			(at 144.018 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
+			(at 143.8148 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 144.78 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 144.78 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a6490e16-037a-496a-a78d-f3280e25bd6c")
+		)
+		(pin "2"
+			(uuid "6a730155-0a86-41ad-84b5-2152c3d6e409")
+		)
+		(instances
+			(project "BPS-Leader"
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
+					(reference "C35")
 					(unit 1)
 				)
 			)
