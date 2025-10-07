@@ -1945,7 +1945,7 @@
 		)
 		(uuid f1e6cbf8-9dd9-47c4-b8c5-0ce28d728742)
 	)
-	(text "3v3 injector"
+	(text "3.3V injector"
 		(exclude_from_sim no)
 		(at 47.244 134.112 0)
 		(effects
@@ -3261,7 +3261,7 @@
 				)
 			)
 		)
-		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
 			(at 50.165 71.755 0)
 			(effects
 				(font
@@ -4107,7 +4107,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
 			(at 118.11 52.705 0)
 			(effects
 				(font
@@ -4171,7 +4171,7 @@
 				)
 			)
 		)
-		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
 			(at 50.165 46.0774 0)
 			(effects
 				(font

@@ -3835,7 +3835,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_Molex:Molex_Nano-Fit_105309-xx03_1x03_P2.50mm_Vertical"
 			(at 186.69 128.27 0)
 			(effects
 				(font
@@ -4316,7 +4316,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_Molex:Molex_Nano-Fit_105309-xx03_1x03_P2.50mm_Vertical"
 			(at 250.19 128.27 0)
 			(effects
 				(font
@@ -4654,7 +4654,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "SN74HC594DWG4:QFN16_4x4MC_MCH"
 			(at 100.33 36.83 0)
 			(effects
 				(font

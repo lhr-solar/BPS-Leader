@@ -572,6 +572,142 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Device:Fuse"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "F"
+				(at 2.032 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Fuse"
+				(at -1.905 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at -1.778 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Fuse"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "fuse"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "*Fuse*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Fuse_0_1"
+				(rectangle
+					(start -0.762 -2.54)
+					(end 0.762 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Fuse_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Device:L"
 			(pin_numbers
 				(hide yes)
@@ -1637,16 +1773,16 @@
 		(uuid "62e113d9-9698-462b-91b1-535452f4891d")
 	)
 	(junction
+		(at 59.69 137.16)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "722cdacb-b493-4f31-a766-09c819b8bba3")
+	)
+	(junction
 		(at 171.45 69.85)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "7b4fbb55-f9fa-4d17-ae01-50ce1cb9e01c")
-	)
-	(junction
-		(at 66.04 137.16)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "7f01eb2d-f442-4f69-bb64-0883264f5600")
 	)
 	(junction
 		(at 182.88 69.85)
@@ -1821,16 +1957,6 @@
 			(type default)
 		)
 		(uuid "3ecfabe2-67e9-437e-b3ef-8cbd10af0311")
-	)
-	(wire
-		(pts
-			(xy 66.04 134.62) (xy 66.04 137.16)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3f15c916-a3c8-404b-bb18-b6437c3a88f6")
 	)
 	(wire
 		(pts
@@ -2054,6 +2180,16 @@
 	)
 	(wire
 		(pts
+			(xy 71.12 139.7) (xy 72.39 139.7)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b239bd86-0f0b-4e41-bff4-3fdae5c289a6")
+	)
+	(wire
+		(pts
 			(xy 171.45 69.85) (xy 171.45 72.39)
 		)
 		(stroke
@@ -2081,6 +2217,16 @@
 			(type default)
 		)
 		(uuid "b55210f0-f151-49a5-b81c-ea827a929fee")
+	)
+	(wire
+		(pts
+			(xy 59.69 139.7) (xy 63.5 139.7)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b8604a9a-f7b2-4e7b-a858-b9a43da1bc69")
 	)
 	(wire
 		(pts
@@ -2134,16 +2280,6 @@
 	)
 	(wire
 		(pts
-			(xy 66.04 139.7) (xy 72.39 139.7)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d0d7fdc4-d159-4bf0-80e0-d67341a79123")
-	)
-	(wire
-		(pts
 			(xy 128.27 64.77) (xy 138.43 64.77)
 		)
 		(stroke
@@ -2164,6 +2300,16 @@
 	)
 	(wire
 		(pts
+			(xy 59.69 134.62) (xy 59.69 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d8b715ba-21b2-4f18-8fe3-0fb92840af10")
+	)
+	(wire
+		(pts
 			(xy 160.02 80.01) (xy 160.02 82.55)
 		)
 		(stroke
@@ -2174,6 +2320,16 @@
 	)
 	(wire
 		(pts
+			(xy 59.69 137.16) (xy 59.69 139.7)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d911ff07-2ee0-4ccc-96f1-d97d4da5a2a8")
+	)
+	(wire
+		(pts
 			(xy 171.45 69.85) (xy 160.02 69.85)
 		)
 		(stroke
@@ -2181,16 +2337,6 @@
 			(type default)
 		)
 		(uuid "e1554517-04f7-4d91-829d-95c31b4b76a4")
-	)
-	(wire
-		(pts
-			(xy 66.04 137.16) (xy 66.04 139.7)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e1618384-227d-409a-862a-6991375863e5")
 	)
 	(wire
 		(pts
@@ -7849,6 +7995,74 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:Fuse")
+		(at 67.31 139.7 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "534d7087-9057-41c2-84c3-fbcd7034f033")
+		(property "Reference" "F2"
+			(at 67.31 133.35 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Fuse"
+			(at 67.31 135.89 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 67.31 141.478 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 67.31 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Fuse"
+			(at 67.31 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "9d2710c2-90bd-4744-bd13-6da66606ae4c")
+		)
+		(pin "1"
+			(uuid "f446f77e-16f0-4c4b-8817-99d17a34ed2f")
+		)
+		(instances
+			(project ""
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/e5707b84-df8b-4b8b-b215-90bb9859c3b3"
+					(reference "F2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 142.24 83.82 0)
 		(unit 1)
@@ -8347,7 +8561,7 @@
 	)
 	(symbol
 		(lib_id "power:+24V")
-		(at 66.04 134.62 0)
+		(at 59.69 134.62 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8355,7 +8569,7 @@
 		(dnp no)
 		(uuid "cc440a47-88cb-4799-9437-dad21f58c228")
 		(property "Reference" "#PWR0131"
-			(at 66.04 138.43 0)
+			(at 59.69 138.43 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8364,7 +8578,7 @@
 			)
 		)
 		(property "Value" "+5V_BUCK"
-			(at 65.786 130.81 0)
+			(at 59.436 130.81 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8372,7 +8586,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 66.04 134.62 0)
+			(at 59.69 134.62 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8381,7 +8595,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 66.04 134.62 0)
+			(at 59.69 134.62 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8390,7 +8604,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+24V\""
-			(at 66.04 134.62 0)
+			(at 59.69 134.62 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8477,7 +8691,7 @@
 	)
 	(symbol
 		(lib_id "Connector:TestPoint")
-		(at 66.04 137.16 90)
+		(at 59.69 137.16 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8485,7 +8699,7 @@
 		(dnp no)
 		(uuid "d1a60aa0-3fb4-4949-b574-d2b8090b9509")
 		(property "Reference" "TP1"
-			(at 55.88 138.684 90)
+			(at 49.53 138.684 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8493,15 +8707,15 @@
 			)
 		)
 		(property "Value" "TestPoint"
-			(at 55.626 136.144 90)
+			(at 49.276 136.144 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
-			(at 66.04 132.08 0)
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+			(at 59.69 132.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8510,7 +8724,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 66.04 132.08 0)
+			(at 59.69 132.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8519,7 +8733,7 @@
 			)
 		)
 		(property "Description" "test point"
-			(at 66.04 137.16 0)
+			(at 59.69 137.16 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8724,7 +8938,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_Molex:Molex_Nano-Fit_105309-xx03_1x03_P2.50mm_Vertical"
 			(at 77.47 142.24 0)
 			(effects
 				(font

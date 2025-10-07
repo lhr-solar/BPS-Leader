@@ -1,0 +1,5 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "SN74HC594DWG4")(type "KiCad")(uri "${KIPRJMOD}/Custom-KiCadLibraries")(options "")(descr ""))
+  (lib (name "FUSE")(type "KiCad")(uri "${KIPRJMOD}/Custom-KiCadLibraries/FUSE.pretty")(options "")(descr ""))
+)

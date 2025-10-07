@@ -1223,18 +1223,6 @@
 		(uuid "193bd809-044d-4dad-b63f-52dfcb47ca8f")
 	)
 	(junction
-		(at 173.99 68.58)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "1b358179-a6dd-4cde-b790-a053b996ba21")
-	)
-	(junction
-		(at 199.39 113.03)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "1d96df48-9c3b-4ccc-ba25-1ab973d84450")
-	)
-	(junction
 		(at 149.86 91.44)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1251,12 +1239,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "2e7275b1-103e-49d4-93ef-d79f16bdc564")
-	)
-	(junction
-		(at 184.15 120.65)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "306d91dd-da45-44ac-bf0b-531e2d3ae011")
 	)
 	(junction
 		(at 189.23 99.06)
@@ -1301,22 +1283,10 @@
 		(uuid "723944fd-dd25-4807-8e79-ba6a0018dcd0")
 	)
 	(junction
-		(at 194.31 58.42)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "73a27031-125e-4106-8267-883eaf501eb5")
-	)
-	(junction
 		(at 116.84 58.42)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "77d0e187-7f85-490f-a9c9-d6d0d3eb8168")
-	)
-	(junction
-		(at 179.07 66.04)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "8504e1d1-165b-41ad-8226-d5bb3c2052c9")
 	)
 	(junction
 		(at 209.55 149.86)
@@ -1331,12 +1301,6 @@
 		(uuid "963d28e7-b006-4ab6-a5b3-347815195eb0")
 	)
 	(junction
-		(at 179.07 123.19)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "a04396a4-0c18-4281-9a28-a587a41fba30")
-	)
-	(junction
 		(at 189.23 149.86)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1347,18 +1311,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a2440513-5fbe-46e1-9329-9cce60d3ba53")
-	)
-	(junction
-		(at 173.99 125.73)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "a4f288ba-4e34-4edd-9066-c469ed2e4d3f")
-	)
-	(junction
-		(at 194.31 115.57)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "a7c1e80c-bd93-4fb2-a8ed-b3bbc326d9d2")
 	)
 	(junction
 		(at 116.84 66.04)
@@ -1373,34 +1325,10 @@
 		(uuid "b3ca273e-fc55-4e0a-98d8-885403e64928")
 	)
 	(junction
-		(at 209.55 50.8)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "c10cd3be-f3a1-473b-86ac-8a06fc7ef2e9")
-	)
-	(junction
-		(at 189.23 60.96)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "c53798be-93c4-49ec-98a8-7a7a34aeb6be")
-	)
-	(junction
 		(at 179.07 99.06)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "c549f1e9-5269-4eaf-b2f9-d71b68a58975")
-	)
-	(junction
-		(at 204.47 53.34)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "c7de91fd-b331-4f91-869d-d1e668f42ec3")
-	)
-	(junction
-		(at 199.39 55.88)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "cddf31b5-ba82-435d-afc7-c29dec95e8d6")
 	)
 	(junction
 		(at 184.15 149.86)
@@ -1409,34 +1337,10 @@
 		(uuid "cf65deb0-5ae5-4cdd-b6f5-41637cd8ebda")
 	)
 	(junction
-		(at 209.55 107.95)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "d51b8e22-dd08-4e74-aca9-764818b9a9e1")
-	)
-	(junction
-		(at 189.23 118.11)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "e2fb1825-1726-4412-a242-8faa6b2c1411")
-	)
-	(junction
 		(at 149.86 34.29)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e4d3f3b6-cd95-4750-9a9c-7464d042f220")
-	)
-	(junction
-		(at 204.47 110.49)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "e4f97fd9-f5fb-4aa2-b2c6-275a6a57fe3a")
-	)
-	(junction
-		(at 184.15 63.5)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "f4258f22-f847-4601-be3b-fd263745fe9d")
 	)
 	(no_connect
 		(at 160.02 130.81)
@@ -2787,73 +2691,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 179.07 66.04 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "04463cbc-c9f1-4454-89f2-428e7bf7b972")
-		(property "Reference" "TP20"
-			(at 182.118 67.056 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 181.1021 68.58 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
-			(at 179.07 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 179.07 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 179.07 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "ea06629c-f46a-4640-b187-7ed1e92d46cc")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "TP20")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:LED")
 		(at 184.15 92.71 90)
 		(unit 1)
@@ -2862,7 +2699,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "06b27cec-a8bf-47c6-bf90-c62dc91535b1")
-		(property "Reference" "D30"
+		(property "Reference" "OverTemp1"
 			(at 191.77 94.2975 0)
 			(effects
 				(font
@@ -2871,8 +2708,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "Overtemperature"
-			(at 182.88 83.058 0)
+		(property "Value" "OverTemp"
+			(at 182.88 86.106 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2924,7 +2761,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "D30")
+					(reference "OverTemp1")
 					(unit 1)
 				)
 			)
@@ -2948,7 +2785,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "120"
+		(property "Value" "150"
 			(at 169.926 63.754 90)
 			(effects
 				(font
@@ -2995,73 +2832,6 @@
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
 					(reference "R53")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 204.47 110.49 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "128eb7e4-4482-4a18-a486-909827dfa7dd")
-		(property "Reference" "TP12"
-			(at 207.518 111.506 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 206.5021 113.03 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
-			(at 204.47 115.57 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 204.47 115.57 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 204.47 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "5bb40077-7ee0-426a-b983-a60734561aaf")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "TP12")
 					(unit 1)
 				)
 			)
@@ -3146,7 +2916,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "1dca668c-6abd-49c1-a459-00a77bc9956a")
-		(property "Reference" "D23"
+		(property "Reference" "DEBUG_3"
 			(at 196.85 145.0975 0)
 			(effects
 				(font
@@ -3208,7 +2978,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "D23")
+					(reference "DEBUG_3")
 					(unit 1)
 				)
 			)
@@ -3232,7 +3002,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "120"
+		(property "Value" "150"
 			(at 169.926 53.594 90)
 			(effects
 				(font
@@ -3359,7 +3129,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "272edaa1-5f2e-4b82-aa2e-6a37bb36c865")
-		(property "Reference" "D24"
+		(property "Reference" "DEBUG_4"
 			(at 191.77 145.0975 0)
 			(effects
 				(font
@@ -3421,7 +3191,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "D24")
+					(reference "DEBUG_4")
 					(unit 1)
 				)
 			)
@@ -3436,7 +3206,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "292bedbe-6012-4dc1-9b71-86abbd5be266")
-		(property "Reference" "D35"
+		(property "Reference" "Heart1"
 			(at 217.17 94.2975 0)
 			(effects
 				(font
@@ -3445,8 +3215,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "Running / Heartbeat"
-			(at 208.026 80.518 0)
+		(property "Value" "Heart"
+			(at 208.534 88.392 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3498,7 +3268,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "D35")
+					(reference "Heart1")
 					(unit 1)
 				)
 			)
@@ -3587,7 +3357,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "120"
+		(property "Value" "150"
 			(at 169.926 120.904 90)
 			(effects
 				(font
@@ -3648,7 +3418,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "40f71a94-48f8-4ba8-909a-4450e79a89ef")
-		(property "Reference" "D32"
+		(property "Reference" "LowV1"
 			(at 201.93 94.2975 0)
 			(effects
 				(font
@@ -3657,8 +3427,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "Undervoltage"
-			(at 192.786 84.582 0)
+		(property "Value" "LowV"
+			(at 193.04 88.392 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3710,7 +3480,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "D32")
+					(reference "LowV1")
 					(unit 1)
 				)
 			)
@@ -3725,7 +3495,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "44b70029-a12c-46d2-8a5b-1bf7c6290cc7")
-		(property "Reference" "D26"
+		(property "Reference" "DEBUG_6"
 			(at 181.61 145.0975 0)
 			(effects
 				(font
@@ -3787,7 +3557,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "D26")
+					(reference "DEBUG_6")
 					(unit 1)
 				)
 			)
@@ -3802,7 +3572,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "4b67f770-dffd-4f04-ae59-196b38942f49")
-		(property "Reference" "D29"
+		(property "Reference" "Chrging1"
 			(at 186.69 94.2975 0)
 			(effects
 				(font
@@ -3811,8 +3581,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "Charging"
-			(at 177.546 85.852 0)
+		(property "Value" "Chrging"
+			(at 177.546 87.376 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3864,74 +3634,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "D29")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 173.99 125.73 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "5de2bb98-11da-46e4-a646-b657b5a5a940")
-		(property "Reference" "TP18"
-			(at 177.038 126.746 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 176.0221 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
-			(at 173.99 130.81 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 173.99 130.81 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 173.99 125.73 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "0da80fcd-3a4b-4f27-8517-8c772e5dcbe8")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "TP18")
+					(reference "Chrging1")
 					(unit 1)
 				)
 			)
@@ -3946,7 +3649,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "63c20ef7-239a-4caf-ab35-09df38011149")
-		(property "Reference" "D25"
+		(property "Reference" "DEBUG_5"
 			(at 186.69 145.0975 0)
 			(effects
 				(font
@@ -4008,74 +3711,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "D25")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 173.99 68.58 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "69a014f0-e282-49c5-a39f-c76151010c8b")
-		(property "Reference" "TP19"
-			(at 177.038 69.596 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 176.0221 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
-			(at 173.99 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 173.99 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 173.99 68.58 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "41e1f81b-80f6-41c4-8c20-d2232d92fd7e")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "TP19")
+					(reference "DEBUG_5")
 					(unit 1)
 				)
 			)
@@ -4165,7 +3801,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "120"
+		(property "Value" "150"
 			(at 169.926 115.824 90)
 			(effects
 				(font
@@ -4218,73 +3854,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 184.15 63.5 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "80f83179-791f-49b4-873d-c6517a8c5f44")
-		(property "Reference" "TP21"
-			(at 187.198 64.516 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 186.1821 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
-			(at 184.15 68.58 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 184.15 68.58 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 184.15 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "fcb1508a-774f-494a-98f8-f44396841bfa")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "TP21")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R_US")
 		(at 166.37 113.03 90)
 		(unit 1)
@@ -4302,7 +3871,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "120"
+		(property "Value" "150"
 			(at 169.926 110.744 90)
 			(effects
 				(font
@@ -4372,7 +3941,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "120"
+		(property "Value" "150"
 			(at 169.926 58.674 90)
 			(effects
 				(font
@@ -4442,7 +4011,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "120"
+		(property "Value" "150"
 			(at 169.926 56.134 90)
 			(effects
 				(font
@@ -4489,73 +4058,6 @@
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
 					(reference "R48")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 194.31 58.42 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "89ed2d91-1fc0-41f0-bb13-eca9d2662b4d")
-		(property "Reference" "TP23"
-			(at 197.358 59.436 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 196.3421 60.96 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
-			(at 194.31 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 194.31 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 194.31 58.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "85608a37-a179-45ad-b0d2-798c4bc7675d")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "TP23")
 					(unit 1)
 				)
 			)
@@ -4640,7 +4142,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "9305f492-dadb-4ea2-b223-4a506e682c6f")
-		(property "Reference" "D28"
+		(property "Reference" "VTempIN1"
 			(at 181.61 94.2975 0)
 			(effects
 				(font
@@ -4649,8 +4151,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "VoltTemp receiving"
-			(at 172.212 81.026 0)
+		(property "Value" "VTempIN"
+			(at 172.466 87.122 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4702,7 +4204,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "D28")
+					(reference "VTempIN1")
 					(unit 1)
 				)
 			)
@@ -4717,7 +4219,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "931a0247-608f-4b30-95e9-5c1abdfa2773")
-		(property "Reference" "D21"
+		(property "Reference" "DEBUG_1"
 			(at 207.01 145.0975 0)
 			(effects
 				(font
@@ -4779,7 +4281,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "D21")
+					(reference "DEBUG_1")
 					(unit 1)
 				)
 			)
@@ -4922,73 +4424,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 189.23 60.96 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "9b9caa36-38ef-40eb-b4e2-c9c90c50aa1e")
-		(property "Reference" "TP22"
-			(at 192.278 61.976 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 191.2621 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
-			(at 189.23 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 189.23 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 189.23 60.96 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "24f8898f-e913-4bd1-a71f-b7ff097736ef")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "TP22")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:LED")
 		(at 204.47 143.51 90)
 		(unit 1)
@@ -4997,7 +4432,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "a20f9497-4b26-459a-87b5-fe083a11eab3")
-		(property "Reference" "D20"
+		(property "Reference" "DEBUG_0"
 			(at 212.09 145.0975 0)
 			(effects
 				(font
@@ -5059,7 +4494,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "D20")
+					(reference "DEBUG_0")
 					(unit 1)
 				)
 			)
@@ -5093,7 +4528,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "SN74HC594DWG4:SOIC127P1030X265-16N"
 			(at 149.86 60.96 0)
 			(effects
 				(font
@@ -5186,7 +4621,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "a8832fd1-de25-41d3-8a98-81030c71fe88")
-		(property "Reference" "D22"
+		(property "Reference" "DEBUG_2"
 			(at 201.93 145.0975 0)
 			(effects
 				(font
@@ -5248,141 +4683,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "D22")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 184.15 120.65 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "abf88cd1-83c5-41f9-b991-d956a6a72a5c")
-		(property "Reference" "TP16"
-			(at 187.198 121.666 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 186.1821 123.19 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
-			(at 184.15 125.73 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 184.15 125.73 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 184.15 120.65 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "93b391c8-6027-4903-bc1e-09c4c9916337")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "TP16")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 204.47 53.34 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "b08fea9f-f288-4f7b-9686-29fbac93c51c")
-		(property "Reference" "TP25"
-			(at 207.518 54.356 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 206.5021 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
-			(at 204.47 58.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 204.47 58.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 204.47 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "6ef08022-9d0d-472f-ad2c-0c5b2ab3dd25")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "TP25")
+					(reference "DEBUG_2")
 					(unit 1)
 				)
 			)
@@ -5406,7 +4707,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "120"
+		(property "Value" "150"
 			(at 169.926 61.214 90)
 			(effects
 				(font
@@ -5476,7 +4777,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "120"
+		(property "Value" "150"
 			(at 169.926 66.294 90)
 			(effects
 				(font
@@ -5537,7 +4838,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "b510bd00-d605-4b79-b3cf-63e237211c22")
-		(property "Reference" "D31"
+		(property "Reference" "OverAmp1"
 			(at 196.85 94.2975 0)
 			(effects
 				(font
@@ -5546,8 +4847,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "Overcurrent"
-			(at 187.706 85.09 0)
+		(property "Value" "OverAmp"
+			(at 187.96 86.614 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5599,74 +4900,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "D31")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 209.55 50.8 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "b626a19f-8d7c-4834-b20e-514f8e93be3b")
-		(property "Reference" "TP26"
-			(at 212.598 51.816 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 211.5821 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
-			(at 209.55 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 209.55 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 209.55 50.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "b0d555ea-72f0-4281-b4e9-f1617b3910f5")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "TP26")
+					(reference "OverAmp1")
 					(unit 1)
 				)
 			)
@@ -5681,7 +4915,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "b9690ac2-237f-4139-badc-0acf07b9ee2f")
-		(property "Reference" "D19"
+		(property "Reference" "AmpIn1"
 			(at 217.17 145.0975 0)
 			(effects
 				(font
@@ -5690,8 +4924,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "Amperes receiving"
-			(at 208.28 132.842 0)
+		(property "Value" "AmpIn"
+			(at 208.28 139.192 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5743,7 +4977,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "D19")
+					(reference "AmpIn1")
 					(unit 1)
 				)
 			)
@@ -5758,7 +4992,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "bba49370-870e-4293-9c44-6d7c7436398b")
-		(property "Reference" "D34"
+		(property "Reference" "Fault1"
 			(at 212.09 94.2975 0)
 			(effects
 				(font
@@ -5820,7 +5054,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "D34")
+					(reference "Fault1")
 					(unit 1)
 				)
 			)
@@ -5853,7 +5087,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "SN74HC594DWG4:SOIC127P1030X265-16N"
 			(at 149.86 118.11 0)
 			(effects
 				(font
@@ -5938,73 +5172,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 179.07 123.19 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "c1e66aea-402b-43b7-80a0-f276696726aa")
-		(property "Reference" "TP17"
-			(at 182.118 124.206 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 181.1021 125.73 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
-			(at 179.07 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 179.07 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 179.07 123.19 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "0b891e47-93b7-4222-9505-379fb4ead6af")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "TP17")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R_US")
 		(at 166.37 120.65 90)
 		(unit 1)
@@ -6022,7 +5189,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "120"
+		(property "Value" "150"
 			(at 169.926 118.364 90)
 			(effects
 				(font
@@ -6092,7 +5259,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "120"
+		(property "Value" "150"
 			(at 169.926 123.444 90)
 			(effects
 				(font
@@ -6219,7 +5386,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "d1dcfcb0-1a32-45c6-98c6-f3ae2185e543")
-		(property "Reference" "D33"
+		(property "Reference" "OverV1"
 			(at 207.01 94.2975 0)
 			(effects
 				(font
@@ -6228,8 +5395,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "Overvoltage"
-			(at 197.612 85.344 0)
+		(property "Value" "OverV"
+			(at 198.12 88.392 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6281,7 +5448,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "D33")
+					(reference "OverV1")
 					(unit 1)
 				)
 			)
@@ -6371,7 +5538,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "120"
+		(property "Value" "150"
 			(at 169.926 51.054 90)
 			(effects
 				(font
@@ -6490,341 +5657,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 189.23 118.11 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "d7ab7d5c-09e9-426b-b0fb-ef966baeaa59")
-		(property "Reference" "TP15"
-			(at 192.278 119.126 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 191.2621 120.65 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
-			(at 189.23 123.19 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 189.23 123.19 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 189.23 118.11 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "f3c7ae93-f102-47dd-8922-9dd141324838")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "TP15")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 209.55 107.95 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "e7f7e8c1-4d41-42a9-bc5e-a686590012e7")
-		(property "Reference" "TP11"
-			(at 212.598 108.966 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 211.5821 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
-			(at 209.55 113.03 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 209.55 113.03 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 209.55 107.95 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "18af3db0-0d7c-4b91-a394-f56741d8d744")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "TP11")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 194.31 115.57 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "e7fc4ccc-12b6-45e6-b6d2-e82c5a3071cc")
-		(property "Reference" "TP14"
-			(at 197.358 116.586 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 196.3421 118.11 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
-			(at 194.31 120.65 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 194.31 120.65 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 194.31 115.57 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "1cecfbd4-7ec5-499f-b948-d9478793b2d1")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "TP14")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 199.39 113.03 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "e8ef978b-0f37-4124-82bb-d3ea7af0ad3f")
-		(property "Reference" "TP13"
-			(at 202.438 114.046 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 201.4221 115.57 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
-			(at 199.39 118.11 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 199.39 118.11 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 199.39 113.03 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "af2fd130-34e4-4cc2-a012-03684ae323c2")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "TP13")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 199.39 55.88 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "eaf789fc-a1df-4f33-a39e-36ce4ab253a9")
-		(property "Reference" "TP24"
-			(at 202.438 56.896 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 201.4221 58.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
-			(at 199.39 60.96 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 199.39 60.96 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 199.39 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "1b976b5d-17cb-4346-a491-c2471ddfc100")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "TP24")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R_US")
 		(at 166.37 50.8 90)
 		(unit 1)
@@ -6842,7 +5674,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "120"
+		(property "Value" "150"
 			(at 169.926 48.514 90)
 			(effects
 				(font
@@ -6912,7 +5744,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "120"
+		(property "Value" "150"
 			(at 169.926 108.204 90)
 			(effects
 				(font
@@ -7182,7 +6014,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "120"
+		(property "Value" "150"
 			(at 169.926 113.284 90)
 			(effects
 				(font
@@ -7262,7 +6094,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "UTSVT_Special:TestPoint_HEX_3mmID"
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
 			(at 157.48 85.09 0)
 			(effects
 				(font
