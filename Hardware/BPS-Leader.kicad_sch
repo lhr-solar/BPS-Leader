@@ -9194,6 +9194,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 49.53 184.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "4"
 			(uuid "77b33509-4d46-4032-8120-b29dcd38b9ed")
 		)
@@ -9262,6 +9271,15 @@
 		)
 		(property "Description" "Symbol for both board-to-board connectors from the LeaderSOM"
 			(at 56.642 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
+			(at 56.388 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9561,6 +9579,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 177.8 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "d9cf9c68-5d26-4655-b07e-dc0bf10ff405")
 		)
@@ -9694,6 +9721,15 @@
 		)
 		(property "Description" "Symbol for both board-to-board connectors from the LeaderSOM"
 			(at 55.626 29.464 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
+			(at 55.372 37.084 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9927,6 +9963,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 129.54 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "ad45931b-3eb4-45d9-b281-7439925684fe")
 		)
@@ -10131,6 +10176,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 151.13 54.61 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "70728800-7dca-4731-b2f2-1dc6849f7a2d")
 		)
@@ -10326,6 +10380,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 209.55 24.13 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "a4f216d1-fa83-4be0-b3b9-ec7f06ed0c41")
 		)
@@ -10467,6 +10530,15 @@
 			)
 		)
 		(property "p/n" ""
+			(at 206.9705 102.0713 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 206.9705 102.0713 0)
 			(effects
 				(font
@@ -10659,6 +10731,15 @@
 			)
 		)
 		(property "Description" "Generic connector, double row, 02x06, counter clockwise pin numbering scheme (similar to DIP package numbering), script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 184.15 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 184.15 29.21 0)
 			(effects
 				(font
@@ -10955,6 +11036,15 @@
 			)
 		)
 		(property "Description" "test point"
+			(at 78.74 187.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 78.74 187.96 0)
 			(effects
 				(font
@@ -11292,6 +11382,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 85.09 187.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "f5b3f241-c334-4497-b2d2-4c786bb0b571")
 		)
@@ -11350,6 +11449,15 @@
 		)
 		(property "Description" "test point"
 			(at 209.55 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
+			(at 209.55 29.21 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11417,6 +11525,15 @@
 			)
 		)
 		(property "Description" "Digital Humidity and Temperature Sensor, ±1%RH, ±0.1°C, I2C, 1.08-3.6V, 16bit, DFN-4"
+			(at 205.74 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 205.74 83.82 0)
 			(effects
 				(font
@@ -11629,6 +11746,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 144.78 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "56492825-a3e3-4480-a94b-b08b45aa1c5e")
 		)
@@ -11762,6 +11888,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 151.13 57.15 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "e62aa859-df6e-4061-bd2f-adb8e16f5de1")
 		)
@@ -11831,6 +11966,15 @@
 			)
 		)
 		(property "P/N" "SFH11-PBPC-D05-ST-BK"
+			(at 198.12 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 198.12 132.08 0)
 			(effects
 				(font
@@ -11925,6 +12069,15 @@
 			)
 		)
 		(property "Description" "test point"
+			(at 97.79 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 97.79 180.34 0)
 			(effects
 				(font
@@ -12213,6 +12366,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 193.0005 102.0713 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e"
@@ -12339,6 +12501,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 144.78 21.59 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "7dc37b3a-d726-4ce8-9fdf-56fe77e076cd")
 		)
@@ -12401,6 +12572,15 @@
 			)
 		)
 		(property "Description" "test point"
+			(at 72.39 187.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 72.39 187.96 0)
 			(effects
 				(font
@@ -12473,6 +12653,15 @@
 			)
 		)
 		(property "Description" "General-purpose transistor"
+			(at 138.43 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 138.43 27.94 0)
 			(effects
 				(font
@@ -12643,6 +12832,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 184.1105 102.0713 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e"
@@ -12699,6 +12897,15 @@
 			)
 		)
 		(property "Description" "test point"
+			(at 91.44 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 91.44 180.34 0)
 			(effects
 				(font

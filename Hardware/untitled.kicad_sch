@@ -2735,6 +2735,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 80.645 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "d254e5dd-eb46-4147-bd20-69e5a14571b1")
 		)
@@ -2921,6 +2930,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 83.82 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "8"
 			(uuid "585056a4-1ef3-46d6-a3b6-4850d05666d4")
 		)
@@ -3011,6 +3029,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 73.66 88.265 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 73.66 88.265 0)
 			(effects
 				(font
@@ -3155,6 +3182,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 73.66 74.295 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "b7c3b8b5-cbf5-4fa5-811a-dc531978d7a7")
 		)
@@ -3288,6 +3324,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 50.165 76.835 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "be08e8f1-5790-452d-8a53-8e8dd83feec4")
 		)
@@ -3401,6 +3446,15 @@
 					(size 1.27 1.27)
 				)
 				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
+			(at 76.835 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 				(hide yes)
 			)
 		)
@@ -3675,6 +3729,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 60.325 45.72 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "ebe4c77c-e9af-47ad-84ed-fdaa00f8350b")
 		)
@@ -3859,6 +3922,15 @@
 					(size 1.27 1.27)
 				)
 				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
+			(at 65.405 81.915 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 				(hide yes)
 			)
 		)
@@ -4065,6 +4137,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 114.3 62.865 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "6d918cc5-c8d5-43c2-8338-ae65813ec49e")
 		)
@@ -4126,6 +4207,15 @@
 			)
 		)
 		(property "Description" "test point"
+			(at 113.03 52.705 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 113.03 52.705 0)
 			(effects
 				(font
@@ -4198,6 +4288,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 50.165 51.1574 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "38436c16-e767-453d-baf4-1a03e4251335")
 		)
@@ -4258,6 +4357,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 58.42 88.265 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 58.42 88.265 0)
 			(effects
 				(font
@@ -4402,6 +4510,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 113.665 80.645 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "ccef651c-d3c2-4666-8261-5f49548e4122")
 		)
@@ -4462,6 +4579,15 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 46.99 127 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 46.99 127 0)
 			(effects
 				(font
@@ -4604,6 +4730,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 123.19 87.63 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "0d119875-18b4-4878-9991-36494f72dfad")
 		)
@@ -4738,6 +4873,15 @@
 			)
 		)
 		(property "P/N" ""
+			(at 42.545 66.675 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 42.545 66.675 0)
 			(effects
 				(font

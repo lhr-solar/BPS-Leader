@@ -2631,6 +2631,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 63.5 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "9aed0775-19d4-4961-bc42-27dec3d481ac")
 		)
@@ -2779,6 +2788,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 121.285 101.6 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "8a31be9f-3ace-4d33-8ccb-28053b484c2e")
 		)
@@ -2841,6 +2859,15 @@
 			)
 		)
 		(property "Description" "Resistor, US symbol"
+			(at 121.285 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 121.285 92.71 0)
 			(effects
 				(font
@@ -3053,6 +3080,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 53.34 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "b9095b83-132a-4fb0-85e2-685efc35bc00")
 		)
@@ -3257,6 +3293,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 53.34 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "1d3bc2e2-19e2-4d86-bc52-9f9f425854ec")
 		)
@@ -3394,6 +3439,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 132.715 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "2fa7e63d-e387-4aa9-b37c-45740a52007f")
 		)
@@ -3466,6 +3520,15 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 132.715 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
+			(at 132.715 101.6 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3610,6 +3673,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 144.145 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "3abedd10-a2d7-4ed6-912a-85d9edbd3ddd")
 		)
@@ -3682,6 +3754,15 @@
 			)
 		)
 		(property "P/N" "SFH11-PBPC-D05-ST-BK"
+			(at 234.315 90.805 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 234.315 90.805 0)
 			(effects
 				(font
@@ -3850,6 +3931,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 155.575 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "c9d50d2e-1f29-4b32-be9e-3f1519a6e522")
 		)
@@ -3912,6 +4002,15 @@
 		)
 		(property "Description" "MEC 5G single pole normally-open tactile switch"
 			(at 63.754 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
+			(at 63.5 72.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3997,6 +4096,15 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 155.575 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
+			(at 155.575 101.6 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4150,6 +4258,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 144.145 101.6 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "9fde54a4-5683-459b-8935-cf970a4fd0b0")
 		)
@@ -4278,6 +4395,15 @@
 		)
 		(property "Description" "Resistor, US symbol"
 			(at 52.705 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
+			(at 52.705 114.3 90)
 			(effects
 				(font
 					(size 1.27 1.27)

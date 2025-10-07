@@ -3326,6 +3326,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 149.86 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "2d29f235-273f-4b99-b0e3-118c3945699a")
 		)
@@ -3452,6 +3461,15 @@
 			)
 		)
 		(property "Description" "Resistor, US symbol"
+			(at 85.09 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 85.09 31.75 0)
 			(effects
 				(font
@@ -3792,6 +3810,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 46.99 142.24 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "12eb0c96-1cae-4d0d-8ad4-437a5257aeaf")
 		)
@@ -3854,6 +3881,15 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 186.69 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 186.69 128.27 0)
 			(effects
 				(font
@@ -4065,6 +4101,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 233.68 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "c253161f-dfa3-4bd8-98d8-eac93662bcaf")
 		)
@@ -4127,6 +4172,15 @@
 		)
 		(property "Description" ""
 			(at 46.99 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
+			(at 46.99 166.37 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4204,6 +4258,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 154.94 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "d60afd3a-3423-4acb-9aa2-119f00d8afda")
 		)
@@ -4265,6 +4328,15 @@
 			)
 		)
 		(property "Description" "Resistor, US symbol"
+			(at 213.36 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 213.36 132.08 0)
 			(effects
 				(font
@@ -4335,6 +4407,15 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 250.19 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 250.19 128.27 0)
 			(effects
 				(font
@@ -4547,6 +4628,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 185.42 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "b71e7082-a83b-4283-9507-28eae046d8fb")
 		)
@@ -4692,6 +4782,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 100.33 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "8"
 			(uuid "989770a6-5034-4d92-bc52-85749205c8d8")
 		)
@@ -4807,6 +4906,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 66.04 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "c4aee70d-43c9-4677-a2f6-af868c7cc38f")
 		)
@@ -4871,6 +4979,15 @@
 			)
 		)
 		(property "Description" "30A Id, 40V Vds, N-Channel TrenchMOS MOSFET, 27mOhm Ron, 19.5nC Qqd, -55 to 175 °C, LFPAK33"
+			(at 238.76 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 238.76 139.7 0)
 			(effects
 				(font
@@ -5023,6 +5140,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 171.45 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "30cefac8-c0e6-4f30-8908-3dfb1ca5ea96")
 		)
@@ -5087,6 +5213,15 @@
 			)
 		)
 		(property "Description" "30A Id, 40V Vds, N-Channel TrenchMOS MOSFET, 27mOhm Ron, 19.5nC Qqd, -55 to 175 °C, LFPAK33"
+			(at 175.26 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 175.26 139.7 0)
 			(effects
 				(font
@@ -5166,6 +5301,15 @@
 			)
 		)
 		(property "Description" "Resistor, US symbol"
+			(at 43.18 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 43.18 99.06 0)
 			(effects
 				(font
@@ -5308,6 +5452,15 @@
 			)
 		)
 		(property "P/N" "C0805C105K5PACTU"
+			(at 44.45 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 44.45 45.72 0)
 			(effects
 				(font
@@ -5514,6 +5667,15 @@
 			)
 		)
 		(property "P/N" "C0805C105K5PACTU"
+			(at 49.53 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 49.53 45.72 0)
 			(effects
 				(font
@@ -5788,6 +5950,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 74.93 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "8ef2518f-ad25-470d-8442-a0602af5cf42")
 		)
@@ -5850,6 +6021,15 @@
 			)
 		)
 		(property "Description" "Resistor, US symbol"
+			(at 99.06 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 99.06 31.75 0)
 			(effects
 				(font

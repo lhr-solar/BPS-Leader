@@ -2752,6 +2752,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 184.15 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "99ec8540-aae6-4f16-98a6-192f698b4d53")
 		)
@@ -2822,6 +2831,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 166.37 66.04 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "5ee488f0-66ef-415a-a545-784155fa54ab")
 		)
@@ -2884,6 +2902,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 116.84 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 116.84 71.12 0)
 			(effects
 				(font
@@ -2969,6 +2996,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 189.23 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "d5b85b77-1195-41f6-81c2-fed50169bb8d")
 		)
@@ -3032,6 +3068,15 @@
 		)
 		(property "Description" "Resistor, US symbol"
 			(at 166.37 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
+			(at 166.37 55.88 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3182,6 +3227,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 184.15 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "57c1c49e-fe4a-4282-b41f-b3f74b736718")
 		)
@@ -3251,6 +3305,15 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
+			(at 209.55 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 209.55 92.71 0)
 			(effects
 				(font
@@ -3394,6 +3457,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 166.37 123.19 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "be6f7aca-1844-4dd4-9ef1-e2df7628f27c")
 		)
@@ -3463,6 +3535,15 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
+			(at 194.31 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 194.31 92.71 0)
 			(effects
 				(font
@@ -3548,6 +3629,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 173.99 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "6386d0cd-f08b-42cf-96f2-4123dddd8eb6")
 		)
@@ -3625,6 +3715,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 179.07 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "f583d256-a58d-4390-8fc2-dd07ea082083")
 		)
@@ -3694,6 +3793,15 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
+			(at 179.07 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 179.07 143.51 0)
 			(effects
 				(font
@@ -3838,6 +3946,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 166.37 118.11 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "05be1b08-23c9-4e93-aa27-f86f0ec3a379")
 		)
@@ -3901,6 +4018,15 @@
 		)
 		(property "Description" "Resistor, US symbol"
 			(at 166.37 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
+			(at 166.37 113.03 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3978,6 +4104,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 166.37 60.96 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "cb9a469b-19c5-4c1b-8afa-06b064287168")
 		)
@@ -4048,6 +4183,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 166.37 58.42 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "adb22127-66d4-4b6a-8dbb-2b19adddcc63")
 		)
@@ -4110,6 +4254,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 144.78 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 144.78 39.37 0)
 			(effects
 				(font
@@ -4195,6 +4348,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 173.99 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "5c423237-b691-4779-af97-546ca919f23d")
 		)
@@ -4272,6 +4434,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 199.39 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "59069225-3f99-4dc4-8d20-67d4262f1b79")
 		)
@@ -4335,6 +4506,15 @@
 		)
 		(property "Description" "Resistor, US symbol"
 			(at 166.37 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
+			(at 166.37 107.95 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4485,6 +4665,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 204.47 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "60ba7e38-7df3-41b4-90db-0867c31f0eb1")
 		)
@@ -4547,6 +4736,15 @@
 			)
 		)
 		(property "Description" "8-Bit Shift Registers With Output Registers"
+			(at 149.86 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 149.86 60.96 0)
 			(effects
 				(font
@@ -4674,6 +4872,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 194.31 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "7cc6d3f3-ba17-4bf0-9309-57eb6b4daa54")
 		)
@@ -4737,6 +4944,15 @@
 		)
 		(property "Description" "Resistor, US symbol"
 			(at 166.37 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
+			(at 166.37 63.5 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4814,6 +5030,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 166.37 68.58 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "b4003dd7-aded-4607-938d-6b4929b6a361")
 		)
@@ -4883,6 +5108,15 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
+			(at 189.23 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 189.23 92.71 0)
 			(effects
 				(font
@@ -4968,6 +5202,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 209.55 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "9a43e65f-2f90-408d-90dd-22b8d8a49693")
 		)
@@ -5045,6 +5288,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 204.47 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "4a59a76f-9931-4f28-9d0e-e4ff8c127f47")
 		)
@@ -5106,6 +5358,15 @@
 			)
 		)
 		(property "Description" "8-Bit Shift Registers With Output Registers"
+			(at 149.86 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 149.86 118.11 0)
 			(effects
 				(font
@@ -5226,6 +5487,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 166.37 120.65 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "ce81d350-31bc-407b-80cb-c1389907ac51")
 		)
@@ -5289,6 +5559,15 @@
 		)
 		(property "Description" "Resistor, US symbol"
 			(at 166.37 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
+			(at 166.37 125.73 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5439,6 +5718,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 199.39 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "3e3079f9-c706-46b8-8341-c775684f34f5")
 		)
@@ -5568,6 +5856,15 @@
 		)
 		(property "Description" "Resistor, US symbol"
 			(at 166.37 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
+			(at 166.37 53.34 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5711,6 +6008,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 166.37 50.8 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "7ee809da-8baa-4948-99b0-369229da1066")
 		)
@@ -5774,6 +6080,15 @@
 		)
 		(property "Description" "Resistor, US symbol"
 			(at 166.37 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
+			(at 166.37 110.49 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5981,6 +6296,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 128.27 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "b959d9de-df8c-4f57-9146-429aecc90487")
 		)
@@ -6044,6 +6368,15 @@
 		)
 		(property "Description" "Resistor, US symbol"
 			(at 166.37 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
+			(at 166.37 115.57 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6121,6 +6454,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 162.56 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "8ba72ddf-4444-46a5-96fa-b59ae36166ac")
 		)
@@ -6180,6 +6522,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 144.78 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 144.78 96.52 0)
 			(effects
 				(font

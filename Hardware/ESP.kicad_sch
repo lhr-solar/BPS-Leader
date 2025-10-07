@@ -5838,6 +5838,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 126.365 135.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "12c9f173-1b04-4cbb-9f17-9d28bfcb5f57")
 		)
@@ -6044,6 +6053,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 144.78 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "9"
 			(uuid "27b77c9b-8b6a-4594-8b73-a48cb8471c82")
 		)
@@ -6134,6 +6152,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 59.69 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "5d8302d5-7fff-4be8-a48a-9fba79b74bdc")
 		)
@@ -6204,6 +6231,15 @@
 			)
 		)
 		(property "P/N" "UMK107B7104KAHT "
+			(at 179.705 127 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 179.705 127 0)
 			(effects
 				(font
@@ -6345,6 +6381,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 26.67 154.94 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "ced7b208-17f5-45fe-b3ab-7badb61d3d18")
 		)
@@ -6403,6 +6448,15 @@
 			)
 		)
 		(property "Description" "Resistor, US symbol"
+			(at 29.21 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 29.21 160.02 0)
 			(effects
 				(font
@@ -6613,6 +6667,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 41.91 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "ee0480df-7e89-4f37-97a1-83f7f4505a51")
 		)
@@ -6746,6 +6809,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 173.355 120.65 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "d7f41a8c-ddd3-4eab-84ae-277eed0c9fe5")
 		)
@@ -6815,6 +6887,15 @@
 			)
 		)
 		(property "P/N" "1N5819HW-7-F"
+			(at 62.23 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 62.23 33.02 0)
 			(effects
 				(font
@@ -6966,6 +7047,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 36.83 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "B5"
 			(uuid "63ccefd4-2850-4d6a-82ec-0db5c710b9af")
 		)
@@ -7089,6 +7179,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 116.84 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "f59946b4-3352-4831-a609-d18a9ee9665e")
 		)
@@ -7158,6 +7257,15 @@
 			)
 		)
 		(property "P/N" "LT1963AEST-3.3#TRPBF "
+			(at 124.46 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 124.46 35.56 0)
 			(effects
 				(font
@@ -7258,6 +7366,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 121.92 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "032f43c8-29d8-4997-b5c0-408ae35cd41d")
 		)
@@ -7326,6 +7443,15 @@
 			)
 		)
 		(property "Description" "ESP32-C6-MINI-1 is a module that supports 2.4 GHz Wi-Fi 6 (802.11 ax), Bluetooth® 5 (LE), Zigbee and Thread (802.15.4)"
+			(at 228.6 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 228.6 24.13 0)
 			(effects
 				(font
@@ -7575,6 +7701,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 41.91 170.18 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "976fc31a-2ce2-443a-bec3-c90710a1aad0")
 		)
@@ -7711,6 +7846,15 @@
 			)
 		)
 		(property "P/N" "UMK107B7104KAHT "
+			(at 107.315 122.555 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 107.315 122.555 0)
 			(effects
 				(font
@@ -7938,6 +8082,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 29.21 170.18 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "c025beb1-4c82-42a4-8a9a-d35a3712f9a2")
 		)
@@ -8065,6 +8218,15 @@
 			)
 		)
 		(property "Description" "Resistor, US symbol"
+			(at 52.07 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 52.07 105.41 0)
 			(effects
 				(font
@@ -8226,6 +8388,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 138.43 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "316ead3f-ca09-4b42-96d7-65d500c7e5c8")
 		)
@@ -8297,6 +8468,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 74.93 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "0f0b961f-6c2a-4d32-8146-91266cd39230")
 		)
@@ -8358,6 +8538,15 @@
 		)
 		(property "Description" "test point"
 			(at 44.45 153.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
+			(at 44.45 153.67 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8564,6 +8753,15 @@
 			)
 		)
 		(property "P/N" "MLAST168BB5106MTNA01"
+			(at 35.56 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 35.56 106.68 0)
 			(effects
 				(font
@@ -8971,6 +9169,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufactuerer" ""
+			(at 62.23 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "4c116e4f-3209-4583-bb2b-0290589afeee")
 		)
@@ -9041,6 +9248,15 @@
 			)
 		)
 		(property "P/N" "UMK107B7104KAHT "
+			(at 109.22 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
 			(at 109.22 38.1 0)
 			(effects
 				(font
