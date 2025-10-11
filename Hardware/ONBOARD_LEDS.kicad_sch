@@ -4708,7 +4708,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "74HC594"
+		(property "Value" "SN74HC594DWG4"
 			(at 152.0033 45.72 0)
 			(effects
 				(font
@@ -4717,7 +4717,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "SN74HC594DWG4:SOIC127P1030X265-16N"
+		(property "Footprint" "Shift Reg:SOIC127P1030X265-16N"
 			(at 149.86 60.96 0)
 			(effects
 				(font
@@ -5330,7 +5330,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "74HC594"
+		(property "Value" "SN74HC594DWG4"
 			(at 151.13 104.14 0)
 			(effects
 				(font
@@ -5339,7 +5339,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "SN74HC594DWG4:SOIC127P1030X265-16N"
+		(property "Footprint" "Shift Reg:SOIC127P1030X265-16N"
 			(at 149.86 118.11 0)
 			(effects
 				(font

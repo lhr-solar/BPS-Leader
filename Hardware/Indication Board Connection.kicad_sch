@@ -572,142 +572,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Device:Fuse"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "F"
-				(at 2.032 0 90)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "Fuse"
-				(at -1.905 0 90)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at -1.778 0 90)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Fuse"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "fuse"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "*Fuse*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "Fuse_0_1"
-				(rectangle
-					(start -0.762 -2.54)
-					(end 0.762 2.54)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 2.54) (xy 0 -2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "Fuse_1_1"
-				(pin passive line
-					(at 0 3.81 270)
-					(length 1.27)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -3.81 90)
-					(length 1.27)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "Device:L"
 			(pin_numbers
 				(hide yes)
@@ -977,6 +841,197 @@
 					(at 0 -3.81 90)
 					(length 1.27)
 					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "PTC Fuse:SMD1812B300TFT"
+			(pin_names
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "F"
+				(at 13.97 6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+				)
+			)
+			(property "Value" "SMD1812B300TFT"
+				(at 13.97 3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+				)
+			)
+			(property "Footprint" "FUSC4632X165N"
+				(at 13.97 -96.19 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.yageo.com/upload/media/product/productsearch/datasheet/cpc/pptc/SMD1812_1.pdf"
+				(at 13.97 -196.19 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Description" "Polymeric PTC Resettable Fuse 6V 3 A Ih Surface Mount 1812 (4532 Metric), Concave"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Height" "1.65"
+				(at 13.97 -396.19 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Mouser Part Number" "603-SMD1812B300TFT"
+				(at 13.97 -496.19 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/YAGEO/SMD1812B300TFT?qs=0lSvoLzn4L%252BUTwukZpvWFw%3D%3D"
+				(at 13.97 -596.19 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer_Name" "YAGEO"
+				(at 13.97 -696.19 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer_Part_Number" "SMD1812B300TFT"
+				(at 13.97 -796.19 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(symbol "SMD1812B300TFT_1_1"
+				(rectangle
+					(start 5.08 1.27)
+					(end 12.7 -1.27)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(polyline
+					(pts
+						(xy 5.588 -2.032) (xy 7.112 -2.032)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 10.668 2.032) (xy 7.112 -2.032)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 10.668 2.032) (xy 12.192 2.032)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at 0 0 0)
+					(length 5.08)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 17.78 0 180)
+					(length 5.08)
+					(name "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1773,7 +1828,7 @@
 		(uuid "62e113d9-9698-462b-91b1-535452f4891d")
 	)
 	(junction
-		(at 59.69 137.16)
+		(at 48.26 137.16)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "722cdacb-b493-4f31-a766-09c819b8bba3")
@@ -2220,7 +2275,7 @@
 	)
 	(wire
 		(pts
-			(xy 59.69 139.7) (xy 63.5 139.7)
+			(xy 48.26 139.7) (xy 53.34 139.7)
 		)
 		(stroke
 			(width 0)
@@ -2300,7 +2355,7 @@
 	)
 	(wire
 		(pts
-			(xy 59.69 134.62) (xy 59.69 137.16)
+			(xy 48.26 134.62) (xy 48.26 137.16)
 		)
 		(stroke
 			(width 0)
@@ -2320,7 +2375,7 @@
 	)
 	(wire
 		(pts
-			(xy 59.69 137.16) (xy 59.69 139.7)
+			(xy 48.26 137.16) (xy 48.26 139.7)
 		)
 		(stroke
 			(width 0)
@@ -8058,82 +8113,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:Fuse")
-		(at 67.31 139.7 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "534d7087-9057-41c2-84c3-fbcd7034f033")
-		(property "Reference" "F2"
-			(at 67.31 133.35 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "SMD1812B300TFT"
-			(at 72.136 135.89 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Fuse:Fuse_1812_4532Metric"
-			(at 67.31 141.478 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://4donline.ihs.com/images/VipMasterIC/IC/YAGO/YAGO-S-A0012927858/YAGO-S-A0012927859-1.pdf?hkey=CECEF36DEECDED6468708AAF2E19C0C6"
-			(at 67.31 139.7 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "PPTC Fuse"
-			(at 67.31 139.7 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufactuerer" ""
-			(at 67.31 139.7 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "9d2710c2-90bd-4744-bd13-6da66606ae4c")
-		)
-		(pin "1"
-			(uuid "f446f77e-16f0-4c4b-8817-99d17a34ed2f")
-		)
-		(instances
-			(project ""
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/e5707b84-df8b-4b8b-b215-90bb9859c3b3"
-					(reference "F2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 142.24 83.82 0)
 		(unit 1)
@@ -8325,6 +8304,126 @@
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/e5707b84-df8b-4b8b-b215-90bb9859c3b3"
 					(reference "#PWR0125")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "PTC Fuse:SMD1812B300TFT")
+		(at 53.34 139.7 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7a1e1077-63a2-4e02-84f9-9238be451755")
+		(property "Reference" "F1"
+			(at 62.23 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SMD1812B300TFT"
+			(at 62.23 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "PTC Fuse:FUSC4632X165N"
+			(at 67.31 235.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.yageo.com/upload/media/product/productsearch/datasheet/cpc/pptc/SMD1812_1.pdf"
+			(at 67.31 335.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "Polymeric PTC Resettable Fuse 6V 3 A Ih Surface Mount 1812 (4532 Metric), Concave"
+			(at 53.34 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Height" "1.65"
+			(at 67.31 535.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Mouser Part Number" "603-SMD1812B300TFT"
+			(at 67.31 635.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/YAGEO/SMD1812B300TFT?qs=0lSvoLzn4L%252BUTwukZpvWFw%3D%3D"
+			(at 67.31 735.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Name" "YAGEO"
+			(at 67.31 835.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Part_Number" "SMD1812B300TFT"
+			(at 67.31 935.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "ef6a48eb-a7b6-4c57-bb11-9bb8e3c3ec5f")
+		)
+		(pin "1"
+			(uuid "a97de4f1-dde0-4909-bd4f-cb82c8c2bab7")
+		)
+		(instances
+			(project ""
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/e5707b84-df8b-4b8b-b215-90bb9859c3b3"
+					(reference "F1")
 					(unit 1)
 				)
 			)
@@ -8659,7 +8758,7 @@
 	)
 	(symbol
 		(lib_id "power:+24V")
-		(at 59.69 134.62 0)
+		(at 48.26 134.62 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8667,7 +8766,7 @@
 		(dnp no)
 		(uuid "cc440a47-88cb-4799-9437-dad21f58c228")
 		(property "Reference" "#PWR0131"
-			(at 59.69 138.43 0)
+			(at 48.26 138.43 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8676,7 +8775,7 @@
 			)
 		)
 		(property "Value" "+5V_BUCK"
-			(at 59.436 130.81 0)
+			(at 48.006 130.81 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8684,7 +8783,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 59.69 134.62 0)
+			(at 48.26 134.62 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8693,7 +8792,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 59.69 134.62 0)
+			(at 48.26 134.62 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8702,7 +8801,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+24V\""
-			(at 59.69 134.62 0)
+			(at 48.26 134.62 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8789,7 +8888,7 @@
 	)
 	(symbol
 		(lib_id "Connector:TestPoint")
-		(at 59.69 137.16 90)
+		(at 48.26 137.16 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8797,7 +8896,7 @@
 		(dnp no)
 		(uuid "d1a60aa0-3fb4-4949-b574-d2b8090b9509")
 		(property "Reference" "TP1"
-			(at 49.53 138.684 90)
+			(at 38.1 138.684 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8805,7 +8904,7 @@
 			)
 		)
 		(property "Value" "TestPoint"
-			(at 49.276 136.144 90)
+			(at 37.846 136.144 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8813,7 +8912,7 @@
 			)
 		)
 		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
-			(at 59.69 132.08 0)
+			(at 48.26 132.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8822,7 +8921,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 59.69 132.08 0)
+			(at 48.26 132.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8831,7 +8930,7 @@
 			)
 		)
 		(property "Description" "test point"
-			(at 59.69 137.16 0)
+			(at 48.26 137.16 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8840,7 +8939,7 @@
 			)
 		)
 		(property "Manufactuerer" ""
-			(at 59.69 137.16 90)
+			(at 48.26 137.16 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9063,7 +9162,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Connector_Molex:Molex_Nano-Fit_105309-xx03_1x03_P2.50mm_Vertical"
+		(property "Footprint" "Connector_Molex:Molex_Nano-Fit_105313-xx03_1x03_P2.50mm_Horizontal"
 			(at 77.47 142.24 0)
 			(effects
 				(font

@@ -4744,7 +4744,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SN74HC594DWG4:QFN16_4x4MC_MCH"
+		(property "Footprint" "EMC2305-1-AP-TR:QFN65P400X400X90-17N-D"
 			(at 100.33 36.83 0)
 			(effects
 				(font

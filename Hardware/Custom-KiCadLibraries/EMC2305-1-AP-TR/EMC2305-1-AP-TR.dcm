@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP EMC2305-1-AP-TR
+D MICROCHIP - EMC2305-1-AP-TR - Motor Driver/Controller, PWM, 3V to 3.6V, 5 Outputs, QFN-16
+K
+F https://componentsearchengine.com/Datasheets/1/EMC2305-1-AP-TR.pdf
+$ENDCMP
+#
+#End Doc Library
