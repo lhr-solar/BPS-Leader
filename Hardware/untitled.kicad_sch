@@ -1178,320 +1178,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "UTSVT_Power:PSMN8R5-40MSDX"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "Q"
-				(at 21.59 7.62 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-				)
-			)
-			(property "Value" "PSMN8R5-40MSDX"
-				(at 21.59 5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-				)
-			)
-			(property "Footprint" "PSMN8R5-40MSDX"
-				(at 21.59 -94.92 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/PSMN8R5-40MSD.pdf"
-				(at 21.59 -194.92 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(property "Description" "MOSFETs PSMN8R5-40MSD/SOT1210/mLFPAK"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Height" "1"
-				(at 21.59 -394.92 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(property "Mouser Part Number" "771-PSMN8R5-40MSDX"
-				(at 21.59 -494.92 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Nexperia/PSMN8R5-40MSDX?qs=vHuUswq2%252BswjdnYdBdHaPw%3D%3D"
-				(at 21.59 -594.92 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(property "Manufacturer_Name" "Nexperia"
-				(at 21.59 -694.92 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(property "Manufacturer_Part_Number" "PSMN8R5-40MSDX"
-				(at 21.59 -794.92 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(symbol "PSMN8R5-40MSDX_1_1"
-				(rectangle
-					(start 5.08 2.54)
-					(end 20.32 -17.78)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(pin passive line
-					(at 0 0 0)
-					(length 5.08)
-					(name "S_1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -2.54 0)
-					(length 5.08)
-					(name "S_2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -5.08 0)
-					(length 5.08)
-					(name "S_3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -7.62 0)
-					(length 5.08)
-					(name "G"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 25.4 0 180)
-					(length 5.08)
-					(name "D_1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 25.4 -2.54 180)
-					(length 5.08)
-					(name "D_2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 25.4 -5.08 180)
-					(length 5.08)
-					(name "D_3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 25.4 -7.62 180)
-					(length 5.08)
-					(name "D_4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 25.4 -10.16 180)
-					(length 5.08)
-					(name "D_5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "9"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 25.4 -12.7 180)
-					(length 5.08)
-					(name "D_6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 25.4 -15.24 180)
-					(length 5.08)
-					(name "D_7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "UTSVT_Power:SMAF4749A-TP"
 			(pin_names
 				(hide yes)
@@ -2136,10 +1822,281 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "utsvt_power:PSMN8R5-40MSDX"
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "Q"
+				(at -8.128 7.112 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+				)
+			)
+			(property "Value" "PSMN8R5-40MSDX"
+				(at -8.255 4.445 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+				)
+			)
+			(property "Footprint" "BUK7M1780EX"
+				(at 21.59 -94.92 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/PSMN8R5-40MSD.pdf"
+				(at 21.59 -194.92 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Description" "MOSFETs PSMN8R5-40MSD/SOT1210/mLFPAK"
+				(at 1.016 11.43 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Height" "1"
+				(at 21.59 -394.92 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Mouser Part Number" "771-PSMN8R5-40MSDX"
+				(at 21.59 -494.92 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Nexperia/PSMN8R5-40MSDX?qs=vHuUswq2%252BswjdnYdBdHaPw%3D%3D"
+				(at 21.59 -594.92 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer_Name" "Nexperia"
+				(at 21.59 -694.92 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer_Part_Number" "PSMN8R5-40MSDX"
+				(at 21.59 -794.92 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(symbol "PSMN8R5-40MSDX_0_1"
+				(polyline
+					(pts
+						(xy -2.54 -1.905) (xy -1.524 -1.905)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.905 -2.54) (xy 1.905 -2.54)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.635 -1.905) (xy 0.381 -1.905)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0.635) (xy 0.635 0.254) (xy 0.635 1.016) (xy 0 0.635)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 0 -0.635)
+					(radius 2.794)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -1.27) (xy -0.381 -0.254) (xy 0.381 -0.254) (xy 0 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -1.905) (xy 2.286 -1.905)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.905 -1.905) (xy 1.905 0.635) (xy -1.651 0.635) (xy -1.651 -1.905)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 0) (xy 0 0) (xy 0 -1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "PSMN8R5-40MSDX_1_1"
+				(pin passive line
+					(at -5.715 -0.635 0)
+					(length 2.794)
+					(name "S"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -6.35 90)
+					(length 2.794)
+					(name "G"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.715 -0.635 180)
+					(length 2.794)
+					(name "D"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 	)
 	(rectangle
-		(start 38.1 129.54)
-		(end 55.88 138.43)
+		(start 26.67 146.05)
+		(end 44.45 154.94)
 		(stroke
 			(width 0)
 			(type default)
@@ -2150,8 +2107,8 @@
 		(uuid 4ba9c024-90d5-471f-bf94-e5dd7fddd86c)
 	)
 	(rectangle
-		(start 38.1 113.03)
-		(end 67.31 138.43)
+		(start 26.67 129.54)
+		(end 55.88 154.94)
 		(stroke
 			(width 0)
 			(type default)
@@ -2163,7 +2120,7 @@
 	)
 	(rectangle
 		(start 26.67 25.4)
-		(end 166.37 113.03)
+		(end 166.37 129.794)
 		(stroke
 			(width 0)
 			(type default)
@@ -2187,7 +2144,7 @@
 	)
 	(text "3.3V injector"
 		(exclude_from_sim no)
-		(at 47.244 134.112 0)
+		(at 35.814 150.622 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2218,16 +2175,10 @@
 		(uuid "d492ba3a-2cb6-460b-a03f-3d00464f7e48")
 	)
 	(junction
-		(at 72.39 93.98)
+		(at 118.11 55.245)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "08966888-286f-4314-a691-69267e8c43d0")
-	)
-	(junction
-		(at 116.205 59.69)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "0dc5b118-3b40-4225-962a-c806af1ce828")
+		(uuid "170b48b8-492a-4259-bc4b-6b8a5dc3886c")
 	)
 	(junction
 		(at 48.895 78.105)
@@ -2236,10 +2187,10 @@
 		(uuid "26ac215a-05db-42d5-bc81-86cfdec5d510")
 	)
 	(junction
-		(at 90.805 49.53)
+		(at 87.63 55.245)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "2f1a0ffd-d414-40ad-8494-e3c034264d2c")
+		(uuid "2e03756f-124a-424d-aa0b-e7d2e2542b61")
 	)
 	(junction
 		(at 59.055 49.53)
@@ -2260,40 +2211,16 @@
 		(uuid "3643ae8f-4753-438d-861c-7fad8d75905d")
 	)
 	(junction
-		(at 90.805 52.07)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "3d7fbe35-ebbb-44f4-9d1e-320b2186c95d")
-	)
-	(junction
-		(at 116.205 57.15)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "3ed141b3-1656-42bb-a12d-2d27a095fa0c")
-	)
-	(junction
 		(at 121.285 54.61)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "436184da-8c1b-4a2b-a0bb-7eb6f421fcf3")
 	)
 	(junction
-		(at 116.205 54.61)
+		(at 120.015 54.61)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "4f94a813-442b-462f-a0bd-7c5408781f6b")
-	)
-	(junction
-		(at 87.63 49.53)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "68f400eb-4793-47a2-b8b9-2864437e2e16")
-	)
-	(junction
-		(at 87.63 57.15)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "7572fc5d-1c42-4d62-86b7-d37467008e64")
+		(uuid "5827c757-d8d5-46ac-8bc9-83b0abc7a823")
 	)
 	(junction
 		(at 80.645 49.53)
@@ -2302,28 +2229,10 @@
 		(uuid "943c4603-c556-4ce5-8f3d-512273ee6841")
 	)
 	(junction
-		(at 116.205 64.77)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "944a4810-acb8-4833-963a-0f660b86964b")
-	)
-	(junction
-		(at 116.205 52.07)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "a3167f51-ac6d-4c05-9bf7-8413883c3fea")
-	)
-	(junction
 		(at 48.895 52.4274)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a530f34d-4529-4d2a-a8c4-cad77357b4c1")
-	)
-	(junction
-		(at 120.015 54.61)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "c5547678-3efc-4135-8119-82861465b6d2")
 	)
 	(junction
 		(at 120.65 88.9)
@@ -2332,16 +2241,10 @@
 		(uuid "d13381da-2191-4390-85a3-3fe1336d10c3")
 	)
 	(junction
-		(at 72.39 85.09)
+		(at 118.11 54.61)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "d3b14187-f09a-49cd-80f9-b282f8e5361c")
-	)
-	(junction
-		(at 116.205 62.23)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "f46f3a69-6a04-4dd7-8cc2-50be52fcdecf")
+		(uuid "dacbc2ea-d849-457d-b9d9-6eae997d9bd4")
 	)
 	(junction
 		(at 80.645 85.09)
@@ -2358,46 +2261,6 @@
 			(type default)
 		)
 		(uuid "011ff5cd-8471-45c6-900a-834076616e36")
-	)
-	(wire
-		(pts
-			(xy 65.405 85.09) (xy 72.39 85.09)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "043a8392-a967-44e1-8495-3a146f50c5e9")
-	)
-	(wire
-		(pts
-			(xy 116.205 62.23) (xy 116.205 64.77)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "04a14a41-693e-45e8-bc5a-5ad2e00879a0")
-	)
-	(wire
-		(pts
-			(xy 87.63 57.15) (xy 90.805 57.15)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "059146fe-8144-4dc0-8e7e-60bdf5e9c291")
-	)
-	(wire
-		(pts
-			(xy 72.39 93.345) (xy 72.39 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "06d31105-f374-4415-a053-a40dc7adeefa")
 	)
 	(wire
 		(pts
@@ -2421,26 +2284,6 @@
 	)
 	(wire
 		(pts
-			(xy 90.805 52.07) (xy 90.805 54.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0a817aaf-0933-4a09-9ff0-76e7deb452d0")
-	)
-	(wire
-		(pts
-			(xy 65.405 93.98) (xy 65.405 93.345)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0b174d25-94ff-4bbe-a7f3-8f410068572b")
-	)
-	(wire
-		(pts
 			(xy 80.645 85.09) (xy 80.645 85.725)
 		)
 		(stroke
@@ -2451,43 +2294,43 @@
 	)
 	(wire
 		(pts
-			(xy 116.205 52.07) (xy 116.205 54.61)
+			(xy 87.63 63.5) (xy 87.63 64.77)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "166d2ea8-12e1-4e24-af7a-9d3ef4f23922")
+		(uuid "1433eeb7-46b1-4705-b3aa-c874f710fd23")
 	)
 	(wire
 		(pts
-			(xy 116.205 59.69) (xy 116.205 62.23)
+			(xy 118.11 55.245) (xy 118.11 72.39)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "1da082b5-c999-42b3-b0aa-d5a6a6f7bf41")
+		(uuid "2088594b-db8c-48d7-a6cf-d7d54cb61c22")
 	)
 	(wire
 		(pts
-			(xy 116.205 64.77) (xy 116.205 72.39)
+			(xy 101.6 52.705) (xy 100.965 52.705)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "2686be38-39b3-454d-a3c2-eddfa46cd6e4")
+		(uuid "2bf4fa2f-38a8-4ff9-97b8-91b9602fa2ec")
 	)
 	(wire
 		(pts
-			(xy 72.39 85.09) (xy 72.39 85.725)
+			(xy 118.11 54.61) (xy 118.11 55.245)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "2b60c2b1-fe2a-42fe-978c-1916339f6d53")
+		(uuid "302c08c7-a1f6-4ef1-b007-846342d5255c")
 	)
 	(wire
 		(pts
@@ -2498,16 +2341,6 @@
 			(type default)
 		)
 		(uuid "35ae82c4-2805-4635-8145-a7808a07ec8b")
-	)
-	(wire
-		(pts
-			(xy 80.645 49.53) (xy 87.63 49.53)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "40b9f8ee-c574-4650-88ce-24eb782851b1")
 	)
 	(wire
 		(pts
@@ -2531,6 +2364,16 @@
 	)
 	(wire
 		(pts
+			(xy 118.11 49.53) (xy 118.11 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4fbf6f45-f525-40a3-9021-e03af530101d")
+	)
+	(wire
+		(pts
 			(xy 80.645 79.375) (xy 80.645 85.09)
 		)
 		(stroke
@@ -2541,23 +2384,13 @@
 	)
 	(wire
 		(pts
-			(xy 121.285 54.61) (xy 120.015 54.61)
+			(xy 87.63 49.53) (xy 87.63 55.245)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "5b3941c6-380b-42d0-aaca-03281cc949d9")
-	)
-	(wire
-		(pts
-			(xy 65.405 93.98) (xy 72.39 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5ca7eebe-79b8-400c-8df5-eccb6d80c74a")
+		(uuid "534e5558-e87f-4f02-a366-8f8388fc0ef5")
 	)
 	(wire
 		(pts
@@ -2591,7 +2424,17 @@
 	)
 	(wire
 		(pts
-			(xy 97.79 77.47) (xy 97.79 72.39)
+			(xy 94.615 55.245) (xy 87.63 55.245)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "67949664-cd06-4fd3-9a38-87e0b7679b5a")
+	)
+	(wire
+		(pts
+			(xy 97.79 64.135) (xy 97.79 77.47)
 		)
 		(stroke
 			(width 0)
@@ -2601,17 +2444,7 @@
 	)
 	(wire
 		(pts
-			(xy 116.205 49.53) (xy 116.205 52.07)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "75dffc10-a028-4f10-9322-37ce3ec239bb")
-	)
-	(wire
-		(pts
-			(xy 52.07 127) (xy 58.42 127)
+			(xy 40.64 143.51) (xy 46.99 143.51)
 		)
 		(stroke
 			(width 0)
@@ -2641,6 +2474,26 @@
 	)
 	(wire
 		(pts
+			(xy 97.79 64.135) (xy 100.33 64.135)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9019dcf0-5f2a-4361-9843-64726c91c4a5")
+	)
+	(wire
+		(pts
+			(xy 106.045 55.245) (xy 118.11 55.245)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "95b4692c-329f-4dea-90e9-f44236a7bf69")
+	)
+	(wire
+		(pts
 			(xy 48.895 70.485) (xy 48.895 74.295)
 		)
 		(stroke
@@ -2648,16 +2501,6 @@
 			(type default)
 		)
 		(uuid "97920790-1762-40c3-8f70-e49763118d3e")
-	)
-	(wire
-		(pts
-			(xy 116.205 57.15) (xy 116.205 59.69)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "994d367f-a436-45c9-ad8c-340a6fc44d94")
 	)
 	(wire
 		(pts
@@ -2671,23 +2514,13 @@
 	)
 	(wire
 		(pts
-			(xy 104.14 72.39) (xy 116.205 72.39)
+			(xy 104.14 72.39) (xy 118.11 72.39)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "9e313cb3-ab18-4ff9-99e3-ddd7b41ca203")
-	)
-	(wire
-		(pts
-			(xy 97.79 72.39) (xy 87.63 72.39)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a2c8723f-f9d4-4842-966d-190f7c8b9bbf")
 	)
 	(wire
 		(pts
@@ -2701,6 +2534,16 @@
 	)
 	(wire
 		(pts
+			(xy 120.015 54.61) (xy 121.285 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b39bc920-c7fb-4516-922a-8307aa144b38")
+	)
+	(wire
+		(pts
 			(xy 120.015 54.61) (xy 120.015 53.975)
 		)
 		(stroke
@@ -2711,16 +2554,6 @@
 	)
 	(wire
 		(pts
-			(xy 90.805 49.53) (xy 90.805 52.07)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b7e2df5d-87d5-405a-94e9-eb021126c0d8")
-	)
-	(wire
-		(pts
 			(xy 72.39 93.98) (xy 72.39 94.615)
 		)
 		(stroke
@@ -2728,16 +2561,6 @@
 			(type default)
 		)
 		(uuid "b9480249-2d86-4de6-80aa-b74d475337e6")
-	)
-	(wire
-		(pts
-			(xy 116.205 54.61) (xy 120.015 54.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c685c323-adc6-4555-b55f-4e0b4381739b")
 	)
 	(wire
 		(pts
@@ -2761,6 +2584,16 @@
 	)
 	(wire
 		(pts
+			(xy 118.11 54.61) (xy 120.015 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d2e57a00-045a-4bf6-a0d6-7538f6f32c45")
+	)
+	(wire
+		(pts
 			(xy 120.65 85.725) (xy 120.65 88.9)
 		)
 		(stroke
@@ -2778,6 +2611,16 @@
 			(type default)
 		)
 		(uuid "d826cc82-8086-4f43-a1d6-ee273e3569d7")
+	)
+	(wire
+		(pts
+			(xy 80.645 49.53) (xy 87.63 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d97e0673-a119-41df-af6d-df5e2483d91a")
 	)
 	(wire
 		(pts
@@ -2801,17 +2644,7 @@
 	)
 	(wire
 		(pts
-			(xy 87.63 72.39) (xy 87.63 57.15)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "dfcee08a-c58c-4602-b8ac-f16bd30d3656")
-	)
-	(wire
-		(pts
-			(xy 65.405 85.09) (xy 65.405 85.725)
+			(xy 72.39 85.09) (xy 72.39 86.36)
 		)
 		(stroke
 			(width 0)
@@ -2861,33 +2694,33 @@
 	)
 	(wire
 		(pts
-			(xy 87.63 49.53) (xy 90.805 49.53)
+			(xy 100.33 60.96) (xy 100.33 64.135)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "f97826ce-6d1c-46dd-9dec-d7019ff13b60")
+		(uuid "fcc87788-bd0f-4795-b851-248932239922")
 	)
 	(wire
 		(pts
-			(xy 52.07 124.46) (xy 58.42 124.46)
+			(xy 87.63 55.245) (xy 87.63 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fdb70fbc-0faa-4e0b-81a8-8f63b410d718")
+	)
+	(wire
+		(pts
+			(xy 40.64 140.97) (xy 46.99 140.97)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "ff4f309b-73c1-4d9f-91f4-774cdfd918f7")
-	)
-	(wire
-		(pts
-			(xy 116.205 54.61) (xy 116.205 57.15)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ffa01778-9628-4f08-bfa3-b43b6f2dd01d")
 	)
 	(label "RPP_EN"
 		(at 80.645 83.185 0)
@@ -2928,86 +2761,6 @@
 			(justify left bottom)
 		)
 		(uuid "a105a0c5-a4c4-4278-b50c-6c85521277a9")
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 87.63 53.34 0)
-		(mirror x)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "0491a039-b24b-4340-bfe2-4f82728fd606")
-		(property "Reference" "C4"
-			(at 83.82 52.0699 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "22n"
-			(at 83.82 54.6099 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
-			(at 88.5952 49.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 87.63 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Unpolarized capacitor"
-			(at 87.63 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufactuerer" ""
-			(at 87.63 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "d254e5dd-eb46-4147-bd20-69e5a14571b1")
-		)
-		(pin "1"
-			(uuid "0dfe8bfd-562e-4abb-8017-730d178f36c6")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/a39d8cf5-dc9c-4f60-80f8-399517c69b53"
-					(reference "C4")
-					(unit 1)
-				)
-			)
-		)
 	)
 	(symbol
 		(lib_id "Schott:CDBC560-G")
@@ -3190,162 +2943,6 @@
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/a39d8cf5-dc9c-4f60-80f8-399517c69b53"
 					(reference "#PWR032")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "UTSVT_Power:PSMN8R5-40MSDX")
-		(at 90.805 49.53 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "22b6cc18-b19d-4a86-9a93-614a1dddb20e")
-		(property "Reference" "Q2"
-			(at 103.505 42.545 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "PSMN8R5-40MSDX"
-			(at 103.505 45.085 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "UTSVT_Power:PSMN8R5-40MSDX"
-			(at 112.395 144.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/PSMN8R5-40MSD.pdf"
-			(at 112.395 244.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Description" "MOSFETs PSMN8R5-40MSD/SOT1210/mLFPAK"
-			(at 90.805 49.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Height" "1"
-			(at 112.395 444.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Mouser Part Number" "771-PSMN8R5-40MSDX"
-			(at 112.395 544.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Nexperia/PSMN8R5-40MSDX?qs=vHuUswq2%252BswjdnYdBdHaPw%3D%3D"
-			(at 112.395 644.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer_Name" "Nexperia"
-			(at 112.395 744.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer_Part_Number" "PSMN8R5-40MSDX"
-			(at 112.395 844.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Manufactuerer" ""
-			(at 90.805 49.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "8"
-			(uuid "585056a4-1ef3-46d6-a3b6-4850d05666d4")
-		)
-		(pin "11"
-			(uuid "b9ede05d-b20a-4afe-86ae-893ecd5255ed")
-		)
-		(pin "1"
-			(uuid "aef91f76-c9a3-4bd2-8078-39d0ac498b67")
-		)
-		(pin "2"
-			(uuid "49340fc1-d29a-42b5-8abe-368ee1f81723")
-		)
-		(pin "3"
-			(uuid "c7ee7571-6145-4c3e-9bf4-453ff0a20a93")
-		)
-		(pin "4"
-			(uuid "6bd50b6c-3182-40d3-a3b9-00628de22a9c")
-		)
-		(pin "6"
-			(uuid "4311e6bb-1ece-42ba-b993-d9168cf9235a")
-		)
-		(pin "7"
-			(uuid "a7eccc86-b64f-4289-84d9-50cd438b7b4f")
-		)
-		(pin "5"
-			(uuid "7b6724b4-3cd9-45e9-89b0-0ec649b9e366")
-		)
-		(pin "9"
-			(uuid "87066143-80eb-4061-ba90-0946a2b9394e")
-		)
-		(pin "10"
-			(uuid "d2b74499-6977-474e-af54-08773cc275ef")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/a39d8cf5-dc9c-4f60-80f8-399517c69b53"
-					(reference "Q2")
 					(unit 1)
 				)
 			)
@@ -3578,7 +3175,7 @@
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 58.42 124.46 0)
+		(at 46.99 140.97 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3587,7 +3184,7 @@
 		(fields_autoplaced yes)
 		(uuid "4ae6f1c8-bd42-4986-aa01-b3305c184085")
 		(property "Reference" "#PWR047"
-			(at 58.42 128.27 0)
+			(at 46.99 144.78 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3596,7 +3193,7 @@
 			)
 		)
 		(property "Value" "+3.3V"
-			(at 58.42 119.38 0)
+			(at 46.99 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3604,7 +3201,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 58.42 124.46 0)
+			(at 46.99 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3613,7 +3210,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 58.42 124.46 0)
+			(at 46.99 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3622,7 +3219,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3V3\""
-			(at 58.42 124.46 0)
+			(at 46.99 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3710,6 +3307,85 @@
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/a39d8cf5-dc9c-4f60-80f8-399517c69b53"
 					(reference "LVGND_TP1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 87.63 59.69 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "73af887d-2430-4d0f-b627-9c2cbd6fd77b")
+		(property "Reference" "C4"
+			(at 91.44 58.4199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "0.1u"
+			(at 91.44 60.9599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
+			(at 86.6648 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 87.63 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 87.63 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" ""
+			(at 87.63 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "d9cbe6c2-a011-4e06-9be7-b370f0138c46")
+		)
+		(pin "1"
+			(uuid "c6367263-7865-4a56-99c4-b7967c932d74")
+		)
+		(instances
+			(project "BPS-Leader"
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/a39d8cf5-dc9c-4f60-80f8-399517c69b53"
+					(reference "C4")
 					(unit 1)
 				)
 			)
@@ -3863,7 +3539,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 58.42 127 0)
+		(at 46.99 143.51 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3872,7 +3548,7 @@
 		(fields_autoplaced yes)
 		(uuid "744c1664-5178-4108-a5b3-9357c9a45bcd")
 		(property "Reference" "#PWR025"
-			(at 58.42 133.35 0)
+			(at 46.99 149.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3881,7 +3557,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 58.42 132.08 0)
+			(at 46.99 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3889,7 +3565,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 58.42 127 0)
+			(at 46.99 143.51 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3898,7 +3574,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 58.42 127 0)
+			(at 46.99 143.51 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3907,7 +3583,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 58.42 127 0)
+			(at 46.99 143.51 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4184,136 +3860,6 @@
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/a39d8cf5-dc9c-4f60-80f8-399517c69b53"
 					(reference "#PWR031")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "UTSVT_Power:SMAF4749A-TP")
-		(at 72.39 83.185 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "87e68d8b-dc9b-4397-8ede-f5938e2e08b6")
-		(property "Reference" "Z1"
-			(at 71.12 83.185 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "SMAF4751A-TP"
-			(at 63.5 81.28 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "UTSVT_Passives:SODFL5026X125N"
-			(at -21.26 93.345 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.mccsemi.com/pdf/Products/SMAF4735A_SMAF4764A(DO-221AC).pdf"
-			(at -121.26 93.345 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Description" "1.0 Watt Zener Diodes 6.2V to 100V"
-			(at 72.39 83.185 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Height" "1.25"
-			(at -321.26 93.345 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Mouser Part Number" "833-SMAF4749A-TP"
-			(at -421.26 93.345 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Micro-Commercial-Components-MCC/SMAF4749A-TP?qs=%252BXxaIXUDbq1bdSZ3Ebik%2FA%3D%3D"
-			(at -521.26 93.345 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer_Name" "MCC"
-			(at -621.26 93.345 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer_Part_Number" "SMAF4749A-TP"
-			(at -721.26 93.345 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Manufactuerer" ""
-			(at 72.39 83.185 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "16479629-beb0-4289-bcb3-e84e92a5844f")
-		)
-		(pin "2"
-			(uuid "eba73000-779b-406f-8f94-d2b79e836888")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/a39d8cf5-dc9c-4f60-80f8-399517c69b53"
-					(reference "Z1")
 					(unit 1)
 				)
 			)
@@ -4681,7 +4227,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 65.405 89.535 0)
+		(at 72.39 90.17 0)
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
@@ -4691,7 +4237,7 @@
 		(fields_autoplaced yes)
 		(uuid "c99346f3-cf25-4b2b-b50c-e7e063bd40c1")
 		(property "Reference" "C20"
-			(at 61.595 88.2649 0)
+			(at 68.58 88.8999 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4700,7 +4246,7 @@
 			)
 		)
 		(property "Value" "1u"
-			(at 61.595 90.8049 0)
+			(at 68.58 91.4399 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4709,7 +4255,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
-			(at 66.3702 85.725 0)
+			(at 73.3552 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4718,7 +4264,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 65.405 89.535 0)
+			(at 72.39 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4727,7 +4273,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 65.405 89.535 0)
+			(at 72.39 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4736,7 +4282,7 @@
 			)
 		)
 		(property "Manufactuerer" ""
-			(at 65.405 89.535 0)
+			(at 72.39 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4826,6 +4372,129 @@
 		)
 	)
 	(symbol
+		(lib_id "utsvt_power:PSMN8R5-40MSDX")
+		(at 100.33 54.61 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d37c9e0a-f7c8-4eb4-bddb-45a64cc9efe9")
+		(property "Reference" "Q12"
+			(at 99.314 49.276 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "PSMN8R5-40MSDX"
+			(at 99.314 46.736 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "UTSVT_Power:PSMN8R5-40MSDX"
+			(at 78.74 149.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/PSMN8R5-40MSD.pdf"
+			(at 78.74 249.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "MOSFETs PSMN8R5-40MSD/SOT1210/mLFPAK"
+			(at 99.314 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Height" "1"
+			(at 78.74 449.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Mouser Part Number" "771-PSMN8R5-40MSDX"
+			(at 78.74 549.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Nexperia/PSMN8R5-40MSDX?qs=vHuUswq2%252BswjdnYdBdHaPw%3D%3D"
+			(at 78.74 649.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Name" "Nexperia"
+			(at 78.74 749.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Part_Number" "PSMN8R5-40MSDX"
+			(at 78.74 849.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "4bc979fe-d7d6-4ad9-b5ac-ae0b7eb31983")
+		)
+		(pin "1"
+			(uuid "b12b5a46-908b-425f-988e-9c1f131fe46b")
+		)
+		(pin "3"
+			(uuid "5248dafa-4934-402e-b9e9-74958f10dfbf")
+		)
+		(instances
+			(project ""
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/a39d8cf5-dc9c-4f60-80f8-399517c69b53"
+					(reference "Q12")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R_US")
 		(at 120.65 81.915 0)
 		(unit 1)
@@ -4906,7 +4575,7 @@
 	)
 	(symbol
 		(lib_id "Connector_Generic:Conn_01x02")
-		(at 46.99 127 180)
+		(at 35.56 143.51 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4915,7 +4584,7 @@
 		(fields_autoplaced yes)
 		(uuid "e4bd9656-2929-4ee9-9a3a-7d16576e267d")
 		(property "Reference" "3.3V_In1"
-			(at 46.99 118.11 0)
+			(at 35.56 134.62 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4923,7 +4592,7 @@
 			)
 		)
 		(property "Value" "Conn_01x02"
-			(at 46.99 120.65 0)
+			(at 35.56 137.16 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4931,7 +4600,7 @@
 			)
 		)
 		(property "Footprint" "UTSVT_Connectors:Molex_Nano-Fit_105309-xx02_1x02_P2.50mm_Vertical"
-			(at 46.99 127 0)
+			(at 35.56 143.51 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4940,7 +4609,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 46.99 127 0)
+			(at 35.56 143.51 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4949,7 +4618,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 46.99 127 0)
+			(at 35.56 143.51 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4958,7 +4627,7 @@
 			)
 		)
 		(property "Manufactuerer" ""
-			(at 46.99 127 0)
+			(at 35.56 143.51 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5185,6 +4854,72 @@
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/a39d8cf5-dc9c-4f60-80f8-399517c69b53"
 					(reference "#PWR042")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 87.63 64.77 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fb9c1dcd-87dc-456b-ab6f-5a48103d4bb7")
+		(property "Reference" "#PWR0123"
+			(at 87.63 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 87.63 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 87.63 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 87.63 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 87.63 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a4f1f9c3-564d-4454-8545-fad20b4f8ac1")
+		)
+		(instances
+			(project "BPS-Leader"
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/a39d8cf5-dc9c-4f60-80f8-399517c69b53"
+					(reference "#PWR0123")
 					(unit 1)
 				)
 			)
