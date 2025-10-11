@@ -2769,7 +2769,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://ds.yuden.co.jp/TYCOMPAS/or/download?pn=MLAST063SCG681JFNA01&fileType=CA"
 			(at 116.84 71.12 0)
 			(effects
 				(font
@@ -2787,7 +2787,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "TAIYO YUDEN "
+			(at 116.84 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "MLASH168SB7104KTNA01 "
 			(at 116.84 71.12 0)
 			(effects
 				(font
@@ -4121,7 +4130,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://ds.yuden.co.jp/TYCOMPAS/or/download?pn=MLAST063SCG681JFNA01&fileType=CA"
 			(at 144.78 39.37 0)
 			(effects
 				(font
@@ -4139,7 +4148,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "TAIYO YUDEN "
+			(at 144.78 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "MLASH168SB7104KTNA01 "
 			(at 144.78 39.37 0)
 			(effects
 				(font
@@ -6155,7 +6173,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://ds.yuden.co.jp/TYCOMPAS/or/download?pn=MLAST063SCG681JFNA01&fileType=CA"
 			(at 128.27 128.27 0)
 			(effects
 				(font
@@ -6173,7 +6191,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "TAIYO YUDEN "
+			(at 128.27 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "MLASH168SB7104KTNA01 "
 			(at 128.27 128.27 0)
 			(effects
 				(font
@@ -6313,7 +6340,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://ds.yuden.co.jp/TYCOMPAS/or/download?pn=MLAST063SCG681JFNA01&fileType=CA"
 			(at 144.78 96.52 0)
 			(effects
 				(font
@@ -6331,7 +6358,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "TAIYO YUDEN "
+			(at 144.78 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "MLASH168SB7104KTNA01 "
 			(at 144.78 96.52 0)
 			(effects
 				(font

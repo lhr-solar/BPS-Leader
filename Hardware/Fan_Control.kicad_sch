@@ -5424,7 +5424,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 44.45 45.72 0)
 			(effects
 				(font
@@ -5433,7 +5433,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.mouser.com/datasheet/2/447/KEM_C1006_X5R_SMD-3316465.pdf"
+		(property "Datasheet" "https://www.mouser.com/datasheet/3/72/1/KEM_C1006_X5R_SMD.pdf"
 			(at 44.45 45.72 0)
 			(effects
 				(font
@@ -5460,7 +5460,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "KEMET "
 			(at 44.45 45.72 0)
 			(effects
 				(font
@@ -5639,7 +5639,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 49.53 45.72 0)
 			(effects
 				(font
@@ -5648,7 +5648,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.mouser.com/datasheet/2/447/KEM_C1006_X5R_SMD-3316465.pdf"
+		(property "Datasheet" "https://www.mouser.com/datasheet/3/72/1/KEM_C1006_X5R_SMD.pdf"
 			(at 49.53 45.72 0)
 			(effects
 				(font
@@ -5675,7 +5675,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "KEMET "
 			(at 49.53 45.72 0)
 			(effects
 				(font

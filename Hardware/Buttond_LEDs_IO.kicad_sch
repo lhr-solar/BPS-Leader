@@ -3062,7 +3062,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://ds.yuden.co.jp/TYCOMPAS/or/download?pn=MLAST063SCG681JFNA01&fileType=CA"
 			(at 53.34 77.47 0)
 			(effects
 				(font
@@ -3080,7 +3080,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "TAIYO YUDEN "
+			(at 53.34 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "MLASH168SB7104KTNA01 "
 			(at 53.34 77.47 0)
 			(effects
 				(font

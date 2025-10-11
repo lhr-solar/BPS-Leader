@@ -2857,16 +2857,6 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer_Part_Number" "CDBC560-G"
-			(at 69.215 -744.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
 		(pin "1"
 			(uuid "94dd8ddb-4516-4857-8a46-83aeb2c701e7")
 		)
@@ -2986,7 +2976,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://datasheets.kyocera-avx.com/AutoMLCCKAM.pdf"
 			(at 80.645 89.535 0)
 			(effects
 				(font
@@ -3004,7 +2994,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "KYOCERA AVX "
+			(at 80.645 89.535 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "06035C223K4T4A "
 			(at 80.645 89.535 0)
 			(effects
 				(font
@@ -3349,7 +3348,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://ds.yuden.co.jp/TYCOMPAS/or/download?pn=MLAST063SCG681JFNA01&fileType=CA"
 			(at 87.63 59.69 0)
 			(effects
 				(font
@@ -3367,7 +3366,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "TAIYO YUDEN "
+			(at 87.63 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "MLASH168SB7104KTNA01 "
 			(at 87.63 59.69 0)
 			(effects
 				(font
@@ -3477,16 +3485,6 @@
 		)
 		(property "Manufacturer_Name" "Texas Instruments"
 			(at 113.03 780.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer_Part_Number" "LM74502HDDFR"
-			(at 113.03 880.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3757,16 +3755,6 @@
 		)
 		(property "Manufacturer_Name" "MCC"
 			(at -634.595 57.15 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer_Part_Number" "SMAF4749A-TP"
-			(at -734.595 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4290,6 +4278,15 @@
 				(hide yes)
 			)
 		)
+		(property "P/N" "C0805C105K5PACTU"
+			(at 72.39 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "c25b94cb-e033-4c0d-8a3c-c233e6cf28fe")
 		)
@@ -4458,16 +4455,6 @@
 		)
 		(property "Manufacturer_Name" "Nexperia"
 			(at 78.74 749.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer_Part_Number" "PSMN8R5-40MSDX"
-			(at 78.74 849.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)

@@ -642,12 +642,6 @@
         },
         {
           "group_by": false,
-          "label": "Manufacturer_Part_Number",
-          "name": "Manufacturer_Part_Number",
-          "show": true
-        },
-        {
-          "group_by": false,
           "label": "Mouser Part Number",
           "name": "Mouser Part Number",
           "show": false
@@ -662,7 +656,7 @@
           "group_by": false,
           "label": "P/N",
           "name": "P/N",
-          "show": false
+          "show": true
         },
         {
           "group_by": false,
@@ -742,7 +736,7 @@
       "include_excluded_from_bom": true,
       "name": "",
       "sort_asc": true,
-      "sort_field": "Value"
+      "sort_field": "Mouser Part Number"
     },
     "connection_grid_size": 50.0,
     "drawing": {

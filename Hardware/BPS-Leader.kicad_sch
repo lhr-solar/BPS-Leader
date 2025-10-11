@@ -13107,6 +13107,15 @@
 				(hide yes)
 			)
 		)
+		(property "P/N" "C0805C105K5PACTU"
+			(at 207.01 73.66 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "f746d80c-1b70-433c-8d45-b2e29c87f4b4")
 		)

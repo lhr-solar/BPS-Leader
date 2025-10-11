@@ -6134,7 +6134,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://ds.yuden.co.jp/TYCOMPAS/or/download?pn=MLAST063SCG681JFNA01&fileType=CA"
 			(at 59.69 166.37 0)
 			(effects
 				(font
@@ -6152,7 +6152,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "TAIYO YUDEN "
+			(at 59.69 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "MLASH168SB7104KTNA01 "
 			(at 59.69 166.37 0)
 			(effects
 				(font
@@ -6212,7 +6221,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://ds.yuden.co.jp/TYCOMPAS/or/download?pn=MLAST063SCG681JFNA01&fileType=CA"
 			(at 179.705 127 0)
 			(effects
 				(font
@@ -6230,7 +6239,7 @@
 				(hide yes)
 			)
 		)
-		(property "P/N" "UMK107B7104KAHT "
+		(property "P/N" "MLASH168SB7104KTNA01 "
 			(at 179.705 127 0)
 			(effects
 				(font
@@ -6239,7 +6248,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "TAIYO YUDEN "
 			(at 179.705 127 0)
 			(effects
 				(font
@@ -7152,7 +7161,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://ds.yuden.co.jp/TYCOMPAS/or/download?pn=MLAST063SCG681JFNA01&fileType=CA"
 			(at 116.84 124.46 0)
 			(effects
 				(font
@@ -7170,7 +7179,7 @@
 				(hide yes)
 			)
 		)
-		(property "P/N" "UMK107B7104KAHT "
+		(property "P/N" "MLASH168SB7104KTNA01 "
 			(at 116.84 124.46 0)
 			(effects
 				(font
@@ -7179,7 +7188,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "TAIYO YUDEN "
 			(at 116.84 124.46 0)
 			(effects
 				(font
@@ -7827,7 +7836,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://ds.yuden.co.jp/TYCOMPAS/or/download?pn=MLAST063SCG681JFNA01&fileType=CA"
 			(at 107.315 122.555 0)
 			(effects
 				(font
@@ -7845,7 +7854,7 @@
 				(hide yes)
 			)
 		)
-		(property "P/N" "UMK107B7104KAHT "
+		(property "P/N" "MLASH168SB7104KTNA01 "
 			(at 107.315 122.555 0)
 			(effects
 				(font
@@ -7854,7 +7863,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "TAIYO YUDEN "
 			(at 107.315 122.555 0)
 			(effects
 				(font

@@ -6022,7 +6022,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://ds.yuden.co.jp/TYCOMPAS/or/download?pn=MLAST063SCG681JFNA01&fileType=CA"
 			(at 209.55 181.61 0)
 			(effects
 				(font
@@ -6040,7 +6040,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "TAIYO YUDEN "
+			(at 209.55 181.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "MLASH168SB7104KTNA01 "
 			(at 209.55 181.61 0)
 			(effects
 				(font
@@ -6397,6 +6406,15 @@
 			)
 		)
 		(property "Manufactuerer" ""
+			(at 43.18 240.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "C0805C105K5PACTU"
 			(at 43.18 240.03 0)
 			(effects
 				(font
@@ -6884,6 +6902,15 @@
 			)
 		)
 		(property "Manufactuerer" ""
+			(at 308.61 208.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "C0805C105K5PACTU"
 			(at 308.61 208.28 0)
 			(effects
 				(font
@@ -7767,6 +7794,15 @@
 				(hide yes)
 			)
 		)
+		(property "P/N" "C0805C105K5PACTU"
+			(at 172.72 185.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "e67c35b7-0be2-4c5f-a3cc-053bea216855")
 		)
@@ -8626,7 +8662,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://ds.yuden.co.jp/TYCOMPAS/or/download?pn=MLAST063SCG681JFNA01&fileType=CA"
 			(at 80.01 107.95 0)
 			(effects
 				(font
@@ -8644,7 +8680,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "TAIYO YUDEN "
+			(at 80.01 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "MLASH168SB7104KTNA01 "
 			(at 80.01 107.95 0)
 			(effects
 				(font
@@ -9432,7 +9477,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://ds.yuden.co.jp/TYCOMPAS/or/download?pn=MLAST063SCG681JFNA01&fileType=CA"
 			(at 80.01 236.22 0)
 			(effects
 				(font
@@ -9450,7 +9495,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "TAIYO YUDEN "
+			(at 80.01 236.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "MLASH168SB7104KTNA01 "
 			(at 80.01 236.22 0)
 			(effects
 				(font
@@ -13350,6 +13404,15 @@
 				(hide yes)
 			)
 		)
+		(property "P/N" "C0805C105K5PACTU"
+			(at 43.18 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "1eda5396-fde0-4bb5-a14f-9601eb73c455")
 		)
@@ -13547,7 +13610,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://ds.yuden.co.jp/TYCOMPAS/or/download?pn=MLAST063SCG681JFNA01&fileType=CA"
 			(at 345.44 204.47 0)
 			(effects
 				(font
@@ -13565,7 +13628,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "TAIYO YUDEN "
+			(at 345.44 204.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "MLASH168SB7104KTNA01 "
 			(at 345.44 204.47 0)
 			(effects
 				(font
