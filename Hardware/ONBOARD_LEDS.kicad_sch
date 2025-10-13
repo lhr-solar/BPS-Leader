@@ -2602,7 +2602,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C84263.pdf"
 			(at 184.15 92.71 0)
 			(effects
 				(font
@@ -2629,7 +2629,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "NATIONSTAR"
+			(at 184.15 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "NCD0603R1"
 			(at 184.15 92.71 0)
 			(effects
 				(font
@@ -2690,7 +2699,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 166.37 66.04 0)
 			(effects
 				(font
@@ -2708,7 +2717,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 166.37 66.04 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW0603150RFKEC"
 			(at 166.37 66.04 90)
 			(effects
 				(font
@@ -2855,7 +2873,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8590904519540613120"
 			(at 189.23 143.51 0)
 			(effects
 				(font
@@ -2882,7 +2900,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "XINGLIGHT "
+			(at 189.23 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "XL-1608UBC-06A"
 			(at 189.23 143.51 0)
 			(effects
 				(font
@@ -2943,7 +2970,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 166.37 55.88 0)
 			(effects
 				(font
@@ -2961,7 +2988,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 166.37 55.88 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW0603150RFKEC"
 			(at 166.37 55.88 90)
 			(effects
 				(font
@@ -3086,7 +3122,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8590904519540613120"
 			(at 184.15 143.51 0)
 			(effects
 				(font
@@ -3113,7 +3149,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "XINGLIGHT "
+			(at 184.15 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "XL-1608UBC-06A"
 			(at 184.15 143.51 0)
 			(effects
 				(font
@@ -3172,7 +3217,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C84263.pdf"
 			(at 209.55 92.71 0)
 			(effects
 				(font
@@ -3199,7 +3244,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "NATIONSTAR"
+			(at 209.55 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "NCD0603R1"
 			(at 209.55 92.71 0)
 			(effects
 				(font
@@ -3325,7 +3379,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 166.37 123.19 0)
 			(effects
 				(font
@@ -3343,7 +3397,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 166.37 123.19 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW0603150RFKEC"
 			(at 166.37 123.19 90)
 			(effects
 				(font
@@ -3402,7 +3465,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C84263.pdf"
 			(at 194.31 92.71 0)
 			(effects
 				(font
@@ -3429,7 +3492,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "NATIONSTAR"
+			(at 194.31 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "NCD0603R1"
 			(at 194.31 92.71 0)
 			(effects
 				(font
@@ -3488,7 +3560,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8590904519540613120"
 			(at 173.99 143.51 0)
 			(effects
 				(font
@@ -3515,7 +3587,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "XINGLIGHT "
+			(at 173.99 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "XL-1608UBC-06A"
 			(at 173.99 143.51 0)
 			(effects
 				(font
@@ -3574,7 +3655,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C84263.pdf"
 			(at 179.07 92.71 0)
 			(effects
 				(font
@@ -3601,7 +3682,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "NATIONSTAR"
+			(at 179.07 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "NCD0603R1"
 			(at 179.07 92.71 0)
 			(effects
 				(font
@@ -3660,7 +3750,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8590904519540613120"
 			(at 179.07 143.51 0)
 			(effects
 				(font
@@ -3687,7 +3777,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "XINGLIGHT "
+			(at 179.07 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "XL-1608UBC-06A"
 			(at 179.07 143.51 0)
 			(effects
 				(font
@@ -3814,7 +3913,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 166.37 118.11 0)
 			(effects
 				(font
@@ -3832,7 +3931,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 166.37 118.11 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW0603150RFKEC"
 			(at 166.37 118.11 90)
 			(effects
 				(font
@@ -3893,7 +4001,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 166.37 113.03 0)
 			(effects
 				(font
@@ -3911,7 +4019,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 166.37 113.03 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW0603150RFKEC"
 			(at 166.37 113.03 90)
 			(effects
 				(font
@@ -3972,7 +4089,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 166.37 60.96 0)
 			(effects
 				(font
@@ -3990,7 +4107,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 166.37 60.96 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW0603150RFKEC"
 			(at 166.37 60.96 90)
 			(effects
 				(font
@@ -4051,7 +4177,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 166.37 58.42 0)
 			(effects
 				(font
@@ -4069,7 +4195,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 166.37 58.42 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW0603150RFKEC"
 			(at 166.37 58.42 90)
 			(effects
 				(font
@@ -4216,7 +4351,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C84263.pdf"
 			(at 173.99 92.71 0)
 			(effects
 				(font
@@ -4243,7 +4378,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "NATIONSTAR"
+			(at 173.99 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "NCD0603R1"
 			(at 173.99 92.71 0)
 			(effects
 				(font
@@ -4302,7 +4446,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8590904519540613120"
 			(at 199.39 143.51 0)
 			(effects
 				(font
@@ -4329,7 +4473,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "XINGLIGHT "
+			(at 199.39 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "XL-1608UBC-06A"
 			(at 199.39 143.51 0)
 			(effects
 				(font
@@ -4390,7 +4543,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 166.37 107.95 0)
 			(effects
 				(font
@@ -4408,7 +4561,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 166.37 107.95 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW0603120RFKEC "
 			(at 166.37 107.95 90)
 			(effects
 				(font
@@ -4533,7 +4695,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8590904519540613120"
 			(at 204.47 143.51 0)
 			(effects
 				(font
@@ -4560,7 +4722,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "XINGLIGHT "
+			(at 204.47 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "XL-1608UBC-06A"
 			(at 204.47 143.51 0)
 			(effects
 				(font
@@ -4621,7 +4792,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74hc594.pdf"
+		(property "Datasheet" "https://www.ti.com/lit/gpn/sn74hc594"
 			(at 149.86 60.96 0)
 			(effects
 				(font
@@ -4639,7 +4810,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Texas Instruments "
+			(at 149.86 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "SN74HC594DWG4"
 			(at 149.86 60.96 0)
 			(effects
 				(font
@@ -4740,7 +4920,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8590904519540613120"
 			(at 194.31 143.51 0)
 			(effects
 				(font
@@ -4767,7 +4947,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "XINGLIGHT "
+			(at 194.31 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "XL-1608UBC-06A"
 			(at 194.31 143.51 0)
 			(effects
 				(font
@@ -4828,7 +5017,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 166.37 63.5 0)
 			(effects
 				(font
@@ -4846,7 +5035,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 166.37 63.5 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW0603150RFKEC"
 			(at 166.37 63.5 90)
 			(effects
 				(font
@@ -4907,7 +5105,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 166.37 68.58 0)
 			(effects
 				(font
@@ -4925,7 +5123,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 166.37 68.58 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW0603150RFKEC"
 			(at 166.37 68.58 90)
 			(effects
 				(font
@@ -4984,7 +5191,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C84263.pdf"
 			(at 189.23 92.71 0)
 			(effects
 				(font
@@ -5011,7 +5218,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "NATIONSTAR"
+			(at 189.23 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "NCD0603R1"
 			(at 189.23 92.71 0)
 			(effects
 				(font
@@ -5070,7 +5286,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C84263.pdf"
 			(at 209.55 143.51 0)
 			(effects
 				(font
@@ -5097,7 +5313,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "NATIONSTAR"
+			(at 209.55 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "NCD0603R1"
 			(at 209.55 143.51 0)
 			(effects
 				(font
@@ -5156,7 +5381,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C84263.pdf"
 			(at 204.47 92.71 0)
 			(effects
 				(font
@@ -5183,7 +5408,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "NATIONSTAR"
+			(at 204.47 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "NCD0603R1"
 			(at 204.47 92.71 0)
 			(effects
 				(font
@@ -5243,7 +5477,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74hc594.pdf"
+		(property "Datasheet" "https://www.ti.com/lit/gpn/sn74hc594"
 			(at 149.86 118.11 0)
 			(effects
 				(font
@@ -5261,7 +5495,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Texas Instruments "
+			(at 149.86 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "SN74HC594DWG4"
 			(at 149.86 118.11 0)
 			(effects
 				(font
@@ -5364,7 +5607,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 166.37 120.65 0)
 			(effects
 				(font
@@ -5382,7 +5625,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 166.37 120.65 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW0603150RFKEC"
 			(at 166.37 120.65 90)
 			(effects
 				(font
@@ -5443,7 +5695,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 166.37 125.73 0)
 			(effects
 				(font
@@ -5461,7 +5713,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 166.37 125.73 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW0603150RFKEC"
 			(at 166.37 125.73 90)
 			(effects
 				(font
@@ -5586,7 +5847,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C84263.pdf"
 			(at 199.39 92.71 0)
 			(effects
 				(font
@@ -5613,7 +5874,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "NATIONSTAR"
+			(at 199.39 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "NCD0603R1"
 			(at 199.39 92.71 0)
 			(effects
 				(font
@@ -5740,7 +6010,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 166.37 53.34 0)
 			(effects
 				(font
@@ -5758,7 +6028,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 166.37 53.34 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW0603150RFKEC"
 			(at 166.37 53.34 90)
 			(effects
 				(font
@@ -5885,7 +6164,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 166.37 50.8 0)
 			(effects
 				(font
@@ -5903,7 +6182,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 166.37 50.8 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW0603150RFKEC"
 			(at 166.37 50.8 90)
 			(effects
 				(font
@@ -5964,7 +6252,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 166.37 110.49 0)
 			(effects
 				(font
@@ -5982,7 +6270,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 166.37 110.49 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW0603150RFKEC"
 			(at 166.37 110.49 90)
 			(effects
 				(font
@@ -6261,7 +6558,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 166.37 115.57 0)
 			(effects
 				(font
@@ -6279,7 +6576,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 166.37 115.57 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW0603150RFKEC"
 			(at 166.37 115.57 90)
 			(effects
 				(font

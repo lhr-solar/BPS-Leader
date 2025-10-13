@@ -2359,7 +2359,7 @@
 	)
 	(wire
 		(pts
-			(xy 171.45 118.11) (xy 171.45 120.65)
+			(xy 171.45 118.11) (xy 171.45 119.38)
 		)
 		(stroke
 			(width 0)
@@ -2636,6 +2636,16 @@
 			(type default)
 		)
 		(uuid "ccae97da-6827-4ba2-94a8-74f436d9e058")
+	)
+	(wire
+		(pts
+			(xy 171.45 127) (xy 171.45 128.27)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d30740e7-b05c-4676-892b-c193b520ccc4")
 	)
 	(wire
 		(pts
@@ -3308,7 +3318,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 149.86 132.08 0)
 			(effects
 				(font
@@ -3326,7 +3336,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 149.86 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW060310K0FKEI "
 			(at 149.86 132.08 0)
 			(effects
 				(font
@@ -3451,7 +3470,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 85.09 31.75 0)
 			(effects
 				(font
@@ -3469,7 +3488,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 85.09 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW060310K0FKEI "
 			(at 85.09 31.75 0)
 			(effects
 				(font
@@ -3810,7 +3838,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay General Semiconductor "
+			(at 46.99 142.24 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "VSSAF522-M3/H"
 			(at 46.99 142.24 90)
 			(effects
 				(font
@@ -3871,7 +3908,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://tools.molex.com/pdm_docs/sd/1053091303_sd.pdf"
 			(at 186.69 128.27 0)
 			(effects
 				(font
@@ -3889,7 +3926,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Molex "
+			(at 186.69 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "105309-1303"
 			(at 186.69 128.27 0)
 			(effects
 				(font
@@ -4065,7 +4111,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "5k"
+		(property "Value" "5.1k"
 			(at 236.22 123.1899 0)
 			(effects
 				(font
@@ -4083,7 +4129,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/doc?20035"
 			(at 233.68 121.92 0)
 			(effects
 				(font
@@ -4101,7 +4147,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 233.68 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW06035K10FKEC "
 			(at 233.68 121.92 0)
 			(effects
 				(font
@@ -4179,7 +4234,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay General Semiconductor "
+			(at 46.99 166.37 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "VSSAF522-M3/H"
 			(at 46.99 166.37 90)
 			(effects
 				(font
@@ -4240,7 +4304,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 154.94 44.45 0)
 			(effects
 				(font
@@ -4258,7 +4322,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 154.94 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW060310K0FKEI "
 			(at 154.94 44.45 0)
 			(effects
 				(font
@@ -4318,7 +4391,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 213.36 132.08 0)
 			(effects
 				(font
@@ -4336,7 +4409,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 213.36 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW060310K0FKEI "
 			(at 213.36 132.08 0)
 			(effects
 				(font
@@ -4397,7 +4479,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://tools.molex.com/pdm_docs/sd/1053091303_sd.pdf"
 			(at 250.19 128.27 0)
 			(effects
 				(font
@@ -4415,7 +4497,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Molex "
+			(at 250.19 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "105309-1303"
 			(at 250.19 128.27 0)
 			(effects
 				(font
@@ -4610,7 +4701,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 185.42 46.99 0)
 			(effects
 				(font
@@ -4628,7 +4719,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 185.42 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW060310K0FKEI "
 			(at 185.42 46.99 0)
 			(effects
 				(font
@@ -4782,7 +4882,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Microchip Technology "
 			(at 100.33 36.83 0)
 			(effects
 				(font
@@ -4888,7 +4988,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 66.04 31.75 0)
 			(effects
 				(font
@@ -4906,7 +5006,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 66.04 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW060310K0FKEI "
 			(at 66.04 31.75 0)
 			(effects
 				(font
@@ -4987,7 +5096,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Nexperia "
+			(at 238.76 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "PSMN8R5-40MSDX"
 			(at 238.76 139.7 0)
 			(effects
 				(font
@@ -5087,7 +5205,7 @@
 	)
 	(symbol
 		(lib_id "Device:R_US")
-		(at 171.45 124.46 0)
+		(at 171.45 123.19 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5096,7 +5214,7 @@
 		(fields_autoplaced yes)
 		(uuid "80594852-2621-4832-a597-f35e31bf3243")
 		(property "Reference" "R3"
-			(at 173.99 123.1899 0)
+			(at 173.99 121.9199 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5104,8 +5222,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "5k"
-			(at 173.99 125.7299 0)
+		(property "Value" "5.1k"
+			(at 173.99 124.4599 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5114,7 +5232,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 172.466 124.714 90)
+			(at 172.466 123.444 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5122,8 +5240,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
-			(at 171.45 124.46 0)
+		(property "Datasheet" "https://www.vishay.com/doc?20035"
+			(at 171.45 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5132,7 +5250,7 @@
 			)
 		)
 		(property "Description" "Resistor, US symbol"
-			(at 171.45 124.46 0)
+			(at 171.45 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5140,8 +5258,17 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
-			(at 171.45 124.46 0)
+		(property "Manufactuerer" "Vishay "
+			(at 171.45 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW06035K10FKEC "
+			(at 171.45 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5221,7 +5348,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Nexperia "
+			(at 175.26 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "PSMN8R5-40MSDX"
 			(at 175.26 139.7 0)
 			(effects
 				(font
@@ -5291,7 +5427,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/doc?20035"
 			(at 43.18 99.06 0)
 			(effects
 				(font
@@ -5309,7 +5445,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 43.18 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW0603100KFKEE"
 			(at 43.18 99.06 0)
 			(effects
 				(font
@@ -5416,7 +5561,7 @@
 				)
 			)
 		)
-		(property "Value" "1uF"
+		(property "Value" "1u"
 			(at 40.64 47.498 0)
 			(effects
 				(font
@@ -5433,7 +5578,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.mouser.com/datasheet/3/72/1/KEM_C1006_X5R_SMD.pdf"
+		(property "Datasheet" "https://ds.yuden.co.jp/TYCOMPAS/or/download?pn=MLAST063SCG681JFNA01&fileType=CA"
 			(at 44.45 45.72 0)
 			(effects
 				(font
@@ -5451,7 +5596,7 @@
 				(hide yes)
 			)
 		)
-		(property "P/N" "C0805C105K5PACTU"
+		(property "P/N" "MLASU168SB5105KTNA01"
 			(at 44.45 45.72 0)
 			(effects
 				(font
@@ -5460,7 +5605,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" "KEMET "
+		(property "Manufactuerer" "TAIYO YUDEN "
 			(at 44.45 45.72 0)
 			(effects
 				(font
@@ -5631,7 +5776,7 @@
 				)
 			)
 		)
-		(property "Value" "1uF"
+		(property "Value" "1u"
 			(at 51.308 51.054 0)
 			(effects
 				(font
@@ -5648,7 +5793,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.mouser.com/datasheet/3/72/1/KEM_C1006_X5R_SMD.pdf"
+		(property "Datasheet" "https://ds.yuden.co.jp/TYCOMPAS/or/download?pn=MLAST063SCG681JFNA01&fileType=CA"
 			(at 49.53 45.72 0)
 			(effects
 				(font
@@ -5666,7 +5811,7 @@
 				(hide yes)
 			)
 		)
-		(property "P/N" "C0805C105K5PACTU"
+		(property "P/N" "MLASU168SB5105KTNA01"
 			(at 49.53 45.72 0)
 			(effects
 				(font
@@ -5675,7 +5820,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" "KEMET "
+		(property "Manufactuerer" "TAIYO YUDEN "
 			(at 49.53 45.72 0)
 			(effects
 				(font
@@ -5932,7 +6077,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/doc?20035"
 			(at 74.93 99.06 0)
 			(effects
 				(font
@@ -5950,7 +6095,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 74.93 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW0603100KFKEE"
 			(at 74.93 99.06 0)
 			(effects
 				(font
@@ -6011,7 +6165,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 99.06 31.75 0)
 			(effects
 				(font
@@ -6029,7 +6183,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 99.06 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW060310K0FKEI "
 			(at 99.06 31.75 0)
 			(effects
 				(font

@@ -5820,7 +5820,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/doc?20035"
 			(at 126.365 135.89 0)
 			(effects
 				(font
@@ -5838,7 +5838,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 126.365 135.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW06031K00FKEI "
 			(at 126.365 135.89 0)
 			(effects
 				(font
@@ -5964,7 +5973,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/gpn/tps2115a"
 			(at 144.78 125.73 0)
 			(effects
 				(font
@@ -6053,7 +6062,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Texas Instruments "
+			(at 144.78 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "TPS2115ADRBR"
 			(at 144.78 125.73 0)
 			(effects
 				(font
@@ -6343,7 +6361,7 @@
 		(at 26.67 154.94 90)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "34adde02-252b-4cc7-9a0d-63f35499feb2")
@@ -6429,7 +6447,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "450"
+		(property "Value" "470"
 			(at 30.48 161.29 0)
 			(effects
 				(font
@@ -6447,7 +6465,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/doc?20035"
 			(at 29.21 160.02 0)
 			(effects
 				(font
@@ -6465,7 +6483,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 29.21 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW1206470RFKEA "
 			(at 29.21 160.02 0)
 			(effects
 				(font
@@ -6658,7 +6685,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 41.91 160.02 0)
 			(effects
 				(font
@@ -6676,7 +6703,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 41.91 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW0603120RFKEC "
 			(at 41.91 160.02 0)
 			(effects
 				(font
@@ -6800,7 +6836,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 173.355 120.65 0)
 			(effects
 				(font
@@ -6818,7 +6854,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 173.355 120.65 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW060310K0FKEI "
 			(at 173.355 120.65 90)
 			(effects
 				(font
@@ -6877,7 +6922,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://4donline.ihs.com/images/VipMasterIC/IC/DIOD/DIOD-S-A0011437026/DIOD-S-A0011683586-1.pdf?hkey=CECEF36DEECDED6468708AAF2E19C0C6"
 			(at 62.23 33.02 0)
 			(effects
 				(font
@@ -6904,7 +6949,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Diodes Incorporated "
 			(at 62.23 33.02 0)
 			(effects
 				(font
@@ -7056,7 +7101,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "GCT`"
 			(at 36.83 48.26 0)
 			(effects
 				(font
@@ -7274,7 +7319,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Analog Devices "
 			(at 124.46 35.56 0)
 			(effects
 				(font
@@ -7339,7 +7384,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "http://www.littelfuse.com/~/media/files/littelfuse/technical%20resources/documents/data%20sheets/sp05xxba.pdf"
+		(property "Datasheet" "https://www.littelfuse.com/assetdocs/tvs-diode-array-spasp050xba-lead-free-green-datasheet?assetguid=15A03DE1-F0C6-457A-95F1-55D449FDD756"
 			(at 125.095 79.375 0)
 			(effects
 				(font
@@ -7375,7 +7420,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Littelfuse "
 			(at 121.92 82.55 0)
 			(effects
 				(font
@@ -7442,7 +7487,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.espressif.com/sites/default/files/documentation/esp32-c6-mini-1_datasheet_en.pdf"
+		(property "Datasheet" "https://www.mouser.com/datasheet/3/1574/1/esp32-c6-mini-1_datasheet_en.pdf"
 			(at 228.6 24.13 0)
 			(effects
 				(font
@@ -7460,7 +7505,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Espressif Systems "
+			(at 228.6 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "ESP32-C6-MINI-1U"
 			(at 228.6 24.13 0)
 			(effects
 				(font
@@ -7674,7 +7728,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C84263.pdf"
 			(at 41.91 170.18 0)
 			(effects
 				(font
@@ -7692,7 +7746,7 @@
 				(hide yes)
 			)
 		)
-		(property "P/N" "HSML-C191"
+		(property "P/N" "NCD0603R1"
 			(at 41.91 170.18 90)
 			(effects
 				(font
@@ -7710,7 +7764,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "NATIONSTAR"
 			(at 41.91 170.18 90)
 			(effects
 				(font
@@ -8055,7 +8109,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C84263.pdf"
 			(at 29.21 170.18 0)
 			(effects
 				(font
@@ -8073,7 +8127,7 @@
 				(hide yes)
 			)
 		)
-		(property "P/N" "HSML-C191"
+		(property "P/N" "NCD0603R1"
 			(at 29.21 170.18 90)
 			(effects
 				(font
@@ -8091,7 +8145,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "NATIONSTAR"
 			(at 29.21 170.18 90)
 			(effects
 				(font
@@ -8217,7 +8271,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/doc?20035"
 			(at 52.07 105.41 0)
 			(effects
 				(font
@@ -8235,7 +8289,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 52.07 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW06035K10FKEC "
 			(at 52.07 105.41 0)
 			(effects
 				(font
@@ -8361,7 +8424,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.mouser.com/datasheet/3/76/1/GRM21BR61H106KE43_01A.pdf"
 			(at 138.43 38.1 0)
 			(effects
 				(font
@@ -8379,7 +8442,7 @@
 				(hide yes)
 			)
 		)
-		(property "P/N" "MLAST168BB5106MTNA01"
+		(property "P/N" "GRM21BR61H106KE43K"
 			(at 138.43 38.1 0)
 			(effects
 				(font
@@ -8397,7 +8460,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Murata Electronics "
 			(at 138.43 38.1 0)
 			(effects
 				(font
@@ -8459,7 +8522,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.mouser.com/datasheet/3/76/1/GRM21BR61H106KE43_01A.pdf"
 			(at 74.93 166.37 0)
 			(effects
 				(font
@@ -8477,7 +8540,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Murata Electronics "
+			(at 74.93 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "GRM21BR61H106KE43K"
 			(at 74.93 166.37 0)
 			(effects
 				(font
@@ -8507,7 +8579,7 @@
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "c3630ae2-3b0c-487f-b158-d8d8adb9d54e")
@@ -8743,7 +8815,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.mouser.com/datasheet/3/76/1/GRM21BR61H106KE43_01A.pdf"
 			(at 35.56 106.68 0)
 			(effects
 				(font
@@ -8761,7 +8833,7 @@
 				(hide yes)
 			)
 		)
-		(property "P/N" "MLAST168BB5106MTNA01"
+		(property "P/N" "GRM21BR61H106KE43K"
 			(at 35.56 106.68 0)
 			(effects
 				(font
@@ -8770,7 +8842,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Murata Electronics "
 			(at 35.56 106.68 0)
 			(effects
 				(font
@@ -9160,7 +9232,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/doc?20035"
 			(at 62.23 105.41 0)
 			(effects
 				(font
@@ -9178,7 +9250,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 62.23 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW06035K10FKEC "
 			(at 62.23 105.41 0)
 			(effects
 				(font
@@ -9238,7 +9319,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.mouser.com/datasheet/3/76/1/GRM21BR61H106KE43_01A.pdf"
 			(at 109.22 38.1 0)
 			(effects
 				(font
@@ -9256,7 +9337,7 @@
 				(hide yes)
 			)
 		)
-		(property "P/N" "UMK107B7104KAHT "
+		(property "P/N" "GRM21BR61H106KE43K"
 			(at 109.22 38.1 0)
 			(effects
 				(font
@@ -9265,7 +9346,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Murata Electronics "
 			(at 109.22 38.1 0)
 			(effects
 				(font

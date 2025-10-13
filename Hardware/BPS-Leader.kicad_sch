@@ -9531,7 +9531,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://tools.molex.com/pdm_docs/sd/1053091204_sd.pdf"
 			(at 49.53 184.15 0)
 			(effects
 				(font
@@ -9549,7 +9549,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Molex "
+			(at 49.53 184.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "105309-1204 "
 			(at 49.53 184.15 0)
 			(effects
 				(font
@@ -9584,7 +9593,7 @@
 		(at 56.388 104.14 0)
 		(unit 2)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
@@ -9907,7 +9916,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.mouser.com/ProductDetail/Molex/105309-1204?qs=PqFvFmEiOr6mDAWV2BJKbg%3D%3D&srsltid=AfmBOopk7YsqdMLo2_DAHKaHKt3Hg126ooPXYWv5Q2Pfx6rW7DaYZCT2"
+		(property "Datasheet" "https://tools.molex.com/pdm_docs/sd/1053091204_sd.pdf"
 			(at 182.88 48.26 0)
 			(effects
 				(font
@@ -9934,7 +9943,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Molex "
 			(at 177.8 55.88 0)
 			(effects
 				(font
@@ -10034,7 +10043,7 @@
 		(at 55.372 37.084 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
@@ -10291,7 +10300,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.mouser.com/ProductDetail/Molex/105309-1204?qs=PqFvFmEiOr6mDAWV2BJKbg%3D%3D&srsltid=AfmBOopk7YsqdMLo2_DAHKaHKt3Hg126ooPXYWv5Q2Pfx6rW7DaYZCT2"
+		(property "Datasheet" "https://tools.molex.com/pdm_docs/sd/1053091204_sd.pdf"
 			(at 134.62 48.26 0)
 			(effects
 				(font
@@ -10318,7 +10327,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Molex "
 			(at 129.54 55.88 0)
 			(effects
 				(font
@@ -10484,7 +10493,7 @@
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "2d9919df-c1b0-42be-b1a5-9bf18dc8e487")
@@ -10688,7 +10697,7 @@
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "55d2f095-1824-4b54-8578-61acac9a3cd4")
@@ -10891,7 +10900,7 @@
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "86e0d218-d43b-4b6f-aae2-221c1aae5799")
@@ -11076,7 +11085,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://tools.molex.com/pdm_docs/sd/1053101112_sd.pdf"
 			(at 184.15 29.21 0)
 			(effects
 				(font
@@ -11094,7 +11103,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Molex "
+			(at 184.15 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "105310-1112 "
 			(at 184.15 29.21 0)
 			(effects
 				(font
@@ -11348,7 +11366,7 @@
 		(at 78.74 187.96 180)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "921db097-73cc-4886-b527-f9d6de927673")
@@ -11685,7 +11703,7 @@
 		(at 85.09 187.96 180)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "9be2db6a-c837-41a9-a4f3-be280fe1ebfe")
@@ -11762,7 +11780,7 @@
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "a27f3a26-f915-4833-b3c7-13197eaddcbc")
@@ -11867,7 +11885,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://sensirion.com/media/documents/33FD6951/624C4357/Datasheet_SHT4x.pdf"
+		(property "Datasheet" "https://www.mouser.com/datasheet/3/1278/1/HT_DS_Datasheet_SHT4x_5.pdf"
 			(at 215.9 92.71 0)
 			(effects
 				(font
@@ -11886,7 +11904,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Sensirion "
+			(at 212.09 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "SHT45-AD1B-R2 "
 			(at 212.09 83.82 0)
 			(effects
 				(font
@@ -12274,7 +12301,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.mouser.com/datasheet/3/201/1/3568.PDF"
 			(at 172.72 26.67 0)
 			(effects
 				(font
@@ -12292,8 +12319,17 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Keystone Electronics "
 			(at 172.72 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "3568"
+			(at 172.72 26.67 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12322,7 +12358,7 @@
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "bf67d227-91ae-43b6-b476-9e0201979092")
@@ -12427,7 +12463,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.digikey.com/en/products/detail/sullins-connector-solutions/SFH11-PBPC-D05-ST-BK/1990087?gclsrc=aw.ds&gad_source=1&gad_campaignid=120565755&gbraid=0AAAAADrbLljEsXDDEt5svizMM4jeYrL-A&gclid=Cj0KCQjwwZDFBhCpARIsAB95qO2YCKMg2VQme3QQBBCFa3dTLVMMS-qCbMZE8KZJpYe-_Bi6ULwi-x0aAvv3EALw_wcB"
+		(property "Datasheet" "https://s3.amazonaws.com/catalogspreads-pdf/PAGE123%20.100%20SFH11%20SERIES%20FEMALE%20HDR%20ST%20RA.pdf"
 			(at 206.502 123.19 0)
 			(effects
 				(font
@@ -12455,7 +12491,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Sullins Connector Solutions"
 			(at 198.12 132.08 0)
 			(effects
 				(font
@@ -12508,7 +12544,7 @@
 		(at 97.79 180.34 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "cc2eee79-674a-4fb1-9e6d-fbb24f9f2fad")
@@ -12938,7 +12974,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 148.59 21.59 0)
 			(effects
 				(font
@@ -12956,7 +12992,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Vishay "
+			(at 148.59 21.59 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW060310K0FKEI "
 			(at 148.59 21.59 90)
 			(effects
 				(font
@@ -13080,7 +13125,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://ds.yuden.co.jp/TYCOMPAS/or/download?pn=MLAST063SCG681JFNA01&fileType=CA"
 			(at 207.01 73.66 0)
 			(effects
 				(font
@@ -13098,7 +13143,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "TAIYO YUDEN "
 			(at 207.01 73.66 0)
 			(effects
 				(font
@@ -13107,7 +13152,7 @@
 				(hide yes)
 			)
 		)
-		(property "P/N" "C0805C105K5PACTU"
+		(property "P/N" "MLASU168SB5105KTNA01"
 			(at 207.01 73.66 90)
 			(effects
 				(font
@@ -13136,7 +13181,7 @@
 		(at 72.39 187.96 180)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "efe5c2c8-7d0c-4bd5-bdc2-b472aca5ecbe")
@@ -13248,7 +13293,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/PMV213SN.pdf"
+		(property "Datasheet" "https://www.mouser.com/ProductDetail/Nexperia/PMV213SN215?qs=LOCUfHb8d9sH6YyLGIT8fQ%3D%3D"
 			(at 147.32 33.02 0)
 			(effects
 				(font
@@ -13267,7 +13312,16 @@
 				(hide yes)
 			)
 		)
-		(property "Manufactuerer" ""
+		(property "Manufactuerer" "Nexperia "
+			(at 143.51 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "PMV213SN,215 "
 			(at 143.51 27.94 0)
 			(effects
 				(font
@@ -13372,7 +13426,7 @@
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "f6b4c1af-215f-432b-bb77-b6d9d968ff30")
@@ -13462,7 +13516,7 @@
 		(at 91.44 180.34 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "f9735653-cd91-46e9-8582-df990fdb003e")
