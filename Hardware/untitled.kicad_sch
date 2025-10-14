@@ -2181,12 +2181,6 @@
 		(uuid "170b48b8-492a-4259-bc4b-6b8a5dc3886c")
 	)
 	(junction
-		(at 48.895 78.105)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "26ac215a-05db-42d5-bc81-86cfdec5d510")
-	)
-	(junction
 		(at 87.63 55.245)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2508,7 +2502,7 @@
 	)
 	(wire
 		(pts
-			(xy 48.895 79.375) (xy 48.895 78.105)
+			(xy 48.895 74.295) (xy 48.895 79.375)
 		)
 		(stroke
 			(width 0)
@@ -2645,16 +2639,6 @@
 			(type default)
 		)
 		(uuid "e850da9b-a272-4d7b-a647-f2f030a09132")
-	)
-	(wire
-		(pts
-			(xy 48.895 74.295) (xy 48.895 78.105)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "edc12ffb-f898-4586-9083-cbdd1c5794a8")
 	)
 	(wire
 		(pts
@@ -3244,79 +3228,6 @@
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/a39d8cf5-dc9c-4f60-80f8-399517c69b53"
 					(reference "#PWR047")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 48.895 78.105 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(dnp no)
-		(uuid "60ded900-c154-4c8e-bd31-0dcde8421a15")
-		(property "Reference" "LVGND_TP1"
-			(at 38.735 79.629 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 38.481 77.089 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
-			(at 48.895 73.025 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 48.895 73.025 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 48.895 78.105 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufactuerer" ""
-			(at 48.895 78.105 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "be08e8f1-5790-452d-8a53-8e8dd83feec4")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/a39d8cf5-dc9c-4f60-80f8-399517c69b53"
-					(reference "LVGND_TP1")
 					(unit 1)
 				)
 			)
