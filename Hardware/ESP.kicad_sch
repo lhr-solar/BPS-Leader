@@ -4305,6 +4305,16 @@
 	)
 	(wire
 		(pts
+			(xy 120.65 182.88) (xy 120.65 186.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2467c48c-7a64-416a-ae47-6d7327fa5dba")
+	)
+	(wire
+		(pts
 			(xy 107.315 115.57) (xy 107.315 118.745)
 		)
 		(stroke
@@ -4755,6 +4765,16 @@
 	)
 	(wire
 		(pts
+			(xy 120.65 172.72) (xy 120.65 175.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "978323c2-367e-496b-a2ae-d57d2e151311")
+	)
+	(wire
+		(pts
 			(xy 179.705 120.65) (xy 179.705 115.57)
 		)
 		(stroke
@@ -4822,6 +4842,16 @@
 			(type default)
 		)
 		(uuid "a02da332-f14e-430e-89b6-f2dc941b635a")
+	)
+	(wire
+		(pts
+			(xy 114.3 186.69) (xy 120.65 186.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a0347e95-4428-464d-9324-b99063b840fb")
 	)
 	(wire
 		(pts
@@ -5312,6 +5342,16 @@
 			(justify left bottom)
 		)
 		(uuid "44e3ced1-1285-48ed-9463-6e265dbb3bdc")
+	)
+	(label "BOOT"
+		(at 114.3 186.69 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "4977e304-1830-4adf-b096-ea841400ecc8")
 	)
 	(label "+5V_USB"
 		(at 99.06 33.02 0)
@@ -5932,6 +5972,71 @@
 			(project ""
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/dabc680e-023d-4bcf-9356-bacd091b1cc9"
 					(reference "#PWR0150")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 120.65 172.72 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "13162d9e-8f85-458f-8c79-afc6bf3ab36a")
+		(property "Reference" "#PWR0152"
+			(at 120.65 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3.3V_ESP"
+			(at 123.19 169.164 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 120.65 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 120.65 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 120.65 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "bb8189c2-2cf6-41e8-8832-d1d7dffc0716")
+		)
+		(instances
+			(project "BPS-Leader"
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/dabc680e-023d-4bcf-9356-bacd091b1cc9"
+					(reference "#PWR0152")
 					(unit 1)
 				)
 			)
@@ -8861,6 +8966,76 @@
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/dabc680e-023d-4bcf-9356-bacd091b1cc9"
 					(reference "C13")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_US")
+		(at 120.65 179.07 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d447cbeb-aaac-4651-afa0-d8d0ff6980ab")
+		(property "Reference" "R14"
+			(at 123.19 177.7999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "3.3k"
+			(at 123.19 180.3399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 121.666 179.324 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 120.65 179.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, US symbol"
+			(at 120.65 179.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7de7616b-b8b5-4f93-85dc-0a0cb20110f9")
+		)
+		(pin "2"
+			(uuid "71096f78-eb00-4a14-a067-184fe9423cbe")
+		)
+		(instances
+			(project ""
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/dabc680e-023d-4bcf-9356-bacd091b1cc9"
+					(reference "R14")
 					(unit 1)
 				)
 			)
