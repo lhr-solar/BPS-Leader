@@ -1,0 +1,13 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "utsvt_connectors")(type "KiCad")(uri "${KIPRJMOD}/KiCAD-Sharepoint/utsvt_connectors.kicad_sym")(options "")(descr ""))
+  (lib (name "utsvt_ics.kicad")(type "KiCad")(uri "${KIPRJMOD}/KiCAD-Sharepoint/utsvt_ics.kicad_sym")(options "")(descr ""))
+  (lib (name "utsvt_misc")(type "KiCad")(uri "${KIPRJMOD}/KiCAD-Sharepoint/utsvt_misc.kicad_sym")(options "")(descr ""))
+  (lib (name "utsvt_power")(type "KiCad")(uri "${KIPRJMOD}/KiCAD-Sharepoint/utsvt_power.kicad_sym")(options "")(descr ""))
+  (lib (name "utsvt_special")(type "KiCad")(uri "${KIPRJMOD}/KiCAD-Sharepoint/utsvt_special.kicad_sym")(options "")(descr ""))
+  (lib (name "PSMN8R5-40MSDX")(type "KiCad")(uri "${KIPRJMOD}/Custom-KiCadLibraries/PSMN8R5-40MSDX/PSMN8R5-40MSDX.kicad_sym")(options "")(descr ""))
+  (lib (name "Shift Reg")(type "KiCad")(uri "${KIPRJMOD}/Custom-KiCadLibraries/SN74HC594DWG4/SN74HC594DWG4.kicad_sym")(options "")(descr ""))
+  (lib (name "PTC Fuse")(type "KiCad")(uri "${KIPRJMOD}/Custom-KiCadLibraries/SMD1812B300TFT/SMD1812B300TFT.kicad_sym")(options "")(descr ""))
+  (lib (name "EMC2305-1-AP-TR")(type "KiCad")(uri "${KIPRJMOD}/Custom-KiCadLibraries/EMC2305-1-AP-TR/EMC2305-1-AP-TR.kicad_sym")(options "")(descr ""))
+  (lib (name "Molex Nano 3 pin")(type "KiCad")(uri "${KIPRJMOD}/Custom-KiCadLibraries/105309-1204/105309-1204.kicad_sym")(options "")(descr ""))
+)

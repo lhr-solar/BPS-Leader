@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP SN74HC594DWG4
+D Shift Register Single 8-Bit Serial to Serial/Parallel 16-Pin SOIC Tube
+K
+F https://www.arrow.com/en/products/sn74hc594dwg4/texas-instruments
+$ENDCMP
+#
+#End Doc Library
