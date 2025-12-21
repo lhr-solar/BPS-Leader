@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP SN74HC594DR
+D 8-Bit Shift Registers With Output Registers
+K
+F http://www.ti.com/lit/gpn/sn74hc594
+$ENDCMP
+#
+#End Doc Library

@@ -1,0 +1,9 @@
+Manufacturer=LITTELFUSE
+PartNumber=SMBJ30CA
+PartCategory=TVS Diode (Bi-directional)
+PackageCategory=Diodes Moulded
+PinCount=2
+Version=1.1
+Released=2020-12-15 15:26:31
+Downloaded=2025-12-21 04:12:26
+3D=Y

@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP SMBJ30CA
+D Littelfuse SMBJ30CA, Bi-Directional TVS Diode, 600W, 2-Pin DO-214AA
+K
+F https://componentsearchengine.com/Datasheets/2/SMBJ30CA.pdf
+$ENDCMP
+#
+#End Doc Library
