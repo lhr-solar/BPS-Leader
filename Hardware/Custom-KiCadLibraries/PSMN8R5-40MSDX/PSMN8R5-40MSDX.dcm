@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP PSMN8R5-40MSDX
+D MOSFETs PSMN8R5-40MSD/SOT1210/mLFPAK
+K
+F https://assets.nexperia.com/documents/data-sheet/PSMN8R5-40MSD.pdf
+$ENDCMP
+#
+#End Doc Library
