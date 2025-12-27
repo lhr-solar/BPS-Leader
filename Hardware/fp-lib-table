@@ -7,4 +7,5 @@
   (lib (name "PTC Fuse")(type "KiCad")(uri "${KIPRJMOD}/Custom-KiCadLibraries/SMD1812B300TFT")(options "")(descr ""))
   (lib (name "EMC2305-1-AP-TR")(type "KiCad")(uri "${KIPRJMOD}/Custom-KiCadLibraries/EMC2305-1-AP-TR")(options "")(descr ""))
   (lib (name "SN74HC594DR")(type "KiCad")(uri "${KIPRJMOD}/Custom-KiCadLibraries/SN74HC594DR")(options "")(descr ""))
+  (lib (name "VSSAF522-M3/H")(type "KiCad")(uri "${KIPRJMOD}/Custom-KiCadLibraries/VSSAF522-M3_H")(options "")(descr ""))
 )
