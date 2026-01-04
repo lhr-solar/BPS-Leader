@@ -2064,16 +2064,6 @@
 		)
 		(uuid "48c3212a-08fd-4191-92f9-3045cb6739ba")
 	)
-	(text "I didn't even touch this to make the resistors pretty cause it's scary"
-		(exclude_from_sim no)
-		(at 62.23 112.014 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "49c27562-508f-4b6e-86c3-f14f2202cf9b")
-	)
 	(text "24->5v Buck Converter"
 		(exclude_from_sim no)
 		(at 45.212 30.734 0)
@@ -2361,7 +2351,7 @@
 	)
 	(wire
 		(pts
-			(xy 64.77 142.24) (xy 72.39 142.24)
+			(xy 54.61 142.24) (xy 72.39 142.24)
 		)
 		(stroke
 			(width 0)
@@ -7618,7 +7608,7 @@
 	)
 	(hierarchical_label "DATA"
 		(shape input)
-		(at 64.77 142.24 180)
+		(at 54.61 142.24 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -7654,7 +7644,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 83.312 91.44 90)
 			(effects
 				(font
@@ -7741,7 +7731,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 74.6252 68.58 0)
 			(effects
 				(font
@@ -7828,7 +7818,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 86.0552 85.09 0)
 			(effects
 				(font
@@ -7981,7 +7971,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 172.4152 80.01 0)
 			(effects
 				(font
@@ -8068,7 +8058,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 183.8452 80.01 0)
 			(effects
 				(font
@@ -8220,7 +8210,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 98.552 96.52 90)
 			(effects
 				(font
@@ -8824,94 +8814,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R_US")
-		(at 115.57 132.08 180)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "7d95b4b0-2ecf-416a-95d0-b55f4b26dfdf")
-		(property "Reference" "R51"
-			(at 118.11 130.8099 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "150"
-			(at 118.11 133.3499 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 114.554 131.826 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
-			(at 115.57 132.08 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor, US symbol"
-			(at 115.57 132.08 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufactuerer" "Vishay "
-			(at 115.57 132.08 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "P/N" "CRCW060310K0FKEI "
-			(at 115.57 132.08 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "181cbc5a-1202-4c4a-927a-d5ae926575f3")
-		)
-		(pin "1"
-			(uuid "ffb63851-117d-411e-8e2e-aa76fb3ba6a1")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/e5707b84-df8b-4b8b-b215-90bb9859c3b3"
-					(reference "R51")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:C")
 		(at 142.24 64.77 0)
 		(unit 1)
@@ -8938,7 +8840,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 143.2052 68.58 0)
 			(effects
 				(font
@@ -9007,13 +8909,12 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "a40f458e-8302-4768-8765-794414b30f30")
-		(property "Reference" "LowV2"
-			(at 123.19 146.3675 0)
+		(property "Reference" "5V_Buck"
+			(at 122.174 146.304 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Value" "5V_Buck"
@@ -9087,7 +8988,92 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/e5707b84-df8b-4b8b-b215-90bb9859c3b3"
-					(reference "LowV2")
+					(reference "5V_Buck")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_US")
+		(at 115.57 132.08 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a883faf1-927e-4181-b7a2-df920dc58932")
+		(property "Reference" "R51"
+			(at 119.888 133.858 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k"
+			(at 119.888 131.318 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 116.586 132.334 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 115.57 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, US symbol"
+			(at 115.57 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW06031K00FKEI"
+			(at 115.57 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mouser Part Number" "71-CRCW06031K00FKEI"
+			(at 115.57 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "8d539ccb-f4ff-4e29-943a-81b0f99fa57c")
+		)
+		(pin "1"
+			(uuid "8e144bbb-cb87-42e7-a22e-b3f9e2fa253f")
+		)
+		(instances
+			(project "BPS-Leader"
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/e5707b84-df8b-4b8b-b215-90bb9859c3b3"
+					(reference "R51")
 					(unit 1)
 				)
 			)
@@ -9120,7 +9106,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 64.4652 68.58 0)
 			(effects
 				(font
@@ -9338,7 +9324,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 160.9852 80.01 0)
 			(effects
 				(font
@@ -9628,7 +9614,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 77.1652 78.74 0)
 			(effects
 				(font

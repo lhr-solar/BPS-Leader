@@ -1,4 +1,4 @@
-(footprint "FUSE_3568"
+(footprint "3568"
 	(version 20241229)
 	(generator "pcbnew")
 	(generator_version "9.0")
@@ -179,6 +179,15 @@
 		(solder_mask_margin 0.102)
 		(uuid "2208a690-c84e-45fa-ba8d-8594d61f711f")
 	)
+	(pad "1" thru_hole circle
+		(at -4.96 1.7)
+		(size 2.4 2.4)
+		(drill 1.6)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(solder_mask_margin 0.102)
+		(uuid "9709cbc4-46ab-4b7a-8e50-606d59ad1409")
+	)
 	(pad "2" thru_hole circle
 		(at 4.96 -1.7)
 		(size 2.4 2.4)
@@ -188,16 +197,7 @@
 		(solder_mask_margin 0.102)
 		(uuid "d9d4eef5-5ed8-44e3-ab55-5cf8090875ab")
 	)
-	(pad "3" thru_hole circle
-		(at -4.96 1.7)
-		(size 2.4 2.4)
-		(drill 1.6)
-		(layers "*.Cu" "*.Mask")
-		(remove_unused_layers no)
-		(solder_mask_margin 0.102)
-		(uuid "9709cbc4-46ab-4b7a-8e50-606d59ad1409")
-	)
-	(pad "4" thru_hole circle
+	(pad "2" thru_hole circle
 		(at 4.96 1.7)
 		(size 2.4 2.4)
 		(drill 1.6)

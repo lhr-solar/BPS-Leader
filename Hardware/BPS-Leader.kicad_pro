@@ -192,6 +192,8 @@
         0.3,
         0.4,
         0.5,
+        0.7,
+        1.0,
         2.0
       ],
       "tuning_pattern_settings": {
@@ -830,16 +832,32 @@
       "POWER"
     ],
     [
-      "37c0bd35-e6b4-4a89-a511-f83fc17a7387",
-      "Contactor Control and Sense"
-    ],
-    [
       "ec328d6f-4db5-4eba-b704-0212808a8e56",
       "ONBOARD_LEDS"
     ],
     [
       "e5707b84-df8b-4b8b-b215-90bb9859c3b3",
       "Indication Board Connection"
+    ],
+    [
+      "013fafe9-9f8f-4070-b42f-299f0280561e",
+      "Array Contactor"
+    ],
+    [
+      "3dd44f8f-72d2-4c34-a907-2c0b2702aa52",
+      "Array Precharge Contactor"
+    ],
+    [
+      "74963854-952a-4575-ade4-c65bd9c86e44",
+      "HV+ Contactor"
+    ],
+    [
+      "282b6fe6-adb7-4bd1-bb3c-4f7b240441d9",
+      "HV- Contactor"
+    ],
+    [
+      "e6694587-41e7-41a3-a5ae-2d9c9c2fe77f",
+      "ESTOP Driver"
     ]
   ],
   "text_variables": {}

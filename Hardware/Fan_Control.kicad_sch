@@ -1641,18 +1641,6 @@
 		(uuid "63c75d5b-e25c-4f88-8025-5befd6c4821c")
 	)
 	(junction
-		(at 85.09 39.37)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "66a76cb4-472b-4ba8-a2e1-6e0b0be75601")
-	)
-	(junction
-		(at 99.06 36.83)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "6b8be7fc-55ae-4d3b-b656-102d97775f67")
-	)
-	(junction
 		(at 154.94 49.53)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1684,7 +1672,7 @@
 	)
 	(wire
 		(pts
-			(xy 96.52 36.83) (xy 99.06 36.83)
+			(xy 96.52 36.83) (xy 100.33 36.83)
 		)
 		(stroke
 			(width 0)
@@ -1731,16 +1719,6 @@
 			(type default)
 		)
 		(uuid "18fda517-fa08-49b3-a0f7-e0a14fdf4d08")
-	)
-	(wire
-		(pts
-			(xy 85.09 35.56) (xy 85.09 39.37)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1aa3eac2-101d-45fb-b2ab-b35dde3f6b93")
 	)
 	(wire
 		(pts
@@ -1824,7 +1802,7 @@
 	)
 	(wire
 		(pts
-			(xy 85.09 39.37) (xy 100.33 39.37)
+			(xy 96.52 39.37) (xy 100.33 39.37)
 		)
 		(stroke
 			(width 0)
@@ -1874,26 +1852,6 @@
 	)
 	(wire
 		(pts
-			(xy 99.06 36.83) (xy 100.33 36.83)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4484a947-fb63-41d7-92fe-99e06b78203d")
-	)
-	(wire
-		(pts
-			(xy 82.55 39.37) (xy 85.09 39.37)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4901765c-69a4-4ccc-96c4-23be281c32c7")
-	)
-	(wire
-		(pts
 			(xy 66.04 44.45) (xy 100.33 44.45)
 		)
 		(stroke
@@ -1911,16 +1869,6 @@
 			(type default)
 		)
 		(uuid "51e296a2-e94f-41a9-ac46-2f6cdab2955c")
-	)
-	(wire
-		(pts
-			(xy 85.09 26.67) (xy 85.09 27.94)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "593e4d0c-2623-447b-8f98-01f625e00d78")
 	)
 	(wire
 		(pts
@@ -2174,16 +2122,6 @@
 	)
 	(wire
 		(pts
-			(xy 99.06 35.56) (xy 99.06 36.83)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "dfedb8fb-661e-4e50-9c22-ee9d6f856299")
-	)
-	(wire
-		(pts
 			(xy 185.42 43.18) (xy 185.42 39.37)
 		)
 		(stroke
@@ -2191,16 +2129,6 @@
 			(type default)
 		)
 		(uuid "e24c971c-7e27-45f9-b95c-45ababaf0a76")
-	)
-	(wire
-		(pts
-			(xy 99.06 26.67) (xy 99.06 27.94)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ea9cc3c1-b42f-4b0a-a175-2f794a3e58bf")
 	)
 	(wire
 		(pts
@@ -2694,7 +2622,7 @@
 	)
 	(hierarchical_label "FAN_SCL"
 		(shape input)
-		(at 82.55 39.37 180)
+		(at 96.52 39.37 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2726,158 +2654,6 @@
 		(uuid "c5d629f8-d50d-4cb7-9641-95e8fce703f9")
 	)
 	(symbol
-		(lib_id "power:+3.3V")
-		(at 99.06 26.67 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "04432a7c-b112-4e5a-936d-66f1b9027729")
-		(property "Reference" "#PWR0104"
-			(at 99.06 30.48 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+3.3V"
-			(at 104.394 25.654 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 99.06 26.67 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 99.06 26.67 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
-			(at 99.06 26.67 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "f4cd6502-58d0-4eb0-abe2-9975e89c4eda")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/8d0cbdc7-6b16-43b7-9a81-5c7e9e7d19f5"
-					(reference "#PWR0104")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R_US")
-		(at 85.09 31.75 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "05c85d6f-a9ae-4adf-85d5-0f2c99caee9f")
-		(property "Reference" "R35"
-			(at 79.248 28.702 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "10k"
-			(at 79.248 31.242 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 86.106 32.004 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
-			(at 85.09 31.75 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor, US symbol"
-			(at 85.09 31.75 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufactuerer" "Vishay "
-			(at 85.09 31.75 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "P/N" "CRCW060310K0FKEI "
-			(at 85.09 31.75 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "5eb4e646-ac46-4b8d-90e6-19321eba0da2")
-		)
-		(pin "2"
-			(uuid "7bfb4821-e332-443b-b08e-615874f9355d")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/8d0cbdc7-6b16-43b7-9a81-5c7e9e7d19f5"
-					(reference "R35")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Connector_Generic:Conn_01x04")
 		(at 92.71 101.6 0)
 		(unit 1)
@@ -2905,7 +2681,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_Molex:Molex_Nano-Fit_105309-xx04_1x04_P2.50mm_Vertical"
 			(at 92.71 101.6 0)
 			(effects
 				(font
@@ -3231,71 +3007,6 @@
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/8d0cbdc7-6b16-43b7-9a81-5c7e9e7d19f5"
 					(reference "#PWR0163")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+3.3V")
-		(at 85.09 26.67 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "32802aa0-6a39-4c55-82a4-5537c86d1e02")
-		(property "Reference" "#PWR0105"
-			(at 85.09 30.48 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+3.3V"
-			(at 89.408 24.892 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 85.09 26.67 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 85.09 26.67 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
-			(at 85.09 26.67 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "e8cc1ef2-e14d-484c-89de-20159d3bc6ae")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/8d0cbdc7-6b16-43b7-9a81-5c7e9e7d19f5"
-					(reference "#PWR0105")
 					(unit 1)
 				)
 			)
@@ -3766,7 +3477,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_Molex:Molex_Nano-Fit_105309-xx04_1x04_P2.50mm_Vertical"
 			(at 53.34 101.6 0)
 			(effects
 				(font
@@ -4769,94 +4480,6 @@
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/8d0cbdc7-6b16-43b7-9a81-5c7e9e7d19f5"
 					(reference "#PWR028")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R_US")
-		(at 99.06 31.75 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "e09e627b-831b-45cd-9aea-0038b2ce7752")
-		(property "Reference" "R31"
-			(at 101.6 30.4799 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "10k"
-			(at 101.6 33.0199 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 100.076 32.004 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
-			(at 99.06 31.75 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor, US symbol"
-			(at 99.06 31.75 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufactuerer" "Vishay "
-			(at 99.06 31.75 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "P/N" "CRCW060310K0FKEI "
-			(at 99.06 31.75 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "648b49bd-45e0-4b55-aaf0-aae9fbb71b80")
-		)
-		(pin "2"
-			(uuid "17a2834a-df16-4e60-9ec3-06f0302683a5")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/8d0cbdc7-6b16-43b7-9a81-5c7e9e7d19f5"
-					(reference "R31")
 					(unit 1)
 				)
 			)

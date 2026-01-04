@@ -2858,7 +2858,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "120"
+		(property "Value" "470"
 			(at 123.19 93.9799 0)
 			(effects
 				(font
@@ -3454,7 +3454,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "120"
+		(property "Value" "470"
 			(at 134.62 93.9799 0)
 			(effects
 				(font
@@ -3706,7 +3706,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "120"
+		(property "Value" "470"
 			(at 146.05 93.9799 0)
 			(effects
 				(font
@@ -3973,7 +3973,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "120"
+		(property "Value" "470"
 			(at 157.48 93.9799 0)
 			(effects
 				(font
