@@ -2,7 +2,7 @@
 	(version 20250114)
 	(generator "eeschema")
 	(generator_version "9.0")
-	(uuid "3540b4cd-1f79-452b-ba72-08c988fc01f8")
+	(uuid "e6f4f184-d896-4f15-941a-bea6ebaf5f16")
 	(paper "A4")
 	(lib_symbols
 		(symbol "Connector:TestPoint"
@@ -1666,6 +1666,16 @@
 	)
 	(wire
 		(pts
+			(xy 92.71 102.87) (xy 101.6 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4a25fdcb-25e3-4d53-aac0-f77f31e35fd1")
+	)
+	(wire
+		(pts
 			(xy 207.01 111.76) (xy 207.01 110.49)
 		)
 		(stroke
@@ -1713,16 +1723,6 @@
 			(type default)
 		)
 		(uuid "7603c506-1097-41ae-8bfa-f623496684ac")
-	)
-	(wire
-		(pts
-			(xy 226.06 96.52) (xy 241.3 96.52)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8a8b7ef3-55b0-4814-ab71-61cd04ec3868")
 	)
 	(wire
 		(pts
@@ -1836,16 +1836,6 @@
 	)
 	(wire
 		(pts
-			(xy 92.71 102.87) (xy 111.76 102.87)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "de36c23e-eefc-43ab-94dc-5511d7ecc224")
-	)
-	(wire
-		(pts
 			(xy 207.01 100.33) (xy 213.36 100.33)
 		)
 		(stroke
@@ -1884,16 +1874,6 @@
 		)
 		(uuid "ffe97037-bf16-42ae-b473-a92a91aa3923")
 	)
-	(label "ARRAY_CONTROL-"
-		(at 111.76 102.87 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "70cb3ad3-5ce8-49dc-9d53-bc295854d638")
-	)
 	(hierarchical_label "ARRAY_CONTROL"
 		(shape input)
 		(at 64.77 110.49 180)
@@ -1907,14 +1887,14 @@
 	)
 	(hierarchical_label "ARRAY_CONTROL-"
 		(shape input)
-		(at 241.3 96.52 0)
+		(at 101.6 102.87 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left)
 		)
-		(uuid "49084e54-d677-4ecf-9a4b-6b389353eea8")
+		(uuid "46015733-0412-4f8c-82b4-577205f73e0b")
 	)
 	(hierarchical_label "ARRAY_SENSE-"
 		(shape input)
@@ -2714,82 +2694,6 @@
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/013fafe9-9f8f-4070-b42f-299f0280561e"
 					(reference "R39")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 226.06 96.52 90)
-		(mirror x)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(dnp no)
-		(uuid "9072e738-2589-4410-b8ff-829cde835ce1")
-		(property "Reference" "TP15"
-			(at 225.044 93.472 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 227.838 90.932 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
-			(at 226.06 101.6 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 226.06 101.6 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 226.06 96.52 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufactuerer" ""
-			(at 226.06 96.52 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "5baeef3a-895a-4b6c-ba31-43221fa8f632")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/013fafe9-9f8f-4070-b42f-299f0280561e"
-					(reference "TP15")
 					(unit 1)
 				)
 			)

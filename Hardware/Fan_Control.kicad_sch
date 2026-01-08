@@ -1640,12 +1640,6 @@
 		(color 0 0 0 0)
 		(uuid "63c75d5b-e25c-4f88-8025-5befd6c4821c")
 	)
-	(junction
-		(at 154.94 49.53)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "ce145308-d9e2-4a38-8704-bc83ea5e49fe")
-	)
 	(no_connect
 		(at 151.13 46.99)
 		(uuid "078534ad-7622-426f-94d9-de5c0697c95b")
@@ -1692,7 +1686,7 @@
 	)
 	(wire
 		(pts
-			(xy 154.94 49.53) (xy 157.48 49.53)
+			(xy 151.13 49.53) (xy 157.48 49.53)
 		)
 		(stroke
 			(width 0)
@@ -1932,16 +1926,6 @@
 	)
 	(wire
 		(pts
-			(xy 154.94 48.26) (xy 154.94 49.53)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7f614f0c-b4d9-48f8-a991-42a5dfce8a14")
-	)
-	(wire
-		(pts
 			(xy 185.42 52.07) (xy 185.42 50.8)
 		)
 		(stroke
@@ -2059,16 +2043,6 @@
 			(type default)
 		)
 		(uuid "c814a1b8-5379-47f1-b0ee-353273adbcd1")
-	)
-	(wire
-		(pts
-			(xy 151.13 49.53) (xy 154.94 49.53)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c8c424ea-7afe-4cb1-a0db-c2eda7334384")
 	)
 	(wire
 		(pts
@@ -2730,71 +2704,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+3.3V")
-		(at 154.94 40.64 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "14af5c9d-7822-48d9-aded-b4e254abc429")
-		(property "Reference" "#PWR016"
-			(at 154.94 44.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+3.3V"
-			(at 158.75 39.37 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 154.94 40.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 154.94 40.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
-			(at 154.94 40.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "e6d78d70-a254-47f6-aa67-2b5dbfcf0c32")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/8d0cbdc7-6b16-43b7-9a81-5c7e9e7d19f5"
-					(reference "#PWR016")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:+24V")
 		(at 177.8 96.52 0)
 		(unit 1)
@@ -3094,94 +3003,6 @@
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/8d0cbdc7-6b16-43b7-9a81-5c7e9e7d19f5"
 					(reference "D4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R_US")
-		(at 154.94 44.45 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "3c4151d4-9647-4823-bcc5-bfbb817d614e")
-		(property "Reference" "R5"
-			(at 157.48 43.1799 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "10k"
-			(at 157.48 45.7199 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 155.956 44.704 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
-			(at 154.94 44.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor, US symbol"
-			(at 154.94 44.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufactuerer" "Vishay "
-			(at 154.94 44.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "P/N" "CRCW060310K0FKEI "
-			(at 154.94 44.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "d60afd3a-3423-4acb-9aa2-119f00d8afda")
-		)
-		(pin "2"
-			(uuid "91346561-af1f-4248-b8f2-73e14c39aba6")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/8d0cbdc7-6b16-43b7-9a81-5c7e9e7d19f5"
-					(reference "R5")
 					(unit 1)
 				)
 			)
@@ -3544,7 +3365,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "33k"
 			(at 187.96 48.2599 0)
 			(effects
 				(font
@@ -3831,7 +3652,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "33k"
 			(at 68.58 33.0199 0)
 			(effects
 				(font

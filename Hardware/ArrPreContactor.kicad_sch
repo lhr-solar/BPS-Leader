@@ -2,7 +2,7 @@
 	(version 20250114)
 	(generator "eeschema")
 	(generator_version "9.0")
-	(uuid "db162af0-9428-4f4c-a258-ef36d2767c3d")
+	(uuid "9dc5e120-ba7d-48bb-bd4b-c648d72b4821")
 	(paper "A4")
 	(lib_symbols
 		(symbol "Connector:TestPoint"
@@ -1566,6 +1566,16 @@
 	)
 	(wire
 		(pts
+			(xy 92.71 99.06) (xy 102.87 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "044f1cf5-b9af-4ef5-9efa-3810f1e28a88")
+	)
+	(wire
+		(pts
 			(xy 236.22 96.52) (xy 241.3 96.52)
 		)
 		(stroke
@@ -1573,16 +1583,6 @@
 			(type default)
 		)
 		(uuid "0a81981c-7f0c-43de-9058-3b9cbcfed54f")
-	)
-	(wire
-		(pts
-			(xy 226.06 92.71) (xy 241.3 92.71)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0beee406-60e6-4b79-8a28-f1ecf38366d9")
 	)
 	(wire
 		(pts
@@ -1683,16 +1683,6 @@
 			(type default)
 		)
 		(uuid "4a91abfd-4ff5-48e2-8a65-7f583cf8a3bd")
-	)
-	(wire
-		(pts
-			(xy 92.71 99.06) (xy 116.84 99.06)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4ec6efba-15fe-421f-b331-39f55453083f")
 	)
 	(wire
 		(pts
@@ -1884,16 +1874,6 @@
 		)
 		(uuid "f8eb3dc3-5088-4466-9ca3-f411848fc5ea")
 	)
-	(label "ARRAY_PRE_CONTROL-"
-		(at 116.84 99.06 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "b4bc4a1e-dfd0-4e77-8d75-a8fc7883d87c")
-	)
 	(hierarchical_label "ARRAY_PRE_CONTROL"
 		(shape input)
 		(at 64.77 106.68 180)
@@ -1905,6 +1885,17 @@
 		)
 		(uuid "08235c81-2f9e-4f5c-9b3e-3774bfc60145")
 	)
+	(hierarchical_label "ARRAY_PRE_CONTROL-"
+		(shape input)
+		(at 102.87 99.06 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "29fd7df8-629b-438b-80a3-9e4c93585def")
+	)
 	(hierarchical_label "ARRAY_PRE_SENSE-"
 		(shape input)
 		(at 241.3 96.52 0)
@@ -1915,17 +1906,6 @@
 			(justify left)
 		)
 		(uuid "3db4a825-932d-4c19-920a-fa2ffeda43cf")
-	)
-	(hierarchical_label "ARRAY_PRE_CONTROL-"
-		(shape input)
-		(at 241.3 92.71 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "49a59588-7f4b-47c3-a4fc-d7caa397ae2e")
 	)
 	(hierarchical_label "ARRAY_PRE_SENSE"
 		(shape output)
@@ -2337,82 +2317,6 @@
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/3dd44f8f-72d2-4c34-a907-2c0b2702aa52"
 					(reference "R78")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 226.06 92.71 90)
-		(mirror x)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(dnp no)
-		(uuid "433a7005-85ce-40d5-976a-b204d3d85a22")
-		(property "Reference" "TP18"
-			(at 225.044 89.662 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 227.838 87.122 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
-			(at 226.06 97.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 226.06 97.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 226.06 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufactuerer" ""
-			(at 226.06 92.71 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "32345c74-7d0f-4a48-9541-b26e4c7937b8")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/3dd44f8f-72d2-4c34-a907-2c0b2702aa52"
-					(reference "TP18")
 					(unit 1)
 				)
 			)
