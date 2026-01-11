@@ -1806,16 +1806,6 @@
 	)
 	(wire
 		(pts
-			(xy 177.8 107.95) (xy 177.8 106.68)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "30366dba-c9ef-4fef-89bc-e7c3067ff46e")
-	)
-	(wire
-		(pts
 			(xy 72.39 88.9) (xy 72.39 90.17)
 		)
 		(stroke
@@ -1856,16 +1846,6 @@
 	)
 	(wire
 		(pts
-			(xy 123.19 109.22) (xy 140.97 109.22)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "51e296a2-e94f-41a9-ac46-2f6cdab2955c")
-	)
-	(wire
-		(pts
 			(xy 151.13 52.07) (xy 185.42 52.07)
 		)
 		(stroke
@@ -1873,6 +1853,16 @@
 			(type default)
 		)
 		(uuid "5a892129-8f25-414e-8d3a-67fd51eb37ab")
+	)
+	(wire
+		(pts
+			(xy 177.8 106.68) (xy 177.8 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5afa2543-fd0c-45fc-bba1-2d9a056591c8")
 	)
 	(wire
 		(pts
@@ -2046,7 +2036,7 @@
 	)
 	(wire
 		(pts
-			(xy 140.97 106.68) (xy 140.97 109.22)
+			(xy 140.97 106.68) (xy 140.97 111.76)
 		)
 		(stroke
 			(width 0)
@@ -2113,16 +2103,6 @@
 			(type default)
 		)
 		(uuid "f6372de9-9621-4eea-a7c4-b46cf000ce41")
-	)
-	(wire
-		(pts
-			(xy 160.02 107.95) (xy 177.8 107.95)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fba3e577-8e09-41b7-b22d-eed4ec4c9955")
 	)
 	(image
 		(at 246.634 83.82)
@@ -2504,16 +2484,6 @@
 		)
 		(uuid "47ae5d6e-5f5d-4ad1-837b-842172636168")
 	)
-	(label "FAN_2_FLYBACK"
-		(at 160.02 107.95 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "49a135dc-6b94-4c22-92c6-d805df897a8b")
-	)
 	(label "FAN_2_TACH"
 		(at 74.93 101.6 0)
 		(effects
@@ -2554,16 +2524,6 @@
 		)
 		(uuid "cf884817-c20d-4c19-880e-0326f82d8abc")
 	)
-	(label "FAN_2_FLYBACK"
-		(at 72.39 106.68 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "dd2eb8fa-ed0e-41fa-9b5b-8827b5a384c9")
-	)
 	(label "FAN_2_PWM"
 		(at 87.63 52.07 0)
 		(effects
@@ -2573,26 +2533,6 @@
 			(justify left bottom)
 		)
 		(uuid "dd472a11-ab65-4812-887d-3a93736df29f")
-	)
-	(label "FAN_1_FLYBACK"
-		(at 123.19 109.22 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "e00ba996-1c8e-4233-940f-7fd5c4f19369")
-	)
-	(label "FAN_1_FLYBACK"
-		(at 33.02 106.68 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "fd4c9c56-2c81-4175-9fb7-c0fdd6e522c7")
 	)
 	(hierarchical_label "FAN_SCL"
 		(shape input)
@@ -3788,6 +3728,71 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 140.97 111.76 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "90090d25-c32a-43dd-8156-fabeb732c05a")
+		(property "Reference" "#PWR0112"
+			(at 140.97 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 138.176 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 140.97 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 140.97 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 140.97 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "168fc95d-0d0d-4780-a506-a292ea0018da")
+		)
+		(instances
+			(project "BPS-Leader"
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/8d0cbdc7-6b16-43b7-9a81-5c7e9e7d19f5"
+					(reference "#PWR0112")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C_Small")
 		(at 44.45 45.72 0)
 		(unit 1)
@@ -3891,7 +3896,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "5.1k"
+		(property "Value" "10k"
 			(at 35.56 95.2499 0)
 			(effects
 				(font
@@ -3955,6 +3960,71 @@
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/8d0cbdc7-6b16-43b7-9a81-5c7e9e7d19f5"
 					(reference "R84")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 177.8 111.76 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a7491087-e469-4bc0-8502-aac863f83a1e")
+		(property "Reference" "#PWR0118"
+			(at 177.8 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 175.006 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 177.8 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 177.8 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 177.8 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f24a975d-6eeb-4bf8-afea-2bbf5c113819")
+		)
+		(instances
+			(project "BPS-Leader"
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/8d0cbdc7-6b16-43b7-9a81-5c7e9e7d19f5"
+					(reference "#PWR0118")
 					(unit 1)
 				)
 			)
@@ -4325,7 +4395,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "5.1k"
+		(property "Value" "10k"
 			(at 74.93 95.2499 0)
 			(effects
 				(font

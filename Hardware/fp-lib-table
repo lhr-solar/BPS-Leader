@@ -9,4 +9,5 @@
   (lib (name "SN74HC594DR")(type "KiCad")(uri "${KIPRJMOD}/Custom-KiCadLibraries/SN74HC594DR")(options "")(descr ""))
   (lib (name "VSSAF522-M3/H")(type "KiCad")(uri "${KIPRJMOD}/Custom-KiCadLibraries/VSSAF522-M3_H")(options "")(descr ""))
   (lib (name "SQ2315CES-T1_GE3")(type "KiCad")(uri "${KIPRJMOD}/Custom-KiCadLibraries/SQ2315CES-T1_GE3")(options "")(descr ""))
+  (lib (name "TL3365AF180QG")(type "KiCad")(uri "${KIPRJMOD}/Custom-KiCadLibraries/TL3365AF180QG")(options "")(descr ""))
 )

@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP TL3365AF180QG
+D TACT, 50mA, 12VDC SPST-NO, Off-(On) Surface Mount
+K
+F https://configured-product-images.s3.amazonaws.com/2D/specs/TL3365AF180QG.pdf
+$ENDCMP
+#
+#End Doc Library

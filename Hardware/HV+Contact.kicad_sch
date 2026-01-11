@@ -3927,7 +3927,7 @@
 		(dnp no)
 		(uuid "f4a0f28f-575e-4d92-98e7-eed4342a9c13")
 		(property "Reference" "TP7"
-			(at 188.468 105.664 0)
+			(at 194.564 103.886 0)
 			(effects
 				(font
 					(size 1.27 1.27)

@@ -1,0 +1,9 @@
+Manufacturer=Molex
+PartNumber=105309-1205
+PartCategory=Connector
+PackageCategory=Other
+PinCount=5
+Version=1.1
+Released=2019-03-03 13:50:32
+Downloaded=2026-01-11 06:06:19
+3D=Y
