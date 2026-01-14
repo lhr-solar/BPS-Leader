@@ -1676,6 +1676,16 @@
 	)
 	(wire
 		(pts
+			(xy 91.44 147.32) (xy 97.79 147.32)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "538e7111-5a61-4e77-8b3b-bf54601c82c8")
+	)
+	(wire
+		(pts
 			(xy 139.7 73.66) (xy 139.7 76.2)
 		)
 		(stroke
@@ -1783,6 +1793,16 @@
 			(type default)
 		)
 		(uuid "80dd0a5d-3a4f-41a8-b4fb-7a8d5b07cd0d")
+	)
+	(wire
+		(pts
+			(xy 92.71 118.11) (xy 97.79 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8723f933-1e01-4986-af4e-675f99738984")
 	)
 	(wire
 		(pts
@@ -1916,7 +1936,7 @@
 	)
 	(wire
 		(pts
-			(xy 81.28 86.36) (xy 99.06 86.36)
+			(xy 81.28 86.36) (xy 85.09 86.36)
 		)
 		(stroke
 			(width 0)
@@ -1953,6 +1973,16 @@
 			(type default)
 		)
 		(uuid "d128b63b-2078-4069-ba7e-101d5a516dbc")
+	)
+	(wire
+		(pts
+			(xy 92.71 86.36) (xy 99.06 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d1f2343f-270d-47d5-acd5-9a621aa64bbe")
 	)
 	(wire
 		(pts
@@ -1996,7 +2026,7 @@
 	)
 	(wire
 		(pts
-			(xy 80.01 147.32) (xy 97.79 147.32)
+			(xy 80.01 147.32) (xy 83.82 147.32)
 		)
 		(stroke
 			(width 0)
@@ -2036,7 +2066,7 @@
 	)
 	(wire
 		(pts
-			(xy 80.01 118.11) (xy 97.79 118.11)
+			(xy 80.01 118.11) (xy 85.09 118.11)
 		)
 		(stroke
 			(width 0)
@@ -2277,6 +2307,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C23179"
+			(at 90.17 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "8f2b255d-11c8-4f7a-ba3f-08b00f9f31f0")
 		)
@@ -2433,6 +2472,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C844778"
+			(at 129.286 135.128 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "2cf836c8-6c8f-4eb0-9090-ed526a1fd833")
 		)
@@ -2443,6 +2491,103 @@
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/e6694587-41e7-41a3-a5ae-2d9c9c2fe77f"
 					(reference "R5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_US")
+		(at 88.9 118.11 270)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "2cf7a51b-f564-4b86-a172-9a94709b2993")
+		(property "Reference" "R72"
+			(at 91.186 115.57 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "10k"
+			(at 91.186 113.284 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 88.646 117.094 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+			(at 88.9 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, US symbol"
+			(at 88.9 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" "Vishay "
+			(at 88.9 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW060310K0FKEI "
+			(at 88.9 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C25804"
+			(at 91.186 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "1f13f63e-23d7-4769-8933-3a1d5b501db6")
+		)
+		(pin "1"
+			(uuid "55003f16-b9d8-4e68-ba80-809f17ba5d09")
+		)
+		(instances
+			(project "BPS-Leader"
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/e6694587-41e7-41a3-a5ae-2d9c9c2fe77f"
+					(reference "R72")
 					(unit 1)
 				)
 			)
@@ -2593,6 +2738,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C84263"
+			(at 80.264 97.028 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "72d3df63-c9b3-4106-9b94-9f1bb67c7193")
 		)
@@ -2674,6 +2828,15 @@
 		)
 		(property "P/N" "CRCW060310K0FKEI "
 			(at 123.19 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C25804"
+			(at 121.412 142.494 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2802,6 +2965,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C10487"
+			(at 97.028 106.172 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "3"
 			(uuid "ac6a2434-7a84-4712-8271-0136fc916946")
 		)
@@ -2815,6 +2987,103 @@
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/e6694587-41e7-41a3-a5ae-2d9c9c2fe77f"
 					(reference "Q8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_US")
+		(at 87.63 147.32 270)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "56a2e8e0-b65d-4140-9f46-b5d50fd67309")
+		(property "Reference" "R63"
+			(at 89.916 144.78 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "10k"
+			(at 89.916 142.494 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 87.376 146.304 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+			(at 87.63 147.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, US symbol"
+			(at 87.63 147.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" "Vishay "
+			(at 87.63 147.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW060310K0FKEI "
+			(at 87.63 147.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C25804"
+			(at 89.916 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "fc7c36d0-ae13-4a15-a621-e407e4d7e2b6")
+		)
+		(pin "1"
+			(uuid "9169ae79-5a75-4107-b3a7-2579ddedbfd3")
+		)
+		(instances
+			(project "BPS-Leader"
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/e6694587-41e7-41a3-a5ae-2d9c9c2fe77f"
+					(reference "R63")
 					(unit 1)
 				)
 			)
@@ -2983,6 +3252,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C25804"
+			(at 116.332 113.284 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "d0f38476-891a-45e0-aaa4-eaa797e2395c")
 		)
@@ -3062,6 +3340,15 @@
 		)
 		(property "P/N" "CRCW060310K0FKEI "
 			(at 124.46 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C844778"
+			(at 124.206 105.918 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3163,6 +3450,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C84263"
+			(at 78.994 157.988 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "192f5097-8ca5-460c-9fe6-c9ef5b99f2a3")
 		)
@@ -3240,6 +3536,103 @@
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/e6694587-41e7-41a3-a5ae-2d9c9c2fe77f"
 					(reference "#PWR098")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_US")
+		(at 88.9 86.36 270)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6288cb6e-73e8-4ff4-8078-8799dc6561eb")
+		(property "Reference" "R73"
+			(at 91.186 83.82 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "10k"
+			(at 91.186 81.534 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 88.646 85.344 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+			(at 88.9 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, US symbol"
+			(at 88.9 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" "Vishay "
+			(at 88.9 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW060310K0FKEI "
+			(at 88.9 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C25804"
+			(at 91.186 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "8b481766-a8dd-4364-b3cd-a3e289b2f003")
+		)
+		(pin "1"
+			(uuid "4d2f19d5-64e1-43b0-9bcb-86a3b8abb9ba")
+		)
+		(instances
+			(project "BPS-Leader"
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/e6694587-41e7-41a3-a5ae-2d9c9c2fe77f"
+					(reference "R73")
 					(unit 1)
 				)
 			)
@@ -3383,6 +3776,15 @@
 		)
 		(property "P/N" "NCD0603R1"
 			(at 78.74 123.19 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C84263"
+			(at 78.994 128.778 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3578,6 +3980,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C10487"
+			(at 97.028 135.382 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "3"
 			(uuid "f0751cf8-5a08-41a9-a53b-c89e1c78ad88")
 		)
@@ -3659,6 +4070,15 @@
 		)
 		(property "P/N" "CRCW0603120RFKEC "
 			(at 91.44 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C23179"
+			(at 91.44 96.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3886,6 +4306,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C23179"
+			(at 90.17 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "6c345e38-98dc-4399-aabe-efc2bbe49c8c")
 		)
@@ -3967,6 +4396,15 @@
 		)
 		(property "P/N" "CRCW060310K0FKEI "
 			(at 111.76 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C25804"
+			(at 109.982 81.534 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4193,6 +4631,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C844778"
+			(at 117.856 74.168 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "ae41ceef-b003-4b6c-9324-a03b4eeb23a5")
 		)
@@ -4311,6 +4758,15 @@
 					(size 1.27 1.27)
 				)
 				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C10487"
+			(at 98.298 74.422 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 				(hide yes)
 			)
 		)

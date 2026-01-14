@@ -12,7 +12,7 @@
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "U"
+			(property "Reference" "U3"
 				(at 25.4 10.16 0)
 				(effects
 					(font
@@ -28,7 +28,7 @@
 					)
 				)
 			)
-			(property "Footprint" "QFN16_4x4MC_MCH"
+			(property "Footprint" "EMC2305-1-AP-TR:QFN65P400X400X90-17N-D"
 				(at 0 0 0)
 				(effects
 					(font
@@ -38,7 +38,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "EMC2305-1-AP-TR"
+			(property "Datasheet" "https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/DataSheets/EMC2301-2-3-5-Data-Sheet-DS20006532A.pdf"
 				(at 0 0 0)
 				(effects
 					(font
@@ -49,6 +49,24 @@
 				)
 			)
 			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "P/N" "EMC2305-1-AP-TR"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufactuerer" "Microchip Technology "
 				(at 0 0 0)
 				(effects
 					(font
@@ -276,24 +294,6 @@
 						)
 					)
 				)
-				(pin unspecified line
-					(at 50.8 0 180)
-					(length 7.62)
-					(name "EPAD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "HTAB"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
 				(pin input line
 					(at 50.8 -2.54 180)
 					(length 7.62)
@@ -431,6 +431,26 @@
 						)
 					)
 					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "EMC2305-1-AP-TR_1_1"
+				(pin unspecified line
+					(at 50.8 0 180)
+					(length 7.62)
+					(name "EPAD"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "17"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2781,6 +2801,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C6326606"
+			(at 180.34 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "12eb0c96-1cae-4d0d-8ad4-437a5257aeaf")
 		)
@@ -2926,6 +2955,15 @@
 		)
 		(property "P/N" "VSSAF522-M3/H"
 			(at 140.97 102.87 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C6326606"
+			(at 143.51 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3359,6 +3397,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C844778"
+			(at 187.96 45.7199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "b71e7082-a83b-4283-9507-28eae046d8fb")
 		)
@@ -3513,6 +3560,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C621415"
+			(at 125.73 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "8"
 			(uuid "989770a6-5034-4d92-bc52-85749205c8d8")
 		)
@@ -3549,7 +3605,7 @@
 		(pin "6"
 			(uuid "418e4aa0-b7e6-4306-8937-e24cabe3b39f")
 		)
-		(pin "HTAB"
+		(pin "17"
 			(uuid "ffccd099-8b15-4659-8f89-bfe9fd8c1aaa")
 		)
 		(pin "13"
@@ -3639,6 +3695,15 @@
 		)
 		(property "P/N" "CRCW060310K0FKEI "
 			(at 66.04 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C844778"
+			(at 68.58 30.4799 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3862,6 +3927,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C15849"
+			(at 40.64 44.958 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "5580c10f-d25f-4486-a39f-c30844d22e41")
 		)
@@ -3943,6 +4017,15 @@
 		)
 		(property "P/N" "CRCW06035K10FKEC "
 			(at 33.02 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C25804"
+			(at 35.56 92.7099 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4158,6 +4241,15 @@
 		)
 		(property "Manufactuerer" "TAIYO YUDEN "
 			(at 49.53 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C15849"
+			(at 51.308 48.514 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4442,6 +4534,15 @@
 		)
 		(property "P/N" "CRCW06035K10FKEC "
 			(at 72.39 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C25804"
+			(at 74.93 92.7099 0)
 			(effects
 				(font
 					(size 1.27 1.27)

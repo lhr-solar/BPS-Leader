@@ -28644,6 +28644,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C25804"
+			(at 224.7518 171.8928 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "1ac1b561-74d0-4215-8531-6299bf5e9c44")
 		)
@@ -29444,6 +29453,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C21189"
+			(at 219.71 105.156 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "7f2711f4-b5a0-4165-b3a6-9835124efc66")
 		)
@@ -29842,6 +29860,15 @@
 		)
 		(property "Description" "5.3A Id, 30V Vds, 27mOhm Rds, N-Channel HEXFET Power MOSFET, SOT-23"
 			(at 187.9081 65.3695 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C67272"
+			(at 185.2478 63.6559 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -30295,6 +30322,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C283866"
+			(at 346.075 161.2899 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "0476627e-7dba-4e1e-ba09-1447da114df8")
 		)
@@ -30393,6 +30429,15 @@
 		)
 		(property "Vf" ""
 			(at 309.88 175.26 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C283866"
+			(at 304.038 173.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -30673,6 +30718,15 @@
 		)
 		(property "Description" "Fuse"
 			(at 74.93 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C5249699"
+			(at 74.93 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31172,6 +31226,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C25804"
+			(at 282.448 107.9499 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "31a2cce9-aa3f-4136-b052-80287c74b039")
 		)
@@ -31326,6 +31389,15 @@
 		)
 		(property "Mouser Part Number" "71-CRCW06031K00FKEI"
 			(at 316.6043 167.5756 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C21190"
+			(at 316.3503 170.1156 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31549,6 +31621,15 @@
 		)
 		(property "P/N" "CRCW060310K0FKEI "
 			(at 289.56 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C25804"
+			(at 291.338 108.2039 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31822,6 +31903,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C5249699"
+			(at 139.7 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "dc8e8963-7b7f-4363-b0db-33bba561c5df")
 		)
@@ -31900,6 +31990,15 @@
 		)
 		(property "Mouser Part Number" "71-CRCW06031K00FKEI"
 			(at 351.79 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C21190"
+			(at 351.79 149.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32596,6 +32695,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C5221601"
+			(at 257.9106 175.6877 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "4"
 			(uuid "e6b1f31d-c043-46c7-8cc6-cf860869e808")
 		)
@@ -32877,6 +32985,15 @@
 		)
 		(property "P/N" "CRCW060310K0FKEI "
 			(at 230.8478 173.1628 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C25804"
+			(at 232.6258 172.1467 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -33828,6 +33945,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C25804"
+			(at 272.288 107.9499 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "d9bca912-2424-4535-898d-72b04a361396")
 		)
@@ -33981,6 +34107,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C14663"
+			(at 361.95 163.8301 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "cfe72cbb-7316-47f3-9e97-ed0666a9dfab")
 		)
@@ -34066,6 +34201,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C21189"
+			(at 250.19 105.156 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "cb01eee6-5b1a-4930-9922-679425366f26")
 		)
@@ -34144,6 +34288,15 @@
 		)
 		(property "P/N" "CRCW060310K0FKEI "
 			(at 192.9881 59.0195 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C25804"
+			(at 192.4801 56.7335 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34305,6 +34458,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C14663"
+			(at 328.0343 176.4657 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "b3980113-ba68-4c87-83c9-21f1a8923492")
 		)
@@ -34384,6 +34546,15 @@
 		)
 		(property "P/N" "MLASU168SB5105KTNA01"
 			(at 262.83 184.8867 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C15849"
+			(at 265.0423 182.3076 0)
 			(effects
 				(font
 					(size 1.27 1.27)

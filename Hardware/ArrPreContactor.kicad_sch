@@ -1991,6 +1991,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C25804"
+			(at 224.282 101.854 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "d54533ce-bf2b-412e-b5a5-9cc24685b4d0")
 		)
@@ -2145,6 +2154,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C25804"
+			(at 194.31 107.9499 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "51a3047b-74cc-4130-a572-ae2afd657d7b")
 		)
@@ -2211,6 +2229,15 @@
 		)
 		(property "Description" "5.3A Id, 30V Vds, 27mOhm Rds, N-Channel HEXFET Power MOSFET, SOT-23"
 			(at 194.31 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C67272"
+			(at 199.644 98.806 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2300,6 +2327,15 @@
 		)
 		(property "P/N" "CRCW06034K30FKEA"
 			(at 85.09 85.09 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C2907165"
+			(at 85.09 79.375 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2463,6 +2499,15 @@
 		)
 		(property "P/N" "VSSAF522-M3/H"
 			(at 92.71 91.44 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C6326606"
+			(at 95.25 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2882,6 +2927,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C67272"
+			(at 97.028 108.966 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "e41aa726-7033-4758-a2cd-ab3b14552fdb")
 		)
@@ -2973,6 +3027,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C25804"
+			(at 82.55 111.7599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "13e085d8-06d0-443f-a602-6d6c69b6a636")
 		)
@@ -3055,6 +3118,15 @@
 		)
 		(property "Mouser Part Number" "963-UMK107BJ105KA-T"
 			(at 182.88 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C15849"
+			(at 179.705 107.9499 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3216,6 +3288,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C14663"
+			(at 210.82 104.1401 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "0073aa2a-f11e-48ac-93cd-c7fabcb5b5d9")
 		)
@@ -3367,6 +3448,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C21190"
+			(at 216.916 94.488 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "84e73ed0-864e-4b7e-b644-ab305e67e38d")
 		)
@@ -3446,6 +3536,15 @@
 		)
 		(property "P/N" "CRCW060310K0FKEI "
 			(at 232.41 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C25804"
+			(at 232.156 94.488 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3543,6 +3642,15 @@
 		)
 		(property "P/N" "NCD0603R1"
 			(at 77.47 91.44 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C84263"
+			(at 81.28 91.7574 0)
 			(effects
 				(font
 					(size 1.27 1.27)

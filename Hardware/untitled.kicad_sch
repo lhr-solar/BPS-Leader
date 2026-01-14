@@ -3573,6 +3573,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C15849"
+			(at 245.11 64.7699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "a1e375b9-fff2-49e6-8dec-d6b96c3b49de")
 		)
@@ -3661,6 +3670,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C25811"
+			(at 127.635 85.0899 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "9945a91d-9f74-416e-a7a2-431bb80c47ed")
 		)
@@ -3684,7 +3702,6 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "0d7769eb-8b71-4658-b03e-fa8b40b0f4cd")
 		(property "Reference" "D10"
 			(at 76.835 93.3449 90)
@@ -3696,7 +3713,7 @@
 			)
 		)
 		(property "Value" "SMAF4758A"
-			(at 76.835 95.8849 90)
+			(at 73.914 97.79 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3704,7 +3721,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "UTSVT_Passives:SODFL5026X125N"
+		(property "Footprint" "UTSVT_Passives:SODFL4724X108N"
 			(at 73.66 94.615 0)
 			(effects
 				(font
@@ -3724,6 +3741,15 @@
 		)
 		(property "Description" "Zener diode"
 			(at 73.66 94.615 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C183490"
+			(at 76.835 93.3449 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3886,6 +3912,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C344195"
+			(at 88.9 92.7099 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "dafbb416-ff7f-49c4-afac-3847757c951f")
 		)
@@ -3967,6 +4002,15 @@
 		)
 		(property "Mouser Part Number" "71-CRCW060310K0FKEI"
 			(at 85.725 69.215 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C25804"
+			(at 88.265 67.9449 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4128,6 +4172,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C15849"
+			(at 64.135 93.3449 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "87a73fb3-d865-4137-9d23-9ac389be024f")
 		)
@@ -4199,6 +4252,15 @@
 		)
 		(property "P/N" "NVMFWS1D7N04XMT1G"
 			(at 127.635 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C133142"
+			(at 120.65 47.625 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4306,6 +4368,15 @@
 		)
 		(property "Mouser Part Number" "594-MCT06030C9091FP5"
 			(at 135.255 93.345 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C3016444"
+			(at 135.255 86.995 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4467,6 +4538,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C440198"
+			(at 222.25 64.7699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "c7a21fc5-5f87-4f1f-b9e5-a9d0246cf9ae")
 		)
@@ -4595,6 +4675,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C5219202"
+			(at 105.41 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "15464505-9b61-408d-b348-94e254fc0a0e")
 		)
@@ -4700,6 +4789,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C14663"
+			(at 76.835 56.5149 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "3950a581-9e96-4e6d-af00-f67ada6d97b2")
 		)
@@ -4780,6 +4878,15 @@
 		)
 		(property "Mouser Part Number" "81-GRM21BR61H106KE3K"
 			(at 140.335 60.325 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C440198"
+			(at 143.51 59.0549 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4934,6 +5041,15 @@
 		)
 		(property "Mouser Part Number" "963-HMK107B7104KA-T"
 			(at 231.14 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C14663"
+			(at 234.315 64.7699 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5482,6 +5598,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C133142"
+			(at 94.615 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "8"
 			(uuid "944d954c-bf3f-47be-96db-0ef7b04bdb86")
 		)
@@ -5590,6 +5715,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C7371904"
+			(at 207.518 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "73b97fbc-b1ae-4259-adac-9a81cdd0673d")
 		)
@@ -5671,6 +5805,15 @@
 		)
 		(property "Mouser Part Number" "71-CRCW060310K0FKEI"
 			(at 203.2 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C2907165"
+			(at 205.74 59.6899 0)
 			(effects
 				(font
 					(size 1.27 1.27)

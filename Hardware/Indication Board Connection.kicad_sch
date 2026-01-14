@@ -7566,6 +7566,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C137788"
+			(at 86.868 90.2716 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "dac2f368-37f5-4a54-8159-a89b2699af98")
 		)
@@ -7653,6 +7662,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C15849"
+			(at 76.6572 63.6016 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "194a7ccf-22d5-489e-8c38-a9498aa1d9a1")
 		)
@@ -7733,6 +7751,15 @@
 		)
 		(property "Manufactuerer" "KYOCERA AVX"
 			(at 85.09 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C107088"
+			(at 88.0872 80.1116 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7893,6 +7920,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C440198"
+			(at 174.4472 75.0316 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "37965bdd-b547-4e78-8b25-7d4f117d446a")
 		)
@@ -7973,6 +8009,15 @@
 		)
 		(property "Manufactuerer" "Murata Electronics "
 			(at 182.88 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C440198"
+			(at 185.8772 75.0316 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8675,6 +8720,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C269149"
+			(at 62.23 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "ef6a48eb-a7b6-4c57-bb11-9bb8e3c3ec5f")
 		)
@@ -8755,6 +8809,15 @@
 		)
 		(property "Manufactuerer" "TAIYO YUDEN "
 			(at 142.24 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C14663"
+			(at 145.2372 63.6016 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8856,6 +8919,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C7371904"
+			(at 122.174 146.304 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "3925ee5c-22ec-4c78-8a46-827eddf6be31")
 		)
@@ -8934,6 +9006,15 @@
 		)
 		(property "Mouser Part Number" "71-CRCW06031K00FKEI"
 			(at 115.57 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C21190"
+			(at 119.888 133.858 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9021,6 +9102,15 @@
 		)
 		(property "Manufactuerer" "Murata Electronics "
 			(at 63.5 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C440198"
+			(at 66.4972 63.6016 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9246,6 +9336,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C440198"
+			(at 163.0172 75.0316 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "2da30786-b1fc-4d27-ac31-0728bbe541f8")
 		)
@@ -9463,6 +9562,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C57112"
+			(at 79.1972 73.7616 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "ee9ebfd0-a8f7-4485-aec8-a5edd3a676ad")
 		)
@@ -9544,6 +9652,15 @@
 		)
 		(property "Manufactuerer" "onsemi / Fairchild "
 			(at 142.24 73.66 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C41408002"
+			(at 144.78 72.0724 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9723,6 +9840,15 @@
 		)
 		(property "Manufactuerer" "Texas Instruments "
 			(at 87.63 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C488409"
+			(at 107.95 49.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)

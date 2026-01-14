@@ -5861,6 +5861,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C21190"
+			(at 128.905 134.6199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "12c9f173-1b04-4cbb-9f17-9d28bfcb5f57")
 		)
@@ -6085,6 +6094,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C140321"
+			(at 144.78 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "9"
 			(uuid "27b77c9b-8b6a-4594-8b73-a48cb8471c82")
 		)
@@ -6193,6 +6211,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C23179"
+			(at 74.93 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "61c4545a-dde5-42f1-9a39-38c6ded76574")
 		)
@@ -6280,6 +6307,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C14663"
+			(at 43.18 162.5599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "5d8302d5-7fff-4be8-a48a-9fba79b74bdc")
 		)
@@ -6360,6 +6396,15 @@
 		)
 		(property "Manufactuerer" "TAIYO YUDEN "
 			(at 179.705 127 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C14663"
+			(at 183.515 125.7299 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6790,6 +6835,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C25804"
+			(at 173.355 125.095 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "d7f41a8c-ddd3-4eab-84ae-277eed0c9fe5")
 		)
@@ -6869,6 +6923,15 @@
 		)
 		(property "Manufactuerer" "Diodes Incorporated "
 			(at 62.23 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C82544"
+			(at 62.5475 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7028,6 +7091,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C393939"
+			(at 36.83 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "B5"
 			(uuid "63ccefd4-2850-4d6a-82ec-0db5c710b9af")
 		)
@@ -7153,6 +7225,15 @@
 		)
 		(property "Manufactuerer" "TAIYO YUDEN "
 			(at 116.84 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C14663"
+			(at 113.03 123.1899 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7312,6 +7393,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C145411"
+			(at 111.76 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "97c83b3f-ef1b-4799-aaf3-00cbd9a3a8fd")
 		)
@@ -7413,6 +7503,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C41364459"
+			(at 158.115 38.7349 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "032f43c8-29d8-4997-b5c0-408ae35cd41d")
 		)
@@ -7482,6 +7581,15 @@
 		)
 		(property "Description" "Resistor, US symbol"
 			(at 266.7 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C25804"
+			(at 269.24 45.7199 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7570,6 +7678,15 @@
 		)
 		(property "P/N" "ESP32-C6-MINI-1U"
 			(at 228.6 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C5736265"
+			(at 228.2033 24.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7827,6 +7944,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C7371904"
+			(at 77.47 115.8874 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "976fc31a-2ce2-443a-bec3-c90710a1aad0")
 		)
@@ -7973,6 +8099,15 @@
 		)
 		(property "Manufactuerer" "TAIYO YUDEN "
 			(at 107.315 122.555 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C14663"
+			(at 103.505 121.2849 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8264,6 +8399,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C21190"
+			(at 63.5 104.1399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "3cfb1f95-da13-4312-b404-10e9ed1f6107")
 		)
@@ -8354,6 +8498,15 @@
 		)
 		(property "Manufactuerer" "NATIONSTAR"
 			(at 60.96 115.57 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C7371904"
+			(at 64.77 115.8874 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8507,6 +8660,15 @@
 		)
 		(property "P/N" "CRCW06035K10FKEC "
 			(at 22.86 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C23186"
+			(at 25.4 105.4099 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8676,6 +8838,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C440198"
+			(at 128.905 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "316ead3f-ca09-4b42-96d7-65d500c7e5c8")
 		)
@@ -8758,6 +8929,15 @@
 		)
 		(property "P/N" "GRM21BR61H106KE43K"
 			(at 54.61 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C440198"
+			(at 58.42 162.5599 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9051,6 +9231,15 @@
 		)
 		(property "Manufactuerer" "Murata Electronics "
 			(at 24.13 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C440198"
+			(at 27.94 158.7499 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9475,6 +9664,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C23186"
+			(at 35.56 105.4099 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "4c116e4f-3209-4583-bb2b-0290589afeee")
 		)
@@ -9555,6 +9753,15 @@
 		)
 		(property "Manufactuerer" "Murata Electronics "
 			(at 96.52 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C440198"
+			(at 99.695 36.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)

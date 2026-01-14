@@ -2067,6 +2067,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C14663"
+			(at 210.82 107.9501 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "46d0a3b2-a3aa-4b97-9c65-108940bafb64")
 		)
@@ -2219,6 +2228,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C21190"
+			(at 216.916 98.298 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "1fa28511-f146-4068-824c-ac3c5bcd455b")
 		)
@@ -2284,6 +2302,15 @@
 		)
 		(property "Description" "5.3A Id, 30V Vds, 27mOhm Rds, N-Channel HEXFET Power MOSFET, SOT-23"
 			(at 90.17 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C67272"
+			(at 97.028 112.776 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2598,6 +2625,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C84263"
+			(at 81.28 95.5674 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "1f440b3a-3464-49e9-980e-53ee69d3e090")
 		)
@@ -2677,6 +2713,15 @@
 		)
 		(property "P/N" "CRCW06034K30FKEA"
 			(at 85.09 88.9 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C2907165"
+			(at 85.09 83.185 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2765,6 +2810,15 @@
 		)
 		(property "P/N" "CRCW060310K0FKEI "
 			(at 80.01 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C25804"
+			(at 82.55 115.5699 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2993,6 +3047,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C15849"
+			(at 179.705 111.7599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "42b4bbbd-092e-4b44-972b-59851e702eed")
 		)
@@ -3140,6 +3203,15 @@
 		)
 		(property "P/N" "CRCW060310K0FKEI "
 			(at 191.77 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C25804"
+			(at 194.31 111.7599 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3298,6 +3370,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C25804"
+			(at 232.156 98.298 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "e037561a-833b-4af3-9fe7-6cca27eca25b")
 		)
@@ -3386,6 +3467,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C25804"
+			(at 224.282 105.664 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "a9a76c66-2290-495b-b29b-05dc1207c250")
 		)
@@ -3466,6 +3556,15 @@
 		)
 		(property "P/N" "VSSAF522-M3/H"
 			(at 92.71 95.25 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C6326606"
+			(at 95.25 92.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3605,6 +3704,15 @@
 		)
 		(property "Description" "5.3A Id, 30V Vds, 27mOhm Rds, N-Channel HEXFET Power MOSFET, SOT-23"
 			(at 194.31 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C67272"
+			(at 199.644 102.616 0)
 			(effects
 				(font
 					(size 1.27 1.27)
