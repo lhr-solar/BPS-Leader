@@ -6465,7 +6465,7 @@
 				)
 			)
 		)
-		(property "Value" "TestPoint"
+		(property "Value" "+5V_USB"
 			(at 52.832 98.298 90)
 			(effects
 				(font
@@ -6473,7 +6473,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5005-5009_Compact"
 			(at 58.42 95.25 0)
 			(effects
 				(font
@@ -8798,7 +8798,7 @@
 				)
 			)
 		)
-		(property "Value" "TestPoint"
+		(property "Value" "+3.3V_ESP"
 			(at 78.232 95.758 90)
 			(effects
 				(font
@@ -8806,7 +8806,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5005-5009_Compact"
 			(at 76.2 93.98 0)
 			(effects
 				(font

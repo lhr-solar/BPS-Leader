@@ -3554,7 +3554,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
+		(property "Value" "HV+Ctrl"
 			(at 85.09 114.554 90)
 			(effects
 				(font
@@ -3935,7 +3935,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
+		(property "Value" "HV+Sns"
 			(at 197.866 105.918 0)
 			(effects
 				(font

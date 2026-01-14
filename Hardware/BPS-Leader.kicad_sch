@@ -1644,23 +1644,27 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Mechanical:MountingHole"
+		(symbol "Mechanical:MountingHole_Pad"
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 1.016)
+				(hide yes)
 			)
 			(exclude_from_sim no)
 			(in_bom no)
 			(on_board yes)
 			(property "Reference" "H"
-				(at 0 5.08 0)
+				(at 0 6.35 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 				)
 			)
-			(property "Value" "MountingHole"
-				(at 0 3.175 0)
+			(property "Value" "MountingHole_Pad"
+				(at 0 4.445 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -1685,7 +1689,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "Mounting Hole without connection"
+			(property "Description" "Mounting Hole with connection"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1703,7 +1707,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_fp_filters" "MountingHole*"
+			(property "ki_fp_filters" "MountingHole*Pad*"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1712,9 +1716,9 @@
 					(hide yes)
 				)
 			)
-			(symbol "MountingHole_0_1"
+			(symbol "MountingHole_Pad_0_1"
 				(circle
-					(center 0 0)
+					(center 0 1.27)
 					(radius 1.27)
 					(stroke
 						(width 1.27)
@@ -1722,6 +1726,26 @@
 					)
 					(fill
 						(type none)
+					)
+				)
+			)
+			(symbol "MountingHole_Pad_1_1"
+				(pin input line
+					(at 0 -2.54 90)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
 					)
 				)
 			)
@@ -23374,7 +23398,7 @@
 	)
 	(rectangle
 		(start 57.0363 61.8671)
-		(end 159.6523 65.6771)
+		(end 160.0199 65.6771)
 		(stroke
 			(width 0)
 			(type default)
@@ -23763,12 +23787,28 @@
 		(uuid "0cb31841-80c0-40fc-aef9-a66a9007fbde")
 	)
 	(no_connect
+		(at 361.95 62.23)
+		(uuid "33d45ba6-5144-4ebf-9d51-c05af6df9713")
+	)
+	(no_connect
 		(at 119.126 189.992)
 		(uuid "4515cb1f-c483-43aa-8a87-e14ced612898")
 	)
 	(no_connect
+		(at 361.95 73.66)
+		(uuid "4686ca4b-4f0d-4320-bbf1-24395d3e92e3")
+	)
+	(no_connect
+		(at 335.28 62.23)
+		(uuid "7415494d-2b3e-42ca-b0b1-16fdb5576711")
+	)
+	(no_connect
 		(at 118.11 137.16)
 		(uuid "85b66a68-8966-4edc-818c-38b8b431a663")
+	)
+	(no_connect
+		(at 335.28 73.66)
+		(uuid "899d4cde-0028-4a87-9af3-ae85109b4354")
 	)
 	(wire
 		(pts
@@ -29140,7 +29180,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "Dr. Hallock"
+		(property "Value" "Gear"
 			(at 364.49 223.5199 0)
 			(effects
 				(font
@@ -29149,7 +29189,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Custom-KiCadLibraries:Gear"
 			(at 360.68 221.615 0)
 			(effects
 				(font
@@ -29484,6 +29524,73 @@
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e"
 					(reference "TP3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole_Pad")
+		(at 335.28 59.69 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "29236e2d-815a-4985-9246-8a63966d663c")
+		(property "Reference" "H1"
+			(at 337.82 57.1499 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole_Pad"
+			(at 337.82 59.6899 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_TopBottom"
+			(at 335.28 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 335.28 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole with connection"
+			(at 335.28 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "dceefc5b-02e9-4851-8508-5fa79aec6860")
+		)
+		(instances
+			(project ""
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e"
+					(reference "H1")
 					(unit 1)
 				)
 			)
@@ -30327,7 +30434,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "Dr. Hallock"
+		(property "Value" "LHRs"
 			(at 364.49 205.7399 0)
 			(effects
 				(font
@@ -30336,7 +30443,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "UTSVT_Logos:LHRs_LOGO"
 			(at 360.68 203.835 0)
 			(effects
 				(font
@@ -30681,7 +30788,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "UTSVT_Logos:Hallock_Image"
 			(at 360.68 212.725 0)
 			(effects
 				(font
@@ -30753,7 +30860,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
+		(property "Value" "GNDA"
 			(at 357.886 80.772 0)
 			(effects
 				(font
@@ -30763,7 +30870,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5005-5009_Compact"
 			(at 367.03 86.36 0)
 			(effects
 				(font
@@ -30927,6 +31034,73 @@
 		)
 	)
 	(symbol
+		(lib_id "Mechanical:MountingHole_Pad")
+		(at 361.95 59.69 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "63558ef1-4a0e-45be-b3d9-1f48033d434d")
+		(property "Reference" "H3"
+			(at 364.49 57.1499 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole_Pad"
+			(at 364.49 59.6899 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_TopBottom"
+			(at 361.95 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 361.95 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole with connection"
+			(at 361.95 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4e6fbbc2-64f8-48ea-8f27-67624d92aca2")
+		)
+		(instances
+			(project "BPS-Leader"
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e"
+					(reference "H3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R_US")
 		(at 280.67 109.22 0)
 		(unit 1)
@@ -31031,7 +31205,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
+		(property "Value" "+3.3VA"
 			(at 353.314 99.568 0)
 			(effects
 				(font
@@ -31041,7 +31215,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5005-5009_Compact"
 			(at 344.17 93.98 0)
 			(effects
 				(font
@@ -31461,69 +31635,6 @@
 			(project ""
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e"
 					(reference "J3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Mechanical:MountingHole")
-		(at 360.68 72.39 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(dnp no)
-		(uuid "77b4cdd7-1e7b-4b14-9844-1f7f87a92c21")
-		(property "Reference" "H1"
-			(at 363.22 71.1199 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "MountingHole"
-			(at 363.22 73.6599 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
-			(at 360.68 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 360.68 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Mounting Hole without connection"
-			(at 360.68 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(instances
-			(project ""
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e"
-					(reference "H1")
 					(unit 1)
 				)
 			)
@@ -32272,7 +32383,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "Dr. Hallock"
+		(property "Value" "Beach"
 			(at 364.49 232.4099 0)
 			(effects
 				(font
@@ -32281,7 +32392,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Custom-KiCadLibraries:Beach"
 			(at 360.68 230.505 0)
 			(effects
 				(font
@@ -32353,7 +32464,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
+		(property "Value" "+3.3V"
 			(at 359.8288 99.0419 0)
 			(effects
 				(font
@@ -32363,7 +32474,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5005-5009_Compact"
 			(at 350.6848 93.4539 0)
 			(effects
 				(font
@@ -32789,69 +32900,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Mechanical:MountingHole")
-		(at 360.68 64.77 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(dnp no)
-		(uuid "ad1a6ec0-b59d-4ef7-badb-0a2b28ff77c4")
-		(property "Reference" "H2"
-			(at 363.22 63.4999 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "MountingHole"
-			(at 363.22 66.0399 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
-			(at 360.68 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 360.68 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Mounting Hole without connection"
-			(at 360.68 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e"
-					(reference "H2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GNDA")
 		(at 71.882 214.63 0)
 		(unit 1)
@@ -32982,6 +33030,73 @@
 		)
 	)
 	(symbol
+		(lib_id "Mechanical:MountingHole_Pad")
+		(at 361.95 71.12 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b901ea2b-5f82-4b77-83ee-c2108308d03e")
+		(property "Reference" "H4"
+			(at 364.49 68.5799 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole_Pad"
+			(at 364.49 71.1199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_TopBottom"
+			(at 361.95 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 361.95 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole with connection"
+			(at 361.95 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7d2a3adb-5b77-44a6-aad7-3af56cfb9e22")
+		)
+		(instances
+			(project "BPS-Leader"
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e"
+					(reference "H4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+24V")
 		(at 242.57 87.63 0)
 		(unit 1)
@@ -33041,69 +33156,6 @@
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e"
 					(reference "#PWR0101")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Mechanical:MountingHole")
-		(at 336.55 64.77 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(dnp no)
-		(uuid "bb0bc45f-5c6e-4275-ba3e-5e52e9f30f3c")
-		(property "Reference" "H3"
-			(at 339.09 63.4999 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "MountingHole"
-			(at 339.09 66.0399 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
-			(at 336.55 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 336.55 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Mounting Hole without connection"
-			(at 336.55 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e"
-					(reference "H3")
 					(unit 1)
 				)
 			)
@@ -33305,7 +33357,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
+		(property "Value" "GND"
 			(at 364.4008 80.2459 0)
 			(effects
 				(font
@@ -33315,7 +33367,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5005-5009_Compact"
 			(at 373.5448 85.8339 0)
 			(effects
 				(font
@@ -33560,16 +33612,17 @@
 		)
 	)
 	(symbol
-		(lib_id "Mechanical:MountingHole")
-		(at 336.55 72.39 0)
+		(lib_id "Mechanical:MountingHole_Pad")
+		(at 335.28 71.12 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board yes)
 		(dnp no)
-		(uuid "d6885526-b13f-4ad0-8c08-b6e4b333a4e4")
-		(property "Reference" "H4"
-			(at 339.09 71.1199 0)
+		(fields_autoplaced yes)
+		(uuid "d4560334-e172-4f19-b0e0-882b2cd4f2f6")
+		(property "Reference" "H2"
+			(at 337.82 68.5799 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -33577,8 +33630,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "MountingHole"
-			(at 339.09 73.6599 0)
+		(property "Value" "MountingHole_Pad"
+			(at 337.82 71.1199 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -33586,8 +33639,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
-			(at 336.55 72.39 0)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_TopBottom"
+			(at 335.28 71.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -33596,7 +33649,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 336.55 72.39 0)
+			(at 335.28 71.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -33604,19 +33657,22 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Mounting Hole without connection"
-			(at 336.55 72.39 0)
+		(property "Description" "Mounting Hole with connection"
+			(at 335.28 71.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(hide yes)
 			)
+		)
+		(pin "1"
+			(uuid "9c7eb7a7-396d-40a9-b473-90434d390f2c")
 		)
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e"
-					(reference "H4")
+					(reference "H2")
 					(unit 1)
 				)
 			)
@@ -34368,7 +34424,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
+		(property "Value" "+24V"
 			(at 347.1288 99.0419 0)
 			(effects
 				(font
@@ -34378,7 +34434,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5005-5009_Compact"
 			(at 337.9848 93.4539 0)
 			(effects
 				(font

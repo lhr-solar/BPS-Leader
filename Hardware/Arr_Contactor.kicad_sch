@@ -1937,7 +1937,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
+		(property "Value" "ArrSns"
 			(at 187.706 100.838 0)
 			(effects
 				(font
@@ -2328,7 +2328,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
+		(property "Value" "ArrCtrl"
 			(at 72.39 109.474 90)
 			(effects
 				(font

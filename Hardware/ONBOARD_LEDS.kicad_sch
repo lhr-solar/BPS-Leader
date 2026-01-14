@@ -2596,7 +2596,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "06b27cec-a8bf-47c6-bf90-c62dc91535b1")
-		(property "Reference" "OverTemp1"
+		(property "Reference" "D19"
 			(at 191.77 94.2975 0)
 			(effects
 				(font
@@ -2605,8 +2605,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "OverTemp"
-			(at 182.88 86.106 0)
+		(property "Value" "ModuleFault[4]"
+			(at 182.372 83.312 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2676,7 +2676,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "OverTemp1")
+					(reference "D19")
 					(unit 1)
 				)
 			)
@@ -2866,7 +2866,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "1dca668c-6abd-49c1-a459-00a77bc9956a")
-		(property "Reference" "DEBUG_3"
+		(property "Reference" "D26"
 			(at 196.85 145.0975 0)
 			(effects
 				(font
@@ -2875,7 +2875,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "DEBUG_3"
+		(property "Value" "LowV"
 			(at 187.706 137.668 0)
 			(effects
 				(font
@@ -2946,7 +2946,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "DEBUG_3")
+					(reference "D26")
 					(unit 1)
 				)
 			)
@@ -3114,7 +3114,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "272edaa1-5f2e-4b82-aa2e-6a37bb36c865")
-		(property "Reference" "DEBUG_4"
+		(property "Reference" "D30"
 			(at 191.77 145.0975 0)
 			(effects
 				(font
@@ -3123,7 +3123,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "DEBUG_4"
+		(property "Value" "OverV"
 			(at 182.626 137.668 0)
 			(effects
 				(font
@@ -3194,7 +3194,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "DEBUG_4")
+					(reference "D30")
 					(unit 1)
 				)
 			)
@@ -3209,7 +3209,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "292bedbe-6012-4dc1-9b71-86abbd5be266")
-		(property "Reference" "Heart1"
+		(property "Reference" "D14"
 			(at 217.17 94.2975 0)
 			(effects
 				(font
@@ -3218,8 +3218,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "Heart"
-			(at 208.534 88.392 0)
+		(property "Value" "DEBUG"
+			(at 208.026 87.122 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3289,7 +3289,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "Heart1")
+					(reference "D14")
 					(unit 1)
 				)
 			)
@@ -3456,7 +3456,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "40f71a94-48f8-4ba8-909a-4450e79a89ef")
-		(property "Reference" "LowV1"
+		(property "Reference" "D17"
 			(at 201.93 94.2975 0)
 			(effects
 				(font
@@ -3465,8 +3465,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "LowV"
-			(at 193.04 88.392 0)
+		(property "Value" "ModuleFault[2]"
+			(at 193.04 83.566 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3536,7 +3536,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "LowV1")
+					(reference "D17")
 					(unit 1)
 				)
 			)
@@ -3551,7 +3551,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "44b70029-a12c-46d2-8a5b-1bf7c6290cc7")
-		(property "Reference" "DEBUG_6"
+		(property "Reference" "D29"
 			(at 181.61 145.0975 0)
 			(effects
 				(font
@@ -3560,7 +3560,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "DEBUG_6"
+		(property "Value" "Heart"
 			(at 172.466 137.668 0)
 			(effects
 				(font
@@ -3631,7 +3631,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "DEBUG_6")
+					(reference "D29")
 					(unit 1)
 				)
 			)
@@ -3733,7 +3733,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "4b67f770-dffd-4f04-ae59-196b38942f49")
-		(property "Reference" "Chrging1"
+		(property "Reference" "D20"
 			(at 186.69 94.2975 0)
 			(effects
 				(font
@@ -3742,8 +3742,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "Chrging"
-			(at 177.546 87.376 0)
+		(property "Value" "WatchdogErr"
+			(at 177.292 84.328 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3813,7 +3813,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "Chrging1")
+					(reference "D20")
 					(unit 1)
 				)
 			)
@@ -4089,7 +4089,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "63c20ef7-239a-4caf-ab35-09df38011149")
-		(property "Reference" "DEBUG_5"
+		(property "Reference" "D28"
 			(at 186.69 145.0975 0)
 			(effects
 				(font
@@ -4098,7 +4098,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "DEBUG_5"
+		(property "Value" "Fault"
 			(at 177.546 137.668 0)
 			(effects
 				(font
@@ -4169,7 +4169,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "DEBUG_5")
+					(reference "D28")
 					(unit 1)
 				)
 			)
@@ -4860,7 +4860,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "9305f492-dadb-4ea2-b223-4a506e682c6f")
-		(property "Reference" "VTempIN1"
+		(property "Reference" "D21"
 			(at 181.61 94.2975 0)
 			(effects
 				(font
@@ -4869,7 +4869,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "VTempIN"
+		(property "Value" "AmpIN"
 			(at 172.466 87.122 0)
 			(effects
 				(font
@@ -4940,7 +4940,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "VTempIN1")
+					(reference "D21")
 					(unit 1)
 				)
 			)
@@ -4955,7 +4955,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "931a0247-608f-4b30-95e9-5c1abdfa2773")
-		(property "Reference" "DEBUG_1"
+		(property "Reference" "D24"
 			(at 207.01 145.0975 0)
 			(effects
 				(font
@@ -4964,7 +4964,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "DEBUG_1"
+		(property "Value" "OverTemp"
 			(at 197.866 137.668 0)
 			(effects
 				(font
@@ -5035,7 +5035,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "DEBUG_1")
+					(reference "D24")
 					(unit 1)
 				)
 			)
@@ -5203,7 +5203,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "a20f9497-4b26-459a-87b5-fe083a11eab3")
-		(property "Reference" "DEBUG_0"
+		(property "Reference" "D23"
 			(at 212.09 145.0975 0)
 			(effects
 				(font
@@ -5212,7 +5212,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "DEBUG_0"
+		(property "Value" "Chrging"
 			(at 202.946 137.668 0)
 			(effects
 				(font
@@ -5283,7 +5283,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "DEBUG_0")
+					(reference "D23")
 					(unit 1)
 				)
 			)
@@ -5428,7 +5428,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "a8832fd1-de25-41d3-8a98-81030c71fe88")
-		(property "Reference" "DEBUG_2"
+		(property "Reference" "D25"
 			(at 201.93 145.0975 0)
 			(effects
 				(font
@@ -5437,7 +5437,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "DEBUG_2"
+		(property "Value" "OverAmp"
 			(at 192.786 137.668 0)
 			(effects
 				(font
@@ -5508,7 +5508,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "DEBUG_2")
+					(reference "D25")
 					(unit 1)
 				)
 			)
@@ -5610,7 +5610,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "b510bd00-d605-4b79-b3cf-63e237211c22")
-		(property "Reference" "OverAmp1"
+		(property "Reference" "D18"
 			(at 196.85 94.2975 0)
 			(effects
 				(font
@@ -5619,8 +5619,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "OverAmp"
-			(at 187.96 86.614 0)
+		(property "Value" "ModuleFault[3]"
+			(at 187.706 83.566 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5690,7 +5690,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "OverAmp1")
+					(reference "D18")
 					(unit 1)
 				)
 			)
@@ -5705,7 +5705,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "b9690ac2-237f-4139-badc-0acf07b9ee2f")
-		(property "Reference" "AmpIn1"
+		(property "Reference" "D22"
 			(at 217.17 145.0975 0)
 			(effects
 				(font
@@ -5714,7 +5714,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "AmpIn"
+		(property "Value" "VTempIN"
 			(at 208.28 139.192 0)
 			(effects
 				(font
@@ -5785,7 +5785,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "AmpIn1")
+					(reference "D22")
 					(unit 1)
 				)
 			)
@@ -5800,7 +5800,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "bba49370-870e-4293-9c44-6d7c7436398b")
-		(property "Reference" "Fault1"
+		(property "Reference" "D15"
 			(at 212.09 94.2975 0)
 			(effects
 				(font
@@ -5809,8 +5809,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "Fault"
-			(at 202.946 88.138 0)
+		(property "Value" "ModuleFault[0]"
+			(at 202.692 83.312 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5880,7 +5880,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "Fault1")
+					(reference "D15")
 					(unit 1)
 				)
 			)
@@ -6177,7 +6177,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "d1dcfcb0-1a32-45c6-98c6-f3ae2185e543")
-		(property "Reference" "OverV1"
+		(property "Reference" "D16"
 			(at 207.01 94.2975 0)
 			(effects
 				(font
@@ -6186,8 +6186,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "OverV"
-			(at 198.12 88.392 0)
+		(property "Value" "ModuleFault[1]"
+			(at 197.612 83.566 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6257,7 +6257,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/ec328d6f-4db5-4eba-b704-0212808a8e56"
-					(reference "OverV1")
+					(reference "D16")
 					(unit 1)
 				)
 			)
