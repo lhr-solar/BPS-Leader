@@ -1,9 +1,0 @@
-Manufacturer=Sensirion
-PartNumber=SHT45-AD1B-R2
-PartCategory=Integrated Circuit
-PackageCategory=Other
-PinCount=4
-Version=1.3
-Released=2022-07-02 05:44:37
-Downloaded=2026-01-11 05:54:40
-3D=Y

@@ -1,9 +1,0 @@
-EESchema-DOCLIB  Version 2.0
-#
-$CMP SMD1812B300TFT
-D Polymeric PTC Resettable Fuse 6V 3 A Ih Surface Mount 1812 (4532 Metric), Concave
-K
-F https://www.yageo.com/upload/media/product/productsearch/datasheet/cpc/pptc/SMD1812_1.pdf
-$ENDCMP
-#
-#End Doc Library

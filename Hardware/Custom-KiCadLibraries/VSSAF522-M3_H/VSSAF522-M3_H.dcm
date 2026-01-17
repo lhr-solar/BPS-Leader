@@ -1,9 +1,0 @@
-EESchema-DOCLIB  Version 2.0
-#
-$CMP VSSAF522-M3_H
-D Schottky Diodes & Rectifiers RECT 200V  5A    SM  TMBS
-K
-F https://www.vishay.com/docs/87453/vssaf522.pdf
-$ENDCMP
-#
-#End Doc Library

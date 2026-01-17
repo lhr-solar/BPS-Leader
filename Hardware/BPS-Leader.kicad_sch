@@ -29198,7 +29198,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Custom-KiCadLibraries:Gear"
+		(property "Footprint" "CustomKiCad-Library:Gear"
 			(at 360.68 221.615 0)
 			(effects
 				(font
@@ -30698,7 +30698,7 @@
 				)
 			)
 		)
-		(property "Footprint" "FUSE 3568:3568"
+		(property "Footprint" "CustomKiCad-Library:3568"
 			(at 74.93 108.458 90)
 			(effects
 				(font
@@ -31876,7 +31876,7 @@
 				)
 			)
 		)
-		(property "Footprint" "FUSE 3568:3568"
+		(property "Footprint" "CustomKiCad-Library:3568"
 			(at 139.7 98.298 90)
 			(effects
 				(font
@@ -32491,7 +32491,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Custom-KiCadLibraries:Beach"
+		(property "Footprint" "CustomKiCad-Library:Beach"
 			(at 360.68 230.505 0)
 			(effects
 				(font
@@ -32658,7 +32658,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.mouser.com/datasheet/3/1278/1/HT_DS_Datasheet_SHT4x_5.pdf"
+		(property "Datasheet" "https://sensirion.com/media/documents/33FD6951/624C4357/Datasheet_SHT4x.pdf"
 			(at 256.2478 190.9428 0)
 			(effects
 				(font

@@ -147,6 +147,311 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "CustomSymbols:SQ2315CES-T1_GE3"
+			(pin_names
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "Q"
+				(at 11.43 3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+				)
+			)
+			(property "Value" "SQ2315CES-T1_GE3"
+				(at 11.43 1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+				)
+			)
+			(property "Footprint" "SOT95P237X112-3N"
+				(at 11.43 -98.73 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.vishay.com/docs/62255/sq2315ces.pdf"
+				(at 11.43 -198.73 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Description" "MOSFETs P-CHANNEL 12-V (D-S) 175C MOSFET"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Height" "1.12"
+				(at 11.43 -398.73 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Mouser Part Number" "78-SQ2315CES-T1_GE3"
+				(at 11.43 -498.73 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Vishay/SQ2315CES-T1_GE3?qs=%252BHhoWzUJg4LHCHfqrDPvWg%3D%3D"
+				(at 11.43 -598.73 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer_Name" "Vishay"
+				(at 11.43 -698.73 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer_Part_Number" "SQ2315CES-T1_GE3"
+				(at 11.43 -798.73 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(symbol "SQ2315CES-T1_GE3_1_1"
+				(polyline
+					(pts
+						(xy 2.54 0) (xy 5.08 0)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 5.08 5.08) (xy 5.08 0)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 5.842 5.588) (xy 5.842 4.572)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 5.842 2.032) (xy 5.842 3.048)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 5.842 0) (xy 7.62 0)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 5.842 -0.508) (xy 5.842 0.508)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 6.35 2.54)
+					(radius 3.81)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 7.62 5.08) (xy 5.842 5.08)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 7.62 5.08) (xy 7.62 7.62)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 7.62 2.54) (xy 5.842 2.54)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 7.62 2.54) (xy 7.62 -2.54)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 7.62 2.54) (xy 6.604 3.048) (xy 6.604 2.032) (xy 7.62 2.54)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(pin passive line
+					(at 0 0 0)
+					(length 2.54)
+					(name "G"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 10.16 270)
+					(length 2.54)
+					(name "D"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 -5.08 90)
+					(length 2.54)
+					(name "S"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Device:LED"
 			(pin_numbers
 				(hide yes)
@@ -653,311 +958,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "SQ2315CES-T1_GE3:SQ2315CES-T1_GE3"
-			(pin_names
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "Q"
-				(at 11.43 3.81 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-				)
-			)
-			(property "Value" "SQ2315CES-T1_GE3"
-				(at 11.43 1.27 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-				)
-			)
-			(property "Footprint" "SOT95P237X112-3N"
-				(at 11.43 -98.73 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "https://www.vishay.com/docs/62255/sq2315ces.pdf"
-				(at 11.43 -198.73 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(property "Description" "MOSFETs P-CHANNEL 12-V (D-S) 175C MOSFET"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Height" "1.12"
-				(at 11.43 -398.73 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(property "Mouser Part Number" "78-SQ2315CES-T1_GE3"
-				(at 11.43 -498.73 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Vishay/SQ2315CES-T1_GE3?qs=%252BHhoWzUJg4LHCHfqrDPvWg%3D%3D"
-				(at 11.43 -598.73 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(property "Manufacturer_Name" "Vishay"
-				(at 11.43 -698.73 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(property "Manufacturer_Part_Number" "SQ2315CES-T1_GE3"
-				(at 11.43 -798.73 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(symbol "SQ2315CES-T1_GE3_1_1"
-				(polyline
-					(pts
-						(xy 2.54 0) (xy 5.08 0)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 5.08 5.08) (xy 5.08 0)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 5.842 5.588) (xy 5.842 4.572)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 5.842 2.032) (xy 5.842 3.048)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 5.842 0) (xy 7.62 0)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 5.842 -0.508) (xy 5.842 0.508)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 6.35 2.54)
-					(radius 3.81)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 7.62 5.08) (xy 5.842 5.08)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 7.62 5.08) (xy 7.62 7.62)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 7.62 2.54) (xy 5.842 2.54)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 7.62 2.54) (xy 7.62 -2.54)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 7.62 2.54) (xy 6.604 3.048) (xy 6.604 2.032) (xy 7.62 2.54)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(pin passive line
-					(at 0 0 0)
-					(length 2.54)
-					(name "G"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 7.62 10.16 270)
-					(length 2.54)
-					(name "D"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 7.62 -5.08 90)
-					(length 2.54)
-					(name "S"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "power:+24V"
 			(power)
 			(pin_numbers
@@ -1355,6 +1355,12 @@
 		(uuid "e00a111d-5712-4cef-91e2-ea202a4163dd")
 	)
 	(junction
+		(at 97.79 147.32)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "027da11a-bd06-43b5-8a17-3aa3b116584f")
+	)
+	(junction
 		(at 139.7 73.66)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1397,16 +1403,16 @@
 		(uuid "539b90a9-5fca-4d1a-be39-361e5be9a632")
 	)
 	(junction
+		(at 97.79 118.11)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5e97b07d-4796-4e59-a284-295ab06d2f15")
+	)
+	(junction
 		(at 139.7 107.95)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "800c99f0-6532-4d58-97cb-bcead60fa1e7")
-	)
-	(junction
-		(at 97.79 147.32)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "82ff1ac9-56c9-4357-9ff8-15b297d936c9")
 	)
 	(junction
 		(at 118.11 107.95)
@@ -1418,13 +1424,7 @@
 		(at 99.06 86.36)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "a87a3ea2-c907-472d-8604-af447beae35c")
-	)
-	(junction
-		(at 97.79 118.11)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "a8d7d99c-c93d-432a-832c-0aa83b5b238e")
+		(uuid "abff91af-f916-41f0-ae84-dcfc79bb790b")
 	)
 	(junction
 		(at 139.7 137.16)
@@ -2860,16 +2860,17 @@
 		)
 	)
 	(symbol
-		(lib_id "SQ2315CES-T1_GE3:SQ2315CES-T1_GE3")
-		(at 105.41 107.95 180)
+		(lib_id "CustomSymbols:SQ2315CES-T1_GE3")
+		(at 106.68 76.2 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "47d02f35-562a-4af4-9628-cdf81105952f")
+		(fields_autoplaced yes)
+		(uuid "54609be9-4a47-4f51-9d9b-7fb9985dee13")
 		(property "Reference" "Q8"
-			(at 97.028 106.172 0)
+			(at 95.25 77.4699 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2878,7 +2879,7 @@
 			)
 		)
 		(property "Value" "SQ2315CES-T1_GE3"
-			(at 94.742 108.458 0)
+			(at 95.25 80.0099 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2886,8 +2887,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "SQ2315CES-T1_GE3:SOT95P237X112-3N"
-			(at 93.98 9.22 0)
+		(property "Footprint" "CustomKiCad-Library:SOT95P237X112-3N"
+			(at 95.25 -22.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2897,7 +2898,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.vishay.com/docs/62255/sq2315ces.pdf"
-			(at 93.98 -90.78 0)
+			(at 95.25 -122.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2907,7 +2908,7 @@
 			)
 		)
 		(property "Description" "MOSFETs P-CHANNEL 12-V (D-S) 175C MOSFET"
-			(at 105.41 107.95 0)
+			(at 106.68 76.2 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2916,7 +2917,7 @@
 			)
 		)
 		(property "Height" "1.12"
-			(at 93.98 -290.78 0)
+			(at 95.25 -322.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2926,7 +2927,7 @@
 			)
 		)
 		(property "Mouser Part Number" "78-SQ2315CES-T1_GE3"
-			(at 93.98 -390.78 0)
+			(at 95.25 -422.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2936,7 +2937,7 @@
 			)
 		)
 		(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Vishay/SQ2315CES-T1_GE3?qs=%252BHhoWzUJg4LHCHfqrDPvWg%3D%3D"
-			(at 93.98 -490.78 0)
+			(at 95.25 -522.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2946,7 +2947,7 @@
 			)
 		)
 		(property "Manufacturer_Name" "Vishay"
-			(at 93.98 -590.78 0)
+			(at 95.25 -622.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2956,7 +2957,7 @@
 			)
 		)
 		(property "Manufacturer_Part_Number" "SQ2315CES-T1_GE3"
-			(at 93.98 -690.78 0)
+			(at 95.25 -722.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2966,7 +2967,7 @@
 			)
 		)
 		(property "LCSC" "C10487"
-			(at 97.028 106.172 0)
+			(at 106.68 76.2 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2974,14 +2975,14 @@
 				(hide yes)
 			)
 		)
-		(pin "3"
-			(uuid "ac6a2434-7a84-4712-8271-0136fc916946")
-		)
 		(pin "1"
-			(uuid "214e6526-8d74-4629-a38b-9e97464f463f")
+			(uuid "54ffd0d2-9e2a-4544-a5d3-cc57bac2c18c")
 		)
 		(pin "2"
-			(uuid "4061b0d7-7097-4d53-bf25-39eb7a4550a5")
+			(uuid "5e565186-c99b-4916-b17b-1ba98b7334cc")
+		)
+		(pin "3"
+			(uuid "33156193-6409-43e1-9741-ec2716f87236")
 		)
 		(instances
 			(project "BPS-Leader"
@@ -3808,83 +3809,16 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
-		(at 69.85 125.73 0)
-		(mirror y)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "a1a594ab-cd49-47ec-a883-1e7f31413c3c")
-		(property "Reference" "#PWR079"
-			(at 69.85 132.08 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 69.85 130.81 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 69.85 125.73 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 69.85 125.73 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 69.85 125.73 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "f345b0d0-4a36-40e9-871b-cb1970f7d214")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/e6694587-41e7-41a3-a5ae-2d9c9c2fe77f"
-					(reference "#PWR079")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "SQ2315CES-T1_GE3:SQ2315CES-T1_GE3")
+		(lib_id "CustomSymbols:SQ2315CES-T1_GE3")
 		(at 105.41 137.16 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "a8ed8e55-fcb2-413b-a6f7-34096c770b81")
+		(uuid "8d225533-4247-43fb-bf7a-d62540213e43")
 		(property "Reference" "Q2"
-			(at 97.028 135.382 0)
+			(at 93.726 136.652 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3893,7 +3827,7 @@
 			)
 		)
 		(property "Value" "SQ2315CES-T1_GE3"
-			(at 94.742 137.668 0)
+			(at 93.472 138.938 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3901,7 +3835,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "SQ2315CES-T1_GE3:SOT95P237X112-3N"
+		(property "Footprint" "CustomKiCad-Library:SOT95P237X112-3N"
 			(at 93.98 38.43 0)
 			(effects
 				(font
@@ -3981,7 +3915,7 @@
 			)
 		)
 		(property "LCSC" "C10487"
-			(at 97.028 135.382 0)
+			(at 105.41 137.16 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3989,19 +3923,219 @@
 				(hide yes)
 			)
 		)
-		(pin "3"
-			(uuid "f0751cf8-5a08-41a9-a53b-c89e1c78ad88")
-		)
 		(pin "1"
-			(uuid "115b41cb-9c51-4c27-8ced-81fc2c14e79b")
+			(uuid "95d1f13d-0c34-4b6a-bfe3-1f01e8ec8fa8")
 		)
 		(pin "2"
-			(uuid "3fda0a8b-97de-424b-bdea-7109739fb46b")
+			(uuid "df3e8bff-95a4-4271-b746-22cc73cbaaa2")
+		)
+		(pin "3"
+			(uuid "d6c1b0bc-edda-4287-9576-f19b7f41c547")
 		)
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/e6694587-41e7-41a3-a5ae-2d9c9c2fe77f"
 					(reference "Q2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "CustomSymbols:SQ2315CES-T1_GE3")
+		(at 105.41 107.95 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8f9e3c5f-5447-4b08-8e89-d6ded542042a")
+		(property "Reference" "Q7"
+			(at 93.726 107.442 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "SQ2315CES-T1_GE3"
+			(at 93.472 109.728 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "CustomKiCad-Library:SOT95P237X112-3N"
+			(at 93.98 9.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.vishay.com/docs/62255/sq2315ces.pdf"
+			(at 93.98 -90.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "MOSFETs P-CHANNEL 12-V (D-S) 175C MOSFET"
+			(at 105.41 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Height" "1.12"
+			(at 93.98 -290.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Mouser Part Number" "78-SQ2315CES-T1_GE3"
+			(at 93.98 -390.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Vishay/SQ2315CES-T1_GE3?qs=%252BHhoWzUJg4LHCHfqrDPvWg%3D%3D"
+			(at 93.98 -490.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Name" "Vishay"
+			(at 93.98 -590.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Part_Number" "SQ2315CES-T1_GE3"
+			(at 93.98 -690.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C10487"
+			(at 105.41 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6dc31c94-be63-47ef-a7be-c4a8eddaddad")
+		)
+		(pin "2"
+			(uuid "ad1aeccc-079b-4633-a31a-d2d548749ecf")
+		)
+		(pin "3"
+			(uuid "bcb63a53-2bc2-44fe-8195-93ae9edc069e")
+		)
+		(instances
+			(project ""
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/e6694587-41e7-41a3-a5ae-2d9c9c2fe77f"
+					(reference "Q7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 69.85 125.73 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a1a594ab-cd49-47ec-a883-1e7f31413c3c")
+		(property "Reference" "#PWR079"
+			(at 69.85 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 69.85 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 69.85 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 69.85 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 69.85 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f345b0d0-4a36-40e9-871b-cb1970f7d214")
+		)
+		(instances
+			(project "BPS-Leader"
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/e6694587-41e7-41a3-a5ae-2d9c9c2fe77f"
+					(reference "#PWR079")
 					(unit 1)
 				)
 			)
@@ -4650,139 +4784,6 @@
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/e6694587-41e7-41a3-a5ae-2d9c9c2fe77f"
 					(reference "R35")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "SQ2315CES-T1_GE3:SQ2315CES-T1_GE3")
-		(at 106.68 76.2 180)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "edc21131-2252-4f16-a62f-bde48ab599bc")
-		(property "Reference" "Q15"
-			(at 98.298 74.422 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "SQ2315CES-T1_GE3"
-			(at 96.012 76.708 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "SQ2315CES-T1_GE3:SOT95P237X112-3N"
-			(at 95.25 -22.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.vishay.com/docs/62255/sq2315ces.pdf"
-			(at 95.25 -122.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Description" "MOSFETs P-CHANNEL 12-V (D-S) 175C MOSFET"
-			(at 106.68 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Height" "1.12"
-			(at 95.25 -322.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Mouser Part Number" "78-SQ2315CES-T1_GE3"
-			(at 95.25 -422.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Vishay/SQ2315CES-T1_GE3?qs=%252BHhoWzUJg4LHCHfqrDPvWg%3D%3D"
-			(at 95.25 -522.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer_Name" "Vishay"
-			(at 95.25 -622.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer_Part_Number" "SQ2315CES-T1_GE3"
-			(at 95.25 -722.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C10487"
-			(at 98.298 74.422 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "3"
-			(uuid "dff34775-f775-4c19-9172-a4ca7db70f9b")
-		)
-		(pin "1"
-			(uuid "08e3c43c-72ee-4169-869f-21381e76193c")
-		)
-		(pin "2"
-			(uuid "8f32edef-2f9a-432b-abb1-5fd0cca76295")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/e6694587-41e7-41a3-a5ae-2d9c9c2fe77f"
-					(reference "Q15")
 					(unit 1)
 				)
 			)

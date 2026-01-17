@@ -1,9 +1,0 @@
-EESchema-DOCLIB  Version 2.0
-#
-$CMP SHT45-AD1B-R2
-D 4 4th Generation, High-Accuracy, Ultra-Low-Power, 16-bit Relative Humidity and Temperature Sensor
-K
-F https://www.mouser.de/datasheet/2/682/Datasheet_SHT4x-2936319.pdf
-$ENDCMP
-#
-#End Doc Library

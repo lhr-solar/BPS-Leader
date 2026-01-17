@@ -1,9 +1,0 @@
-Manufacturer=Molex
-PartNumber=105313-1102
-PartCategory=Connector
-PackageCategory=Other
-PinCount=2
-Version=1.1
-Released=2019-03-05 16:03:30
-Downloaded=2026-01-11 06:02:06
-3D=Y

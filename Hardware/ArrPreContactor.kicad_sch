@@ -2461,7 +2461,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "VSSAF522-M3/H:SODFL5226X100N"
+		(property "Footprint" "CustomKiCad-Library:SODFL5226X100N"
 			(at 88.265 91.44 0)
 			(effects
 				(font

@@ -2881,7 +2881,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TL3365AF180QG:TL3365AF180QG"
+		(property "Footprint" "CustomKiCad-Library:TL3365AF180QG"
 			(at 113.665 64.77 0)
 			(effects
 				(font
