@@ -7,7 +7,7 @@
 /* #include "stm32g4xx.h"
 #include "stm32g411xb.h"
 #include "stm32g4xx_hal_gpio.h"
-#include "stm32g4xx_hal_i2c.h" */
+#include "stm32g4xx_hal_i2c_ex.h" */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,6 +25,11 @@
 #define ON 1
 #define OFF 0
 
+typedef enum {
+    SUCCESS = 0,
+    FAIL = 1
+} ErrStatus;
+
 void faultHandler(void);
 
 // highest error-code is 63 (7 debug LEDS to display error )
@@ -33,8 +38,6 @@ typedef enum firmware_error_code_t {
     // TODO: assign error codes
 
 } firmware_error_code_t;
-
-
 
 
 #endif
