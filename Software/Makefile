@@ -7,6 +7,11 @@ VERBOSE ?= 0
 _PROJECT_C_SOURCES  = $(wildcard Apps/Src/*.c)
 _PROJECT_C_SOURCES += $(wildcard Drivers/Src/*.c)
 _PROJECT_C_SOURCES += $(wildcard Tasks/Src/*.c)
+
+# no ADC.c 
+EXCLUDED_FILE := Embedded-Sharepoint/bsp/Src/ADC.c
+_PROJECT_C_SOURCES := $(filter-out $(EXCLUDED_FILE), $(_PROJECT_C_SOURCES))
+
 _PROJECT_C_INCLUDES = Apps/Inc Drivers/Inc Tasks/Inc
 
 # build and driver directories
@@ -66,3 +71,4 @@ help:
 	@echo "Available targets:"
 	@echo "  docs     - Generate documentation using mkdocs."
 	$(MAKE) -C $(BUILD_MAKEFILE_DIR) help
+

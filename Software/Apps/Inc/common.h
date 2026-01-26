@@ -25,12 +25,11 @@
 #define ON 1
 #define OFF 0
 
-typedef enum {
-    SUCCESS = 0,
-    FAIL = 1
-} ErrStatus;
+// Interrupt priority for the HAL starts at 5 (lower is used for OS, lower number = higher priority)
+#define BASE_HAL_INTERRUPT_PRIORITY 5
 
 void faultHandler(void);
+void errorHandler(void);
 
 // highest error-code is 63 (7 debug LEDS to display error )
 typedef enum firmware_error_code_t {
@@ -38,6 +37,11 @@ typedef enum firmware_error_code_t {
     // TODO: assign error codes
 
 } firmware_error_code_t;
+
+typedef struct {
+    GPIO_TypeDef* port; // e.g., GPIOA
+    uint16_t      pin_num;  // e.g., GPIO_PIN_3
+} GpioPin_t;
 
 
 #endif
