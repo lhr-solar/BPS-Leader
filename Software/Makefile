@@ -1,21 +1,28 @@
 # default project configuration
 PROJECT_TARGET ?= stm32g474xx
-BEAR_ENABLE ?= 1
+BEAR_ENABLE ?= 1	
 VERBOSE ?= 0
 
-# source and include directories
-_PROJECT_C_SOURCES  = $(wildcard Apps/Src/*.c)
-_PROJECT_C_SOURCES += $(wildcard Drivers/Src/*.c)
-_PROJECT_C_SOURCES += $(wildcard Tasks/Src/*.c)
 
-# no ADC.c 
-EXCLUDED_FILE := Embedded-Sharepoint/bsp/Src/ADC.c
-_PROJECT_C_SOURCES := $(filter-out $(EXCLUDED_FILE), $(_PROJECT_C_SOURCES))
 
-_PROJECT_C_INCLUDES = Apps/Inc Drivers/Inc Tasks/Inc
+
+# --- Test Configuration Logic ---
+# Move this high up so it's easy to see
+ifeq ($(strip $(TEST)),)
+    # Standard Build: Include production main
+    SELECTED_TEST_PATH := 
+    _PROJECT_C_SOURCES := $(wildcard Apps/Src/*.c) $(wildcard Drivers/Src/*.c) $(wildcard Tasks/Src/*.c)
+else
+    # Test Build: Filter out production main and add the specific test
+    SELECTED_TEST_PATH := Tests/Src/$(strip $(TEST))
+    # We find all sources EXCEPT main.c
+    _CORE_SOURCES := $(wildcard Apps/Src/*.c) $(wildcard Drivers/Src/*.c) $(wildcard Tasks/Src/*.c)
+    _NO_MAIN_SOURCES := $(filter-out %main.c, $(_CORE_SOURCES))
+    _PROJECT_C_SOURCES := $(_NO_MAIN_SOURCES) $(SELECTED_TEST_PATH)
+endif
 
 # build and driver directories
-_PROJECT_BUILD_DIR ?= build
+_PROJECT_BUILD_DIR ?= build	
 BUILD_MAKEFILE_DIR = Embedded-Sharepoint
 
 # ensure all paths are absolute
@@ -24,12 +31,16 @@ PROJECT_C_SOURCES = $(addprefix $(MAKEFILE_DIR)/, $(_PROJECT_C_SOURCES))
 PROJECT_C_INCLUDES = $(addprefix $(MAKEFILE_DIR)/, $(_PROJECT_C_INCLUDES))
 PROJECT_BUILD_DIR = $(addprefix $(MAKEFILE_DIR)/, $(_PROJECT_BUILD_DIR))
 
+_PROJECT_C_INCLUDES = Apps/Inc Drivers/Inc Tasks/Inc 
+
+
 export PROJECT_TARGET
 export PROJECT_C_SOURCES
 export PROJECT_C_INCLUDES
 export PROJECT_BUILD_DIR
 export BEAR_ENABLE
 export VERBOSE
+
 
 ifeq ($(BEAR_ENABLE), 1)
 	COMPILE_COMMANDS_JSON := $(PROJECT_BUILD_DIR)/compile_commands.json

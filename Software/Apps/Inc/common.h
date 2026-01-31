@@ -11,7 +11,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "pindef.h"
+#include <FreeRTOS.h>
+#include <semphr.h>
+#include <timers.h>
 
 #define OPEN 0
 #define CLOSE 1
@@ -30,6 +34,7 @@
 
 void faultHandler(void);
 void errorHandler(void);
+void SystemClock_Config(void);
 
 // highest error-code is 63 (7 debug LEDS to display error )
 typedef enum firmware_error_code_t {

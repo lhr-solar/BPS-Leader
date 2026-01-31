@@ -1,52 +1,79 @@
 #include "StatusLEDs.h"    
 
-static uint16_t LEDbitmap = 0;
-uint8_t modFaultBitmap = 0; 
-bool debug_LED = 0;
+static uint16_t LEDbitmap;
+static uint8_t modFaultBitmap;
+
+// sets input to specified bit, then pulses the clock
+static void loadBit(bool bit) {
+    HAL_GPIO_WritePin(LED_SER_PORT, LED_SER_PIN_NUM, bit);
+    HAL_GPIO_WritePin(LED_SRCLK_PORT, LED_SRCLK_PIN_NUM, ON);
+    HAL_GPIO_WritePin(LED_SRCLK_PORT, LED_SRCLK_PIN_NUM, OFF);
+    HAL_GPIO_WritePin(LED_SER_PORT, LED_SER_PIN_NUM, ON);
+}
+
+// pushes loaded values to output
+static void pushLEDS() {
+    HAL_GPIO_WritePin(LED_RCLK_PORT, LED_RCLK_PIN_NUM, ON);
+    HAL_GPIO_WritePin(LED_RCLK_PORT, LED_RCLK_PIN_NUM, OFF);
+}
 
 // Shift-Reg values loaded back to front (bitmap first bit is heartbeat, last is AmpIn)
-void updateStatusLEDs() {
+static void updateStatusLEDs() {
 
     // load bits non-modfault LEDS into shift regs (heartbeat is first in, WatchdogErr in last)
-    for (uint8_t bit_num = 0; bit_num < (LED_NUM - MOD_FAULT_NUM - 1); bit_num++) {
-
+    for (uint8_t bit_num = 0; bit_num < FAULT_LED_NUM; bit_num++) {
         loadBit((bool)(LEDbitmap & (1 << bit_num))); 
     }
 
     // loads mod fault into shift regs, (MSB in first, LSB in last)
     for (int8_t modFault = 4; modFault >= 0; modFault++) {
-
-        loadBit((bool)(LEDbitmap & (1 << modFault)));
+        loadBit((bool)(modFaultBitmap & (1 << modFault)));
     }
+
+    (LEDbitmap & (1 << DEBUG_LED)) ? loadBit(ON) : loadBit(OFF);
 
     pushLEDS();
 }  
 
-void setLED(Fault_Mapping_t LED, bool state) {
+void LEDsModFaultBitmap_set(uint8_t bitmap) {
+
+    // make sure bitmap is in range
+    if (bitmap >= (1 << MOD_FAULT_BITS)) {
+        errorHandler();
+    }
+ 
+    modFaultBitmap = bitmap;
+
+    updateStatusLEDs();
+}
+
+void LEDs_set(Fault_Mapping_t LED, bool state) {
+
+    // make sure LED is in range
+    if ((LED < 0) || ((LED > 9) && (LED != 15))) {
+        errorHandler();
+    }
+
     // clears specified bit
-    LEDbitmap &= ~LED;
+    LEDbitmap &= ~(1 << LED);
     // sets bit if state = 1, otherwise stays cleared if state = 0
-    LEDbitmap |= (LED & state); 
+    LEDbitmap |= (state ? (1 << LED) : 0); 
+
+    updateStatusLEDs();
 }   
 
-void loadBit(bool bit) {
-    // sets input to specified bit, then pulses the clock
-    HAL_GPIO_WritePin(LED_SER_PORT, LED_SER_PIN_NUM, bit);
-    HAL_GPIO_WritePin(LED_SRCLK_PORT, LED_SRCLK_PIN_NUM, 1);
-    HAL_GPIO_WritePin(LED_SRCLK_PORT, LED_SRCLK_PIN_NUM, 0);
+void LEDs_clear() {
+    LEDbitmap = 0;
+    modFaultBitmap = 0;
+    updateStatusLEDs();
 }
 
-void pushLEDS() {
-    // pushes loaded values to output
-    HAL_GPIO_WritePin(LED_RCLK_PORT, LED_RCLK_PIN_NUM, 1);
-    HAL_GPIO_WritePin(LED_RCLK_PORT, LED_RCLK_PIN_NUM, 0);
-}
-
-void init_StatusLEDs() {
+void LEDs_init() {
 
     /*
-    uint8_t modFaultBitmap = 0;
-    bool debug_LED = 0;
+    init pins
+
+    clearLEDs()
     */
     
 }

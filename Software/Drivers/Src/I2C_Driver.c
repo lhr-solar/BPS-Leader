@@ -38,7 +38,7 @@ void i2cInterrupt_init() {
 }
 
 // init I2C Channels
-void i2c_Init(void)
+void i2c_init(void)
 {
 
   hi2c3.Instance = I2C3;

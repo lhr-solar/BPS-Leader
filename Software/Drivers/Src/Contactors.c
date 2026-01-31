@@ -13,37 +13,8 @@ static const char* CONTACTOR_NAMES[NUM_CONTACTORS] = {
 // array to hold the contactor structs
 static contactor_t contactors[NUM_CONTACTORS];
 
-// Updates global contactor struct state variable when a sense pin is changed
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-{
-    /* Lokenuinely not sure if I can configure every  contactor sense pin as an inturrupt since only one port 
-    per pin number can be configed. There are other ways to do it but they're all bummy */
-    int8_t contactor_num = CONTACTOR_INVALID;
-
-    switch (GPIO_Pin) {
-        case HV_POSITIVE_SENSE_PIN_NUM:
-            contactor_num = HV_Pos_contactor;
-            break;
-        case HV_NEGATIVE_SENSE_PIN_NUM:
-            contactor_num = HV_Neg_contactor;
-            break;
-        case ARRAY_SENSE_PIN_NUM:
-            contactor_num = Array_contactor;
-            break;
-        case ARRAY_PRE_SENSE_PIN_NUM:
-            contactor_num = Array_Pre_contactor;
-            break;      
-    }
-
-    // update state value when sense value changes
-    if (contactor_num != CONTACTOR_INVALID) {
-        contactor_t* contactor = &contactors[contactor_num];
-        contactor->state = HAL_GPIO_ReadPin(contactor->sense_pin.port, contactor->sense_pin.pin_num);
-    }
-}
-
-// if interupt works this function could just return state variable directly. Use this function in Apps cause bad form to touch contactor struct directly
-bool Contactors_Get(contactor_enum_t contactor_num) {
+// get
+bool contactor_get(contactor_enum_t contactor_num) {
     
     // check that contactor exists
     if ((contactor_num < 0) || (contactor_num >= NUM_CONTACTORS)) {
@@ -54,19 +25,19 @@ bool Contactors_Get(contactor_enum_t contactor_num) {
     return HAL_GPIO_ReadPin(contactor->sense_pin.port, contactor->sense_pin.pin_num);
 }
 
-void vContactorCallback( TimerHandle_t senseTimer ) {
+static void vContactorCallback( TimerHandle_t senseTimer ) {
 
     contactor_enum_t contactor_num = (contactor_enum_t)pvTimerGetTimerID(senseTimer);
     contactor_t* contactor = &contactors[contactor_num];
 
-    if (contactor->state != contactor->expected_state) {
+    if (contactor->state != contactor_get(contactor_num)) {
         faultHandler();
     }
 }
 
-/* sets contactor, updates expected value, then starts timer to check expected state matches actual state. 
+/* sets contactor, updates state value, then starts timer to check expected state matches actual state. 
 An error means semaphore was busy, or that I set a contactor that didn't exist. */
-ErrorStatus setContactor(contactor_enum_t contactor_num, bool state, bool blocking, bool emergency) {
+ErrorStatus contactor_set(contactor_enum_t contactor_num, bool state, bool blocking, bool emergency) {
     
     // check that contactor exists
     if ((contactor_num < 0) || (contactor_num >= NUM_CONTACTORS)) {
@@ -82,7 +53,7 @@ ErrorStatus setContactor(contactor_enum_t contactor_num, bool state, bool blocki
 
     // critical section:
     HAL_GPIO_WritePin(contactor->control_pin.port, contactor->control_pin.pin_num, state);
-    contactor->expected_state = state;
+    contactor->state = state;
 
     /* start timer to check if the state of the contactor makes expected state, the exit critical section. Timer resets
     when the contactor is set to another value, so no possible error with expected value changing from when timer is called*/
@@ -94,7 +65,7 @@ ErrorStatus setContactor(contactor_enum_t contactor_num, bool state, bool blocki
     return SUCCESS;
 }
 
-void init_contactors() {
+void contactor_init() {
 
     // Enable clock for GPIO A/B/C 
     __HAL_RCC_GPIOA_CLK_ENABLE();
@@ -105,22 +76,22 @@ void init_contactors() {
     contactorsMutex = xSemaphoreCreateMutexStatic(&contactorsMutexBuffer);
 
     // initializing the pindef into contactor structs
-    contactors[HV_Pos_contactor] = (contactor_t){   
-        .control_pin = { HV_POSITIVE_CONTROL_PORT, HV_POSITIVE_CONTROL_PIN_NUM },
-        .sense_pin  = { HV_POSITIVE_SENSE_PORT,  HV_POSITIVE_SENSE_PIN_NUM  }
+    contactors[HV_PLUS_CONTACTOR] = (contactor_t){   
+        .control_pin = { HV_PLUS_CONTROL_PORT, HV_PLUS_CONTROL_PIN_NUM },
+        .sense_pin  = { HV_PLUS_SENSE_PORT,  HV_PLUS_SENSE_PIN_NUM  }
     };
 
-    contactors[HV_Neg_contactor] = (contactor_t){   
-        .control_pin = { HV_NEGATIVE_CONTROL_PORT, HV_NEGATIVE_CONTROL_PIN_NUM },
-        .sense_pin  = { HV_NEGATIVE_SENSE_PORT,  HV_NEGATIVE_SENSE_PIN_NUM  }
+    contactors[HV_MINUS_CONTACTOR] = (contactor_t){   
+        .control_pin = { HV_MINUS_CONTROL_PORT, HV_MINUS_CONTROL_PIN_NUM },
+        .sense_pin  = { HV_MINUS_SENSE_PORT,  HV_MINUS_SENSE_PIN_NUM  }
     };
     
-    contactors[Array_contactor] = (contactor_t){
+    contactors[ARRAY_CONTACTOR] = (contactor_t){
         .control_pin = { ARRAY_CONTROL_PORT, ARRAY_CONTROL_PIN_NUM },
         .sense_pin  = { ARRAY_SENSE_PORT,  ARRAY_SENSE_PIN_NUM  }
     };
 
-    contactors[Array_Pre_contactor] = (contactor_t){
+    contactors[ARRAY_PRE_CONTACTOR] = (contactor_t){
         .control_pin = { ARRAY_PRE_CONTROL_PORT, ARRAY_PRE_CONTROL_PIN_NUM },
         .sense_pin  = { ARRAY_PRE_SENSE_PORT,  ARRAY_PRE_SENSE_PIN_NUM  }
     };
@@ -147,8 +118,7 @@ void init_contactors() {
         GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
         HAL_GPIO_Init(contactor->sense_pin.port, &GPIO_InitStruct);
 
-        contactor->expected_state = 0;
-        contactor->state = Contactors_Get(contactor_num);
+        contactor->state = contactor_get(contactor_num);
 
         // making timers and putting them into contactor structs
         contactor->senseTimer = xTimerCreateStatic(
@@ -160,19 +130,5 @@ void init_contactors() {
             &(contactor->senseTimerBuffer)       /* Buffer to hold timer data */
         );
     }
-
-
-    // enable EXTI interrupts for each sense pin
-    
-    HAL_NVIC_SetPriority(HV_POSTIVE_SENSE_EXTI, BASE_HAL_INTERRUPT_PRIORITY, 0);
-    HAL_NVIC_SetPriority(HV_NEGATIVE_SENSE_EXTI, BASE_HAL_INTERRUPT_PRIORITY, 0);
-    HAL_NVIC_SetPriority(ARRAY_SENSE_EXTI, BASE_HAL_INTERRUPT_PRIORITY, 0);
-    HAL_NVIC_SetPriority(ARRAY_PRE_SENSE_EXTI, BASE_HAL_INTERRUPT_PRIORITY, 0);
-
-    HAL_NVIC_EnableIRQ(HV_POSTIVE_SENSE_EXTI);
-    HAL_NVIC_EnableIRQ(HV_NEGATIVE_SENSE_EXTI);
-    HAL_NVIC_EnableIRQ(ARRAY_SENSE_EXTI);
-    HAL_NVIC_EnableIRQ(ARRAY_PRE_SENSE_EXTI);
-
 }
 

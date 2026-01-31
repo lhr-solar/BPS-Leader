@@ -15,7 +15,7 @@ void faultHandler() {
     }
     
     // turns on fault led
-    setLED(FAULT_LED, ON);
+    setFaultLED(FAULT_LED, ON);
     
 }
 
@@ -30,10 +30,14 @@ void errorHandler() {
     setContactor(contactor_num, OPEN, BLOCKING, EMERGENCY);
   }
     
-  // turns on fault led, and DEBUG led to show the error was software
-  setLED(FAULT_LED, ON);
-  setLED(debug_LED, ON);
-
+  // turns on fault led, and blink DEBUG led to show the error was software
+  setFaultLED(FAULT_LED, ON);
+  while (true) {
+    setFaultLED(DEBUG_LED, ON);
+    HAL_Delay(1000);
+    setFaultLED(DEBUG_LED, OFF);
+    HAL_Delay(1000);
+  }
 }
  
 
