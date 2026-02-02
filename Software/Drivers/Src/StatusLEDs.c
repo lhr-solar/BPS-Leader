@@ -47,7 +47,7 @@ void LEDsModFaultBitmap_set(uint8_t bitmap) {
     updateStatusLEDs();
 }
 
-void LEDs_set(Fault_Mapping_t LED, bool state) {
+void LED_set(Fault_Mapping_t LED, bool state) {
 
     // make sure LED is in range
     if ((LED < 0) || ((LED > 9) && (LED != 15))) {
@@ -70,10 +70,30 @@ void LEDs_clear() {
 
 void LEDs_init() {
 
-    /*
-    init pins
+    __HAL_RCC_GPIOB_CLK_ENABLE();
 
-    clearLEDs()
-    */
-    
+    /*Configure GPIO pin Output Level */
+    HAL_GPIO_WritePin(LED_RCLK_PORT, LED_SRCLK_PIN_NUM|LED_RCLK_PIN_NUM|LED_SER_PIN_NUM, GPIO_PIN_RESET);
+
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+    GPIO_InitStruct.Pin = LED_SRCLK_PIN_NUM;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+    HAL_GPIO_Init(LED_SRCLK_PORT, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = LED_RCLK_PIN_NUM;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+    HAL_GPIO_Init(LED_RCLK_PORT, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = LED_SER_PIN_NUM;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+    HAL_GPIO_Init(LED_SER_PORT, &GPIO_InitStruct);
+
+    LEDs_clear(); 
 }

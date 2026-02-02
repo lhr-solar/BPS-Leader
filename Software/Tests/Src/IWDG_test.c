@@ -5,7 +5,6 @@
 #include "IWDG.h"
 
 int main() {
-    
     HAL_Init();
 
     GPIO_InitTypeDef gpio_init = {

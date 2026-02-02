@@ -8,16 +8,16 @@ const uint8_t shortDelayMS = 141;
 
 static void PrettyLEDWave() {
 
-    LEDs_set(0, ON);
+    LED_set(0, ON);
     HAL_Delay(shortDelayMS);
 
     for (Fault_Mapping_t led_num = 1; led_num < FAULT_LED_NUM; led_num++) {
-        LEDs_set(led_num, ON);
-        LEDs_set(led_num - 1, OFF);
+        LED_set(led_num, ON);
+        LED_set(led_num - 1, OFF);
         HAL_Delay(shortDelayMS);
     }
 
-    LEDs_set(FAULT_LED_NUM - 1, OFF);
+    LED_set(FAULT_LED_NUM - 1, OFF);
 
     for (int8_t led_num = MOD_FAULT_BITS - 1; led_num >= 0; led_num--) {
         LEDsModFaultBitmap_set(1 << led_num);
@@ -26,9 +26,9 @@ static void PrettyLEDWave() {
 
     LEDs_clear();
     
-    LEDs_set(DEBUG_LED, ON);
+    LED_set(DEBUG_LED, ON);
     HAL_Delay(shortDelayMS);
-    LEDs_set(DEBUG_LED, OFF);
+    LED_set(DEBUG_LED, OFF);
 }
 
 int main() {
@@ -46,13 +46,13 @@ int main() {
 
         // turn on all fault-mapping LEDs
         for (Fault_Mapping_t led_num = 0; led_num < FAULT_LED_NUM; led_num++) {
-            LEDs_set(led_num, ON);
+            LED_set(led_num, ON);
         }
         HAL_Delay(delayMS);
 
         // turn off all fault-mapping LEDs (manually, to ensure function works properly)
         for (Fault_Mapping_t led_num = 0; led_num < FAULT_LED_NUM; led_num++) {
-            LEDs_set(led_num, OFF);
+            LED_set(led_num, OFF);
         }
         HAL_Delay(delayMS);
     }
@@ -70,10 +70,10 @@ int main() {
     // flash DEBUG LED 3 times
     for (uint8_t i = 0; i < repetitions; i++) {
 
-        LEDs_set(DEBUG_LED, ON);
+        LED_set(DEBUG_LED, ON);
         HAL_Delay(delayMS/2);
 
-        LEDs_set(DEBUG_LED, OFF);
+        LED_set(DEBUG_LED, OFF);
         HAL_Delay(delayMS/2);
 
     }

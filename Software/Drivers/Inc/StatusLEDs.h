@@ -19,7 +19,7 @@ typedef enum Fault_Mapping_t {
 
 } Fault_Mapping_t;
 
-void LEDs_set(Fault_Mapping_t LED, bool state);
+void LED_set(Fault_Mapping_t LED, bool state);
 
 void LEDsModFaultBitmap_set(uint8_t bitmap);
 

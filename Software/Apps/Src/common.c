@@ -11,11 +11,11 @@ void faultHandler() {
     
     // open every contactor, bypasses semaphore
     for (uint8_t contactor_num = 0; contactor_num < NUM_CONTACTORS; contactor_num++) {
-        setContactor(contactor_num, OPEN, BLOCKING, EMERGENCY);
+        contactor_set(contactor_num, OPEN, BLOCKING, EMERGENCY);
     }
     
     // turns on fault led
-    setFaultLED(FAULT_LED, ON);
+    LED_set(FAULT_LED, ON);
     
 }
 
@@ -27,21 +27,21 @@ void errorHandler() {
 
   // open every contactor, bypasses semaphore
   for (uint8_t contactor_num = 0; contactor_num < NUM_CONTACTORS; contactor_num++) {
-    setContactor(contactor_num, OPEN, BLOCKING, EMERGENCY);
+    contactor_set(contactor_num, OPEN, BLOCKING, EMERGENCY);
   }
     
   // turns on fault led, and blink DEBUG led to show the error was software
-  setFaultLED(FAULT_LED, ON);
+  LED_set(FAULT_LED, ON);
   while (true) {
-    setFaultLED(DEBUG_LED, ON);
+    LED_set(DEBUG_LED, ON);
     HAL_Delay(1000);
-    setFaultLED(DEBUG_LED, OFF);
+    LED_set(DEBUG_LED, OFF);
     HAL_Delay(1000);
   }
 }
  
 
- void SystemClock_Config(void)
+void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
