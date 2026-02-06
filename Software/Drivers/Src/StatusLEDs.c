@@ -39,7 +39,7 @@ void LEDsModFaultBitmap_set(uint8_t bitmap) {
 
     // make sure bitmap is in range
     if (bitmap >= (1 << MOD_FAULT_BITS)) {
-        errorHandler();
+        Error_Handler();
     }
  
     modFaultBitmap = bitmap;
@@ -51,13 +51,15 @@ void LED_set(Fault_Mapping_t LED, bool state) {
 
     // make sure LED is in range
     if ((LED < 0) || ((LED > 9) && (LED != 15))) {
-        errorHandler();
+        Error_Handler();
     }
 
+    LED = 1 << LED;
+
     // clears specified bit
-    LEDbitmap &= ~(1 << LED);
+    LEDbitmap &= ~LED;
     // sets bit if state = 1, otherwise stays cleared if state = 0
-    LEDbitmap |= (state ? (1 << LED) : 0); 
+    LEDbitmap |= (state ? LED : 0); 
 
     updateStatusLEDs();
 }   

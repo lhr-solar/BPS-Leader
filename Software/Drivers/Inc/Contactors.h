@@ -1,36 +1,57 @@
 #include "common.h"
 
-#define CONTACTOR_SENSE_DELAY pdMS_TO_TICKS(1000)
-#define CALLBACK_BLOCKING_TIME pdMS_TO_TICKS(20)
+/* Timing Definitions */
+/** Time to wait for the physical contactor to settle before reading feedback */
+#define CONTACTOR_SENSE_DELAY      pdMS_TO_TICKS(1000)  
+/** Maximum time allowed for callback execution to prevent task starvation */
+#define CALLBACK_BLOCKING_TIME     pdMS_TO_TICKS(20)    
 
+/**
+ * @brief Represents the logical and physical state of a contactor.
+ */
+typedef enum {
+    CONTACTOR_OPEN = 0,   /**< Circuit is disconnected */
+    CONTACTOR_CLOSED = 1  /**< Circuit is connected */
+} contactor_state_t;
 
-#define CONTACTOR_INVALID -1
+/**
+ * @brief Identification for specific contactors within the HV system.
+ */
+typedef enum {
+    HV_PLUS_CONTACTOR = 0,      /**< Main Positive Bus */
+    HV_MINUS_CONTACTOR,         /**< Main Negative Bus */
+    ARRAY_CONTACTOR,            /**< Solar/Battery Array Main */
+    ARRAY_PRE_CONTACTOR,        /**< Pre-charge circuit for the Array */
+    NUM_CONTACTORS              /**< Total count helper */
+} contactor_num_t;
 
-typedef struct contactor_t {
-    bool state;
-    GpioPin_t sense_pin;
-    GpioPin_t control_pin;
-    TimerHandle_t senseTimer; // timer handle for checking if contactor closed/opened (non-blocking mode)
-    StaticTimer_t senseTimerBuffer;
+/**
+ * @brief Contactor hardware abstraction object.
+ */
+typedef struct {
+    bool state;                  /**< Current commanded state (true = closed) */
+    GpioPin_t sense_pin;         /**< Digital input for auxiliary feedback loop */
+    GpioPin_t control_pin;       /**< Digital output to coil driver/relay */
+    
+    /* RTOS Resources */
+    TimerHandle_t senseTimer;       /**< Handle for non-blocking state verification */
+    StaticTimer_t senseTimerBuffer; /**< Memory buffer for static timer allocation */
 } contactor_t;
 
-typedef enum contactor_enum_t {
-    HV_PLUS_CONTACTOR = 0,
-    HV_MINUS_CONTACTOR,
-    ARRAY_CONTACTOR,
-    ARRAY_PRE_CONTACTOR,
-    NUM_CONTACTORS
-} contactor_enum_t;
 
+/** @brief Hardware/RTOS init for all contactors, timers, and mutexes. */
+void contactor_init(void);
 
-// initializes contactor pins from pindef, their respective timers, intializes mutex
-void contactor_init();
-
-// gets physical state of a contactor
+/** * @brief Reads the physical sense pin for a specific contactor.
+ * @return true if CLOSED, false if OPEN.
+ */
 bool contactor_get(contactor_enum_t contactor_num);
 
-// sets contactor to a value, then calls callback funcion to make sure its set right (unless it is an emergency)
-ErrorStatus contactor_set(contactor_enum_t contactor_num, bool state, bool blocking, bool emergency);
-
+/** * @brief Commands a contactor state change with safety verification via callback function.
+ * @param wait_ms  Wait time for sense delay before returning.
+ * @param emergency Immediate execution; bypasses safety callbacks.
+ * @return SUCCESS or hardware ERROR code.
+ */
+ErrorStatus contactor_set(contactor_enum_t contactor_num, bool state, uint16_t wait_ms, bool emergency);
 
 

@@ -11,6 +11,7 @@
 *.kicad_prl
 *.sch-bak
 *~
+*.
 _autosave-*
 *.tmp
 *-save.pro
@@ -35,3 +36,32 @@ replicate_layout.log
 build/
 .vscode/
 .vscode/compile_commands.json
+
+# Build Files
+build/
+Build/
+
+# Python
+*venv
+__pycache__/
+.env
+
+# Mac specific files
+.DS_Store
+
+# Vim
+*.swp
+
+# Nix
+flake.lock
+
+# Documentation     
+docs/doxygen/
+site/*
+!site/empty.a
+Zone.Identifier
+
+# VSCode settings
+.vscode/*
+!.vscode/c_cpp_properties.json
+compile_commands.json

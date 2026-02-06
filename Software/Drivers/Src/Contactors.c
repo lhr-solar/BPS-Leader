@@ -31,23 +31,23 @@ static void vContactorCallback( TimerHandle_t senseTimer ) {
     contactor_t* contactor = &contactors[contactor_num];
 
     if (contactor->state != contactor_get(contactor_num)) {
-        faultHandler();
+        Fault_Handler();
     }
 }
 
 /* sets contactor, updates state value, then starts timer to check expected state matches actual state. 
 An error means semaphore was busy, or that I set a contactor that didn't exist. */
-ErrorStatus contactor_set(contactor_enum_t contactor_num, bool state, bool blocking, bool emergency) {
+ErrorStatus contactor_set(contactor_enum_t contactor_num, bool state, uint16_t wait_ms, bool emergency) {
     
     // check that contactor exists
     if ((contactor_num < 0) || (contactor_num >= NUM_CONTACTORS)) {
-        Error_Handler();
+        Error_Handler(); 
     }
 
     contactor_t* contactor = &contactors[contactor_num];
 
     // if its emergency, dont bother with semaphore
-    if (!emergency && xSemaphoreTake(contactorsMutex, blocking ? portMAX_DELAY : 0) == pdFALSE) {
+    if (!emergency && xSemaphoreTake(contactorsMutex, wait_ms) == pdFALSE) {
         return ERROR;
     };
 

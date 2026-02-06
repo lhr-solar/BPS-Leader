@@ -1,24 +1,31 @@
 #include "common.h"
 
-// adress of sensor shifted left 1 bit
+/** @brief I2C address for the SHT4x sensor (0x44 << 1). */
 #define tmpHmdAdresss 0x88 
 
+/** @brief Command size sent to the sensor (typically 1 byte). */
 #define tx_size 1
+/** @brief Size of data returned (2 bytes temp + 1 CRC + 2 bytes hmd + 1 CRC). */
 #define rx_size 6
 
+/** @brief Global I2C communication timeout in milliseconds. */
 #define I2C_TIMEOUT 100u
 
+/** @brief Container for processed environmental data. */
 typedef struct {
-
-    double temp;
-    double humidity;
-
+    double temp;     /**< Temperature in degrees Celsius. */
+    double humidity; /**< Relative humidity percentage (0-100%). */
 } tempHmdData;
 
+/** @brief Hardware initialization for the I2C4 peripheral. */
 void MX_I2C4_Init(void);
 
+/** * @brief Triggers a sensor measurement and populates the raw buffer. 
+ * @param tmpHmdBuffer Pointer to an array of size rx_size to store raw I2C data.
+ */
 void tmpHmd_get(uint16_t *tmpHmdBuffer);
 
-void SHT4x_I2C_MasterTxRxCpltCallback();
-
-
+/** * @brief Custom callback for SHT4x non-blocking I2C completion. 
+ * Handles internal state transitions after data is successfully received.
+ */
+void SHT4x_I2C_MasterTxRxCpltCallback(void);

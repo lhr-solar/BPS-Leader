@@ -4,14 +4,13 @@
 
 
 // for actual faults
-void faultHandler() {
+void Fault_Handler() {
 
-    // kill RTOS 
-    __disable_irq();
+    // Kill Main Task
     
     // open every contactor, bypasses semaphore
     for (uint8_t contactor_num = 0; contactor_num < NUM_CONTACTORS; contactor_num++) {
-        contactor_set(contactor_num, OPEN, BLOCKING, EMERGENCY);
+        contactor_set(contactor_num, OPEN, portMAX_DELAY, EMERGENCY);
     }
     
     // turns on fault led
@@ -20,14 +19,13 @@ void faultHandler() {
 }
 
 // for software errors
-void errorHandler() {
+void Error_Handler() {
 
-  // kill RTOS 
-    __disable_irq();
+  // Kill Main Task
 
   // open every contactor, bypasses semaphore
   for (uint8_t contactor_num = 0; contactor_num < NUM_CONTACTORS; contactor_num++) {
-    contactor_set(contactor_num, OPEN, BLOCKING, EMERGENCY);
+    contactor_set(contactor_num, OPEN, portMAX_DELAY, EMERGENCY);
   }
     
   // turns on fault led, and blink DEBUG led to show the error was software

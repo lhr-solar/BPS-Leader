@@ -1,0 +1,29 @@
+name: Build Tests
+
+on:
+  push:
+  pull_request:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps: 
+       - name: Checkout repository
+         uses: actions/checkout@v3
+
+       - name: Install
+         run: |
+          sudo apt -y update
+          sudo apt -y install gcc-arm-none-eabi
+       - name: Update Submodules
+         run: |
+          git submodule update --init --recursive
+
+       - name: Clean
+         run: |
+          make clean
+
+       - name: Build tests
+         run: |
+          cd Tests/
+          bash makeAllTests.sh
+          cd ..

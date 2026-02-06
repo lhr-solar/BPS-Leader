@@ -2,7 +2,6 @@
 #include "common.h"
 
 const uint8_t repetitions = 3;
-
 const uint16_t delayMS = 750;
 const uint8_t shortDelayMS = 141;
 
@@ -16,7 +15,7 @@ static void PrettyLEDWave() {
         LED_set(led_num - 1, OFF);
         HAL_Delay(shortDelayMS);
     }
-
+ 
     LED_set(FAULT_LED_NUM - 1, OFF);
 
     for (int8_t led_num = MOD_FAULT_BITS - 1; led_num >= 0; led_num--) {
