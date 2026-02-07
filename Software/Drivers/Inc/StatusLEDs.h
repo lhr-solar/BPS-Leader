@@ -3,6 +3,12 @@
 /** @brief Number of bits in the module fault bitmap. */
 #define MOD_FAULT_BITS 5
 
+/** * @brief LED States  */
+typedef enum {
+    OFF = 0,
+    ON = 1
+} LED_state_t;
+
 /** * @brief Logic-to-Hardware mapping for diagnostic LEDs.
  * @note Values correspond to specific shift register positions.
  */

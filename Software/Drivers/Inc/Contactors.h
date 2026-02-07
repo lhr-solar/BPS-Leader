@@ -10,8 +10,8 @@
  * @brief Represents the logical and physical state of a contactor.
  */
 typedef enum {
-    CONTACTOR_OPEN = 0,   /**< Circuit is disconnected */
-    CONTACTOR_CLOSED = 1  /**< Circuit is connected */
+    OPEN = 0,   /**< Circuit is disconnected */
+    CLOSED = 1  /**< Circuit is connected */
 } contactor_state_t;
 
 /**
@@ -45,13 +45,13 @@ void contactor_init(void);
 /** * @brief Reads the physical sense pin for a specific contactor.
  * @return true if CLOSED, false if OPEN.
  */
-bool contactor_get(contactor_enum_t contactor_num);
+bool contactor_get(contactor_num_t contactor_num);
 
 /** * @brief Commands a contactor state change with safety verification via callback function.
  * @param wait_ms  Wait time for sense delay before returning.
  * @param emergency Immediate execution; bypasses safety callbacks.
  * @return SUCCESS or hardware ERROR code.
  */
-ErrorStatus contactor_set(contactor_enum_t contactor_num, bool state, uint16_t wait_ms, bool emergency);
+ErrorStatus contactor_set(contactor_num_t contactor_num, contactor_state_t state, uint16_t wait_ms, fault_state_t emergency);
 
 

@@ -15,6 +15,12 @@ typedef enum error_state_t {
     ERROR = 1
 } error_state_t;
 
+
+typedef enum {
+    NORMAL = 0,   /**< Circuit is disconnected */
+    EMERGENCY = 1  /**< Circuit is connected */
+} fault_state_t;
+
 // Interrupt priority for the HAL starts at 5 (lower is used for OS, lower number = higher priority)
 #define BASE_HAL_INTERRUPT_PRIORITY 5
 
@@ -28,11 +34,6 @@ typedef enum firmware_error_code_t {
     // TODO: assign error codes
 
 } firmware_error_code_t;
-
-typedef struct {
-    GPIO_TypeDef* port; // e.g., GPIOA
-    uint16_t      pin_num;  // e.g., GPIO_PIN_3
-} GpioPin_t;
 
 
 #endif
