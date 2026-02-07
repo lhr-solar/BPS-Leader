@@ -52,6 +52,6 @@ bool contactor_get(contactor_num_t contactor_num);
  * @param emergency Immediate execution; bypasses safety callbacks.
  * @return SUCCESS or hardware ERROR code.
  */
-ErrorStatus contactor_set(contactor_num_t contactor_num, contactor_state_t state, uint16_t wait_ms, fault_state_t emergency);
+ErrorStatus contactor_set(contactor_num_t contactor_num, contactor_state_t state, uint32_t wait_ms, fault_state_t emergency);
 
 

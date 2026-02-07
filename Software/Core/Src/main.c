@@ -1,4 +1,5 @@
 #include "common.h"
+#include "BPS_Tasks.h"
 
 StaticTask_t Task_Init_Buffer;
 StackType_t Task_Init_Stack_Array[ TASK_INIT_STACK_SIZE ];

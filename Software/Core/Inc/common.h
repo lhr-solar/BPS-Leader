@@ -10,12 +10,6 @@
 #include <semphr.h>
 #include <timers.h>
 
-typedef enum error_state_t {
-    NORMAL = 0,
-    ERROR = 1
-} error_state_t;
-
-
 typedef enum {
     NORMAL = 0,   /**< Circuit is disconnected */
     EMERGENCY = 1  /**< Circuit is connected */

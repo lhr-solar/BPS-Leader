@@ -5,16 +5,16 @@ static uint8_t modFaultBitmap;
 
 // sets input to specified bit, then pulses the clock
 static void loadBit(bool bit) {
-    HAL_GPIO_WritePin(LED_SER_PORT, LED_SER_PIN_NUM, bit);
-    HAL_GPIO_WritePin(LED_SRCLK_PORT, LED_SRCLK_PIN_NUM, ON);
-    HAL_GPIO_WritePin(LED_SRCLK_PORT, LED_SRCLK_PIN_NUM, OFF);
-    HAL_GPIO_WritePin(LED_SER_PORT, LED_SER_PIN_NUM, ON);
+    HAL_GPIO_WritePin(LED_SER_PORT, LED_SER_PIN, bit);
+    HAL_GPIO_WritePin(LED_SRCLK_PORT, LED_SRCLK_PIN, ON);
+    HAL_GPIO_WritePin(LED_SRCLK_PORT, LED_SRCLK_PIN, OFF);
+    HAL_GPIO_WritePin(LED_SER_PORT, LED_SER_PIN, ON);
 }
 
 // pushes loaded values to output
 static void pushLEDS() {
-    HAL_GPIO_WritePin(LED_RCLK_PORT, LED_RCLK_PIN_NUM, ON);
-    HAL_GPIO_WritePin(LED_RCLK_PORT, LED_RCLK_PIN_NUM, OFF);
+    HAL_GPIO_WritePin(LED_RCLK_PORT, LED_RCLK_PIN, ON);
+    HAL_GPIO_WritePin(LED_RCLK_PORT, LED_RCLK_PIN, OFF);
 }
 
 // Shift-Reg values loaded back to front (bitmap first bit is heartbeat, last is AmpIn)
@@ -75,23 +75,23 @@ void LEDs_init() {
     __HAL_RCC_GPIOB_CLK_ENABLE();
 
     /*Configure GPIO pin Output Level */
-    HAL_GPIO_WritePin(LED_RCLK_PORT, LED_SRCLK_PIN_NUM|LED_RCLK_PIN_NUM|LED_SER_PIN_NUM, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(LED_RCLK_PORT, LED_SRCLK_PIN|LED_RCLK_PIN|LED_SER_PIN, GPIO_PIN_RESET);
 
     GPIO_InitTypeDef GPIO_InitStruct = {0};
 
-    GPIO_InitStruct.Pin = LED_SRCLK_PIN_NUM;
+    GPIO_InitStruct.Pin = LED_SRCLK_PIN;
     GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
     HAL_GPIO_Init(LED_SRCLK_PORT, &GPIO_InitStruct);
 
-    GPIO_InitStruct.Pin = LED_RCLK_PIN_NUM;
+    GPIO_InitStruct.Pin = LED_RCLK_PIN;
     GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
     HAL_GPIO_Init(LED_RCLK_PORT, &GPIO_InitStruct);
 
-    GPIO_InitStruct.Pin = LED_SER_PIN_NUM;
+    GPIO_InitStruct.Pin = LED_SER_PIN;
     GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
