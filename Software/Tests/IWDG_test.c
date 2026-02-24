@@ -7,11 +7,8 @@
 int main() {
     HAL_Init();
 
-    GPIO_InitTypeDef gpio_init = {
-        .Mode = GPIO_MODE_OUTPUT_PP,
-        .Pull = GPIO_NOPULL,
-        .Pin = GPIO_PIN_5
-    };
+    SystemClock_Config();
+
     __HAL_RCC_GPIOA_CLK_ENABLE();
     HAL_GPIO_Init(GPIOA, &gpio_init);
 

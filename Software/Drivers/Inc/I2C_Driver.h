@@ -3,6 +3,8 @@
 #define FAN_I2C_CHANNEL I2C3
 #define TMPHMD_I2C_CHANNEL I2C4
 
+#define BASE_HAL_INTERRUPT_PRIORITY 5
+
 /** * @brief I2C Transmit Complete ISR.
  * Routes I2C transmit interrupt to Fan or Temp humidity sensor based on channel. 
  */

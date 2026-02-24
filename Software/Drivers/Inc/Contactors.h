@@ -29,7 +29,7 @@ typedef enum {
  * @brief Contactor hardware abstraction object.
  */
 typedef struct {
-    bool state;                  /**< Current commanded state (true = closed) */
+    contactor_state_t state;                  /**< Current commanded state (true = closed) */
     GpioPin_t sense_pin;         /**< Digital input for auxiliary feedback loop */
     GpioPin_t control_pin;       /**< Digital output to coil driver/relay */
     
@@ -45,13 +45,18 @@ void contactor_init(void);
 /** * @brief Reads the physical sense pin for a specific contactor.
  * @return true if CLOSED, false if OPEN.
  */
-bool contactor_get(contactor_num_t contactor_num);
+contactor_state_t contactor_get(contactor_num_t contactor_num);
 
 /** * @brief Commands a contactor state change with safety verification via callback function.
  * @param wait_ms  Wait time for sense delay before returning.
  * @param emergency Immediate execution; bypasses safety callbacks.
  * @return SUCCESS or hardware ERROR code.
  */
-ErrorStatus contactor_set(contactor_num_t contactor_num, contactor_state_t state, uint32_t wait_ms, fault_state_t emergency);
+ErrorStatus contactor_set(contactor_num_t contactor_num, contactor_state_t state, uint32_t wait_ms, bool emergency);
 
+
+/* static void vContactorCallback( TimerHandle_t senseTimer ) 
+This function is called when the sense timer for the contactor times out
+it confirms that the contactor state changed successfully and is at expected value
+*/
 

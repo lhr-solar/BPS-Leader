@@ -4,7 +4,7 @@
 #include "stm32xx_hal.h"
 #include <event_groups.h>
 
-// Task Priority 
+
 #define TASK_INIT_PRIO                  tskIDLE_PRIORITY + 1
 #define TASK_TEMPERATURE_MONITOR_PRIO   tskIDLE_PRIORITY + 3
 #define TASK_VOLTAGE_MONITOR_PRIO       tskIDLE_PRIORITY + 4

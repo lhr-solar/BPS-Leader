@@ -36,8 +36,6 @@ static void sensorPoll(uint8_t* rx_bytes) {
 
 // read temperature and humidity, store them in the tmpHmdBuffer passed in as an argument  
 void tmpHmd_get(uint16_t *tmpHmdBuffer) {
-  
-  
 
   uint8_t rx_bytes[6];
   sensorPoll(rx_bytes);
@@ -62,13 +60,6 @@ void SHT4x_I2C_MasterTxRxCpltCallback() {
   portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
 
-
-void tmpHmd_init(void)
-{
-
-  // TODO: Make code to check if ts (this sensor) works (i.e. check model, status, and others!)
-
-}
 
 
 

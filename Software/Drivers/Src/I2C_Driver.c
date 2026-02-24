@@ -41,6 +41,17 @@ void i2cInterrupt_init() {
 void i2c_init(void)
 {
 
+  GPIO_InitTypeDef init = {0};
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+
+  init.Pin = GPIO_PIN_6|GPIO_PIN_7;
+  init.Mode = GPIO_MODE_AF_OD;
+  init.Pull = GPIO_NOPULL;
+  init.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  init.Alternate = GPIO_AF4_I2C4;
+  HAL_GPIO_Init(GPIOC, &init);
+
+
   hi2c3.Instance = I2C3;
   hi2c3.Init.Timing = 0x00503D58;
   hi2c3.Init.OwnAddress1 = 0;
@@ -97,4 +108,7 @@ void i2c_init(void)
   {
     Error_Handler();
   }
+
+  i2cInterrupt_init();
+
 }

@@ -42,6 +42,8 @@ int main() {
 
     LEDs_init();
 
+    while (true) {
+
     HAL_Delay(delayMS);
 
     // blink fault LEDs 3 times
@@ -81,14 +83,13 @@ int main() {
 
     }
 
-    HAL_Delay(delayMS);
     LEDs_clear();
     HAL_Delay(delayMS);
 
-    // LED Wave (pretty)
+    // LED Wave (pretty)  
     PrettyLEDWave();
 
-    while (true) {}
+    }
 
     return 0;
 }

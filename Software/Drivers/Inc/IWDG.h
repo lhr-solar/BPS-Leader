@@ -45,7 +45,7 @@ Common Timeouts
 #define IWDG_COUNTDOWN 79               // Tick value before we refresh the IDWG (current value converts to ~20ms)
 
 #define IWDG_TIMEOUT_MS 20
-#define IWDG_WINDOW_MS  8
+#define IWDG_MAX_WINDOW 0xFFF
 /* ----------------------------------------------------------------*/
 
 

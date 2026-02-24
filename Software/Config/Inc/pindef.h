@@ -12,13 +12,13 @@ typedef struct {
 
 
 // Strobe Connection (+3.3V)
-#define STROBE_PIN  GPIO_PIN_2
-#define STROBE_PORT GPIOD
+#define STROBE_PIN  GPIO_PIN_12
+#define STROBE_PORT GPIOC
 
 
 // Indication Connection 
-#define INDICATION_PIN  GPIO_PIN_12
-#define INDICATION_PORT GPIOC
+#define INDICATION_PIN  GPIO_PIN_2
+#define INDICATION_PORT GPIOD
 
 // Heartbeat LED
 #define HEARTBEAT_LED_PIN  GPIO_PIN_3
@@ -95,30 +95,30 @@ typedef struct {
 
 // HV+ Contactor
 //------------------------------------------
-#define HV_PLUS_CONTROL_PIN GPIO_PIN_2
-#define HV_PLUS_CONTROL_PORT GPIOC
+#define HV_PLUS_CONTROL_PIN GPIO_PIN_1
+#define HV_PLUS_CONTROL_PORT GPIOA
 
-#define HV_PLUS_SENSE_PIN GPIO_PIN_2
-#define HV_PLUS_SENSE_PORT GPIOA
+#define HV_PLUS_SENSE_PIN GPIO_PIN_0
+#define HV_PLUS_SENSE_PORT GPIOB
 //------------------------------------------
 
 
 // HV- Contactor
 //------------------------------------------
 #define HV_MINUS_CONTROL_PIN GPIO_PIN_0
-#define HV_MINUS_CONTROL_PORT GPIOB
+#define HV_MINUS_CONTROL_PORT GPIOA
 
-#define HV_MINUS_SENSE_PIN GPIO_PIN_1
+#define HV_MINUS_SENSE_PIN GPIO_PIN_3
 #define HV_MINUS_SENSE_PORT GPIOA
 //------------------------------------------
 
 
 // Array Contactor
 //------------------------------------------
-#define ARRAY_CONTROL_PIN GPIO_PIN_1
+#define ARRAY_CONTROL_PIN GPIO_PIN_2
 #define ARRAY_CONTROL_PORT GPIOC
 
-#define ARRAY_SENSE_PIN GPIO_PIN_0
+#define ARRAY_SENSE_PIN GPIO_PIN_2
 #define ARRAY_SENSE_PORT GPIOA
 //------------------------------------------
 

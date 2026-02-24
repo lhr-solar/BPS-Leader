@@ -1,3 +1,6 @@
+#ifndef STATUSLED_
+#define STATUSLED_
+
 #include "common.h"
 
 /** @brief Number of bits in the module fault bitmap. */
@@ -40,3 +43,8 @@ void LEDs_clear(void);
 
 /** @brief Configures GPIO pins for all diagnostic LEDs. */
 void LEDs_init(void);
+
+/** @brief sets LSOM heartbeat LED */
+void setHeartbeat(bool state);
+
+#endif

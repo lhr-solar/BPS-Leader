@@ -1,11 +1,76 @@
-// TEST DESCIRPTION:
-/* This test should blink all fault LED's 3 times, cycle through count up from 0 to 31 in binary on the Mod Fault LEDs,
-then blink DEBUG 3 times. After, it should do a wave down down the board. Ideally. */
 
-#include "I2C_Driver.h"
 #include "common.h"
+#include "I2C_Driver.h"
+#include "StatusLEDs.h"
+#include "TempHumiditySensor.h"
+#include "DebugPrintf.h"
+#include <inttypes.h>
 
-static uint8_t pollCMD_test = 0xFD;
+
+
+// Task configuration
+#define BLINKY_TASK_STACK_SIZE configMINIMAL_STACK_SIZE
+#define BLINKY_TASK_PRIORITY   ( tskIDLE_PRIORITY + 1 )
+
+#define SHT4x_TASK_STACK_SIZE configMINIMAL_STACK_SIZE
+#define SHT4x_TASK_PRIORITY   ( tskIDLE_PRIORITY + 2 )
+
+#define DELAY_1S             pdMS_TO_TICKS(1000)
+
+// Static task buffers
+static StaticTask_t xBlinkyTaskBuffer;
+static StackType_t xBlinkyStack[BLINKY_TASK_STACK_SIZE];
+
+// Static task buffers
+static StaticTask_t xSHT4xTaskBuffer;
+static StackType_t xSHT4xStack[BLINKY_TASK_STACK_SIZE];
+
+extern I2C_HandleTypeDef hi2c4;
+
+// static uint8_t pollCMD_test = 0xFD;
+
+// blink
+void vBlinkyTask(void *pvParameters) {
+
+    bool toggle = true;
+    while (true) {
+        setHeartbeat(toggle);
+        toggle = !toggle;
+        vTaskDelay(DELAY_1S);
+    }
+}
+
+void vSHT4xTask(void *pvParameters) {
+
+    /* uint16_t tmpHmd_buffer[2];
+    while (true) {
+
+        tmpHmd_get(tmpHmd_buffer);
+        vTaskDelay(pdMS_TO_TICKS(100));
+
+    }
+    */ 
+
+    
+
+    HAL_StatusTypeDef status;
+    uint8_t dummy_data = 0x00;
+    uint16_t dev_addr = (0x42 << 1); // Use any arbitrary address
+
+    while (true) {
+    // Attempt to write to a non-existent device
+    status = HAL_I2C_Master_Transmit(&hi2c4, dev_addr, &dummy_data, 1, 100);
+
+    if (status == HAL_ERROR) {
+        uint32_t error_code = HAL_I2C_GetError(&hi2c4);
+        printf("%lu", error_code);
+    
+    vTaskDelay(pdMS_TO_TICKS(200));
+    }
+}
+}
+
+
 
 int main() {
 
@@ -13,9 +78,42 @@ int main() {
 
     SystemClock_Config();
 
-    i2c_Init();
+    i2c_init();
+
+    LEDs_init();
+
+    debugPrintf_init();
+
+    printf("initialized");
+
+    xTaskCreateStatic(
+        vBlinkyTask,
+        "Blinky",
+        BLINKY_TASK_STACK_SIZE,
+        NULL,
+        BLINKY_TASK_PRIORITY,
+        xBlinkyStack,
+        &xBlinkyTaskBuffer
+    );
+
 
     
+    xTaskCreateStatic(
+        vSHT4xTask,
+        "SHT4xTask",
+        SHT4x_TASK_STACK_SIZE,
+        NULL,
+        SHT4x_TASK_PRIORITY,
+        xSHT4xStack,
+        &xSHT4xTaskBuffer
+    );
+    
 
+    vTaskStartScheduler();
+    
+    return 0;
 
 }
+
+
+

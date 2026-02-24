@@ -27,8 +27,10 @@ void Error_Handler() {
   for (uint8_t contactor_num = 0; contactor_num < NUM_CONTACTORS; contactor_num++) {
     contactor_set(contactor_num, OPEN, portMAX_DELAY, EMERGENCY);
   }
+  
     
   // turns on fault led, and blink DEBUG led to show the error was software
+  setHeartbeat(OFF);
   LED_set(FAULT_LED, ON);
   while (true) {
     LED_set(DEBUG_LED, ON);
@@ -36,6 +38,7 @@ void Error_Handler() {
     LED_set(DEBUG_LED, OFF);
     HAL_Delay(1000);
   }
+  
 }
  
 
@@ -43,6 +46,11 @@ void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /** Configure the main internal regulator output voltage
   */
