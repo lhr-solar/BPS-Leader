@@ -44,16 +44,16 @@ SHT45_status_t tmpHmd_get(uint32_t *tmpHmdBuffer) {
       return SHT45_ERR;
   }
 
-  int32_t t_ticks = rx_bytes[0] * 256 + rx_bytes[1];
+  int32_t t_ticks = rx_bytes[TEMP] * 256 + rx_bytes[1];
   int32_t rh_ticks = rx_bytes[3] * 256 + rx_bytes[4];
-  tmpHmdBuffer[0] = -45 + 175 * t_ticks/65535;
-  tmpHmdBuffer[1] = -6 + 125 * rh_ticks/65535;
+  tmpHmdBuffer[TEMP] = -45 + 175 * t_ticks/65535;
+  tmpHmdBuffer[HUMIDITY] = -6 + 125 * rh_ticks/65535;
 
-  if (tmpHmdBuffer[1] > 100) {
-    tmpHmdBuffer[1] = 100; 
+  if (tmpHmdBuffer[HUMIDITY] > 100) {
+    tmpHmdBuffer[HUMIDITY] = 100; 
   }
-  if (tmpHmdBuffer[0] < 0) {
-    tmpHmdBuffer[0] = 0;
+  if (tmpHmdBuffer[TEMP] < 0) {
+    tmpHmdBuffer[TEMP] = 0;
   }
 
   return SHT45_OK;

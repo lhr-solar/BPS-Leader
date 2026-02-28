@@ -25,7 +25,7 @@ typedef enum {
     CHARGING_LED,       /**< Battery charging status */
     VTEMP_IN_LED,       /**< Voltage/Temp input active */
     AMP_IN_LED,         /**< Amperage input active */
-    WATCHDOG_ERR__LED,  /**< System watchdog timeout error */
+    WATCHDOG_ERR_LED,  /**< System watchdog timeout error */
     FAULT_LED_NUM,      /**< Count of standard fault LEDs */
     DEBUG_LED = 15      /**< Dedicated debug/test LED */
 } Fault_Mapping_t;

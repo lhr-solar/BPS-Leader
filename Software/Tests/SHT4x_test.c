@@ -6,8 +6,6 @@
 #include "DebugPrintf.h"
 #include <inttypes.h>
 
-
-
 // Task configuration
 #define BLINKY_TASK_STACK_SIZE configMINIMAL_STACK_SIZE
 #define BLINKY_TASK_PRIORITY   ( tskIDLE_PRIORITY + 1 )
@@ -27,8 +25,6 @@ static StackType_t xSHT4xStack[BLINKY_TASK_STACK_SIZE];
 
 extern I2C_HandleTypeDef hi2c4;
 
-// static uint8_t pollCMD_test = 0xFD;
-
 // blink
 void vBlinkyTask(void *pvParameters) {
 
@@ -45,29 +41,13 @@ void vSHT4xTask(void *pvParameters) {
     uint32_t tmpHmd_buffer[2];
     while (true) {
 
-        tmpHmd_get(tmpHmd_buffer);
-        vTaskDelay(pdMS_TO_TICKS(100));
+        if (tmpHmd_get(tmpHmd_buffer) != SHT45_OK) {
+            Error_Handler();
+        };
 
+        vTaskDelay(pdMS_TO_TICKS(500));
+        printf("TEMP = %d   |   HUMIDITY = %d", tmdHmd_buffer[TEMP], tmdHmd_buffer[HUMIDITY]);
     }
-    
-
-    
-
-    HAL_StatusTypeDef status;
-    uint8_t dummy_data = 0x00;
-    uint16_t dev_addr = (0x42 << 1); // Use any arbitrary address
-
-    while (true) {
-    // Attempt to write to a non-existent device
-    status = HAL_I2C_Master_Transmit(&hi2c4, dev_addr, &dummy_data, 1, 100);
-
-    if (status == HAL_ERROR) {
-        uint32_t error_code = HAL_I2C_GetError(&hi2c4);
-        printf("%lu", error_code);
-    
-    vTaskDelay(pdMS_TO_TICKS(200));
-    }
-}
 }
 
 

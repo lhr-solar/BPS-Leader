@@ -16,6 +16,11 @@ typedef enum {
     SHT45_ERR
 } SHT45_status_t;
 
+typedef enum {
+    TEMP,
+    HUMIDITY
+} SHT45_return_t;
+
 /** @brief Container for processed environmental data. */
 typedef struct {
     uint32_t temp;     /**< Temperature in degrees Celsius. */
