@@ -11,10 +11,15 @@
 /** @brief Global I2C communication timeout in milliseconds. */
 #define I2C_TIMEOUT 100u
 
+typedef enum {
+    SHT45_OK,
+    SHT45_ERR
+} SHT45_status_t;
+
 /** @brief Container for processed environmental data. */
 typedef struct {
-    double temp;     /**< Temperature in degrees Celsius. */
-    double humidity; /**< Relative humidity percentage (0-100%). */
+    uint32_t temp;     /**< Temperature in degrees Celsius. */
+    uint32_t humidity; /**< Relative humidity percentage (0-100%). */
 } tempHmdData;
 
 /** @brief Hardware initialization for the I2C4 peripheral. */
@@ -23,9 +28,14 @@ void MX_I2C4_Init(void);
 /** * @brief Triggers a sensor measurement and populates the raw buffer. 
  * @param tmpHmdBuffer Pointer to an array of size rx_size to store raw I2C data.
  */
-void tmpHmd_get(uint16_t *tmpHmdBuffer);
+SHT45_status_t tmpHmd_get(uint32_t *tmpHmdBuffer);
 
 /** * @brief Custom callback for SHT4x non-blocking I2C completion. 
  * Handles internal state transitions after data is successfully received.
  */
-void SHT4x_I2C_MasterTxRxCpltCallback(void);
+void  SHT4x_I2C_MasterTxRxCpltCallback(void);
+
+// intialize semaphore
+void SHT4x_init();
+
+

@@ -62,7 +62,7 @@ void LEDsModFaultBitmap_set(uint8_t bitmap) {
 void LED_set(Fault_Mapping_t LED_i, bool state) {
 
     // make sure LED is in range
-    if ((LED_i < 0) || ((LED_i > 9) && (LED_i != 15))) {
+    if ((LED_i < 0) || ((LED_i >= FAULT_LED_NUM) && (LED_i != DEBUG_LED))) {
         Error_Handler();
     }
 

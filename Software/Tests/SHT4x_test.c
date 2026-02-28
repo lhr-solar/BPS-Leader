@@ -2,7 +2,7 @@
 #include "common.h"
 #include "I2C_Driver.h"
 #include "StatusLEDs.h"
-#include "TempHumiditySensor.h"
+#include "SHT4x.h"
 #include "DebugPrintf.h"
 #include <inttypes.h>
 
@@ -42,14 +42,14 @@ void vBlinkyTask(void *pvParameters) {
 
 void vSHT4xTask(void *pvParameters) {
 
-    /* uint16_t tmpHmd_buffer[2];
+    uint32_t tmpHmd_buffer[2];
     while (true) {
 
         tmpHmd_get(tmpHmd_buffer);
         vTaskDelay(pdMS_TO_TICKS(100));
 
     }
-    */ 
+    
 
     
 
@@ -69,7 +69,6 @@ void vSHT4xTask(void *pvParameters) {
     }
 }
 }
-
 
 
 int main() {

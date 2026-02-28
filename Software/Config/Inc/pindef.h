@@ -1,4 +1,4 @@
-
+#pragma once
 /* File holds all pin, port, and channel definitions*/
 
 /**

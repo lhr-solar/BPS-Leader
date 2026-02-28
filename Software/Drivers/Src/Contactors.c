@@ -38,7 +38,7 @@ static void vContactorCallback( TimerHandle_t senseTimer ) {
 
 /* sets contactor, updates state value, then starts timer to check expected state matches actual state. 
 An error means semaphore was busy, or that I set a contactor that didn't exist. */
-ErrorStatus contactor_set(contactor_num_t contactor_num, contactor_state_t state, uint32_t wait_ms, bool emergency) {
+ErrorStatus contactor_set(contactor_num_t contactor_num, contactor_state_t state, uint32_t wait_ms, fault_state_t fault_state) {
     
     // check that contactor exists
     if ((contactor_num < 0) || (contactor_num >= NUM_CONTACTORS)) {
@@ -47,7 +47,7 @@ ErrorStatus contactor_set(contactor_num_t contactor_num, contactor_state_t state
     contactor_t* contactor = &contactors[contactor_num];
 
     // if its emergency, dont bother with semaphore
-    if (!emergency && xSemaphoreTake(contactorsMutex, wait_ms) == pdFALSE) {
+    if ((fault_state != EMERGENCY) && xSemaphoreTake(contactorsMutex, wait_ms) == pdFALSE) {
         return ERROR;
     };
 
@@ -57,7 +57,7 @@ ErrorStatus contactor_set(contactor_num_t contactor_num, contactor_state_t state
 
     /* start timer to check if the state of the contactor makes expected state, the exit critical section. Timer resets
     when the contactor is set to another value, so no possible error with expected value changing from when timer is called*/
-    if (!emergency) { 
+    if ((fault_state != EMERGENCY)) { 
         xTimerStart(contactor->senseTimer, 0); 
         xSemaphoreGive(contactorsMutex);
     }

@@ -7,18 +7,14 @@
 #define TEST_TASK_PRIORITY   ( tskIDLE_PRIORITY + 1 )
 #define DELAY_2S             pdMS_TO_TICKS(2000)
 
-
-
 // Static task buffers
 static StaticTask_t xTestTaskBuffer;
 static StackType_t xTestStack[TEST_TASK_STACK_SIZE];
 
-
 void vContactorTestTask(void *pvParameters) {
 
-    
     while (1) {
-        /*
+        
         // 1. Cycle through each contactor: Close then Open with 2s delay
         for (uint8_t i = 0; i < NUM_CONTACTORS; i++) {
             // Close Contactor (GPIO_PIN_SET assumes high = closed)
@@ -41,25 +37,8 @@ void vContactorTestTask(void *pvParameters) {
             
             contactor_set(HV_PLUS_CONTACTOR, OFF, 100, NORMAL);
             vTaskDelay(DELAY_2S);
-        }
-        */
-
-        setHeartbeat(ON);
-        if (contactor_set(HV_PLUS_CONTACTOR, ON, 100, NORMAL) == ERROR) {
-            Error_Handler();
-        }
-        vTaskDelay(2000);
-
-        setHeartbeat(OFF);
-        if (contactor_set(HV_PLUS_CONTACTOR, OFF, 100, NORMAL) == ERROR) {
-            Error_Handler();
-        }
-        vTaskDelay(2000);
-
-         
+        }   
     }
-    
-
 }
 
 /**

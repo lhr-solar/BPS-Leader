@@ -1,6 +1,6 @@
 #include "I2C_Driver.h"
 #include "EMC2305.h"
-#include "TempHumiditySensor.h"
+#include "SHT4x.h"
 
 I2C_HandleTypeDef hi2c3;
 extern I2C_HandleTypeDef hi2c4;
@@ -31,8 +31,8 @@ void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef *hi2c) {
 
 // enables I2C interrupts   
 void i2cInterrupt_init() {
-    HAL_NVIC_SetPriority(I2C3_EV_IRQn, BASE_HAL_INTERRUPT_PRIORITY + 1, 0);
-    HAL_NVIC_SetPriority(I2C4_EV_IRQn, BASE_HAL_INTERRUPT_PRIORITY + 1, 0);
+    HAL_NVIC_SetPriority(I2C3_EV_IRQn, configKERNEL_INTERRUPT_PRIORITY + 1, 0);
+    HAL_NVIC_SetPriority(I2C4_EV_IRQn, configKERNEL_INTERRUPT_PRIORITY + 1, 0);
     HAL_NVIC_EnableIRQ(I2C3_EV_IRQn);
     HAL_NVIC_EnableIRQ(I2C4_EV_IRQn);
 }
@@ -110,5 +110,6 @@ void i2c_init(void)
   }
 
   i2cInterrupt_init();
+  SHT4x_init();
 
 }

@@ -4,7 +4,6 @@
  -----------------------------------------------------------*/
 #include "BPS_Tasks.h"
 #include "IWDG.h"
-#include <timers.h>
 
 
 /* RTOS Timer - Used as a window period for IWDG */

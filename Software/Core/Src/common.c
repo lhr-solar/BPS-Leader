@@ -34,9 +34,9 @@ void Error_Handler() {
   LED_set(FAULT_LED, ON);
   while (true) {
     LED_set(DEBUG_LED, ON);
-    HAL_Delay(1000);
+    vTaskDelay(pdMS_TO_TICKS(1000));
     LED_set(DEBUG_LED, OFF);
-    HAL_Delay(1000);
+    vTaskDelay(pdMS_TO_TICKS(1000));
   }
   
 }
