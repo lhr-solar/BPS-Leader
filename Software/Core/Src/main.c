@@ -6,6 +6,9 @@
 #include "SHT45.h"
 #include "EMC2305_Driver.h"
 
+#undef FDCAN2
+#undef CAN2
+
 StaticTask_t Task_Init_Buffer;
 StackType_t Task_Init_Stack_Array[ TASK_INIT_STACK_SIZE ];
 

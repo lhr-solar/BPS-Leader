@@ -4,7 +4,7 @@
 EMC2305_HandleTypeDef chip;
 I2C_HandleTypeDef hi2c3;
 
-void EMC2025_init(void)
+void EMC2305_init(void)
 { 
 
   GPIO_InitTypeDef init = {0};
@@ -55,11 +55,11 @@ void EMC2025_init(void)
 }
 
 // CALL FROM TASK
-void EMC2025_Driver_init() {
+void EMC2305_Driver_init() {
 
     vTaskDelay(pdMS_TO_TICKS(250));
 
-    if (EMC2305_Init(&chip, &hi2c1, 0x4D) == EMC2305_ERR) {
+    if (EMC2305_Init(&chip, &hi2c3, 0x4D) == EMC2305_ERR) {
         Error_Handler();
     };
 
