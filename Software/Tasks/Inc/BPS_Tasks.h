@@ -1,7 +1,7 @@
 #ifndef TASK_H__
 #define TASK_H__
 
-#include "stm32xx_hal.h"
+#include "common.h"
 #include <event_groups.h>
 
 

@@ -1,10 +1,12 @@
+// this test will attempt to communicate with the SHT4x, and print the current temperature
+// if blinky stops it broke.
+
 
 #include "common.h"
 #include "I2C_Driver.h"
 #include "StatusLEDs.h"
-#include "SHT4x.h"
+#include "SHT45.h"
 #include "DebugPrintf.h"
-#include <inttypes.h>
 
 // Task configuration
 #define BLINKY_TASK_STACK_SIZE configMINIMAL_STACK_SIZE
@@ -46,7 +48,7 @@ void vSHT4xTask(void *pvParameters) {
         };
 
         vTaskDelay(pdMS_TO_TICKS(500));
-        printf("TEMP = %d   |   HUMIDITY = %d", tmdHmd_buffer[TEMP], tmdHmd_buffer[HUMIDITY]);
+        printf("TEMP = %lu   |   HUMIDITY = %lu", tmpHmd_buffer[TEMP], tmpHmd_buffer[HUMIDITY]);
     }
 }
 

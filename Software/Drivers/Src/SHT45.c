@@ -1,4 +1,4 @@
-#include "SHT4x.h"
+#include "SHT45.h"
 
 #define SENSE_WAIT 10
 
@@ -37,7 +37,7 @@ static SHT45_status_t sensorPoll(uint8_t* rx_bytes) {
 }
 
 // read temperature and humidity, store them in the tmpHmdBuffer passed in as an argument  
-SHT45_status_t tmpHmd_get(uint32_t *tmpHmdBuffer) {
+SHT45_status_t SHT45_get(uint32_t *tmpHmdBuffer) {
 
   uint8_t rx_bytes[6];
   if (sensorPoll(rx_bytes) != SHT45_OK) {
@@ -60,17 +60,63 @@ SHT45_status_t tmpHmd_get(uint32_t *tmpHmdBuffer) {
 }
 
 // I2C callback function, serve to indicate when I2C communication is complete. Need to have higher level stuff to route this
-void SHT4x_I2C_MasterTxRxCpltCallback() {
+void SHT45_I2C_MasterTxRxCpltCallback() {
   BaseType_t xHigherPriorityTaskWoken = pdFALSE;
   xSemaphoreGiveFromISR(I2C_complete, &xHigherPriorityTaskWoken);
   portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
 
-void SHT4x_init() {
+void SHT45_init(void)
+{
 
-  I2C_complete = xSemaphoreCreateMutexStatic(&I2C_complete_buffer);
+  GPIO_InitTypeDef init = {0};
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+
+  init.Pin = GPIO_PIN_6|GPIO_PIN_7;
+  init.Mode = GPIO_MODE_AF_OD;
+  init.Pull = GPIO_NOPULL;
+  init.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  init.Alternate = GPIO_AF4_I2C4;
+  HAL_GPIO_Init(GPIOC, &init);
+
+  hi2c4.Instance = I2C4;
+  hi2c4.Init.Timing = 0x00303D5B;
+  hi2c4.Init.OwnAddress1 = 0;
+  hi2c4.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  hi2c4.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  hi2c4.Init.OwnAddress2 = 0;
+  hi2c4.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
+  hi2c4.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  hi2c4.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+  if (HAL_I2C_Init(&hi2c4) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /** Configure Analogue filter
+  */
+  if (HAL_I2CEx_ConfigAnalogFilter(&hi2c4, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /** Configure Digital filter
+  */
+  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c4, 0) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  HAL_NVIC_SetPriority(I2C4_EV_IRQn, configKERNEL_INTERRUPT_PRIORITY + 1, 0);
+  HAL_NVIC_EnableIRQ(I2C4_EV_IRQn);
+
+  HAL_NVIC_SetPriority(I2C4_ER_IRQn, configKERNEL_INTERRUPT_PRIORITY + 1, 0);
+  HAL_NVIC_EnableIRQ(I2C4_ER_IRQn);
+
+  I2C_complete = xSemaphoreCreateBinaryStatic(&I2C_complete_buffer);
 
 }
+
 
 
 

@@ -1,3 +1,5 @@
+#pragma once
+
 #include "common.h"
 
 /** @brief I2C address for the SHT4x sensor (0x44 << 1). */
@@ -28,19 +30,20 @@ typedef struct {
 } tempHmdData;
 
 /** @brief Hardware initialization for the I2C4 peripheral. */
-void MX_I2C4_Init(void);
+void SHT45_init(void);
 
 /** * @brief Triggers a sensor measurement and populates the raw buffer. 
  * @param tmpHmdBuffer Pointer to an array of size rx_size to store raw I2C data.
  */
-SHT45_status_t tmpHmd_get(uint32_t *tmpHmdBuffer);
+SHT45_status_t SHT45_get(uint32_t *tmpHmdBuffer);
 
 /** * @brief Custom callback for SHT4x non-blocking I2C completion. 
  * Handles internal state transitions after data is successfully received.
  */
-void  SHT4x_I2C_MasterTxRxCpltCallback(void);
+void SHT45_I2C_MasterTxRxCpltCallback(void);
 
-// intialize semaphore
-void SHT4x_init();
+
+// intialize peripheral
+void SHT45_init();
 
 

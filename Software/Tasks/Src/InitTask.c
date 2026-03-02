@@ -1,4 +1,5 @@
 #include "BPS_Tasks.h"
+#include "EMC2305_Driver.h"
 
 // Task Stack Arrays
 StackType_t Task_Temperature_Stack_Array[ TASK_TEMPERATURE_MONITOR_STACK_SIZE ];
@@ -17,7 +18,10 @@ EventGroupHandle_t xWDogEventGroup_handle;
 
 
 void Task_Init(){
+
     Init_WDogTask();
+
+    EMC2305_Driver_init();
 
     xTaskCreateStatic(
         Task_Temperature_Monitor,           /* The function that implements the task. */

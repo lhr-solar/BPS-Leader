@@ -24,6 +24,4 @@ typedef enum ErrorStatus_e {ERROR = 0, SUCCESS = !ERROR} ErrorStatus;
 #define XSTR(x) STR(x)
 
 
-
-
 #endif
