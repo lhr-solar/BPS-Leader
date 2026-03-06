@@ -70,7 +70,7 @@ void SHT45_init(void)
 {
 
   GPIO_InitTypeDef init = {0};
-  __HAL_RCC_GPIOC_CLK_ENABLE();
+  RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
 
   PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_I2C4;
   PeriphClkInit.I2c4ClockSelection = RCC_I2C4CLKSOURCE_PCLK1;
@@ -80,6 +80,7 @@ void SHT45_init(void)
   }
 
   __HAL_RCC_I2C4_CLK_ENABLE();
+  __HAL_RCC_GPIOC_CLK_ENABLE();
 
   
 
