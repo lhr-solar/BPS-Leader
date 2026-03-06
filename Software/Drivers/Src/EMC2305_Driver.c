@@ -10,6 +10,15 @@ void EMC2305_init(void)
   GPIO_InitTypeDef init = {0};
   __HAL_RCC_GPIOC_CLK_ENABLE();
 
+    PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_I2C3;
+    PeriphClkInit.I2c3ClockSelection = RCC_I2C3CLKSOURCE_PCLK1;
+    if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
+    {
+        Error_Handler();
+    }
+
+  __HAL_RCC_I2C3_CLK_ENABLE();
+
   init.Pin = GPIO_PIN_8|GPIO_PIN_9;
   init.Mode = GPIO_MODE_AF_OD;
   init.Pull = GPIO_NOPULL;

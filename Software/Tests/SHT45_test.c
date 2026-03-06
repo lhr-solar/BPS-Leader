@@ -59,7 +59,7 @@ int main() {
 
     SystemClock_Config();
 
-    i2c_init();
+    SHT45_init();
 
     LEDs_init();
 

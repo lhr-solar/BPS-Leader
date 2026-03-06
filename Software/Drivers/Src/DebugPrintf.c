@@ -5,7 +5,16 @@
 void HAL_UART_MspGPIOInit(UART_HandleTypeDef *huart) {
 
     GPIO_InitTypeDef init = {0};
-    __HAL_RCC_GPIOC_CLK_ENABLE();
+        ();
+
+    PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART3;
+    PeriphClkInit.Usart3ClockSelection = RCC_USART3CLKSOURCE_PCLK2;
+    if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
+    {
+        Error_Handler();
+    }
+
+    __HAL_RCC_USART3_CLK_ENABLE();
 
     init.Pin = GPIO_PIN_10|GPIO_PIN_11;
     init.Mode = GPIO_MODE_AF_PP;
