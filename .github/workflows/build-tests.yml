@@ -25,6 +25,6 @@ jobs:
 
        - name: Build tests
          run: |
-          cd Tests/
+          cd Software/Tests/
           bash makeAllTests.sh
           cd ..
