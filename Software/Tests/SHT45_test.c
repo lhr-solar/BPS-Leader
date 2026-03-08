@@ -43,7 +43,7 @@ void vSHT4xTask(void *pvParameters) {
     uint32_t tmpHmd_buffer[2];
     while (true) {
 
-        if (tmpHmd_get(tmpHmd_buffer) != SHT45_OK) {
+        if (SHT45_get(tmpHmd_buffer) != SHT45_OK) {
             Error_Handler();
         };
 

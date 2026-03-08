@@ -83,7 +83,7 @@ void HAL_FDCAN_MspInit(FDCAN_HandleTypeDef* fdcanHandle)
   }
 }
 
-void BPS_CAN_Init(void)
+void CAR_CAN_Init(void)
 {   
 
     __HAL_RCC_SYSCFG_CLK_ENABLE();
@@ -108,7 +108,7 @@ void BPS_CAN_Init(void)
     hfdcan1->Init.ExtFiltersNbr = 0;
     hfdcan1->Init.TxFifoQueueMode = FDCAN_TX_FIFO_OPERATION;
 
-    // FDCAN2 Filter Config
+    // FDCAN1 Filter Config
     FDCAN_FilterTypeDef sFilterConfig1;
     sFilterConfig1.IdType = FDCAN_STANDARD_ID;
     sFilterConfig1.FilterIndex = 0;
@@ -127,7 +127,7 @@ void BPS_CAN_Init(void)
 
 }
 
-void CAR_CAN_Init(void)
+void BPS_CAN_Init(void)
 {
 
     __HAL_RCC_SYSCFG_CLK_ENABLE();
@@ -153,7 +153,7 @@ void CAR_CAN_Init(void)
     hfdcan3->Init.TxFifoQueueMode = FDCAN_TX_FIFO_OPERATION;
 
 
-    // FDCAN2 Filter Config
+    // FDCAN3 Filter Config
     FDCAN_FilterTypeDef sFilterConfig1;
     sFilterConfig1.IdType = FDCAN_STANDARD_ID;
     sFilterConfig1.FilterIndex = 0;

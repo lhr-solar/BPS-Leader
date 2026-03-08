@@ -26,7 +26,7 @@ int main(void) {
 
     SHT45_init();
 
-    EMC2305_init();
+    EMC2305_Driver_init();
 
     xTaskCreateStatic(
                     Task_Init, /* The function that implements the task. */

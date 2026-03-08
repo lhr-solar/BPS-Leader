@@ -2,6 +2,7 @@
 
 #include "common.h"
 
+
 /** @brief I2C address for the SHT4x sensor (0x44 << 1). */
 #define tmpHmdAdresss 0x88 
 

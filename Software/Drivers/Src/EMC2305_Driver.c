@@ -1,10 +1,10 @@
 #include "EMC2305_Driver.h"
-#include "EMC2305.h"
 
 EMC2305_HandleTypeDef chip;
+
 I2C_HandleTypeDef hi2c3;
 
-void EMC2305_init(void)
+void EMC2305_I2C_init(void)
 { 
 
   GPIO_InitTypeDef init = {0};
@@ -65,6 +65,29 @@ void EMC2305_init(void)
 
 }
 
+static void fan_init(EMC2305_Fan fan) {
+
+    // Depends on the fan lol (should be in fan datasheet)
+    if (EMC2305_SetPWMBaseFrequency(&chip, fan, EMC2305_PWM_19k53) != EMC2305_OK) {
+        Error_Handler();
+    };
+
+    // Set minimum drive to 0%
+    if (EMC2305_WriteReg(&chip, EMC2305_FAN_REG_ADDR(fan, EMC2305_REG_FAN1_MIN_DRIVE), 0x00) != EMC2305_OK) {
+        Error_Handler();
+    };
+
+    // Set PID Gain to lowest (1x)
+    if (EMC2305_WriteReg(&chip, EMC2305_FAN_REG_ADDR(fan, EMC2305_REG_GAIN1), 0x00) != EMC2305_OK) {
+        Error_Handler();
+    };
+
+    // Set PWM output mode to open-drain (use false for push-pull)
+    if (EMC2305_SetPWMOutputMode(&chip, fan, true) != EMC2305_OK) {
+        Error_Handler();
+    };
+}
+
 // CALL FROM TASK
 void EMC2305_Driver_init() {
 
@@ -99,24 +122,8 @@ void EMC2305_Driver_init() {
     };
 
     EMC2305_SetFanConfig(&chip, EMC2305_FAN1, &cfg1, &cfg2);
+    EMC2305_SetFanConfig(&chip, EMC2305_FAN2, &cfg1, &cfg2);
 
-    // Depends on the fan lol (should be in fan datasheet)
-    if (EMC2305_SetPWMBaseFrequency(&chip, EMC2305_FAN2, EMC2305_PWM_19k53) != EMC2305_OK) {
-        Error_Handler();
-    };
-
-    // Set minimum drive to 0%
-    if (EMC2305_WriteReg(&chip, EMC2305_FAN_REG_ADDR(EMC2305_FAN2, EMC2305_REG_FAN1_MIN_DRIVE), 0x00) != EMC2305_OK) {
-        Error_Handler();
-    };
-
-    // Set PID Gain to lowest (1x)
-    if (EMC2305_WriteReg(&chip, EMC2305_FAN_REG_ADDR(EMC2305_FAN2, EMC2305_REG_GAIN1), 0x00) != EMC2305_OK) {
-        Error_Handler();
-    };
-
-    // Set PWM output mode to open-drain (use false for push-pull)
-    if (EMC2305_SetPWMOutputMode(&chip, EMC2305_FAN2, true) != EMC2305_OK) {
-        Error_Handler();
-    };
+    fan_init(EMC2305_FAN1);
+    fan_init(EMC2305_FAN2);
 }

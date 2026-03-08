@@ -3,6 +3,7 @@
 #define SENSE_WAIT 10
 
 I2C_HandleTypeDef hi2c4;
+
 static SemaphoreHandle_t I2C_complete;
 static StaticSemaphore_t I2C_complete_buffer;
 

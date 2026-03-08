@@ -15,6 +15,9 @@ NC=\033[0m # No Color
 
 # Project Configuration ----------
 TEST ?= main
+JOBS ?= 8
+
+$(info Build is configured to use $(JOBS) jobs)
 
 
 # LSOM
@@ -107,7 +110,7 @@ ifneq ($(TEST), main)
 else
 	@echo -e "Making ${PURPLE}$(PROJECT_TARGET)${NC}build with ${ORANGE}no test.${NC}"
 endif
-	$(BEAR_PREFIX) $(MAKE) -C $(BUILD_MAKEFILE_DIR) all -j
+	$(BEAR_PREFIX) $(MAKE) -C $(BUILD_MAKEFILE_DIR) all -j$(JOBS)
 	@echo -e "${GREEN}Compiled! Splendid! Jolly Good!!${NC}"
 
 

@@ -1,2 +1,6 @@
-#define CAN_MESSAGE 0x303 
-//this makes my code compile
+// CAN_RECV_ENTRY(ID, SIZE, CIRCULAR)
+
+CAN_RECV_ENTRY(0x321, 5, false)
+CAN_RECV_ENTRY(0x002, 8, false)
+CAN_RECV_ENTRY(0x003, 3, false)
+CAN_RECV_ENTRY(0x004, 4, true)
