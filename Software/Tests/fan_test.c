@@ -33,6 +33,7 @@ void vFanChipTestTask(void *pvParameters) {
                 printf("Error while ramping\n\r");
                 Error_Handler();
             };
+            vTaskDelay(pdMS_TO_TICKS(5));
         }
         printf("successfully ramped :)");
         

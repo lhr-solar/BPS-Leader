@@ -35,7 +35,7 @@ static void updateStatusLEDs() {
     }
 
     // loads mod fault into shift regs, (MSB in first, LSB in last)
-    for (int8_t modFault = 4; modFault >= 0; modFault++) {
+    for (int8_t modFault = 4; modFault >= 0; modFault--) {
         loadBit((modFaultBitmap & (1 << modFault)) != 0);
     }
 

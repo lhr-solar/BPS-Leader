@@ -66,15 +66,15 @@ static void task(void *pvParameters) {
     }
     printf("FDCAN1 Sent successfully!\n\r");
 
-    if(can_fd_recv(hfdcan3, test_id, &fdcan3_rx_header, fdcan3_rx_data, portMAX_DELAY) != CAN_OK){
-        printf("FDCAN3 failed to receive!\n\r");
+    if(can_fd_recv(hfdcan1, test_id, &fdcan1_rx_header, fdcan1_rx_data, pdMS_TO_TICKS(10)) != CAN_OK){
+        printf("FDCAN1 failed to receive!\n\r");
         Error_Handler();
     }
     printf("FDCAN3 Receieve successfully!\n\r");
 
     for(uint8_t i = 0; i < 8; i++){
         if(fdcan3_rx_data[i] != tx_data[i]){
-            printf("FDCAN1 -> FDCAN3 Data dont match!\n\r");
+            printf("FDCA1N Data dont match!\n\r");
             Error_Handler();
         }
     }

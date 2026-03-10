@@ -48,7 +48,7 @@ void vSHT4xTask(void *pvParameters) {
         };
 
         vTaskDelay(pdMS_TO_TICKS(500));
-        printf("TEMP = %lu   |   HUMIDITY = %lu", tmpHmd_buffer[TEMP], tmpHmd_buffer[HUMIDITY]);
+        printf("TEMP = %lu   |   HUMIDITY = %lu\n\r", tmpHmd_buffer[TEMP], tmpHmd_buffer[HUMIDITY]);
     }
 }
 

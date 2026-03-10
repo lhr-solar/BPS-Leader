@@ -25,7 +25,7 @@ void EMC2305_I2C_init(void)
   init.Mode = GPIO_MODE_AF_OD;
   init.Pull = GPIO_NOPULL;
   init.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  init.Alternate = GPIO_AF4_I2C3;
+  init.Alternate = GPIO_AF8_I2C3;
   HAL_GPIO_Init(GPIOC, &init);
 
 
@@ -57,10 +57,10 @@ void EMC2305_I2C_init(void)
     Error_Handler();
   }
 
-  HAL_NVIC_SetPriority(I2C3_EV_IRQn, configKERNEL_INTERRUPT_PRIORITY + 1, 0);
+  HAL_NVIC_SetPriority(I2C3_EV_IRQn, configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY, 0);
   HAL_NVIC_EnableIRQ(I2C3_EV_IRQn);
 
-  HAL_NVIC_SetPriority(I2C3_ER_IRQn, configKERNEL_INTERRUPT_PRIORITY + 1, 0);
+  HAL_NVIC_SetPriority(I2C3_ER_IRQn, configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY, 0);
   HAL_NVIC_EnableIRQ(I2C3_ER_IRQn);
 
 }

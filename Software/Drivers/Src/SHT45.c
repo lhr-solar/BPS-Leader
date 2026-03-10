@@ -7,7 +7,7 @@ I2C_HandleTypeDef hi2c4;
 static SemaphoreHandle_t I2C_complete;
 static StaticSemaphore_t I2C_complete_buffer;
 
-static uint8_t pollCMD = 0xFD;
+uint8_t pollCMD = 0xFD;
 
 // polls sensor for temp hmd information
 static SHT45_status_t sensorPoll(uint8_t* rx_bytes) {
@@ -18,7 +18,7 @@ static SHT45_status_t sensorPoll(uint8_t* rx_bytes) {
    }
 
   // wait for interrupt to indicate I2C has been sent
-  if (xSemaphoreTake(I2C_complete, pdMS_TO_TICKS(I2C_TIMEOUT)) != pdTRUE) {
+  if (xSemaphoreTake(I2C_complete, portMAX_DELAY) != pdTRUE) {
     return SHT45_ERR;
   }
 
@@ -82,14 +82,13 @@ void SHT45_init(void)
 
   __HAL_RCC_I2C4_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
-
   
 
   init.Pin = GPIO_PIN_6|GPIO_PIN_7;
   init.Mode = GPIO_MODE_AF_OD;
   init.Pull = GPIO_NOPULL;
   init.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  init.Alternate = GPIO_AF4_I2C4;
+  init.Alternate = GPIO_AF8_I2C4;
   HAL_GPIO_Init(GPIOC, &init);
 
   hi2c4.Instance = I2C4;
@@ -120,10 +119,10 @@ void SHT45_init(void)
     Error_Handler();
   }
 
-  HAL_NVIC_SetPriority(I2C4_EV_IRQn, configKERNEL_INTERRUPT_PRIORITY + 1, 0);
+  HAL_NVIC_SetPriority(I2C4_EV_IRQn, configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY + 3, 0);
   HAL_NVIC_EnableIRQ(I2C4_EV_IRQn);
 
-  HAL_NVIC_SetPriority(I2C4_ER_IRQn, configKERNEL_INTERRUPT_PRIORITY + 1, 0);
+  HAL_NVIC_SetPriority(I2C4_ER_IRQn, configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY + 3, 0);
   HAL_NVIC_EnableIRQ(I2C4_ER_IRQn);
 
   I2C_complete = xSemaphoreCreateBinaryStatic(&I2C_complete_buffer);
