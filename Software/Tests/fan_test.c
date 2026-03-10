@@ -19,10 +19,12 @@ static StackType_t xTestStack[TEST_TASK_STACK_SIZE];
 
 void vFanChipTestTask(void *pvParameters) {
 
-    EMC2305_Driver_init();
+    
     debugPrintf_init();
 
     printf("init successfull");
+
+    EMC2305_Driver_init();
 
     while (true) {
 
@@ -61,7 +63,14 @@ int main (void) {
         &xTestTaskBuffer
     );
 
+    vTaskStartScheduler();
 
+    while (true)
+    {
+        /* code */
+    }
+    return 0;
+    
 }
 
 
