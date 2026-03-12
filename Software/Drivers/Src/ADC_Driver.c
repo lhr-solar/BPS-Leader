@@ -1,5 +1,3 @@
-
-
 #include "ADC_Driver.h"
 
 static uint8_t Is_Initialized = 0;
@@ -7,7 +5,7 @@ static uint8_t Is_Initialized = 0;
 ADC_InitTypeDef adc_init_1 = {0};
 ADC_InitTypeDef adc_init_2 = {0};
 
-QueueHandle_t Motor_ADC_Queue;
+QueueHandle_t Array_ADC_Queue;
 QueueHandle_t Battery_ADC_Queue;
 
 static StaticQueue_t xStaticQueue1;
@@ -36,7 +34,7 @@ static uint32_t HAL_RCC_ADC12_CLK_ENABLED = 0;
 void HAL_ADC_MspInit(ADC_HandleTypeDef *adcHandle)
 {
 
-    // GPIO_InitTypeDef GPIO_InitStruct = {0};
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
     RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
     if (adcHandle->Instance == ADC1)
     {
@@ -60,7 +58,6 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *adcHandle)
         /**ADC1 GPIO Configuration
         PB12     ------> ADC1_IN11
         */
-        /*  
         GPIO_InitStruct.Pin = ADC1_PIN;
         GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
         GPIO_InitStruct.Pull = GPIO_NOPULL;
@@ -68,7 +65,6 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *adcHandle)
 
         HAL_NVIC_SetPriority(ADC1_2_IRQn, configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY, 0);
         HAL_NVIC_EnableIRQ(ADC1_2_IRQn);
-        */
     }
     else if (adcHandle->Instance == ADC2)
     {
@@ -92,7 +88,6 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *adcHandle)
         /**ADC2 GPIO Configuration
         PB2     ------> ADC2_IN12
         */
-       /*
         GPIO_InitStruct.Pin = ADC2_PIN;
         GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
         GPIO_InitStruct.Pull = GPIO_NOPULL;
@@ -100,7 +95,6 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *adcHandle)
 
         HAL_NVIC_SetPriority(ADC1_2_IRQn, configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY, 0);
         HAL_NVIC_EnableIRQ(ADC1_2_IRQn);
-        */
     }
 }
 
@@ -124,7 +118,7 @@ ADC_Sense_Status_t ADC_1_Init()
     if (adc_init(&adc_init_1, hadc1) != ADC_OK)
     {
         // ADC1 initialization failed
-        set_faultBit(ADC_1_INIT_ERR);
+        Error_Handler();
         return ADC_1_INIT_ERR;
     }
 
@@ -163,7 +157,7 @@ ADC_Sense_Status_t ADC_2_Init()
     if (adc_init(&adc_init_2, hadc2) != ADC_OK)
     {
         // ADC2 initialization failed
-        set_faultBit(ADC_2_INIT_ERR);
+        Error_Handler();
         return ADC_2_INIT_ERR;
     }
 
@@ -177,22 +171,22 @@ ADC_Sense_Status_t ADC_2_Init()
 
 ADC_Sense_Status_t ADC_Sense_Init(void) // Initialize ADCs and queues
 {
-    Motor_ADC_Queue = xQueueCreateStatic(ADC_QUEUE_LENGTH, ADC_QUEUE_ITEM_SIZE, qStorage1, &xStaticQueue1);
+    Array_ADC_Queue = xQueueCreateStatic(ADC_QUEUE_LENGTH, ADC_QUEUE_ITEM_SIZE, qStorage1, &xStaticQueue1);
     Battery_ADC_Queue = xQueueCreateStatic(ADC_QUEUE_LENGTH, ADC_QUEUE_ITEM_SIZE, qStorage2, &xStaticQueue2);
 
     Is_Initialized = 0;
 
-    if (Motor_ADC_Queue == NULL || Battery_ADC_Queue == NULL)
+    if (Array_ADC_Queue == NULL || Battery_ADC_Queue == NULL)
     {
         // Queue creation failed
-        set_faultBit(ADC_QUEUE_ERR);
+        Error_Handler();
         return ADC_QUEUE_ERR;
     }
 
     if (ADC_1_Init() != ADC_SENSE_OK || ADC_2_Init() != ADC_SENSE_OK)
     {
         // One or both ADC initializations failed
-        set_faultBit(ADC_SENSE_INIT_ERR);
+        Error_Handler();
         return ADC_SENSE_INIT_ERR;
     }
 
@@ -205,46 +199,46 @@ ADC_Sense_Status_t Read_ADC(uint32_t Timeout_MS, ADC_Sense_Result *Result) // Re
     if (!Is_Initialized)
     {
         // ADC_Sense_Init has not been called or failed
-        set_faultBit(ADC_SENSE_INIT_ERR);
+        Error_Handler();
         return ADC_SENSE_INIT_ERR;
     }
 
     if (Result == NULL)
     {
         // Invalid result pointer
-        set_faultBit(READ_ADC_BAD_PARAM_ERR);
+        Error_Handler();
         return READ_ADC_BAD_PARAM_ERR;
     }
 
-    uint16_t Motor_ADC = 0;
+    uint16_t Array_ADC = 0;
     uint16_t Battery_ADC = 0;
     TickType_t Timeout_Ticks = pdMS_TO_TICKS(Timeout_MS);
 
     HAL_ADCEx_Calibration_Start(hadc1, ADC_SINGLE_ENDED);
     HAL_ADCEx_Calibration_Start(hadc2, ADC_SINGLE_ENDED);
 
-    if (adc_read(hadc1, &sConfig1, Motor_ADC_Queue) != ADC_OK)
+    if (adc_read(hadc1, &sConfig1, Array_ADC_Queue) != ADC_OK)
     {
-        // Motor ADC read failed
-        set_faultBit(ADC_1_READ_ERR);
+        // Array ADC read failed
+        Error_Handler();
         return ADC_1_READ_ERR;
     }
     if (adc_read(hadc2, &sConfig2, Battery_ADC_Queue) != ADC_OK)
     {
         // Battery ADC read failed
-        set_faultBit(ADC_2_READ_ERR);
+        Error_Handler();
         return ADC_2_READ_ERR;
     }
 
-    if (xQueueReceive(Motor_ADC_Queue, &Motor_ADC, Timeout_Ticks) == pdPASS)
+    if (xQueueReceive(Array_ADC_Queue, &Array_ADC, Timeout_Ticks) == pdPASS)
     {
-        Result->Motor_Voltage = Motor_LUT[Motor_ADC];
+        Result->Array_Voltage = Array_LUT[Array_ADC];
     }
     else
     {
-        // Queue receive failed for motor ADC
-        set_faultBit(MOTOR_QUEUE_RECEIVE_ERR);
-        return MOTOR_QUEUE_RECEIVE_ERR;
+        // Queue receive failed for array ADC
+        Error_Handler();
+        return ARRAY_QUEUE_RECEIVE_ERR;
     }
 
     if (xQueueReceive(Battery_ADC_Queue, &Battery_ADC, Timeout_Ticks) == pdPASS)
@@ -253,8 +247,8 @@ ADC_Sense_Status_t Read_ADC(uint32_t Timeout_MS, ADC_Sense_Result *Result) // Re
     }
     else
     {
-        // Queue receive failed for battery ADC
-        set_faultBit(BATTERY_QUEUE_RECEIVE_ERR);
+        // Queue receive failed fo  r battery ADC
+        Error_Handler();
         return BATTERY_QUEUE_RECEIVE_ERR;
     }
 

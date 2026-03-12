@@ -1,10 +1,4 @@
-#pragma once
-
-#include <stdint.h>
-
-// 12-bit ADC Lookup Table
-// Output Units: millivolts (mV)
-// Range: 0 mV to 331532 mV
+#include "ADC_Battery_LUT.h"
 
 const uint32_t Battery_LUT[4096] = {
     0u, 0u, 0u, 0u, 0u, 0u, 0u, 83u,

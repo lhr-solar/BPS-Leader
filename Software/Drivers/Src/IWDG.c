@@ -17,7 +17,7 @@ void IWDG_Init() {
     iwdg_h.Instance = IWDG;
     iwdg_h.Init.Prescaler = IWDG_PRESCALAR;
     iwdg_h.Init.Reload = IWDG_COUNTDOWN;
-    iwdg_h.Init.Window = IWDG_MAX_WINDOW;
+    iwdg_h.Init.Window = IWDG_WINDOW;
 }
 
 void IWDG_Start(void(*errorHandler)(void)) {

@@ -49,44 +49,24 @@ static void task(void *pvParameters) {
     tx_data[6] = 0xDE;
     tx_data[7] = 0xFF;
 
-    FDCAN_RxHeaderTypeDef fdcan1_rx_header = {0};
-    uint8_t fdcan1_rx_data[8] = {0};
+    //FDCAN_RxHeaderTypeDef fdcan1_rx_header = {0};
+    //uint8_t fdcan1_rx_data[8] = {0};
 
     // FDCAN_RxHeaderTypeDef fdcan2_rx_header = {0};
     // uint8_t fdcan2_rx_data[8] = {0};
 
-    FDCAN_RxHeaderTypeDef fdcan3_rx_header = {0};
-    uint8_t fdcan3_rx_data[8] = {0};
+    //FDCAN_RxHeaderTypeDef fdcan3_rx_header = {0};
+    //uint8_t fdcan3_rx_data[8] = {0};
 
     while(1){
-
-    if (can_fd_send(hfdcan1, &tx_header, tx_data, portMAX_DELAY) == CAN_ERR){
-        printf("FDCAN1 failed to send!\n\r");
-        Error_Handler();
-    }
-    printf("FDCAN1 Sent successfully!\n\r");
-
-    if(can_fd_recv(hfdcan1, test_id, &fdcan1_rx_header, fdcan1_rx_data, pdMS_TO_TICKS(10)) != CAN_OK){
-        printf("FDCAN1 failed to receive!\n\r");
-        Error_Handler();
-    }
-    printf("FDCAN3 Receieve successfully!\n\r");
-
-    for(uint8_t i = 0; i < 8; i++){
-        if(fdcan3_rx_data[i] != tx_data[i]){
-            printf("FDCA1N Data dont match!\n\r");
-            Error_Handler();
-        }
-    }
-    printf("FDCAN1 -> FDCAN3 Data works!\n\r");   
 
     if (can_fd_send(hfdcan3, &tx_header, tx_data, portMAX_DELAY) == CAN_ERR){
         printf("FDCAN3 failed to send!\n\r");
         Error_Handler();
     }
     printf("FDCAN3 Sent successfully!\n\r");
-
-    if(can_fd_recv(hfdcan1, test_id, &fdcan1_rx_header, fdcan1_rx_data, portMAX_DELAY) != CAN_OK){
+    /*
+    if(can_fd_recv(hfdcan1, test_id, &fdcan1_rx_header, fdcan1_rx_data, pdMS_TO_TICKS(10)) != CAN_OK){
         printf("FDCAN1 failed to receive!\n\r");
         Error_Handler();
     }
@@ -94,12 +74,32 @@ static void task(void *pvParameters) {
 
     for(uint8_t i = 0; i < 8; i++){
         if(fdcan1_rx_data[i] != tx_data[i]){
-            printf("FDCAN3 -> FDCAN1 Data dont match!\n\r");
+            printf("FDCAN1 Data dont match!\n\r");
             Error_Handler();
         }
     }
-    printf("FDCAN3 -> FDCAN1 Data works!\n\r");   
+    printf("FDCAN1 Data works!\n\r");   
 
+    if (can_fd_send(hfdcan3, &tx_header, tx_data, portMAX_DELAY) == CAN_ERR){
+        printf("FDCAN3 failed to send!\n\r");
+        Error_Handler();
+    }
+    printf("FDCAN3 Sent successfully!\n\r");
+
+    if(can_fd_recv(hfdcan3, test_id, &fdcan3_rx_header, fdcan3_rx_data, portMAX_DELAY) != CAN_OK){
+        printf("FDCAN3 failed to receive!\n\r");
+        Error_Handler();
+    }
+    printf("FDCAN3 Receieve successfully!\n\r");
+
+    for(uint8_t i = 0; i < 8; i++){
+        if(fdcan3_rx_data[i] != tx_data[i]){
+            printf("FDCAN3 Data dont match!\n\r");
+            Error_Handler();
+        }
+    }
+    printf("FDCAN3 Data works!\n\r");   
+    */
 
     setHeartbeat(toggle);
     toggle = !toggle;

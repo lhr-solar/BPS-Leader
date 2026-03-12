@@ -94,13 +94,15 @@ void EMC2305_Driver_init() {
     vTaskDelay(pdMS_TO_TICKS(250));
 
     if (EMC2305_Init(&chip, &hi2c3, 0x4D) == EMC2305_ERR) {
+        printf("EMC2305 init error :(");
         Error_Handler();
     };
+    printf("not init error?");
 
     EMC2305_Global_Config cfg = {
         .alert_mask = false,
         .disable_smbus_timeout = true,
-        .watchdog_enable = false,
+        .watchdog_enable = true,
         .drive_ext_clk = false,
         .use_ext_clk = false,
     };
@@ -108,7 +110,7 @@ void EMC2305_Driver_init() {
     EMC2305_SetGlobalConfig(&chip, &cfg);
 
     EMC2305_Fan_Config1 cfg1 = {
-        .enable_closed_loop = true,
+        .enable_closed_loop = false,
         .range = EMC2305_RNG_2000,
         .edges = EMC2305_EDG_5,
         .update_time = EMC2305_UDT_100,
@@ -120,7 +122,7 @@ void EMC2305_Driver_init() {
         .derivative_options = EMC2305_DPT_BOTH,
         .error_window = EMC2305_ERG_200RPM,
     };
-
+    vTaskDelay(pdMS_TO_TICKS(250));
     EMC2305_SetFanConfig(&chip, EMC2305_FAN1, &cfg1, &cfg2);
     EMC2305_SetFanConfig(&chip, EMC2305_FAN2, &cfg1, &cfg2);
 

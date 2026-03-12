@@ -1,12 +1,12 @@
 #pragma once
 
 #include "common.h"
+#include "UART.h"
 #include "ADC.h"
 #include "ADC_Battery_LUT.h"
 #include "ADC_Array_LUT.h"
-#include "faultHandler.h"
 
-// ADC Channel 11 (Motor Voltage) and 12 (Battery Voltage) are GPIOB 12 and 2
+// ADC Channel 11 (Array Voltage) and 12 (Battery Voltage) are GPIOB 12 and 2
 #define ADC1_CHANNEL ADC_CHANNEL_11
 #define ADC2_CHANNEL ADC_CHANNEL_12
 #define ADC_QUEUE_LENGTH 4
@@ -23,11 +23,11 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *adcHandle);
 /**
  * @brief ADC voltage measurement results
  *
- * Contains scaled motor and battery voltages in millivolts.
+ * Contains scaled array and battery voltages in millivolts.
  */
 typedef struct
 {
-  uint32_t Motor_Voltage;
+  uint32_t Array_Voltage;
   uint32_t Battery_Voltage;
 } ADC_Sense_Result;
 
@@ -44,7 +44,7 @@ typedef enum
   ADC_2_READ_ERR,           // ADC2 read failed
   ADC_SENSE_INIT_ERR,       // Initialization not called or failed
   READ_ADC_BAD_PARAM_ERR,   // Bad result parameter
-  MOTOR_QUEUE_RECEIVE_ERR,  // ADC values not received from motor ADC queue
+  ARRAY_QUEUE_RECEIVE_ERR,  // ADC values not received from array ADC queue
   BATTERY_QUEUE_RECEIVE_ERR // ADC values not received from battery ADC queue
 } ADC_Sense_Status_t;
 
@@ -97,4 +97,3 @@ void MX_ADC1_Init(void);
  * @retval None
  */
 void MX_ADC2_Init(void);
-

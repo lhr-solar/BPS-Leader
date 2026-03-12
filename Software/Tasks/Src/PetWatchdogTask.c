@@ -39,7 +39,7 @@ void Init_WDogTask() {
     // Window timer init
     xWindowTimer = xTimerCreateStatic( 
                 "Timer",                /* Just a text name, not used by the RTOS kernel. */
-                IWDG_MAX_WINDOW,         /* The timer period in ms (must be > 0). */ 
+                IWDG_WINDOW,         /* The timer period in ms (must be > 0). */ 
                 pdFALSE,                /* Whether timer will auto-reload after expiring. */
                 NULL,                   /* ID assigned to timer being created. */
                 WDog_WindowCallback,    /* Callback when timer expires. */

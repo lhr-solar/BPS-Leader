@@ -1,6 +1,7 @@
 #include "common.h"
 #include "StatusLEDs.h"
 #include "Contactors.h"
+#include "DebugPrintf.h"
 
 // Task configuration
 #define TEST_TASK_STACK_SIZE 256
@@ -14,17 +15,23 @@ static StackType_t xTestStack[TEST_TASK_STACK_SIZE];
 void vContactorTestTask(void *pvParameters) {
 
     while (1) {
+
+        LEDs_init();
+
+        contactor_init();
+
+        debugPrintf_init();
         
         // 1. Cycle through each contactor: Close then Open with 2s delay
-        for (uint8_t i = 0; i < NUM_CONTACTORS; i++) {
+        for (uint8_t i = 0; i < NUM_CONTACTORS ; i++) {
             // Close Contactor (GPIO_PIN_SET assumes high = closed)
             LED_set(HEARTBEAT_LED, ON);
-            contactor_set((contactor_num_t)i, ON, 100, NORMAL);
+            contactor_set((contactor_num_t)i, ON, 100, EMERGENCY);
             vTaskDelay(DELAY_2S);
 
             // Open Contactor
             LED_set(HEARTBEAT_LED, OFF);
-            contactor_set((contactor_num_t)i, OFF, 100, NORMAL);
+            contactor_set((contactor_num_t)i, OFF, 100, EMERGENCY);
             vTaskDelay(DELAY_2S);
         }
     
@@ -50,10 +57,6 @@ int main() {
     HAL_Init();
 
     SystemClock_Config();
-
-    LEDs_init();
-
-    contactor_init();
 
     xTaskCreateStatic(
         vContactorTestTask,

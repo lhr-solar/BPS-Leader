@@ -1,12 +1,7 @@
-#pragma once
 
-#include <stdint.h>
+#include "ADC_Array_LUT.h"
 
-// 12-bit ADC Lookup Table
-// Output Units: millivolts (mV)
-// Range: 0 mV to 331532 mV
-
-const uint32_t Motor_LUT[4096] = {
+const uint32_t Array_LUT[4096] = {
     0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
     0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
     0u, 0u, 0u, 0u, 0u, 83u, 167u, 250u,

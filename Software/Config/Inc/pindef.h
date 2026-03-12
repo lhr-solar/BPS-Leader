@@ -76,12 +76,9 @@ typedef struct {
 
 // ADC Precharge V
 //------------------------------------------
-#define ARRAY_V_PIN ADC_NUM_11
-#define ARRAY_V_CHANNEL ADC1
-
-
-#define BATT_V_PIN ADC_NUM_12
-#define BATT_V_PORT ADC2
+#define ADC_PORT GPIOB
+#define ADC1_PIN GPIO_PIN_12
+#define ADC2_PIN GPIO_PIN_2
 //------------------------------------------
 
 

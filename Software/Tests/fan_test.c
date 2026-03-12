@@ -10,7 +10,8 @@ extern EMC2305_HandleTypeDef chip;
 #define TEST_TASK_PRIORITY   ( tskIDLE_PRIORITY + 1 )
 
 // change this 
-#define FAN_MAX_RAMP 3000
+#define FAN_MIN_RAMP 3200
+#define FAN_MAX_RAMP 8000
 
 // Static task buffers
 static StaticTask_t xTestTaskBuffer;
@@ -19,28 +20,51 @@ static StackType_t xTestStack[TEST_TASK_STACK_SIZE];
 
 void vFanChipTestTask(void *pvParameters) {
 
-    
+
     debugPrintf_init();
 
-    printf("init successfull");
+    LEDs_init();
+
+    printf("printf init successfull\n\r");
+    vTaskDelay(250);
+
+    EMC2305_I2C_init();
+
+    printf("i2c init successfull\n\r");
 
     EMC2305_Driver_init();
 
+    printf("EMC2305 init successfull\n\r");
+    printf("Fan ramping to min RPM\n\r");
+
     while (true) {
 
-        printf("Fan ramping to %d\n\r", FAN_MAX_RAMP);
-        for (uint16_t i = 0; i < FAN_MAX_RAMP; i++) {
+        if (EMC2305_SetFanRPM(&chip, EMC2305_FAN1, FAN_MIN_RAMP) != EMC2305_OK) {
+            printf("Error while ramping to min RPM\n\r");
+            Error_Handler();
+        }; 
+        for (uint16_t i = 0; i < 30; i++) {
+            printf("Fan RPM: %d\n\r", EMC2305_GetFanRPM(&chip, EMC2305_FAN1));
+            vTaskDelay(pdMS_TO_TICKS(500));
+        }   
 
-            if (EMC2305_SetFanRPM(&chip, EMC2305_FAN1, i) != EMC2305_OK) {
-                printf("Error while ramping\n\r");
-                Error_Handler();
-            };
-            vTaskDelay(pdMS_TO_TICKS(5));
+        vTaskDelay(pdMS_TO_TICKS(2000));
+        printf("\n\n\rNow Ramping to: FAN MAX RPM\n\n\r");
+
+        if (EMC2305_SetFanRPM(&chip, EMC2305_FAN1, FAN_MAX_RAMP) != EMC2305_OK) {
+            printf("Error while ramping to MAX RPM\n\r");
+            Error_Handler();
+        }; 
+        for (uint16_t i = 0; i < 30; i++) {
+            printf("Fan RPM: %d\n\r", EMC2305_GetFanRPM(&chip, EMC2305_FAN1));
+            vTaskDelay(pdMS_TO_TICKS(500));
+        }   
+        
         }
-        printf("successfully ramped :)");
+        printf("successfully ramped :)\n\r");
         
     }
-}
+
 
 
 
@@ -49,9 +73,7 @@ int main (void) {
 
     HAL_Init();
     SystemClock_Config();
-
-    LEDs_init();
-    EMC2305_I2C_init();
+    
 
     xTaskCreateStatic(
         vFanChipTestTask,

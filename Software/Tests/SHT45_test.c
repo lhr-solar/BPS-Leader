@@ -40,6 +40,14 @@ void vBlinkyTask(void *pvParameters) {
 
 void vSHT4xTask(void *pvParameters) {
 
+    debugPrintf_init();
+
+    printf("printf initialized\n\r");
+
+    LEDs_init();
+
+    SHT45_init();
+
     uint32_t tmpHmd_buffer[2];
     while (true) {
 
@@ -59,14 +67,6 @@ int main() {
 
     SystemClock_Config();
 
-    SHT45_init();
-
-    LEDs_init();
-
-    debugPrintf_init();
-
-    printf("initialized");
-
     xTaskCreateStatic(
         vBlinkyTask,
         "Blinky",
@@ -78,7 +78,6 @@ int main() {
     );
 
 
-    
     xTaskCreateStatic(
         vSHT4xTask,
         "SHT4xTask",
