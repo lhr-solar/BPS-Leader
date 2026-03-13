@@ -3,6 +3,9 @@
 #include "common.h"
 #include "EMC2305.h"
 
+#define FAN_MIN_RPM 3200
+#define FAN_MAX_RPM 8000
+
 // initialize hardware
 void EMC2305_I2C_init(void);
 

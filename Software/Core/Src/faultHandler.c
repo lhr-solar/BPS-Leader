@@ -1,14 +1,18 @@
 #include "faultHandler.h"
+#include "Contactors.h"
+#include "EMC2305_Driver.h"
+
+extern EMC2305_HandleTypeDef chip;
 
 // Event group handle to store fault state bits
-EventGroupHandle_t faultStateBits;
+EventGroupHandle_t faultBits;
 
 // Static buffer to store the event handle
-StaticEventGroup_t faultStateBitsBuffer;
+StaticEventGroup_t faultBitsBuffer;
 
-uint8_t faultBits_init(void){
-    faultStateBits = xEventGroupCreateStatic( &faultStateBitsBuffer );
-    if(faultStateBits == NULL){
+uint8_t faultHandler_init(void){
+    faultBits = xEventGroupCreateStatic( &faultBitsBuffer );
+    if(faultBits == NULL){
         return 0;
     }
     return 1;
@@ -21,7 +25,7 @@ void set_faultBit(fault_bit_t bit){
     }
 
     // chat we're cooked
-    xEventGroupSetBits(faultStateBits, FAULT_BIT(bit));
+    xEventGroupSetBits(faultBits, FAULT_BIT(bit));
     // should never return from here
     taskYIELD();
 }
@@ -34,7 +38,7 @@ void set_faultBitFromISR(fault_bit_t bit){
     }
 
     xEventGroupSetBitsFromISR(
-        faultStateBits,
+        faultBits,
         FAULT_BIT(bit),
         &xHigherPriorityTaskWoken
     );
@@ -45,20 +49,34 @@ void set_faultBitFromISR(fault_bit_t bit){
 EventBits_t faultBit_wait(fault_bit_t bit, TickType_t xTicksToWait){
 
     // NUM_FAULTS indiciates you want to wait for all bits
-    if(bit > NUM_FAULTS){
+    if(bit >= NUM_FAULTS){
         return 0;
     }
 
-    // if NUM
-    // EventBits_t uxBitsToWaitFor = bit == NUM_FAULTS ? ALL_FAULT_BITS : (FAULT_BIT(bit));
-    EventBits_t uxBitsToWaitFor = bit == NUM_FAULTS ? FAULT_BITMASK : (FAULT_BIT(bit));
+    // EventBits_t uxBitsToWaitFor = bit == NUM_FAULTS ?     ALL_FAULT_BITS : (FAULT_BIT(bit));
+    EventBits_t uxBitsToWaitFor = bit == (FAULT_BIT(bit));
 
     EventBits_t pending = xEventGroupWaitBits(
-        faultStateBits,
+        faultBits,
         uxBitsToWaitFor,  // wait for any defined fault
         pdFALSE,          // fault bits are not reset
         pdFALSE,          // wait for ANY bit to be set
         xTicksToWait 
     );
     return pending;
+}
+
+// Sets all fans to max RPM in case of fault. Will do this anyways after some time, but its best to do it sooner
+// TODO: check if fans are intialized. If not, initialize them. 
+void set_fans_MAX(void) {
+    EMC2305_SetFanRPM(&chip, EMC2305_FAN1, FAN_MAX_RPM);
+    EMC2305_SetFanRPM(&chip, EMC2305_FAN2, FAN_MAX_RPM);
+}
+
+// Opens all contactors in case of fault
+// TODO: check if contactors are intialized. If not, initialize them.
+void emergency_open_contactors(void) {
+    for (uint8_t contactor_num = 0; contactor_num < NUM_CONTACTORS; contactor_num++) {
+    contactor_set(contactor_num, OPEN, portMAX_DELAY, EMERGENCY);
+  }
 }

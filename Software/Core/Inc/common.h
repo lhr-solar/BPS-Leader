@@ -5,14 +5,14 @@
 #include "semphr.h"
 #include "task.h"
 #include "queue.h"
-#include <timers.h>
-
 #include "stm32xx_hal.h"
-
+#include <timers.h>
 #include <stdio.h>
 #include <stdbool.h>
 
 #include "pindef.h"
+
+#include "faultHandler.h"
 
 typedef enum {
     NORMAL = 0,   // We good

@@ -9,17 +9,12 @@ extern EMC2305_HandleTypeDef chip;
 #define TEST_TASK_STACK_SIZE 256
 #define TEST_TASK_PRIORITY   ( tskIDLE_PRIORITY + 1 )
 
-// change this 
-#define FAN_MIN_RAMP 3200
-#define FAN_MAX_RAMP 8000
-
 // Static task buffers
 static StaticTask_t xTestTaskBuffer;
 static StackType_t xTestStack[TEST_TASK_STACK_SIZE];
 
 
 void vFanChipTestTask(void *pvParameters) {
-
 
     debugPrintf_init();
 
@@ -39,7 +34,7 @@ void vFanChipTestTask(void *pvParameters) {
 
     while (true) {
 
-        if (EMC2305_SetFanRPM(&chip, EMC2305_FAN1, FAN_MIN_RAMP) != EMC2305_OK) {
+        if (EMC2305_SetFanRPM(&chip, EMC2305_FAN1, FAN_MIN_RPM) != EMC2305_OK) {
             printf("Error while ramping to min RPM\n\r");
             Error_Handler();
         }; 
@@ -51,7 +46,7 @@ void vFanChipTestTask(void *pvParameters) {
         vTaskDelay(pdMS_TO_TICKS(2000));
         printf("\n\n\rNow Ramping to: FAN MAX RPM\n\n\r");
 
-        if (EMC2305_SetFanRPM(&chip, EMC2305_FAN1, FAN_MAX_RAMP) != EMC2305_OK) {
+        if (EMC2305_SetFanRPM(&chip, EMC2305_FAN1, FAN_MAX_RPM) != EMC2305_OK) {
             printf("Error while ramping to MAX RPM\n\r");
             Error_Handler();
         }; 

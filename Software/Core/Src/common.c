@@ -28,7 +28,6 @@ void Error_Handler() {
     contactor_set(contactor_num, OPEN, portMAX_DELAY, EMERGENCY);
   }
   
-    
   // turns on fault led, and blink DEBUG led to show the error was software
   setHeartbeat(OFF);
   LED_set(FAULT_LED, ON);
@@ -38,9 +37,7 @@ void Error_Handler() {
     LED_set(DEBUG_LED, OFF);
     vTaskDelay(pdMS_TO_TICKS(1000));
   }
-  
 }
- 
 
 void SystemClock_Config(void)
 {

@@ -32,18 +32,18 @@ static void vContactorCallback( TimerHandle_t senseTimer ) {
     contactor_t* contactor = &contactors[contactor_num];
 
     if (contactor->state != contactor_get(contactor_num)) {
-        Error_Handler();
+        set_faultBit(CONTACTOR_UNEXPECTED_STATE_FAULT);
     }
 }
 
-/* sets contactor, updates state value, then starts timer to check expected state matches actual state. 
-An error means semaphore was busy, or that I set a contactor that didn't exist. */
+// sets contactor, updates state value, then starts timer to check expected state matches actual state. 
 ErrorStatus contactor_set(contactor_num_t contactor_num, contactor_state_t state, uint32_t wait_ms, fault_state_t fault_state) {
     
     // check that contactor exists
     if ((contactor_num < 0) || (contactor_num >= NUM_CONTACTORS)) {
         Error_Handler();
     }
+
     contactor_t* contactor = &contactors[contactor_num];
 
     // if its emergency, dont bother with semaphore

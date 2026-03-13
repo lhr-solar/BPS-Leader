@@ -15,31 +15,33 @@
 
 typedef enum
 {
-    PRECHARGE_INITIAL_STATE,          // Indiciates we are in the inital state when set
-    PRECHARGE_PRECHARGING_STATE,      // Indicates we are in the precharging state when set
-    PRECHARGE_RUN_STATE,              // Indicates we are in the run state when set
-    ARRAY_GREATER_THAN_BATTERY_FAULT, // Array voltage is greater than battery voltage
-    BATTERY_OVERVOLTAGE_FAULT,        // Battery voltage is greater than OVERVOLTAGE_THRESHOLD_MV
-    BATTERY_UNDERVOLTAGE_FAULT,       // Battery voltage is less than UNDERVOLTAGE_THRESHOLD_MV
-    ARRAY_SENSE_TIMEOUT_FAULT,        // Array contactor didn't close within expected time
-    PRECHARGE_SENSE_TIMEOUT_FAULT,    // Precharge contactor didn't close within expected time
+    // BPS main saftey loop faults 
+    BPS_FAULT,                        // If any major fault is detected; indicates we're in an emergency state
+    BATTERY_OVERVOLTAGE_FAULT,        // Battery voltage is greater than OVERVOLTAGE_THRESHOLD  (from volt-temp)
+    BATTERY_UNDERVOLTAGE_FAULT,       // Battery voltage is less than UNDERVOLTAGE_THRESHOLD    (from volt-temp)
+    BATTERY_OVERTEMP_FAULT,           // Battery temperature is too high (from volt-temp)
+    BATTERY_OVERCURRENT_FAULT,        // Battery Current is too high    (from ampheres)
+    CONTACTOR_UNEXPECTED_STATE_FAULT, // Contactor does not match expected state (Very bad 😡)
+    BOARD_OVERTEMP_FAULT,             // Board ambient temperature is too high    (from SHT45)
+    ESTOP_FAULT,                      // Any ESTOP button pressed, or you forgot the jumpers 
+
+    // Precharge faults
+    ARRAY_GREATER_THAN_BATTERY_FAULT, // Array voltage is greater than battery voltage  (from precharge ADC signal)       
     PRECHARGE_TIMEOUT_FAULT,          // Precharge sequence took too long
-    CALLBACK_FAULT,                   // Contactor state did not match expected state after being set
-    ARRAY_SENSE_MISMATCH_FAULT,       // Array contactor sense pin reading does not match contactor state
-    PRECHARGE_SENSE_MISMATCH_FAULT,   // Precharge contactor sense pin reading does not match contactor state
-    NUM_FAULTS
+    
+    // Software Errors
+    WATCHDOG_ERROR,                    // Watchdog did not get pet in time, code is likely blocking somewhere
+    BPS_CAN_ERROR,                     // BPS CAN failed a send or receive after configured retries 
+    CAR_CAN_ERROR,                     // CAR CAN failed a send or receive after configured retries 
+    I2C_ERROR,                         // I2C failed communication after configured retries (with fan chip or SHT45)
+    UART_ERROR,                        // UART failed communication after configured retries (with ESP)
+
+    NUM_FAULTS                         // Total number of faults
+
 } fault_bit_t;
 
 /* Convert enum to bitmask */
 #define FAULT_BIT(fault) (1UL << (fault))
-
-/* Mask containing only the actual fault bits (exclude precharge state bits)
-    Precharge state enum values are the first entries, so keep bits from
-    Array_GREATER_THAN_BATTERY_FAULT upwards. */
-#define FAULTS_ONLY_MASK ((EventBits_t)(ALL_FAULT_BITS & ~((1UL << (ARRAY_GREATER_THAN_BATTERY_FAULT)) - 1UL)))
-
-/* Legacy name kept for callers that expect a mask of fault bits */
-#define FAULT_BITMASK (FAULTS_ONLY_MASK)
 
 _Static_assert(NUM_FAULTS <= MAX_FAULT_BITS, "Too many fault bits for EventGroup");
 
@@ -75,3 +77,7 @@ EventBits_t faultBit_wait(fault_bit_t bit, TickType_t xTicksToWait);
  * @return none
  */
 void set_faultBitFromISR(fault_bit_t bit);
+
+
+void set_fans_MAX(void);
+void emergency_open_contactors(void);

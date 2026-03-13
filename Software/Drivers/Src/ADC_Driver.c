@@ -180,14 +180,12 @@ ADC_Sense_Status_t ADC_Sense_Init(void) // Initialize ADCs and queues
     {
         // Queue creation failed
         Error_Handler();
-        return ADC_QUEUE_ERR;
     }
 
     if (ADC_1_Init() != ADC_SENSE_OK || ADC_2_Init() != ADC_SENSE_OK)
     {
         // One or both ADC initializations failed
         Error_Handler();
-        return ADC_SENSE_INIT_ERR;
     }
 
     Is_Initialized = 1;
@@ -200,14 +198,12 @@ ADC_Sense_Status_t Read_ADC(uint32_t Timeout_MS, ADC_Sense_Result *Result) // Re
     {
         // ADC_Sense_Init has not been called or failed
         Error_Handler();
-        return ADC_SENSE_INIT_ERR;
     }
 
     if (Result == NULL)
     {
         // Invalid result pointer
         Error_Handler();
-        return READ_ADC_BAD_PARAM_ERR;
     }
 
     uint16_t Array_ADC = 0;
@@ -219,14 +215,10 @@ ADC_Sense_Status_t Read_ADC(uint32_t Timeout_MS, ADC_Sense_Result *Result) // Re
 
     if (adc_read(hadc1, &sConfig1, Array_ADC_Queue) != ADC_OK)
     {
-        // Array ADC read failed
-        Error_Handler();
         return ADC_1_READ_ERR;
     }
     if (adc_read(hadc2, &sConfig2, Battery_ADC_Queue) != ADC_OK)
     {
-        // Battery ADC read failed
-        Error_Handler();
         return ADC_2_READ_ERR;
     }
 
@@ -237,7 +229,6 @@ ADC_Sense_Status_t Read_ADC(uint32_t Timeout_MS, ADC_Sense_Result *Result) // Re
     else
     {
         // Queue receive failed for array ADC
-        Error_Handler();
         return ARRAY_QUEUE_RECEIVE_ERR;
     }
 
@@ -248,7 +239,6 @@ ADC_Sense_Status_t Read_ADC(uint32_t Timeout_MS, ADC_Sense_Result *Result) // Re
     else
     {
         // Queue receive failed fo  r battery ADC
-        Error_Handler();
         return BATTERY_QUEUE_RECEIVE_ERR;
     }
 

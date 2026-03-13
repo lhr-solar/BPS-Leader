@@ -98,7 +98,7 @@ void CAR_CAN_Init(void)
     hfdcan1->Init.ProtocolException = DISABLE;
     hfdcan1->Init.NominalPrescaler = 20;
     hfdcan1->Init.NominalSyncJumpWidth = 1;
-    hfdcan1->Init.NominalTimeSeg1 = 11;
+    hfdcan1->Init.NominalTimeSeg1 = 13;
     hfdcan1->Init.NominalTimeSeg2 = 2;
     hfdcan1->Init.DataPrescaler = 1;
     hfdcan1->Init.DataSyncJumpWidth = 1;
