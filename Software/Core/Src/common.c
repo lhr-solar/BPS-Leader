@@ -2,28 +2,12 @@
 #include "StatusLEDs.h"
 #include "common.h"
 
-
-// for actual faults
-void Fault_Handler() {
-
-    // Kill Main Task
-    
-    // open every contactor, bypasses semaphore
-    for (uint8_t contactor_num = 0; contactor_num < NUM_CONTACTORS; contactor_num++) {
-        contactor_set(contactor_num, OPEN, portMAX_DELAY, EMERGENCY);
-    }
-    
-    // turns on fault led
-    LED_set(FAULT_LED, ON);
-    
-}
-
 // for software errors
 void Error_Handler() {
 
   // Kill Main Task
-
-  // open every contactor, bypasses semaphore
+  __disable_irq();  // open every contactor, bypasses semaphore
+  
   for (uint8_t contactor_num = 0; contactor_num < NUM_CONTACTORS; contactor_num++) {
     contactor_set(contactor_num, OPEN, portMAX_DELAY, EMERGENCY);
   }

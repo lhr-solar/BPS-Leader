@@ -48,6 +48,11 @@ void contactor_init(void);
  */
 contactor_state_t contactor_get(contactor_num_t contactor_num);
 
+/** * @brief Reads the expected state for a specific contactor.
+ * @return true if CLOSED, false if OPEN.
+ */
+contactor_state_t contactor_get_command_state(contactor_num_t contactor_num);
+
 /** * @brief Commands a contactor state change with safety verification via callback function.
  * @param wait_ms  Wait time for sense delay before returning.
  * @param emergency Immediate execution; bypasses safety callbacks.

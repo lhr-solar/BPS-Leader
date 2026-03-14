@@ -17,6 +17,8 @@
 #define TASK_VOLTAGE_MONITOR_STACK_SIZE         configMINIMAL_STACK_SIZE
 #define TASK_AMPERES_MONITOR_STACK_SIZE         configMINIMAL_STACK_SIZE
 #define TASK_PETWDOG_STACK_SIZE                 configMINIMAL_STACK_SIZE
+#define PRECHARGE_TASK_STACK_SIZE               configMINIMAL_STACK_SIZE
+#define FAULT_HANDLER_TASK_STACK_SIZE           configMINIMAL_STACK_SIZE
 
 // (exposed so that tests can init tasks)
 // Task Stack Arrays 
@@ -24,16 +26,21 @@ extern StackType_t Task_Temperature_Stack_Array[ TASK_TEMPERATURE_MONITOR_STACK_
 extern StackType_t Task_Voltage_Stack_Array[ TASK_TEMPERATURE_MONITOR_STACK_SIZE ];
 extern StackType_t Task_Amperes_Stack_Array[ TASK_AMPERES_MONITOR_STACK_SIZE ];
 extern StackType_t Task_Petwdog_Stack_Array[ TASK_PETWDOG_STACK_SIZE ];
+extern StackType_t Precharge_Task_Stack[ PRECHARGE_TASK_STACK_SIZE ];
+extern StackType_t FaultHandler_Task_Stack[ FAULT_HANDLER_TASK_STACK_SIZE ];
 
 // Task Buffers
 extern StaticTask_t Task_Temperature_Buffer;
 extern StaticTask_t Task_Voltage_Buffer;
 extern StaticTask_t Task_Amperes_Buffer;
 extern StaticTask_t Task_Petwdog_Buffer;
+extern StaticTask_t Precharge_Task_Buffer;
+extern StaticTask_t FaultHandler_Task_Buffer;
 
 // Task Delays
 #define TEMP_MONITOR_TASK_DELAY 10
 #define VOLT_MONITOR_TASK_DELAY 5
+#define PRECHARGE_TASK_DELAY_MS 100
 
 // Task Inits
 void Task_Init();

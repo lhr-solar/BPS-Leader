@@ -83,7 +83,7 @@ void HAL_FDCAN_MspInit(FDCAN_HandleTypeDef* fdcanHandle)
   }
 }
 
-void CAR_CAN_Init(void)
+void BPS_CAN_Init(void)
 {   
 
     __HAL_RCC_SYSCFG_CLK_ENABLE();
@@ -127,7 +127,7 @@ void CAR_CAN_Init(void)
 
 }
 
-void BPS_CAN_Init(void)
+void CAR_CAN_Init(void)
 {
 
     __HAL_RCC_SYSCFG_CLK_ENABLE();

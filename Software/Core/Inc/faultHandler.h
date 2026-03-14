@@ -22,6 +22,7 @@ typedef enum
     BATTERY_OVERTEMP_FAULT,           // Battery temperature is too high (from volt-temp)
     BATTERY_OVERCURRENT_FAULT,        // Battery Current is too high    (from ampheres)
     CONTACTOR_UNEXPECTED_STATE_FAULT, // Contactor does not match expected state (Very bad 😡)
+    CONTACTOR_TIMEOUT_FAULT,          // Timeout while reading contactor sense, someone is hogging semaphore.
     BOARD_OVERTEMP_FAULT,             // Board ambient temperature is too high    (from SHT45)
     ESTOP_FAULT,                      // Any ESTOP button pressed, or you forgot the jumpers 
 
@@ -36,6 +37,7 @@ typedef enum
     I2C_ERROR,                         // I2C failed communication after configured retries (with fan chip or SHT45)
     UART_ERROR,                        // UART failed communication after configured retries (with ESP)
 
+    // Counter
     NUM_FAULTS                         // Total number of faults
 
 } fault_bit_t;
@@ -51,7 +53,7 @@ _Static_assert(NUM_FAULTS <= MAX_FAULT_BITS, "Too many fault bits for EventGroup
  * @param none
  * @return 0 on failure, 1 on success
  */
-uint8_t faultBits_init(void);
+uint8_t faultHandler_init(void);
 
 /**
  * @brief Set a fault in the fault bitmap

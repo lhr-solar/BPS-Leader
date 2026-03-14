@@ -18,7 +18,7 @@ typedef enum {
 typedef enum {
     HEARTBEAT_LED,      /**< System status heartbeat */
     FAULT_LED,          /**< General system fault */
-    OVER_V_LED,         /**< Over-voltage indicator */
+    OVER_V_LED,          /**< Over-voltage indicator */
     LOW_V_LED,          /**< Low-voltage indicator */
     OVER_AMP_LED,       /**< Over-current indicator */
     OVER_TEMP_LED,      /**< Over-temperature indicator */

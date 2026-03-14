@@ -14,7 +14,7 @@ static const char* CONTACTOR_NAMES[NUM_CONTACTORS] = {
 // array to hold the contactor structs
 static contactor_t contactors[NUM_CONTACTORS];
 
-// get
+// get physical state
 contactor_state_t contactor_get(contactor_num_t contactor_num) {
     
     // check that contactor exists
@@ -24,6 +24,18 @@ contactor_state_t contactor_get(contactor_num_t contactor_num) {
 
     contactor_t* contactor = &contactors[contactor_num];
     return HAL_GPIO_ReadPin(contactor->sense_pin.port, contactor->sense_pin.pin);
+}
+
+// get expected state
+contactor_state_t contactor_get_command_state(contactor_num_t contactor_num) {
+    
+    // check that contactor exists
+    if ((contactor_num < 0) || (contactor_num >= NUM_CONTACTORS)) {
+        Error_Handler();
+    }
+
+    contactor_t* contactor = &contactors[contactor_num];
+    return contactor->state;
 }
 
 static void vContactorCallback( TimerHandle_t senseTimer ) {
