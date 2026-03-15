@@ -15,7 +15,7 @@
 
 typedef enum
 {
-    // BPS main saftey loop faults 
+    // BPS main saefty loop faults 
     BPS_FAULT,                        // If any major fault is detected; indicates we're in an emergency state
     BATTERY_OVERVOLTAGE_FAULT,        // Battery voltage is greater than OVERVOLTAGE_THRESHOLD  (from volt-temp)
     BATTERY_UNDERVOLTAGE_FAULT,       // Battery voltage is less than UNDERVOLTAGE_THRESHOLD    (from volt-temp)

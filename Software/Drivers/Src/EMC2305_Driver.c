@@ -128,3 +128,10 @@ void EMC2305_Driver_init() {
     fan_init(EMC2305_FAN1);
     fan_init(EMC2305_FAN2);
 }
+
+// Sets all fans to max RPM in case of fault. Will do this anyways after some time, but its best to do it sooner
+// TODO: check if fans are intialized. If not, initialize them. 
+void set_fans_MAX(void) {
+    EMC2305_SetFanRPM(&chip, EMC2305_FAN1, FAN_MAX_RPM);
+    EMC2305_SetFanRPM(&chip, EMC2305_FAN2, FAN_MAX_RPM);
+}

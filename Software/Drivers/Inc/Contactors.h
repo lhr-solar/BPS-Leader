@@ -66,3 +66,7 @@ This function is called when the sense timer for the contactor times out
 it confirms that the contactor state changed successfully and is at expected value
 */
 
+
+// Opens all contactors in case of fault
+// TODO: check if contactors are intialized. If not, initialize them.
+void emergency_open_contactors(void);

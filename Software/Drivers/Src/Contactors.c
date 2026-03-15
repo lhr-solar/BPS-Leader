@@ -144,3 +144,11 @@ void contactor_init() {
     }
 }
 
+// Opens all contactors in case of fault
+// TODO: check if contactors are intialized. If not, initialize them.
+void emergency_open_contactors(void) {
+    for (uint8_t contactor_num = 0; contactor_num < NUM_CONTACTORS; contactor_num++) {
+    contactor_set(contactor_num, OPEN, portMAX_DELAY, EMERGENCY);
+  }
+}
+

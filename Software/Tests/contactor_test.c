@@ -2,10 +2,9 @@
 #include "StatusLEDs.h"
 #include "Contactors.h"
 #include "DebugPrintf.h"
+#include "BPS_Tasks.h"
 
 // Task configuration
-#define TEST_TASK_STACK_SIZE 256
-#define TEST_TASK_PRIORITY   ( tskIDLE_PRIORITY + 1 )
 #define DELAY_2S             pdMS_TO_TICKS(2000)
 
 // Static task buffers

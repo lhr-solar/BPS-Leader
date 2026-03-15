@@ -4,6 +4,7 @@ then blink DEBUG 3 times. After, it should do a wave down down the board. Ideall
 
 #include "common.h"
 #include "StatusLEDs.h"
+#include "BPS_Tasks.h"
 
 const uint8_t repetitions = 3;
 const uint16_t delayMS = pdMS_TO_TICKS(750);
@@ -102,9 +103,9 @@ int main() {
     xTaskCreateStatic(
                 task,
                 "task",
-                512,
+                TEST_TASK_STACK_SIZE,
                 NULL,
-                tskIDLE_PRIORITY + 2,
+                TEST_TASK_PRIORITY,
                 task_stack,
                 &task_buffer);
 

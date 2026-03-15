@@ -12,3 +12,6 @@ void EMC2305_I2C_init(void);
 // initialize fans and chip 
 // ONLY CALL FROM TASK
 void EMC2305_Driver_init();
+
+// sets fans to max in case of fault
+void set_fans_MAX(void);

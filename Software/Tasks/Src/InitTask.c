@@ -1,5 +1,10 @@
 #include "BPS_Tasks.h"
 #include "EMC2305_Driver.h"
+#include "CANbus.h"
+#include "StatusLEDs.h"
+#include "Contactors.h"
+#include "DebugPrintf.h"
+#include "SHT45.h"
 
 // Task Stack Arrays
 StackType_t Task_Temperature_Stack_Array[ TASK_TEMPERATURE_MONITOR_STACK_SIZE ];
@@ -20,6 +25,14 @@ EventGroupHandle_t xWDogEventGroup_handle;
 void Task_Init(){
 
     Init_WDogTask();
+
+    ALL_CAN_Init();
+    
+    LEDs_init();
+
+    contactor_init();
+
+    SHT45_init();
 
     EMC2305_Driver_init();
 

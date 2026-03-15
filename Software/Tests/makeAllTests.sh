@@ -30,7 +30,7 @@ for FILE in "${C_FILES[@]}"; do
     
     echo "Compiling: $NAME.c"
 
-    make -C "$MAKEFILE_DIR" TEST="$NAME" -j8
+    make -C "$MAKEFILE_DIR" TEST="$TEST_NAME" -j8
 
     if [ $? -eq 0 ]; then
         echo "✅ Compilation successful for $NAME.c"

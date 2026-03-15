@@ -18,16 +18,6 @@ int main(void) {
 
     SystemClock_Config();
 
-    ALL_CAN_Init();
-    
-    LEDs_init();
-
-    contactor_init();
-
-    SHT45_init();
-
-    EMC2305_Driver_init();
-
     xTaskCreateStatic(
                     Task_Init, /* The function that implements the task. */
                     "Init Task", /* Text name for the task. */

@@ -4,12 +4,14 @@
 #include "common.h"
 #include <event_groups.h>
 
-
+// Task configuration
 #define TASK_INIT_PRIO                  tskIDLE_PRIORITY + 1
 #define TASK_TEMPERATURE_MONITOR_PRIO   tskIDLE_PRIORITY + 3
 #define TASK_VOLTAGE_MONITOR_PRIO       tskIDLE_PRIORITY + 4
 #define TASK_AMPERES_MONITOR_PRIO       tskIDLE_PRIORITY + 5
 #define TASK_PETWDOG_PRIO               tskIDLE_PRIORITY + 2
+
+#define TEST_TASK_PRIORITY              tskIDLE_PRIORITY + 1 
 
 // Task Stack Size 
 #define TASK_INIT_STACK_SIZE                    configMINIMAL_STACK_SIZE
@@ -20,6 +22,8 @@
 #define PRECHARGE_TASK_STACK_SIZE               configMINIMAL_STACK_SIZE
 #define FAULT_HANDLER_TASK_STACK_SIZE           configMINIMAL_STACK_SIZE
 
+#define TEST_TASK_STACK_SIZE                    configMINIMAL_STACK_SIZE
+
 // (exposed so that tests can init tasks)
 // Task Stack Arrays 
 extern StackType_t Task_Temperature_Stack_Array[ TASK_TEMPERATURE_MONITOR_STACK_SIZE ];
@@ -28,6 +32,7 @@ extern StackType_t Task_Amperes_Stack_Array[ TASK_AMPERES_MONITOR_STACK_SIZE ];
 extern StackType_t Task_Petwdog_Stack_Array[ TASK_PETWDOG_STACK_SIZE ];
 extern StackType_t Precharge_Task_Stack[ PRECHARGE_TASK_STACK_SIZE ];
 extern StackType_t FaultHandler_Task_Stack[ FAULT_HANDLER_TASK_STACK_SIZE ];
+
 
 // Task Buffers
 extern StaticTask_t Task_Temperature_Buffer;

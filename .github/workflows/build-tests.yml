@@ -26,5 +26,5 @@ jobs:
        - name: Build tests
          run: |
           cd Software/Tests/
-          bash makeAllTests.sh
+          python3 makeAllTests.py
           cd ..

@@ -2,9 +2,10 @@
 #include "CANbus.h"
 #include "StatusLEDs.h"
 #include "DebugPrintf.h"
+#include "BPS_Tasks.h"
 
 StaticTask_t task_buffer;
-StackType_t task_stack[512];
+StackType_t task_stack[TEST_TASK_STACK_SIZE];
 
 /*
 configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY is the maximum FreeRTOS priority for an interrupt 
@@ -135,9 +136,9 @@ int main(void) {
     xTaskCreateStatic(
                 task,
                 "task",
-                512,
+                TEST_TASK_STACK_SIZE,
                 NULL,
-                tskIDLE_PRIORITY + 2,
+                TEST_TASK_PRIORITY,
                 task_stack,
                 &task_buffer);
 

@@ -2,12 +2,10 @@
 #include "StatusLEDs.h"
 #include "EMC2305_Driver.h"
 #include "DebugPrintf.h"
+#include "BPS_Tasks.h"
 
 extern EMC2305_HandleTypeDef chip;
 
-// Task configuration
-#define TEST_TASK_STACK_SIZE 256
-#define TEST_TASK_PRIORITY   ( tskIDLE_PRIORITY + 1 )
 
 // Static task buffers
 static StaticTask_t xTestTaskBuffer;

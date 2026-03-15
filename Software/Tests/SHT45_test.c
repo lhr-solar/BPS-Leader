@@ -7,13 +7,11 @@
 #include "StatusLEDs.h"
 #include "SHT45.h"
 #include "DebugPrintf.h"
+#include "BPS_Tasks.h"
 
 // Task configuration
 #define BLINKY_TASK_STACK_SIZE configMINIMAL_STACK_SIZE
 #define BLINKY_TASK_PRIORITY   ( tskIDLE_PRIORITY + 1 )
-
-#define SHT4x_TASK_STACK_SIZE configMINIMAL_STACK_SIZE
-#define SHT4x_TASK_PRIORITY   ( tskIDLE_PRIORITY + 2 )
 
 #define DELAY_1S             pdMS_TO_TICKS(1000)
 
@@ -23,7 +21,7 @@ static StackType_t xBlinkyStack[BLINKY_TASK_STACK_SIZE];
 
 // Static task buffers
 static StaticTask_t xSHT4xTaskBuffer;
-static StackType_t xSHT4xStack[BLINKY_TASK_STACK_SIZE];
+static StackType_t xSHT4xStack[TEST_TASK_STACK_SIZE];
 
 extern I2C_HandleTypeDef hi2c4;
 
@@ -81,9 +79,9 @@ int main() {
     xTaskCreateStatic(
         vSHT4xTask,
         "SHT4xTask",
-        SHT4x_TASK_STACK_SIZE,
+        TEST_TASK_STACK_SIZE,
         NULL,
-        SHT4x_TASK_PRIORITY,
+        TEST_TASK_PRIORITY,
         xSHT4xStack,
         &xSHT4xTaskBuffer
     );

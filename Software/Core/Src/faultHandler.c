@@ -66,18 +66,3 @@ EventBits_t faultBit_wait(fault_bit_t bit, TickType_t xTicksToWait){
     );
     return pending;
 }
-
-// Sets all fans to max RPM in case of fault. Will do this anyways after some time, but its best to do it sooner
-// TODO: check if fans are intialized. If not, initialize them. 
-void set_fans_MAX(void) {
-    EMC2305_SetFanRPM(&chip, EMC2305_FAN1, FAN_MAX_RPM);
-    EMC2305_SetFanRPM(&chip, EMC2305_FAN2, FAN_MAX_RPM);
-}
-
-// Opens all contactors in case of fault
-// TODO: check if contactors are intialized. If not, initialize them.
-void emergency_open_contactors(void) {
-    for (uint8_t contactor_num = 0; contactor_num < NUM_CONTACTORS; contactor_num++) {
-    contactor_set(contactor_num, OPEN, portMAX_DELAY, EMERGENCY);
-  }
-}

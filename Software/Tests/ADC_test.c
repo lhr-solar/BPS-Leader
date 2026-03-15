@@ -2,9 +2,10 @@
 #include "ADC_Driver.h"
 #include "DebugPrintf.h"
 #include "StatusLEDs.h"
+#include "BPS_Tasks.h"
 
 StaticTask_t task_buffer;
-StackType_t task_stack[512];
+StackType_t task_stack[TEST_TASK_STACK_SIZE];
 
 #define TEST_TIMEOUT 20 
 
@@ -39,9 +40,9 @@ int main() {
     xTaskCreateStatic(
                 vTestTaskToskTisk,
                 "task",
-                512,
+                TEST_TASK_STACK_SIZE,
                 NULL,
-                tskIDLE_PRIORITY + 2,
+                TEST_TASK_PRIORITY,
                 task_stack,
                 &task_buffer);
 
