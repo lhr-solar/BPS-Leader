@@ -1,5 +1,6 @@
 #include "PrechargeTask.h"
 #include "FaultHandlerTask.h"
+#include "config.h"
 
 #define PRECHARGE_PRINTF_DEBUG_PERIOD_MS 10000
 #define PRECHARGE_PRINTF_DEBUG_COUNTER (PRECHARGE_PRINTF_DEBUG_PERIOD_MS/PRECHARGE_TASK_DELAY_MS)
@@ -110,7 +111,7 @@ void Task_Precharge()
         switch (State)
         {
             case PRECHARGE_STATE_INITIAL: // Startup state: Closes main contactor and moves to precharging state
-                if (contactor_set(ARRAY_CONTACTOR, CLOSED, CALLBACK_BLOCKING_TIME, NORMAL) != SUCCESS)
+                if (contactor_set(ARRAY_CONTACTOR, CONTACTOR_CLOSED, CALLBACK_BLOCKING_TIME_MS, NORMAL) != SUCCESS)
                 {
                     set_faultBit(CONTACTOR_TIMEOUT_FAULT);
                 }
@@ -130,7 +131,7 @@ void Task_Precharge()
                     // Check if array voltage is within 90% of battery voltage (precharge complete)
                     if (Array_Voltage * RATIO_SCALE >= Battery_Voltage * PRECHARGE_THRESHOLD_90)
                     {
-                        if (contactor_set(ARRAY_PRE_CONTACTOR, CLOSED, CALLBACK_BLOCKING_TIME, false) != SUCCESS)
+                        if (contactor_set(ARRAY_PRE_CONTACTOR, CONTACTOR_CLOSED, CALLBACK_BLOCKING_TIME_MS, false) != SUCCESS)
                         {
                             set_faultBit(CONTACTOR_TIMEOUT_FAULT);
                         }

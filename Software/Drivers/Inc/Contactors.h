@@ -3,16 +3,15 @@
 
 /* Timing Definitions */
 /** Time to wait for the physical contactor to settle before reading feedback */
-#define CONTACTOR_SENSE_DELAY      pdMS_TO_TICKS(1000)  
-/** Maximum time allowed for callback execution to prevent task starvation */
-#define CALLBACK_BLOCKING_TIME     pdMS_TO_TICKS(20)    
+#define CONTACTOR_SENSE_DELAY_TICKS      pdMS_TO_TICKS(1000)  
+#define CALLBACK_BLOCKING_TIME_MS        20
 
 /**
  * @brief Represents the logical and physical state of a contactor.
  */
 typedef enum {
-    OPEN = 0,   /**< Circuit is disconnected */
-    CLOSED = 1  /**< Circuit is connected */
+    CONTACTOR_OPEN = 0,   /**< Circuit is disconnected */
+    CONTACTOR_CLOSED = 1  /**< Circuit is connected */
 } contactor_state_t;
 
 /**

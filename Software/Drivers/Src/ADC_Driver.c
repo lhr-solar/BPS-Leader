@@ -119,7 +119,6 @@ ADC_Sense_Status_t ADC_1_Init()
     {
         // ADC1 initialization failed
         Error_Handler();
-        return ADC_1_INIT_ERR;
     }
 
     ADC_MultiModeTypeDef multimode = {0};
@@ -158,7 +157,6 @@ ADC_Sense_Status_t ADC_2_Init()
     {
         // ADC2 initialization failed
         Error_Handler();
-        return ADC_2_INIT_ERR;
     }
 
     if (HAL_ADC_ConfigChannel(hadc2, &sConfig2) != HAL_OK)

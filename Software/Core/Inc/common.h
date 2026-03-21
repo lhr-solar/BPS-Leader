@@ -1,5 +1,4 @@
-#ifndef COMMON_H
-#define COMMON_H
+#pragma once
 
 #include "FreeRTOS.h"
 #include "semphr.h"
@@ -24,5 +23,4 @@ void Error_Handler(void);
 void SystemClock_Config(void);
 
 
-#endif
 

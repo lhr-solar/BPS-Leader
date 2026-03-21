@@ -1,5 +1,4 @@
-#ifndef IWDG_H
-#define IWDG_H
+#pragma once
 
 #include "stm32xx_hal.h"
 
@@ -80,5 +79,3 @@ uint8_t IWDG_CheckIfReset();
  * @brief Error Handler: Contains procedures for Watchdog failure
  */
 void IWDG_Error_Handler(void);
-
-#endif

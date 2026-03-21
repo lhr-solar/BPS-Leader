@@ -9,7 +9,7 @@ void Error_Handler() {
   __disable_irq();  // open every contactor, bypasses semaphore
   
   for (uint8_t contactor_num = 0; contactor_num < NUM_CONTACTORS; contactor_num++) {
-    contactor_set(contactor_num, OPEN, portMAX_DELAY, EMERGENCY);
+    contactor_set(contactor_num, CONTACTOR_OPEN, portMAX_DELAY, EMERGENCY);
   }
   
   // turns on fault led, and blink DEBUG led to show the error was software

@@ -135,7 +135,7 @@ void contactor_init() {
         // making timers and putting them into contactor structs
         contactor->senseTimer = xTimerCreateStatic(
             CONTACTOR_NAMES[contactor_num],                     /* Name of the timer */
-            CONTACTOR_SENSE_DELAY,                              /* Timer period in ticks */
+            CONTACTOR_SENSE_DELAY_TICKS,                              /* Timer period in ticks */
             pdFALSE,                                            /* Don't auto-reload */
             (void*)contactor_num,                               /* Timer ID */
             vContactorCallback,                                 /* Callback function */
@@ -148,7 +148,7 @@ void contactor_init() {
 // TODO: check if contactors are intialized. If not, initialize them.
 void emergency_open_contactors(void) {
     for (uint8_t contactor_num = 0; contactor_num < NUM_CONTACTORS; contactor_num++) {
-    contactor_set(contactor_num, OPEN, portMAX_DELAY, EMERGENCY);
+    contactor_set(contactor_num, CONTACTOR_OPEN, portMAX_DELAY, EMERGENCY);
   }
 }
 

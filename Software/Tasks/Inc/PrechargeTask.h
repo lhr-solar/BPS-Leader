@@ -8,10 +8,6 @@
 #include "BPS_Tasks.h"
 
 
-// Precharge thresholds
-#define OVERVOLTAGE_THRESHOLD_MV 140000 // 140 V
-#define UNDERVOLTAGE_THRESHOLD_MV 80000 // 80.0 V
-
 // Fixed-point scaling for ratio comparisons
 #define RATIO_SCALE 1000
 

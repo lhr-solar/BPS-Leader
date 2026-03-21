@@ -17,7 +17,7 @@ void vBlinkyTask(void *pvParameters) {
     bool toggle = true;
     while (true) {
         setHeartbeat(toggle);
-        toggle ? printf("ON\n\r") : printf("OFF\n\r");
+        toggle ? printf("ON\r\n") : printf("OFF\r\n");
         toggle = !toggle;
         vTaskDelay(DELAY_1S);
     }

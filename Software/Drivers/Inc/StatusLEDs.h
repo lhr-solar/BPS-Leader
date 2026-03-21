@@ -1,5 +1,4 @@
-#ifndef STATUSLED_
-#define STATUSLED_
+#pragma once
 
 #include "common.h"
 
@@ -47,4 +46,4 @@ void LEDs_init(void);
 /** @brief sets LSOM heartbeat LED */
 void setHeartbeat(bool state);
 
-#endif
+#pragma once

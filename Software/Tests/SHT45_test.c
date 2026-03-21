@@ -40,7 +40,7 @@ void vSHT4xTask(void *pvParameters) {
 
     debugPrintf_init();
 
-    printf("printf initialized\n\r");
+    printf("printf initialized\r\n");
 
     LEDs_init();
 
@@ -54,7 +54,7 @@ void vSHT4xTask(void *pvParameters) {
         };
 
         vTaskDelay(pdMS_TO_TICKS(500));
-        printf("TEMP = %lu   |   HUMIDITY = %lu\n\r", tmpHmd_buffer[TEMP], tmpHmd_buffer[HUMIDITY]);
+        printf("TEMP = %lu   |   HUMIDITY = %lu\r\n", tmpHmd_buffer[TEMP], tmpHmd_buffer[HUMIDITY]);
     }
 }
 

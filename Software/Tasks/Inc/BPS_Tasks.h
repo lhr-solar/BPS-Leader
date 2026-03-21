@@ -1,5 +1,4 @@
-#ifndef TASK_H__
-#define TASK_H__
+#pragma once
 
 #include "common.h"
 #include <event_groups.h>
@@ -43,8 +42,8 @@ extern StaticTask_t Precharge_Task_Buffer;
 extern StaticTask_t FaultHandler_Task_Buffer;
 
 // Task Delays
-#define TEMP_MONITOR_TASK_DELAY 10
-#define VOLT_MONITOR_TASK_DELAY 5
+#define TEMP_MONITOR_TASK_DELAY_MS 10
+#define VOLT_MONITOR_TASK_DELAY_MS 5
 #define PRECHARGE_TASK_DELAY_MS 100
 
 // Task Inits
@@ -61,4 +60,3 @@ extern EventGroupHandle_t xWDogEventGroup_handle;
 #define WINDOW_TIMER_DONE   (1 << 2)
 #define ALL_TASKS_DONE (TEMP_MONITOR_DONE | VOLT_MONITOR_DONE | WINDOW_TIMER_DONE)
 
-#endif

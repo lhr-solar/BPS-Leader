@@ -3,10 +3,7 @@
  * Not specific to a single board/unit
  */
 
-#ifndef CONFIG_H__
-#define CONFIG_H__
-
-typedef enum ErrorStatus_e {ERROR = 0, SUCCESS = !ERROR} ErrorStatus;
+#pragma once
 
 //--------------------------------------------------------------------------------
 // Battery Pack layout
@@ -18,10 +15,11 @@ typedef enum ErrorStatus_e {ERROR = 0, SUCCESS = !ERROR} ErrorStatus;
 #define NUM_TEMPERATURE_SENSORS         32      // Number of temperature sensors
 #endif
 
+#define OVERVOLTAGE_THRESHOLD_MV 140000 // 140 V
+#define UNDERVOLTAGE_THRESHOLD_MV 80000 // 80.0 V
+
 
 #define PRE(s)  "\r    "s"  "   // \r removes the filepath and 'note: '#pragma message:...' parts
 #define STR(x)  #x
 #define XSTR(x) STR(x)
 
-
-#endif

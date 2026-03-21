@@ -14,13 +14,6 @@
 #define ADC_SAMPLING_TIME ADC_SAMPLETIME_2CYCLES_5
 
 /**
- * @brief ADC Initialization Function
- * @param adcHandle Pointer to ADC handle struct
- * @retval None
- */
-void HAL_ADC_MspInit(ADC_HandleTypeDef *adcHandle);
-
-/**
  * @brief ADC voltage measurement results
  *
  * Contains scaled array and battery voltages in millivolts.
@@ -49,20 +42,6 @@ typedef enum
 } ADC_Sense_Status_t;
 
 /**
- * @brief Initialize ADC1 struct and calls the wrapper adc_init function to initialize ADC1 peripheral
- * @param None
- * @retval None
- */
-ADC_Sense_Status_t ADC_1_Init(void);
-
-/**
- * @brief Initialize ADC2 struct and calls the wrapper adc_init function to initialize ADC2 peripheral
- * @param None
- * @retval None
- */
-ADC_Sense_Status_t ADC_2_Init(void);
-
-/**
  * @brief   Initialize ADC peripherals and internal queues
  *
  * Creates ADC queues and initializes both ADC instances.
@@ -84,16 +63,4 @@ ADC_Sense_Status_t ADC_Sense_Init(void);
  */
 ADC_Sense_Status_t Read_ADC(uint32_t Timeout_MS, ADC_Sense_Result *Result);
 
-/**
- * @brief ADC1 Initialization Function
- * @param None
- * @retval None
- */
-void MX_ADC1_Init(void);
 
-/**
- * @brief ADC2 Initialization Function
- * @param None
- * @retval None
- */
-void MX_ADC2_Init(void);

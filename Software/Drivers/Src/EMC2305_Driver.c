@@ -70,22 +70,22 @@ static void fan_init(EMC2305_Fan fan) {
     // Depends on the fan lol (should be in fan datasheet)
     if (EMC2305_SetPWMBaseFrequency(&chip, fan, EMC2305_PWM_19k53) != EMC2305_OK) {
         Error_Handler();
-    };
+    }
 
     // Set minimum drive to 0%
     if (EMC2305_WriteReg(&chip, EMC2305_FAN_REG_ADDR(fan, EMC2305_REG_FAN1_MIN_DRIVE), 0x00) != EMC2305_OK) {
         Error_Handler();
-    };
+    }
 
     // Set PID Gain to lowest (1x)
     if (EMC2305_WriteReg(&chip, EMC2305_FAN_REG_ADDR(fan, EMC2305_REG_GAIN1), 0x00) != EMC2305_OK) {
         Error_Handler();
-    };
+    }
 
     // Set PWM output mode to open-drain (use false for push-pull)
     if (EMC2305_SetPWMOutputMode(&chip, fan, true) != EMC2305_OK) {
         Error_Handler();
-    };
+    }
 }
 
 // CALL FROM TASK
@@ -95,7 +95,7 @@ void EMC2305_Driver_init() {
 
     if (EMC2305_Init(&chip, &hi2c3, 0x4D) == EMC2305_ERR) {
         Error_Handler();
-    };
+    }
 
     EMC2305_Global_Config cfg = {
         .alert_mask = false,
