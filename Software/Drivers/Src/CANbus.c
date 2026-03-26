@@ -127,6 +127,18 @@ void BPS_CAN_Init(void)
 
 }
 
+void FDCAN_Init_TXHeader(FDCAN_TxHeaderTypeDef* tx_header, uint32_t ID, uint32_t dataLength) {
+    tx_header->Identifier = ID;
+    tx_header->IdType = FDCAN_STANDARD_ID;
+    tx_header->TxFrameType = FDCAN_DATA_FRAME;
+    tx_header->DataLength = dataLength;
+    tx_header->ErrorStateIndicator = FDCAN_ESI_ACTIVE;
+    tx_header->BitRateSwitch = FDCAN_BRS_OFF;
+    tx_header->FDFormat = FDCAN_CLASSIC_CAN;
+    tx_header->TxEventFifoControl = FDCAN_STORE_TX_EVENTS;
+    tx_header->MessageMarker = 0;
+}
+
 void CAR_CAN_Init(void)
 {
 
@@ -169,6 +181,7 @@ void CAR_CAN_Init(void)
     if(can_fd_start(hfdcan3) != CAN_OK){
         Error_Handler();
     }
+    
 
 }
 

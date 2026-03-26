@@ -84,9 +84,9 @@ typedef struct {
 
 // Car and BPS CAN 
 //------------------------------------------
-#define BPS_CAN_CHANNEL FDCAN3
+#define BPS_CAN_CHANNEL FDCAN1
 
-#define CAR_CAN_CHANNEL FDCAN1
+#define CAR_CAN_CHANNEL FDCAN3
 //------------------------------------------
 
 

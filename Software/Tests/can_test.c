@@ -1,3 +1,5 @@
+// Wire the two CAN's together to use this test. On the first iteration, it will test the CAN Forwarding function. Screen UART.
+
 #include "common.h"
 #include "CANbus.h"
 #include "StatusLEDs.h"
@@ -17,7 +19,12 @@ configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY is the maximum FreeRTOS priority fo
 #define FDCAN3_RECV_HOOK_EN
 
 
-// Initialize clock for heartbeat LED port
+static bool verifyData(uint8_t tx[], uint8_t rx[]) {
+    for (uint8_t i = 0; i < 8; i++) {
+        if (tx[i] != rx[i]) return false;
+    }
+    return true;
+}
 
 static void task(void *pvParameters) {
 
@@ -28,16 +35,10 @@ static void task(void *pvParameters) {
 
     bool toggle = true;
     int test_id = 0x321;
-    FDCAN_TxHeaderTypeDef tx_header = {0};   
-    tx_header.Identifier = test_id;
-    tx_header.IdType = FDCAN_STANDARD_ID;
-    tx_header.TxFrameType = FDCAN_DATA_FRAME;
-    tx_header.DataLength = FDCAN_DLC_BYTES_8;
-    tx_header.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
-    tx_header.BitRateSwitch = FDCAN_BRS_OFF;
-    tx_header.FDFormat = FDCAN_CLASSIC_CAN;
-    tx_header.TxEventFifoControl = FDCAN_STORE_TX_EVENTS;
-    tx_header.MessageMarker = 0;
+    FDCAN_TxHeaderTypeDef tx_header = {0};
+    FDCAN_Init_TXHeader(&tx_header, test_id, FDCAN_DLC_BYTES_8);
+
+    bool first_iteration = true;
 
     // send x1234 to 0x11
     uint8_t tx_data[8] = {0};
@@ -50,11 +51,11 @@ static void task(void *pvParameters) {
     tx_data[6] = 0xDE;
     tx_data[7] = 0xFF;
 
-    //FDCAN_RxHeaderTypeDef fdcan1_rx_header = {0};
-    //uint8_t fdcan1_rx_data[8] = {0};
+    FDCAN_RxHeaderTypeDef fdcan1_rx_header = {0};
+    uint8_t fdcan1_rx_data[8] = {0};
 
-    // FDCAN_RxHeaderTypeDef fdcan2_rx_header = {0};
-    // uint8_t fdcan2_rx_data[8] = {0};
+    FDCAN_RxHeaderTypeDef fdcan1_rx_bounceback_header = {0};
+    uint8_t fdcan1_rx_bounceback_data[8] = {0};
 
     FDCAN_RxHeaderTypeDef fdcan3_rx_header = {0};
     uint8_t fdcan3_rx_data[8] = {0};
@@ -62,58 +63,49 @@ static void task(void *pvParameters) {
     while(1){
 
     if (can_fd_send(hfdcan1, &tx_header, tx_data, pdMS_TO_TICKS(20)) == CAN_ERR){
-        printf("FDCAN1 failed to send!\r\n");
+        printf("BPS CAN failed to send!\r\n");
         Error_Handler();
     }
-    printf("FDCAN1 Sent successfully!\r\n");
-    /*/
-    vTaskDelay(pdMS_TO_TICKS(1000));
+    printf("BPS CAN Sent successfully!\r\n");
 
-        if (can_fd_send(hfdcan3, &tx_header, tx_data, pdMS_TO_TICKS(20)) == CAN_ERR){
-        printf("FDCAN3 failed to send!\r\n");
-        Error_Handler();
-    }
-    printf("FDCAN3 Sent successfully!\r\n");
-    */
     vTaskDelay(pdMS_TO_TICKS(20));
-    if(can_fd_recv(hfdcan3, test_id, &fdcan3_rx_header, fdcan3_rx_data, pdMS_TO_TICKS(20)) != CAN_OK){
-        printf("FDCAN3 failed to receive!\r\n");
+
+    if((can_fd_recv(hfdcan3, test_id, &fdcan3_rx_header, fdcan3_rx_data, pdMS_TO_TICKS(20)) != CAN_OK) && verifyData(fdcan1_rx_data, tx_data)){
+        printf("CAR CAN failed to receive!\r\n");
         Error_Handler();
     }
-    printf("FDCAN1 Receieve successfully!\r\n");
-    /*
-    for(uint8_t i = 0; i < 8; i++){
-        if(fdcan1_rx_data[i] != tx_data[i]){
-            printf("FDCAN1 Data dont match!\r\n");
+    printf("CAR CAN Receieve successfully!\r\n");
+
+    if (can_fd_send(hfdcan3, &tx_header, tx_data, pdMS_TO_TICKS(20)) == CAN_ERR){
+        printf("CAR CAN failed to send!\r\n");
+        Error_Handler();
+    }
+    printf("CAR CAN Sent successfully!\r\n");
+
+    vTaskDelay(pdMS_TO_TICKS(20));
+
+    if((can_fd_recv(hfdcan1, test_id, &fdcan1_rx_header, fdcan1_rx_data, pdMS_TO_TICKS(20)) != CAN_OK) && verifyData(fdcan1_rx_data, tx_data)){
+        printf("BPS CAN failed to receive!\r\n");
+        Error_Handler();
+    }
+    printf("BPS CAN Receieve successfully!\r\n");
+
+    vTaskDelay(pdMS_TO_TICKS(20));
+
+    if (first_iteration) {
+        if((can_fd_recv(hfdcan1, test_id, &fdcan1_rx_bounceback_header, fdcan1_rx_bounceback_data, pdMS_TO_TICKS(20)) != CAN_OK) && verifyData(fdcan1_rx_data, tx_data)){
+            printf("Bounce Back (CAN forwarding) failed!\r\n");
             Error_Handler();
         }
+        printf("Bounce Back (CAN forwarding) successfull!\r\n");
+        first_iteration = false;
     }
-    printf("FDCAN1 Data works!\r\n");   
 
-    if (can_fd_send(hfdcan3, &tx_header, tx_data, portMAX_DELAY) == CAN_ERR){
-        printf("FDCAN3 failed to send!\r\n");
-        Error_Handler();
-    }
-    printf("FDCAN3 Sent successfully!\r\n");
-
-    if(can_fd_recv(hfdcan3, test_id, &fdcan3_rx_header, fdcan3_rx_data, portMAX_DELAY) != CAN_OK){
-        printf("FDCAN3 failed to receive!\r\n");
-        Error_Handler();
-    }
-    printf("FDCAN3 Receieve successfully!\r\n");
-
-    for(uint8_t i = 0; i < 8; i++){
-        if(fdcan3_rx_data[i] != tx_data[i]){
-            printf("FDCAN3 Data dont match!\r\n");
-            Error_Handler();
-        }
-    }
-    printf("FDCAN3 Data works!\r\n");   
-    */
-    
     setHeartbeat(toggle);
     toggle = !toggle;
     vTaskDelay(pdMS_TO_TICKS(1000));
+
+    
     }
 }
 
@@ -142,7 +134,15 @@ int main(void) {
                 task_stack,
                 &task_buffer);
 
-    
+    xTaskCreateStatic(
+                Task_CanRxForward,
+                "CAN Forward Task",
+                TASK_CAN_FORWARD_STACK_SIZE,
+                NULL,
+                TASK_CAN_FORWARD_PRIO,
+                Task_Can_Forward_Stack,
+                &Task_Can_Forward_Buffer);
+
     vTaskStartScheduler();
     while(1){
 
