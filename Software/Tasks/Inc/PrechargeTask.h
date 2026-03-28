@@ -12,7 +12,7 @@
 #define RATIO_SCALE 1000
 
 // 900/1000 = 0.900, 800/1000 = 0.800
-// TODO: Test and increase hysterisis threshold closer to 90%
+// TODO: Test and increase hysteresis threshold closer to 90%
 #define PRECHARGE_THRESHOLD_90 900
 #define PRECHARGE_THRESHOLD_80 800 // NOTE: The second threshold exists to account for hysteresis, so that we don't drop out of the run state after successfully precharging just because of a small ADC reading change
 
@@ -29,8 +29,8 @@ extern StackType_t Precharge_Task_Stack[PRECHARGE_TASK_STACK_SIZE];
 typedef enum
 {
     PRECHARGE_STATE_INITIAL = 0, // Precharge sequence hasn't started, start by closing main contactor and starting a timer to check for precharge timeout
-    PRECHARGE_STATE_PRECHARGING, // Precharge sequence started successfully, close contactor and check hysterisis
-    PRECHARGE_STATE_RUN,          // Precharge got through hysterisis, now continuously polling ADC
+    PRECHARGE_STATE_PRECHARGING, // Precharge sequence started successfully, close contactor and check hysteresis
+    PRECHARGE_STATE_RUN,          // Precharge got through hysteresis, now continuously polling ADC
     PRECHARGE_STATE_IDLE          // Precharge sequence is waiting for array ignition state (do nothing)
 } Precharge_State_t;
 
