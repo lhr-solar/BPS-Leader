@@ -26,7 +26,7 @@ void Task_Init(){
 
     Init_WDogTask();
 
-    ALL_CAN_Init();
+    CAN_Init();
     
     LEDs_init();
 

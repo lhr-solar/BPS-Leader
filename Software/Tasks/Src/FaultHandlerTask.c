@@ -58,7 +58,7 @@ static void print_fault(){
 
 void Fault_Loop()
 {
-    bool toggle = true;
+
     uint32_t fault_printf_debug_counter = 0;
     while (1)
     {
@@ -69,8 +69,7 @@ void Fault_Loop()
             fault_printf_debug_counter = 0;
         }
 
-        setHeartbeat(toggle);
-        toggle = !toggle;
+        toggleHeartbeat();
         vTaskDelay(pdMS_TO_TICKS(FAULT_LOOP_PERIOD_MS));
 
     }
@@ -81,10 +80,10 @@ void Set_Fault_LED()
     switch (fault_bits) // compare against individual bitmasks
     {
     case FAULT_BIT(BATTERY_OVERVOLTAGE_FAULT):
-        LED_set(OVER_V_LED, ON);
+        LED_set(OVER_V_LED, LED_ON);
         break;
     case FAULT_BIT(BATTERY_UNDERVOLTAGE_FAULT):
-        LED_set(LOW_V_LED, ON);
+        LED_set(LOW_V_LED, LED_ON);
         break;
     default:
         break;
@@ -93,26 +92,25 @@ void Set_Fault_LED()
 
 void Task_FaultHandler()
 {   
-    LEDs_init();
 
     Init_FaultHandlerTask();
     
     while (true) {
-    LEDsModFaultBitmap_set(0x1F);
 
     fault_bits = faultBit_wait(NUM_FAULTS, portMAX_DELAY);
-
+    
     if (fault_bits != 0)
     {   
         LEDs_clear();
-        LED_set(FAULT_LED, ON);
+
+        LED_set(FAULT_LED, LED_ON);
 
         Kill_Precharge_Task();
         emergency_open_contactors();
 
         print_fault();
 
-        Fault_Loop();
+        Fault_Loop(); // WILL NEVER RETURN - while(true)
         
     }
     

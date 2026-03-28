@@ -13,10 +13,8 @@ static StackType_t xBlinkyStack[BLINKY_TASK_STACK_SIZE];
 
 // blink
 void vBlinkyTask(void *pvParameters) {
-    bool toggle = true;
     while (true) {
-        setHeartbeat(toggle);
-        toggle = !toggle;
+        toggleHeartbeat();
         vTaskDelay(DELAY_1S);
     }
 }

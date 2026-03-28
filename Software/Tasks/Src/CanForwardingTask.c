@@ -25,25 +25,21 @@ void can_fd_rx_callback_hook(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs, c
 
     BaseType_t higherPriorityTaskWoken = pdFALSE;
 
-    if (hfdcan->Instance != BPS_CAN_CHANNEL) return;
-
 #ifdef CAN_TEST
     if (!enable_bench_forwarding) return;       
     enable_bench_forwarding = false;
 #endif
 
-    if(canRxForwardQueue != NULL){
-        
-        xQueueSendFromISR(
-            canRxForwardQueue,
-            &recv_payload,
-            &higherPriorityTaskWoken
-        );
-
+    if (hfdcan->Instance == BPS_CAN_CHANNEL) {
+        if(canRxForwardQueue != NULL){
+            xQueueSendCircularBufferFromISR (
+                canRxForwardQueue,
+                &recv_payload,
+                &higherPriorityTaskWoken,
+                recv_payload.header.DataLength
+            );
+        }
     }
-
-    portYIELD_FROM_ISR(higherPriorityTaskWoken);
-    
 }
 
 void CanRxForwardTask_Init(void){

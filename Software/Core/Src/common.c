@@ -5,20 +5,18 @@
 // for software errors
 void Error_Handler() {
 
-  // Kill Main Task
-  __disable_irq();  // open every contactor, bypasses semaphore
+
+  // open every contactor, bypasses semaphore
   
-  for (uint8_t contactor_num = 0; contactor_num < NUM_CONTACTORS; contactor_num++) {
-    contactor_set(contactor_num, CONTACTOR_OPEN, portMAX_DELAY, EMERGENCY);
-  }
+  emergency_open_contactors();
   
   // turns on fault led, and blink DEBUG led to show the error was software
-  setHeartbeat(OFF);
-  LED_set(FAULT_LED, ON);
+  setHeartbeat(LED_OFF);
+  LED_set(FAULT_LED, LED_ON);
   while (true) {
-    LED_set(DEBUG_LED, ON);
+    LED_set(DEBUG_LED, LED_ON);
     vTaskDelay(pdMS_TO_TICKS(1000));
-    LED_set(DEBUG_LED, OFF);
+    LED_set(DEBUG_LED, LED_OFF);
     vTaskDelay(pdMS_TO_TICKS(1000));
   }
 }
@@ -40,13 +38,12 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
-  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = RCC_PLLM_DIV1;
-  RCC_OscInitStruct.PLL.PLLN = 10;
+  RCC_OscInitStruct.PLL.PLLN = 20;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV2;
   RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV2;

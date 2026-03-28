@@ -21,12 +21,6 @@ void Init_PrechargeTask()
     configASSERT(xPrechargeEventGroup_handle); // check if handle is set
     // xEventGroupClearBits(xReadADCEventGroup_handle,    /* The event group being updated. */
     //                      0xFF );                    /* The bits being cleared. */
-    debugPrintf_init();
-    // Inits ADC & contactors
-    ADC_Sense_Init();
-    contactor_init();
-    LEDs_init();
-    
 }
 
 void Fault_Checker(uint32_t Array_Voltage, uint32_t Battery_Voltage)
@@ -90,7 +84,6 @@ void Task_Precharge()
 
     static Precharge_State_t State = PRECHARGE_STATE_INITIAL;
     static TickType_t Start_Tick = 0;
-    static bool toggle = true;
 
     uint8_t printDebugCounter = 0;
 
@@ -110,8 +103,11 @@ void Task_Precharge()
 
         switch (State)
         {
+            case PRECHARGE_STATE_IDLE:
+                break;
+                
             case PRECHARGE_STATE_INITIAL: // Startup state: Closes main contactor and moves to precharging state
-                if (contactor_set(ARRAY_CONTACTOR, CONTACTOR_CLOSED, CALLBACK_BLOCKING_TIME_MS, NORMAL) != SUCCESS)
+                if (contactor_set(ARRAY_CONTACTOR, CONTACTOR_CLOSED, CALLBACK_BLOCKING_TIME_MS, NORMAL) != CONTACTOR_OK)
                 {
                     set_faultBit(CONTACTOR_TIMEOUT_FAULT);
                 }
@@ -131,7 +127,7 @@ void Task_Precharge()
                     // Check if array voltage is within 90% of battery voltage (precharge complete)
                     if (Array_Voltage * RATIO_SCALE >= Battery_Voltage * PRECHARGE_THRESHOLD_90)
                     {
-                        if (contactor_set(ARRAY_PRE_CONTACTOR, CONTACTOR_CLOSED, CALLBACK_BLOCKING_TIME_MS, false) != SUCCESS)
+                        if (contactor_set(ARRAY_PRE_CONTACTOR, CONTACTOR_CLOSED, CALLBACK_BLOCKING_TIME_MS, false) != CONTACTOR_OK)
                         {
                             set_faultBit(CONTACTOR_TIMEOUT_FAULT);
                         }
@@ -170,10 +166,7 @@ void Task_Precharge()
             printDebugCounter = 0;
         }
 
-        LED_set(CHARGING_LED, State == PRECHARGE_STATE_RUN ? OFF : ON);
 
-        setHeartbeat(toggle);
-        toggle = !toggle;
-        vTaskDelay(PRECHARGE_TASK_DELAY_MS);
+        vTaskDelay(pdMS_TO_TICKS(PRECHARGE_TASK_DELAY_MS));
     }
 }

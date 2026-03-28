@@ -4,6 +4,8 @@
 static SemaphoreHandle_t contactorsMutex = NULL;
 static StaticSemaphore_t contactorsMutexBuffer;
 
+bool contactor_is_initialized = false;
+
 static const char* CONTACTOR_NAMES[NUM_CONTACTORS] = {
     "HV Positive Contactor",
     "HV Negative Contactor",
@@ -19,7 +21,7 @@ contactor_state_t contactor_get(contactor_num_t contactor_num) {
     
     // check that contactor exists
     if ((contactor_num < 0) || (contactor_num >= NUM_CONTACTORS)) {
-        Error_Handler();
+        return CONTACTOR_ERROR;
     }
 
     contactor_t* contactor = &contactors[contactor_num];
@@ -31,11 +33,11 @@ contactor_state_t contactor_get_command_state(contactor_num_t contactor_num) {
     
     // check that contactor exists
     if ((contactor_num < 0) || (contactor_num >= NUM_CONTACTORS)) {
-        Error_Handler();
+        return CONTACTOR_ERROR;
     }
 
     contactor_t* contactor = &contactors[contactor_num];
-    return contactor->state;
+     return ((HAL_GPIO_ReadPin(contactor->sense_pin.port, contactor->sense_pin.pin) == GPIO_PIN_SET) ? CONTACTOR_CLOSED : CONTACTOR_OPEN);
 }
 
 static void vContactorCallback( TimerHandle_t senseTimer ) {
@@ -49,18 +51,18 @@ static void vContactorCallback( TimerHandle_t senseTimer ) {
 }
 
 // sets contactor, updates state value, then starts timer to check expected state matches actual state. 
-ErrorStatus contactor_set(contactor_num_t contactor_num, contactor_state_t state, uint32_t wait_ms, fault_state_t fault_state) {
+contactor_state_t contactor_set(contactor_num_t contactor_num, contactor_state_t state,  uint32_t wait_ms, fault_state_t fault_state) {
     
     // check that contactor exists
     if ((contactor_num < 0) || (contactor_num >= NUM_CONTACTORS)) {
-        Error_Handler();
+        return CONTACTOR_ERROR;
     }
 
     contactor_t* contactor = &contactors[contactor_num];
 
     // if its emergency, dont bother with semaphore
-    if ((fault_state != EMERGENCY) && xSemaphoreTake(contactorsMutex, wait_ms) == pdFALSE) {
-        return ERROR;
+    if ((fault_state != EMERGENCY) && xSemaphoreTake(contactorsMutex, pdMS_TO_TICKS(wait_ms)) == pdFALSE) {
+        return CONTACTOR_ERROR;
     };
 
     // critical section:
@@ -74,10 +76,12 @@ ErrorStatus contactor_set(contactor_num_t contactor_num, contactor_state_t state
         xSemaphoreGive(contactorsMutex);
     }
 
-    return SUCCESS;
+    return CONTACTOR_OK;
 }
 
 void contactor_init() {
+
+    if (contactor_is_initialized) return;
 
     // Enable clock for GPIO A/B/C 
     __HAL_RCC_GPIOA_CLK_ENABLE();
@@ -112,7 +116,7 @@ void contactor_init() {
     GPIO_InitTypeDef GPIO_InitStruct = { 0 };
 
     // loop to intialize contactor GPIO and timers
-    for (uint32_t contactor_num = 0; contactor_num < NUM_CONTACTORS; contactor_num++) {
+    for (uint8_t contactor_num = 0; contactor_num < NUM_CONTACTORS; contactor_num++) {
 
         contactor_t* contactor = &contactors[contactor_num];
 
@@ -137,16 +141,20 @@ void contactor_init() {
             CONTACTOR_NAMES[contactor_num],                     /* Name of the timer */
             CONTACTOR_SENSE_DELAY_TICKS,                              /* Timer period in ticks */
             pdFALSE,                                            /* Don't auto-reload */
-            (void*)contactor_num,                               /* Timer ID */
+            (void*)(uint32_t)contactor_num,                               /* Timer ID */
             vContactorCallback,                                 /* Callback function */
             &(contactor->senseTimerBuffer)       /* Buffer to hold timer data */
         );
     }
+
+    contactor_is_initialized = true;
 }
 
 // Opens all contactors in case of fault
-// TODO: check if contactors are intialized. If not, initialize them.
 void emergency_open_contactors(void) {
+
+    contactor_init();
+
     for (uint8_t contactor_num = 0; contactor_num < NUM_CONTACTORS; contactor_num++) {
     contactor_set(contactor_num, CONTACTOR_OPEN, portMAX_DELAY, EMERGENCY);
   }

@@ -36,6 +36,8 @@ typedef enum
     CAR_CAN_ERROR,                     // CAR CAN failed a send or receive after configured retries 
     I2C_ERROR,                         // I2C failed communication after configured retries (with fan chip or SHT45)
     UART_ERROR,                        // UART failed communication after configured retries (with ESP)
+    FAN_CHIP_ERROR,                    // Fan chip not responding or not responding properly
+    SHT45_CHIP_ERROR,                  // SHT45 Temp & humidity sensor not responding or not responding properly
 
     // Counter
     NUM_FAULTS                         // Total number of faults
@@ -79,7 +81,3 @@ EventBits_t faultBit_wait(fault_bit_t bit, TickType_t xTicksToWait);
  * @return none
  */
 void set_faultBitFromISR(fault_bit_t bit);
-
-
-void set_fans_MAX(void);
-void emergency_open_contactors(void);

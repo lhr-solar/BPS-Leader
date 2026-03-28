@@ -40,15 +40,15 @@ typedef struct {
 //------------------------------------------
 
 
-// SHT4x
+// SHT45
 //------------------------------------------
-#define SHT4x_SCL_PIN GPIO_PIN_6 
-#define SHT4x_SCL_PORT GPIOC
+#define SHT45_SCL_PIN GPIO_PIN_6 
+#define SHT45_SCL_PORT GPIOC
 
-#define SHT4x_SDA_PIN GPIO_PIN_7
-#define SHT4x_SDA_PORT GPIOC
+#define SHT45_SDA_PIN GPIO_PIN_7
+#define SHT45_SDA_PORT GPIOC
 
-#define SHT4x_I2C_CHANNEL I2C4
+#define SHT45_I2C_CHANNEL I2C4
 //------------------------------------------
 
 

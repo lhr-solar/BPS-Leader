@@ -16,7 +16,12 @@ void vTestTaskToskTisk(void* pvParameters) {
     LEDs_init();
     debugPrintf_init();
     printf("Printf initialized!\r\n");
-    if (ADC_Sense_Init() != ADC_SENSE_OK) printf("ADC failed initialization :( \r\n");
+
+    if (ADC_Sense_Init() != ADC_SENSE_OK) {
+        printf("ADC failed initialization :( \r\n");
+        Error_Handler();
+    }
+    
     printf("ADC initialized!\r\n");
 
     while (true) {

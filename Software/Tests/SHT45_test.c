@@ -28,10 +28,8 @@ extern I2C_HandleTypeDef hi2c4;
 // blink
 void vBlinkyTask(void *pvParameters) {
 
-    bool toggle = true;
     while (true) {
-        setHeartbeat(toggle);
-        toggle = !toggle;
+        toggleHeartbeat();
         vTaskDelay(DELAY_1S);
     }
 }

@@ -3,8 +3,6 @@
 #include "EMC2305_Driver.h"
 #include "StatusLEDs.h"
 
-extern EMC2305_HandleTypeDef chip;
-
 // Event group handle to store fault state bits
 EventGroupHandle_t faultBits;
 

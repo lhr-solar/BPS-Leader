@@ -41,10 +41,10 @@ Common Timeouts
 /* ---------------------------- MACROS ----------------------------*/
 
 #define IWDG_PRESCALAR IWDG_PRESCALER_8 
-#define IWDG_COUNTDOWN 79               // Tick value before we refresh the IDWG (current value converts to ~20ms)
+#define IWDG_COUNTDOWN_TICKS 79               // Tick value before we refresh the IDWG (current value converts to ~20ms)
 
 #define IWDG_TIMEOUT_MS 20
-#define IWDG_WINDOW 27
+#define IWDG_WINDOW_TICKS 27
 /* ----------------------------------------------------------------*/
 
 

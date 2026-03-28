@@ -1,8 +1,18 @@
 #include "CANbus.h"
-
-#define FDCAN_NVIC_PRIO configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY + 3
+#include "config.h"
 
 static uint32_t HAL_RCC_FDCAN_CLK_ENABLED=0;
+
+#define car_can hfdcan3
+#define bps_can hfdcan1
+
+static bool is_initialized = false;
+
+#define car_can_send(tx_header, data, delay_ms) can_fd_send(car_can, tx_header, data, pdMS_TO_TICKS(delay_ms))
+#define bps_can_send(tx_header, data, delay_ms) can_fd_send(bps_can, tx_header, data, pdMS_TO_TICKS(delay_ms))
+
+#define car_can_recv(id, rx_header, data, delay_ms) can_fd_recv(car_can, id, rx_header, data, pdMS_TO_TICKS(delay_ms))
+#define bps_can_recv(id, rx_header, data, delay_ms) can_fd_recv(bps_can, id, rx_header, data, pdMS_TO_TICKS(delay_ms))
 
 void HAL_FDCAN_MspInit(FDCAN_HandleTypeDef* fdcanHandle)
 {
@@ -83,30 +93,30 @@ void HAL_FDCAN_MspInit(FDCAN_HandleTypeDef* fdcanHandle)
   }
 }
 
-void BPS_CAN_Init(void)
+static can_status_t BPS_CAN_Init(void)
 {   
 
     __HAL_RCC_SYSCFG_CLK_ENABLE();
     __HAL_RCC_PWR_CLK_ENABLE();
 
-    hfdcan1->Instance = FDCAN1;
-    hfdcan1->Init.ClockDivider = FDCAN_CLOCK_DIV1;
-    hfdcan1->Init.FrameFormat = FDCAN_FRAME_CLASSIC;
-    hfdcan1->Init.Mode = FDCAN_MODE_NORMAL;
-    hfdcan1->Init.AutoRetransmission = DISABLE;
-    hfdcan1->Init.TransmitPause = DISABLE;
-    hfdcan1->Init.ProtocolException = DISABLE;
-    hfdcan1->Init.NominalPrescaler = 20;
-    hfdcan1->Init.NominalSyncJumpWidth = 1;
-    hfdcan1->Init.NominalTimeSeg1 = 13;
-    hfdcan1->Init.NominalTimeSeg2 = 2;
-    hfdcan1->Init.DataPrescaler = 1;
-    hfdcan1->Init.DataSyncJumpWidth = 1;
-    hfdcan1->Init.DataTimeSeg1 = 1;
-    hfdcan1->Init.DataTimeSeg2 = 1;
-    hfdcan1->Init.StdFiltersNbr = 1;
-    hfdcan1->Init.ExtFiltersNbr = 0;
-    hfdcan1->Init.TxFifoQueueMode = FDCAN_TX_FIFO_OPERATION;
+    bps_can->Instance = FDCAN1;
+    bps_can->Init.ClockDivider = FDCAN_CLOCK_DIV1;
+    bps_can->Init.FrameFormat = FDCAN_FRAME_CLASSIC;
+    bps_can->Init.Mode = FDCAN_MODE_NORMAL;
+    bps_can->Init.AutoRetransmission = ENABLE;
+    bps_can->Init.TransmitPause = DISABLE;
+    bps_can->Init.ProtocolException = DISABLE;
+    bps_can->Init.NominalPrescaler = 20;
+    bps_can->Init.NominalSyncJumpWidth = 1;
+    bps_can->Init.NominalTimeSeg1 = 13;
+    bps_can->Init.NominalTimeSeg2 = 2;
+    bps_can->Init.DataPrescaler = 1;
+    bps_can->Init.DataSyncJumpWidth = 1;
+    bps_can->Init.DataTimeSeg1 = 1;
+    bps_can->Init.DataTimeSeg2 = 1;
+    bps_can->Init.StdFiltersNbr = 1;
+    bps_can->Init.ExtFiltersNbr = 0;
+    bps_can->Init.TxFifoQueueMode = FDCAN_TX_FIFO_OPERATION;
 
     // FDCAN1 Filter Config
     FDCAN_FilterTypeDef sFilterConfig1;
@@ -117,13 +127,15 @@ void BPS_CAN_Init(void)
     sFilterConfig1.FilterID1 = 0x000;
     sFilterConfig1.FilterID2 = 0x000;
 
-    if(can_fd_init(hfdcan1, &sFilterConfig1) != CAN_OK){
-        Error_Handler();
+    if(can_fd_init(bps_can, &sFilterConfig1) != CAN_OK){
+        return CAN_ERR;
     }
 
-    if(can_fd_start(hfdcan1) != CAN_OK){
-        Error_Handler();
+    if(can_fd_start(bps_can) != CAN_OK){
+        return CAN_ERR;
     }
+
+    return CAN_OK;
 
 }
 
@@ -139,30 +151,30 @@ void FDCAN_Init_TXHeader(FDCAN_TxHeaderTypeDef* tx_header, uint32_t ID, uint32_t
     tx_header->MessageMarker = 0;
 }
 
-void CAR_CAN_Init(void)
+static can_status_t CAR_CAN_Init(void)
 {
 
     __HAL_RCC_SYSCFG_CLK_ENABLE();
     __HAL_RCC_PWR_CLK_ENABLE();
 
-    hfdcan3->Instance = FDCAN3;
-    hfdcan3->Init.ClockDivider = FDCAN_CLOCK_DIV1;
-    hfdcan3->Init.FrameFormat = FDCAN_FRAME_CLASSIC;
-    hfdcan3->Init.Mode = FDCAN_MODE_NORMAL;
-    hfdcan3->Init.AutoRetransmission = DISABLE;
-    hfdcan3->Init.TransmitPause = DISABLE;
-    hfdcan3->Init.ProtocolException = DISABLE;
-    hfdcan3->Init.NominalPrescaler = 20;
-    hfdcan3->Init.NominalSyncJumpWidth = 1;
-    hfdcan3->Init.NominalTimeSeg1 = 13;
-    hfdcan3->Init.NominalTimeSeg2 = 2;
-    hfdcan3->Init.DataPrescaler = 1;
-    hfdcan3->Init.DataSyncJumpWidth = 1;
-    hfdcan3->Init.DataTimeSeg1 = 1;
-    hfdcan3->Init.DataTimeSeg2 = 1;
-    hfdcan3->Init.StdFiltersNbr = 1;
-    hfdcan3->Init.ExtFiltersNbr = 0;
-    hfdcan3->Init.TxFifoQueueMode = FDCAN_TX_FIFO_OPERATION;
+    car_can->Instance = FDCAN3;
+    car_can->Init.ClockDivider = FDCAN_CLOCK_DIV1;
+    car_can->Init.FrameFormat = FDCAN_FRAME_CLASSIC;
+    car_can->Init.Mode = FDCAN_MODE_NORMAL;
+    car_can->Init.AutoRetransmission = ENABLE;
+    car_can->Init.TransmitPause = DISABLE;
+    car_can->Init.ProtocolException = DISABLE;
+    car_can->Init.NominalPrescaler = 20;
+    car_can->Init.NominalSyncJumpWidth = 1;
+    car_can->Init.NominalTimeSeg1 = 13;
+    car_can->Init.NominalTimeSeg2 = 2;
+    car_can->Init.DataPrescaler = 1;
+    car_can->Init.DataSyncJumpWidth = 1;
+    car_can->Init.DataTimeSeg1 = 1;
+    car_can->Init.DataTimeSeg2 = 1;
+    car_can->Init.StdFiltersNbr = 1;
+    car_can->Init.ExtFiltersNbr = 0;
+    car_can->Init.TxFifoQueueMode = FDCAN_TX_FIFO_OPERATION;
 
 
     // FDCAN3 Filter Config
@@ -174,18 +186,21 @@ void CAR_CAN_Init(void)
     sFilterConfig1.FilterID1 = 0x000;
     sFilterConfig1.FilterID2 = 0x000;
 
-    if(can_fd_init(hfdcan3, &sFilterConfig1) != CAN_OK){
-        Error_Handler();
+    if(can_fd_init(car_can, &sFilterConfig1) != CAN_OK){
+        return CAN_ERR;
     }
 
-    if(can_fd_start(hfdcan3) != CAN_OK){
-        Error_Handler();
+    if(can_fd_start(car_can) != CAN_OK){
+        return CAN_ERR;
     }
+
+    return CAN_OK;
     
-
 }
 
-void ALL_CAN_Init() {
-    BPS_CAN_Init();
-    CAR_CAN_Init();
+can_status_t CAN_Init() {
+    if (BPS_CAN_Init() != CAN_OK) return CAN_ERR;
+    if (CAR_CAN_Init() != CAN_OK) return CAN_ERR;
+    is_initialized = true;
+    return CAN_OK;
 }

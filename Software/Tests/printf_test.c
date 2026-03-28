@@ -16,7 +16,7 @@ static StackType_t xBlinkyStack[BLINKY_TASK_STACK_SIZE];
 void vBlinkyTask(void *pvParameters) {
     bool toggle = true;
     while (true) {
-        setHeartbeat(toggle);
+        toggleHeartbeat();
         toggle ? printf("ON\r\n") : printf("OFF\r\n");
         toggle = !toggle;
         vTaskDelay(DELAY_1S);

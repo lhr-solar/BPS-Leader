@@ -1,4 +1,5 @@
 // Wire the two CAN's together to use this test. On the first iteration, it will test the CAN Forwarding function. Screen UART.
+// MUST UNCOMMENT LINE IN CAN FORWARDING TASK THAT ENABLES BENCHTOP TESTING
 
 #include "common.h"
 #include "CANbus.h"
@@ -8,15 +9,6 @@
 
 StaticTask_t task_buffer;
 StackType_t task_stack[TEST_TASK_STACK_SIZE];
-
-/*
-configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY is the maximum FreeRTOS priority for an interrupt 
-*/
-#define FDCAN_NVIC_PRIO configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY + 3
-
-// This enables the can_fd_rx_callback_hook function to be called when data is recieved
-#define FDCAN1_RECV_HOOK_EN
-#define FDCAN3_RECV_HOOK_EN
 
 
 static bool verifyData(uint8_t tx[], uint8_t rx[]) {
@@ -33,7 +25,6 @@ static void task(void *pvParameters) {
     ALL_CAN_Init();
     printf("CAN initialized successfully\r\n");
 
-    bool toggle = true;
     int test_id = 0x321;
     FDCAN_TxHeaderTypeDef tx_header = {0};
     FDCAN_Init_TXHeader(&tx_header, test_id, FDCAN_DLC_BYTES_8);
@@ -101,8 +92,7 @@ static void task(void *pvParameters) {
         first_iteration = false;
     }
 
-    setHeartbeat(toggle);
-    toggle = !toggle;
+    toggleHeartbeat();
     vTaskDelay(pdMS_TO_TICKS(1000));
 
     

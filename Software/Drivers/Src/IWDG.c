@@ -11,13 +11,12 @@ within an expected time window.
 IWDG_HandleTypeDef iwdg_h = {0};
 
 
-
 void IWDG_Init() {
     // Set IWDG values
     iwdg_h.Instance = IWDG;
     iwdg_h.Init.Prescaler = IWDG_PRESCALAR;
-    iwdg_h.Init.Reload = IWDG_COUNTDOWN;
-    iwdg_h.Init.Window = IWDG_WINDOW;
+    iwdg_h.Init.Reload = IWDG_COUNTDOWN_TICKS;
+    iwdg_h.Init.Window = IWDG_WINDOW_TICKS;
 }
 
 void IWDG_Start(void(*errorHandler)(void)) {

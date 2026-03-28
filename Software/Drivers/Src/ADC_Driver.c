@@ -1,4 +1,5 @@
 #include "ADC_Driver.h"
+#include "config.h"
 
 static uint8_t Is_Initialized = 0;
 
@@ -13,6 +14,7 @@ static StaticQueue_t xStaticQueue2;
 uint8_t qStorage1[ADC_QUEUE_LENGTH * ADC_QUEUE_ITEM_SIZE];
 uint8_t qStorage2[ADC_QUEUE_LENGTH * ADC_QUEUE_ITEM_SIZE];
 
+// This is for Array ADC channel
 static ADC_ChannelConfTypeDef sConfig1 = {
     .Channel = ADC1_CHANNEL,
     .Rank = ADC_REGULAR_RANK_1,
@@ -21,6 +23,7 @@ static ADC_ChannelConfTypeDef sConfig1 = {
     .OffsetNumber = ADC_OFFSET_NONE,
     .Offset = 0};
 
+// This is for Battery ADC channel
 static ADC_ChannelConfTypeDef sConfig2 = {
     .Channel = ADC2_CHANNEL,
     .Rank = ADC_REGULAR_RANK_1,
@@ -63,7 +66,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *adcHandle)
         GPIO_InitStruct.Pull = GPIO_NOPULL;
         HAL_GPIO_Init(ADC_PORT, &GPIO_InitStruct);
 
-        HAL_NVIC_SetPriority(ADC1_2_IRQn, configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY, 0);
+        HAL_NVIC_SetPriority(ADC1_2_IRQn, ADC_IRQ_PRIO, 0);
         HAL_NVIC_EnableIRQ(ADC1_2_IRQn);
     }
     else if (adcHandle->Instance == ADC2)
@@ -93,11 +96,12 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *adcHandle)
         GPIO_InitStruct.Pull = GPIO_NOPULL;
         HAL_GPIO_Init(ADC_PORT, &GPIO_InitStruct);
 
-        HAL_NVIC_SetPriority(ADC1_2_IRQn, configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY, 0);
+        HAL_NVIC_SetPriority(ADC1_2_IRQn, ADC_IRQ_PRIO, 0);
         HAL_NVIC_EnableIRQ(ADC1_2_IRQn);
     }
 }
 
+// Init for Array ADC channel
 ADC_Sense_Status_t ADC_1_Init()
 {
     adc_init_1.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV2;
@@ -118,24 +122,28 @@ ADC_Sense_Status_t ADC_1_Init()
     if (adc_init(&adc_init_1, hadc1) != ADC_OK)
     {
         // ADC1 initialization failed
-        Error_Handler();
+        return ADC_1_INIT_ERR;
     }
 
     ADC_MultiModeTypeDef multimode = {0};
     multimode.Mode = ADC_MODE_INDEPENDENT;
     if (HAL_ADCEx_MultiModeConfigChannel(hadc1, &multimode) != HAL_OK)
     {
-        Error_Handler();
+        return ADC_1_INIT_ERR;
     }
 
     if (HAL_ADC_ConfigChannel(hadc1, &sConfig1) != HAL_OK)
     {
-        Error_Handler();
+        return ADC_1_INIT_ERR;
     }
+
+    HAL_ADCEx_Calibration_Start(hadc1, ADC_SINGLE_ENDED);
 
     return ADC_SENSE_OK;
 }
 
+
+// Init for Battery ADC channel
 ADC_Sense_Status_t ADC_2_Init()
 {
     adc_init_2.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV2;
@@ -156,13 +164,15 @@ ADC_Sense_Status_t ADC_2_Init()
     if (adc_init(&adc_init_2, hadc2) != ADC_OK)
     {
         // ADC2 initialization failed
-        Error_Handler();
+        return ADC_2_INIT_ERR;
     }
 
     if (HAL_ADC_ConfigChannel(hadc2, &sConfig2) != HAL_OK)
     {
-        Error_Handler();
+        return ADC_2_INIT_ERR;
     }
+
+    HAL_ADCEx_Calibration_Start(hadc2, ADC_SINGLE_ENDED);
 
     return ADC_SENSE_OK;
 }
@@ -177,13 +187,13 @@ ADC_Sense_Status_t ADC_Sense_Init(void) // Initialize ADCs and queues
     if (Array_ADC_Queue == NULL || Battery_ADC_Queue == NULL)
     {
         // Queue creation failed
-        Error_Handler();
+        return ADC_QUEUE_ERR;
     }
 
     if (ADC_1_Init() != ADC_SENSE_OK || ADC_2_Init() != ADC_SENSE_OK)
     {
         // One or both ADC initializations failed
-        Error_Handler();
+        return ADC_SENSE_INIT_ERR;
     }
 
     Is_Initialized = 1;
@@ -194,22 +204,19 @@ ADC_Sense_Status_t Read_ADC(uint32_t Timeout_MS, ADC_Sense_Result *Result) // Re
 {
     if (!Is_Initialized)
     {
-        // ADC_Sense_Init has not been called or failed
-        Error_Handler();
+        // ADC_Sense_Init has not been called or failed, 
+        if (ADC_Sense_Init() != ADC_SENSE_OK) return ADC_SENSE_INIT_ERR;
     }
 
     if (Result == NULL)
     {
         // Invalid result pointer
-        Error_Handler();
+        return READ_ADC_BAD_PARAM_ERR;
     }
 
     uint16_t Array_ADC = 0;
     uint16_t Battery_ADC = 0;
     TickType_t Timeout_Ticks = pdMS_TO_TICKS(Timeout_MS);
-
-    HAL_ADCEx_Calibration_Start(hadc1, ADC_SINGLE_ENDED);
-    HAL_ADCEx_Calibration_Start(hadc2, ADC_SINGLE_ENDED);
 
     if (adc_read(hadc1, &sConfig1, Array_ADC_Queue) != ADC_OK)
     {

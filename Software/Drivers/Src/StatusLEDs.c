@@ -8,22 +8,42 @@ uint8_t modFaultBitmap;
 static StaticSemaphore_t xLEDMutexBuffer;
 static SemaphoreHandle_t xLEDMutex = NULL;
 
+static const uint32_t LED_TIMEOUT_MS = 20;
+
+static bool LEDs_initialized = false;
+
 // sets input to specified bit, then pulses the clock
 static void loadBit(bool bit) {
     HAL_GPIO_WritePin(LED_SER_PORT, LED_SER_PIN, bit);
-    HAL_GPIO_WritePin(LED_SRCLK_PORT, LED_SRCLK_PIN, ON);
-    HAL_GPIO_WritePin(LED_SRCLK_PORT, LED_SRCLK_PIN, OFF);
-    HAL_GPIO_WritePin(LED_SER_PORT, LED_SER_PIN, ON);
+    HAL_GPIO_WritePin(LED_SRCLK_PORT, LED_SRCLK_PIN, LED_ON);
+    HAL_GPIO_WritePin(LED_SRCLK_PORT, LED_SRCLK_PIN, LED_OFF);
+    HAL_GPIO_WritePin(LED_SER_PORT, LED_SER_PIN, LED_ON);
 }
 
 // pushes loaded values to output
 static void pushLEDS() {
-    HAL_GPIO_WritePin(LED_RCLK_PORT, LED_RCLK_PIN, ON);
-    HAL_GPIO_WritePin(LED_RCLK_PORT, LED_RCLK_PIN, OFF);
+    HAL_GPIO_WritePin(LED_RCLK_PORT, LED_RCLK_PIN, LED_ON);
+    HAL_GPIO_WritePin(LED_RCLK_PORT, LED_RCLK_PIN, LED_OFF);
 }
 
 void setHeartbeat(bool state) {
     HAL_GPIO_WritePin(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, state);
+}
+
+void toggleHeartbeat() {
+
+    
+    switch (HAL_GPIO_ReadPin(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN)) {
+
+        case GPIO_PIN_SET:
+            HAL_GPIO_WritePin(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, LED_OFF);
+            break;
+        
+        case GPIO_PIN_RESET:
+            HAL_GPIO_WritePin(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, LED_OFF);
+            break;
+    
+    }  
 }
 
 // Shift-Reg values loaded back to front (bitmap first bit is heartbeat, last is AmpIn)
@@ -44,31 +64,37 @@ static void updateStatusLEDs() {
     pushLEDS();
 }  
 
-void LEDsModFaultBitmap_set(uint8_t bitmap) {
+led_state_t LEDsModFaultBitmap_set(uint8_t bitmap) {
 
-    // make sure bitmap is in range
+    // make sure bitmap is in range, if not return
     if (bitmap >= (1 << MOD_FAULT_BITS)) {
-        Error_Handler();
+        return LED_ERR;
     }
 
-    if (xLEDMutex != NULL && xSemaphoreTake(xLEDMutex, portMAX_DELAY) == pdTRUE) {
+    if (xLEDMutex != NULL && xSemaphoreTake(xLEDMutex, LED_TIMEOUT_MS) == pdTRUE) {
         modFaultBitmap = bitmap;
         updateStatusLEDs();
         xSemaphoreGive(xLEDMutex);
     }
 
+    else {
+        return LED_ERR;
+    }
+
+    return LED_OK;
+
 }
 
-void LED_set(Fault_Mapping_t LED_i, bool state) {
+led_state_t LED_set(led_mapping_t LED_i, bool state) {
 
     // make sure LED is in range
     if ((LED_i < 0) || ((LED_i >= FAULT_LED_NUM) && (LED_i != DEBUG_LED))) {
-        Error_Handler();
+        return LED_ERR;
     }
 
     uint16_t LED = 1 << LED_i;
 
-    if (xLEDMutex != NULL && xSemaphoreTake(xLEDMutex, portMAX_DELAY) == pdTRUE) {
+    if (xLEDMutex != NULL && xSemaphoreTake(xLEDMutex, LED_TIMEOUT_MS) == pdTRUE) {
         // clears specified bit
         LEDbitmap &= ~LED;
         // sets bit if state = 1, otherwise stays cleared if state = 0
@@ -77,10 +103,13 @@ void LED_set(Fault_Mapping_t LED_i, bool state) {
         updateStatusLEDs();
         xSemaphoreGive(xLEDMutex);
     }
+    else { return LED_ERR; }
+
+    return LED_OK;
 }   
 
 void LEDs_clear() {
-    if (xLEDMutex != NULL && xSemaphoreTake(xLEDMutex, portMAX_DELAY) == pdTRUE) {
+    if (xLEDMutex != NULL && xSemaphoreTake(xLEDMutex, LED_TIMEOUT_MS) == pdTRUE) {
         LEDbitmap = 0;
         modFaultBitmap = 0;
         updateStatusLEDs();
@@ -89,6 +118,8 @@ void LEDs_clear() {
 }
 
 void LEDs_init() {
+
+    if (LEDs_initialized) return;
 
     if (xLEDMutex == NULL) {
         xLEDMutex = xSemaphoreCreateMutexStatic(&xLEDMutexBuffer);
@@ -128,5 +159,7 @@ void LEDs_init() {
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
     HAL_GPIO_Init(HEARTBEAT_LED_PORT, &GPIO_InitStruct);
 
-    LEDs_clear(); 
+    LEDs_clear();
+    
+    LEDs_initialized = true;
 }
