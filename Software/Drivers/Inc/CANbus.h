@@ -3,6 +3,9 @@
 #include "common.h"
 #include "CAN_FD.h"
 
+extern FDCAN_HandleTypeDef* car_can;
+extern FDCAN_HandleTypeDef* bps_can;
+
 /** * @brief Transmits a message over the CAR CAN bus.
  * @note Automatically converts the millisecond delay into RTOS ticks.
  * * @param tx_header Pointer to the configured FDCAN_TxHeaderTypeDef structure.
