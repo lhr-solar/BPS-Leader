@@ -24,13 +24,13 @@ void vContactorTestTask(void *pvParameters) {
         // 1. Cycle through each contactor: Close then Open with 2s delay
         for (uint8_t i = 0; i < NUM_CONTACTORS ; i++) {
             // Close Contactor (GPIO_PIN_SET assumes high = closed)
-            LED_set(HEARTBEAT_LED, ON);
-            contactor_set((contactor_num_t)i, ON, 100, EMERGENCY);
+            LED_set(HEARTBEAT_LED, LED_ON);
+            contactor_set((contactor_num_t)i, CONTACTOR_CLOSED, 100, EMERGENCY);
             vTaskDelay(DELAY_2S);
 
             // Open Contactor
-            LED_set(HEARTBEAT_LED, OFF);
-            contactor_set((contactor_num_t)i, OFF, 100, EMERGENCY);
+            LED_set(HEARTBEAT_LED, LED_OFF);
+            contactor_set((contactor_num_t)i, CONTACTOR_OPEN, 100, EMERGENCY);
             vTaskDelay(DELAY_2S);
         }
     
@@ -38,10 +38,10 @@ void vContactorTestTask(void *pvParameters) {
         // 2. Repeatedly toggle the HV+ Contactor
         // Doing this 10 times before restarting the whole sequence
         for (uint8_t j = 0; j < 20; j++) {
-            contactor_set(HV_PLUS_CONTACTOR, ON, 100, NORMAL);
+            contactor_set(HV_PLUS_CONTACTOR, CONTACTOR_CLOSED, 100, NORMAL);
             vTaskDelay(DELAY_2S);
             
-            contactor_set(HV_PLUS_CONTACTOR, OFF, 100, NORMAL);
+            contactor_set(HV_PLUS_CONTACTOR, CONTACTOR_OPEN, 100, NORMAL);
             vTaskDelay(DELAY_2S);
         }   
     }

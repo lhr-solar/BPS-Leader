@@ -44,15 +44,15 @@ void vSHT4xTask(void *pvParameters) {
 
     SHT45_init();
 
-    uint32_t tmpHmd_buffer[2];
+    int32_t tmpHmd_buffer[2];
     while (true) {
 
-        if (SHT45_get(tmpHmd_buffer) != SHT45_OK) {
+        if (SHT45_get(tmpHmd_buffer, DELAY_1S) != SHT45_OK) {
             Error_Handler();
         };
 
         vTaskDelay(pdMS_TO_TICKS(500));
-        printf("TEMP = %lu   |   HUMIDITY = %lu\r\n", tmpHmd_buffer[TEMP], tmpHmd_buffer[HUMIDITY]);
+        printf("TEMP = %ld   |   HUMIDITY = %ld\r\n", tmpHmd_buffer[SHT45_TEMP], tmpHmd_buffer[SHT45_HUMIDITY]);
     }
 }
 

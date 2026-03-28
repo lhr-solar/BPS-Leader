@@ -15,16 +15,16 @@ StackType_t task_stack[512];
 
 static void PrettyLEDWave() {
 
-    LED_set(0, ON);
+    LED_set(0, LED_ON);
     vTaskDelay(shortDelayMS);
 
-    for (Fault_Mapping_t led_num = 1; led_num < FAULT_LED_NUM; led_num++) {
-        LED_set(led_num, ON);
-        LED_set(led_num - 1, OFF);
+    for (led_mapping_t led_num = 1; led_num < FAULT_LED_NUM; led_num++) {
+        LED_set(led_num, LED_ON);
+        LED_set(led_num - 1, LED_OFF);
         vTaskDelay(shortDelayMS);
     }
  
-    LED_set(FAULT_LED_NUM - 1, OFF);
+    LED_set(FAULT_LED_NUM - 1, LED_OFF);
 
     for (int8_t led_num = MOD_FAULT_BITS - 1; led_num >= 0; led_num--) {
         LEDsModFaultBitmap_set(1 << led_num);
@@ -33,9 +33,9 @@ static void PrettyLEDWave() {
 
     LEDs_clear();
     
-    LED_set(DEBUG_LED, ON);
+    LED_set(DEBUG_LED, LED_ON);
     vTaskDelay(shortDelayMS);
-    LED_set(DEBUG_LED, OFF);
+    LED_set(DEBUG_LED, LED_OFF);
 }
 
 
@@ -52,14 +52,14 @@ static void task(void *pvParameters) {
     for (uint8_t i = 0; i < repetitions; i++) {
 
         // turn on all fault-mapping LEDs
-        for (Fault_Mapping_t led_num = 0; led_num < FAULT_LED_NUM; led_num++) {
-            LED_set(led_num, ON);
+        for (led_mapping_t led_num = 0; led_num < FAULT_LED_NUM; led_num++) {
+            LED_set(led_num, LED_ON);
         }
         vTaskDelay(delayMS);
 
         // turn off all fault-mapping LEDs (manually, to ensure function works properly)
-        for (Fault_Mapping_t led_num = 0; led_num < FAULT_LED_NUM; led_num++) {
-            LED_set(led_num, OFF);
+        for (led_mapping_t led_num = 0; led_num < FAULT_LED_NUM; led_num++) {
+            LED_set(led_num, LED_OFF);
         }
         vTaskDelay(delayMS);
     }
@@ -77,10 +77,10 @@ static void task(void *pvParameters) {
     // flash DEBUG LED 3 times
     for (uint8_t i = 0; i < repetitions; i++) {
 
-        LED_set(DEBUG_LED, ON);
+        LED_set(DEBUG_LED, LED_ON);
         vTaskDelay(delayMS/2);
 
-        LED_set(DEBUG_LED, OFF);
+        LED_set(DEBUG_LED, LED_OFF);
         vTaskDelay(delayMS/2);
 
     }

@@ -22,7 +22,7 @@ static void task(void *pvParameters) {
 
     debugPrintf_init();
     printf("printf initialized\r\n");
-    ALL_CAN_Init();
+    CAN_Init();
     printf("CAN initialized successfully\r\n");
 
     int test_id = 0x321;
@@ -53,7 +53,7 @@ static void task(void *pvParameters) {
 
     while(1){
 
-    if (can_fd_send(hfdcan1, &tx_header, tx_data, pdMS_TO_TICKS(20)) == CAN_ERR){
+    if (bps_can_send(&tx_header, tx_data, 20) == CAN_ERR){
         printf("BPS CAN failed to send!\r\n");
         Error_Handler();
     }
@@ -61,13 +61,13 @@ static void task(void *pvParameters) {
 
     vTaskDelay(pdMS_TO_TICKS(20));
 
-    if((can_fd_recv(hfdcan3, test_id, &fdcan3_rx_header, fdcan3_rx_data, pdMS_TO_TICKS(20)) != CAN_OK) && verifyData(fdcan1_rx_data, tx_data)){
+    if((car_can_recv(test_id, &fdcan3_rx_header, fdcan3_rx_data, 20) != CAN_OK) && verifyData(fdcan1_rx_data, tx_data)){
         printf("CAR CAN failed to receive!\r\n");
         Error_Handler();
     }
     printf("CAR CAN Receieve successfully!\r\n");
 
-    if (can_fd_send(hfdcan3, &tx_header, tx_data, pdMS_TO_TICKS(20)) == CAN_ERR){
+    if (car_can_send(&tx_header, tx_data, 20) == CAN_ERR){
         printf("CAR CAN failed to send!\r\n");
         Error_Handler();
     }
@@ -75,7 +75,7 @@ static void task(void *pvParameters) {
 
     vTaskDelay(pdMS_TO_TICKS(20));
 
-    if((can_fd_recv(hfdcan1, test_id, &fdcan1_rx_header, fdcan1_rx_data, pdMS_TO_TICKS(20)) != CAN_OK) && verifyData(fdcan1_rx_data, tx_data)){
+    if((car_can_recv(test_id, &fdcan1_rx_header, fdcan1_rx_data, 20) != CAN_OK) && verifyData(fdcan1_rx_data, tx_data)){
         printf("BPS CAN failed to receive!\r\n");
         Error_Handler();
     }
@@ -84,7 +84,7 @@ static void task(void *pvParameters) {
     vTaskDelay(pdMS_TO_TICKS(20));
 
     if (first_iteration) {
-        if((can_fd_recv(hfdcan1, test_id, &fdcan1_rx_bounceback_header, fdcan1_rx_bounceback_data, pdMS_TO_TICKS(20)) != CAN_OK) && verifyData(fdcan1_rx_data, tx_data)){
+        if((bps_can_recv(test_id, &fdcan1_rx_bounceback_header, fdcan1_rx_bounceback_data, pdMS_TO_TICKS(20)) != CAN_OK) && verifyData(fdcan1_rx_data, tx_data)){
             printf("Bounce Back (CAN forwarding) failed!\r\n");
             Error_Handler();
         }
@@ -95,7 +95,6 @@ static void task(void *pvParameters) {
     toggleHeartbeat();
     vTaskDelay(pdMS_TO_TICKS(1000));
 
-    
     }
 }
 

@@ -26,12 +26,10 @@ void vTestTaskToskTisk(void* pvParameters) {
 
     while (true) {
 
-        setHeartbeat(ON);
+        toggleHeartbeat();
         if (Read_ADC(TEST_TIMEOUT, &ADC_result) != ADC_SENSE_OK) printf("ADC failed reading :( \r\n");
         printf("Array voltage: %lu       |       Battery voltage: %lu\r\n", ADC_result.Array_Voltage/1000, ADC_result.Battery_Voltage/1000);
-        vTaskDelay(pdMS_TO_TICKS(500));
-        setHeartbeat(OFF);
-        vTaskDelay(pdMS_TO_TICKS(500));
+        vTaskDelay(pdMS_TO_TICKS(1000));
 
     }
 }

@@ -3,16 +3,7 @@
 
 static uint32_t HAL_RCC_FDCAN_CLK_ENABLED=0;
 
-#define car_can hfdcan3
-#define bps_can hfdcan1
-
 static bool is_initialized = false;
-
-#define car_can_send(tx_header, data, delay_ms) can_fd_send(car_can, tx_header, data, pdMS_TO_TICKS(delay_ms))
-#define bps_can_send(tx_header, data, delay_ms) can_fd_send(bps_can, tx_header, data, pdMS_TO_TICKS(delay_ms))
-
-#define car_can_recv(id, rx_header, data, delay_ms) can_fd_recv(car_can, id, rx_header, data, pdMS_TO_TICKS(delay_ms))
-#define bps_can_recv(id, rx_header, data, delay_ms) can_fd_recv(bps_can, id, rx_header, data, pdMS_TO_TICKS(delay_ms))
 
 void HAL_FDCAN_MspInit(FDCAN_HandleTypeDef* fdcanHandle)
 {
