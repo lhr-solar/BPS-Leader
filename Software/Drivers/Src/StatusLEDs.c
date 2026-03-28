@@ -31,19 +31,7 @@ void setHeartbeat(bool state) {
 }
 
 void toggleHeartbeat() {
-
-    
-    switch (HAL_GPIO_ReadPin(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN)) {
-
-        case GPIO_PIN_SET:
-            HAL_GPIO_WritePin(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, LED_OFF);
-            break;
-        
-        case GPIO_PIN_RESET:
-            HAL_GPIO_WritePin(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, LED_OFF);
-            break;
-    
-    }  
+    HAL_GPIO_TogglePin(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN);
 }
 
 // Shift-Reg values loaded back to front (bitmap first bit is heartbeat, last is AmpIn)
