@@ -1,4 +1,5 @@
 #include "CarCAN_can_msgs.h"
+#include "BPSCAN_can_msgs.h"
 
 CAN_RECV_ENTRY(CAN_ID_BPS_STATUS, CAN_DLC_BPS_STATUS, true)
 CAN_RECV_ENTRY(CAN_ID_VCU_STATUS, CAN_DLC_VCU_STATUS, true)

@@ -9,6 +9,8 @@ static StaticSemaphore_t I2C_complete_buffer;
 static SemaphoreHandle_t sensor_poll_mutex = NULL;
 static StaticSemaphore_t sensor_poll_buffer;
 
+static uint8_t rx_bytes[I2C_RX_SIZE];
+
 bool is_initialized = false;
 
 I2C_HandleTypeDef hi2c4;
@@ -19,7 +21,7 @@ static uint8_t pollCMD = 0xFD;
 static SHT45_status_t SHT45_poll_sensor(uint8_t* rx_bytes, TickType_t delay_ms) {
 
   // transmit data
-   if (HAL_I2C_Master_Transmit_IT(&hi2c4, tmpHmdAdresss, &pollCMD, TX_SIZE) != HAL_OK) {
+   if (HAL_I2C_Master_Transmit_IT(&hi2c4, tmpHmdAdresss, &pollCMD, I2C_TX_SIZE) != HAL_OK) {
     return SHT45_ERR;
    }
 
@@ -28,8 +30,11 @@ static SHT45_status_t SHT45_poll_sensor(uint8_t* rx_bytes, TickType_t delay_ms) 
     return SHT45_ERR;
   }
 
+  // TODO: Figure out why this is load bearing
+  vTaskDelay(pdMS_TO_TICKS(10));
+
   // recieve data
-  if (HAL_I2C_Master_Receive_IT(&hi2c4, tmpHmdAdresss, rx_bytes, RX_SIZE) != HAL_OK) {
+  if (HAL_I2C_Master_Receive_IT(&hi2c4, tmpHmdAdresss, rx_bytes, I2C_RX_SIZE) != HAL_OK) {
     return SHT45_ERR;
   }
 
@@ -43,7 +48,6 @@ static SHT45_status_t SHT45_poll_sensor(uint8_t* rx_bytes, TickType_t delay_ms) 
 // read temperature and humidity, store them in the tmpHmdBuffer passed in as an argument  
 SHT45_status_t SHT45_get(int32_t *tmpHmdBuffer, TickType_t delay_ms) {
 
-  uint8_t rx_bytes[6];
   if (SHT45_poll_sensor(rx_bytes, delay_ms) != SHT45_OK) {
       return SHT45_ERR;
   }
@@ -71,8 +75,8 @@ void SHT45_I2C_MasterTxRxCpltCallback() {
       set_faultBitFromISR(I2C_ERROR, &xHigherPriorityTaskWoken);
   }
   else {
-      xSemaphoreGiveFromISR(I2C_complete, &xHigherPriorityTaskWoken);
-      portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+        xSemaphoreGiveFromISR(I2C_complete, &xHigherPriorityTaskWoken);
+        portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
   }
 }
 

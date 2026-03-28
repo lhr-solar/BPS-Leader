@@ -18,6 +18,8 @@ void Init_FaultHandlerTask()
         // Fault bit initialization failed
         Error_Handler();
     }
+
+    fault_task_initialized = true;
 }
 
 void Kill_Precharge_Task()

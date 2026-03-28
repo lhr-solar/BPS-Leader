@@ -25,7 +25,7 @@ void Init_PrechargeTask()
     if (ADC_Sense_Init() != ADC_SENSE_OK) set_faultBit(ADC_ERROR);
 }
 
-void Fault_Checker(uint32_t Array_Voltage, uint32_t Battery_Voltage)
+void Fault_Checker(uint32_t Array_Voltage, uint32_t Battery_Voltage, Precharge_State_t State)
 {
     if (Array_Voltage > (Battery_Voltage * VOLTAGE_TOLERANCE_NUMERATOR / VOLTAGE_TOLERANCE_DENOMINATOR))
     {
@@ -40,7 +40,7 @@ void Fault_Checker(uint32_t Array_Voltage, uint32_t Battery_Voltage)
         set_faultBit(BATTERY_OVERVOLTAGE_FAULT);
     }
 
-    if (Battery_Voltage < UNDERVOLTAGE_THRESHOLD_MV)
+    if ((Battery_Voltage < UNDERVOLTAGE_THRESHOLD_MV) && (State != PRECHARGE_STATE_IDLE))
     {
         /* Battery voltage is too low or battery is disconnected, treat as fault */
         // Fault handler
@@ -106,6 +106,9 @@ void Task_Precharge()
         switch (State)
         {
             case PRECHARGE_STATE_IDLE:
+
+                Fault_Checker(Array_Voltage, Battery_Voltage, State);
+
                 break;
                 
             case PRECHARGE_STATE_INITIAL: // Startup state: Closes main contactor and moves to precharging state
@@ -121,7 +124,7 @@ void Task_Precharge()
 
             case PRECHARGE_STATE_PRECHARGING: // Precharging state: Waits for battery voltage to reach 90% of array voltage, then closes precharge contactor and moves to run state
 
-                Fault_Checker(Array_Voltage, Battery_Voltage); // Check for faults while precharging, if any fault conditions are met, will call fault handler and not proceed with precharge sequence
+                Fault_Checker(Array_Voltage, Battery_Voltage, State); // Check for faults while precharging, if any fault conditions are met, will call fault handler and not proceed with precharge sequence
 
                 const TickType_t Current_Tick = xTaskGetTickCount(); // Check how long we've been precharging for, fault if not precharged after PRECHARGE_TIMEOUT_MS
                 if ((Current_Tick - Start_Tick) > pdMS_TO_TICKS(PRECHARGE_TIMEOUT_MS)) // Faults if precharging takes too long
@@ -144,12 +147,12 @@ void Task_Precharge()
                 break;
             case PRECHARGE_STATE_RUN: // Run state: Continuously checks that array voltage stays within 80% of battery voltage
 
-                Fault_Checker(Array_Voltage, Battery_Voltage); // Check for faults while precharging, if any fault conditions are met, will call fault handler and not proceed with precharge sequence
+                Fault_Checker(Array_Voltage, Battery_Voltage, State); // Check for faults while precharging, if any fault conditions are met, will call fault handler and not proceed with precharge sequence
 
                 // Use 80% threshold for hysteresis
                 if (Array_Voltage * RATIO_SCALE < Battery_Voltage * PRECHARGE_THRESHOLD_80)
                 {   
-                    
+                    set_faultBit(PRECHARGE_HYSTERESIS_FAULT);
                 }
                 break;
             default:

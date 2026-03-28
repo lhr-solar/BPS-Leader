@@ -3,6 +3,8 @@
 #include "EMC2305_Driver.h"
 #include "StatusLEDs.h"
 
+bool fault_task_initialized = false;
+
 // Event group handle to store fault state bits
 EventGroupHandle_t faultBits;
 
@@ -18,9 +20,9 @@ uint8_t faultHandler_init(void){
 }
 
 void set_faultBit(fault_bit_t bit){
-    // not   valid fault
-    if(bit >= NUM_FAULTS){ 
-        return;
+    
+    if((bit >= NUM_FAULTS) || (!fault_task_initialized)){ 
+        Error_Handler();
     }
 
     // chat we're cooked

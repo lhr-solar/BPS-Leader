@@ -2,6 +2,7 @@
 #include "StatusLEDs.h"
 #include "Contactors.h"
 #include "DebugPrintf.h"
+#include "FaultHandlerTask.h"
 #include "BPS_Tasks.h"
 
 // Task configuration
@@ -56,6 +57,16 @@ int main() {
     HAL_Init();
 
     SystemClock_Config();
+
+    xTaskCreateStatic(
+        Task_FaultHandler,             // Task function
+        "FaultHandler",                // Name of the task (for debugging)
+        configMINIMAL_STACK_SIZE,   // Stack size in words
+        NULL,                       // Task input parameter
+        tskIDLE_PRIORITY + 3,       // Task priority
+        FaultHandler_Task_Stack,       // Task handle
+        &FaultHandler_Task_Buffer      // Static task buffer (optional)
+    );
 
     xTaskCreateStatic(
         vContactorTestTask,

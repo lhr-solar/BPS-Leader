@@ -12,11 +12,11 @@ extern I2C_HandleTypeDef hi2c4;
 
 /** * @brief Command size sent to the sensor (typically 1 byte). 
  */
-#define TX_SIZE 1
+#define I2C_TX_SIZE  1
 
 /** * @brief Size of data returned (2 bytes temp + 1 CRC + 2 bytes hmd + 1 CRC). 
  */
-#define RX_SIZE 6
+#define I2C_RX_SIZE 6
 
 /** * @brief Global I2C communication timeout in milliseconds. 
  */

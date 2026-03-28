@@ -13,6 +13,8 @@
 #define MAX_FAULT_BITS 8U
 #endif
 
+extern bool fault_task_initialized;
+
 typedef enum
 {
     // BPS main saefty loop faults 
@@ -29,6 +31,7 @@ typedef enum
     // Precharge faults
     ARRAY_GREATER_THAN_BATTERY_FAULT, // Array voltage is greater than battery voltage  (from precharge ADC signal)       
     PRECHARGE_TIMEOUT_FAULT,          // Precharge sequence took too long
+    PRECHARGE_HYSTERESIS_FAULT,       // Precharge Array voltage fell under hysteresis while precharging  
     
     // Software Errors
     WATCHDOG_ERROR,                    // Watchdog did not get pet in time, code is likely blocking somewhere

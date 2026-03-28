@@ -2,10 +2,6 @@
 
 #include "common.h"
 
-/** * @brief Number of bits in the module fault bitmap. 
- */
-#define MOD_FAULT_BITS 5
-
 /** * @brief LED States  
  */
 typedef enum {
@@ -31,7 +27,8 @@ typedef enum {
     AMP_IN_LED,         /**< Amperage input active */
     WATCHDOG_ERR_LED,   /**< System watchdog timeout error */
     FAULT_LED_NUM,      /**< Count of standard fault LEDs */
-    DEBUG_LED = 15      /**< Dedicated debug/test LED */
+    DEBUG_LED = 15,     /**< Dedicated debug/test LED */
+    MOD_FAULT_BITS = 5  /**< Number mod fault bits in mod fault bitmap */
 } led_mapping_t;
 
 /** * @brief Sets a specific LED to on (true) or off (false). 

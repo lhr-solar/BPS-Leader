@@ -2,8 +2,8 @@
 #include "StatusLEDs.h"
 #include "EMC2305_Driver.h"
 #include "DebugPrintf.h"
+#include "FaultHandlerTask.h"
 #include "BPS_Tasks.h"
-
 extern EMC2305_HandleTypeDef chip;
 
 
@@ -53,21 +53,16 @@ void vFanChipTestTask(void *pvParameters) {
             vTaskDelay(pdMS_TO_TICKS(500));
         }   
         
-        }
         printf("successfully ramped :)\r\n");
         
     }
-
-
-
-
+}
 
 int main (void) {
 
     HAL_Init();
     SystemClock_Config();
     
-
     xTaskCreateStatic(
         vFanChipTestTask,
         "FanTest",
@@ -76,6 +71,16 @@ int main (void) {
         TEST_TASK_PRIORITY,
         xTestStack,
         &xTestTaskBuffer
+    );
+
+    xTaskCreateStatic(
+        Task_FaultHandler,             // Task function
+        "FaultHandler",                // Name of the task (for debugging)
+        configMINIMAL_STACK_SIZE,   // Stack size in words
+        NULL,                       // Task input parameter
+        tskIDLE_PRIORITY + 3,       // Task priority
+        FaultHandler_Task_Stack,       // Task handle
+        &FaultHandler_Task_Buffer      // Static task buffer (optional)
     );
 
     vTaskStartScheduler();

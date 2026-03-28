@@ -5,13 +5,14 @@
 
 // Task configuration
 #define TASK_INIT_PRIO                  tskIDLE_PRIORITY + 1
-#define TASK_TEMPERATURE_MONITOR_PRIO   tskIDLE_PRIORITY + 3
-#define TASK_VOLTAGE_MONITOR_PRIO       tskIDLE_PRIORITY + 4
-#define TASK_AMPERES_MONITOR_PRIO       tskIDLE_PRIORITY + 5
+#define TASK_TEMPERATURE_MONITOR_PRIO   tskIDLE_PRIORITY + 4
+#define TASK_VOLTAGE_MONITOR_PRIO       tskIDLE_PRIORITY + 5
+#define TASK_AMPERES_MONITOR_PRIO       tskIDLE_PRIORITY + 6
 #define TASK_PETWDOG_PRIO               tskIDLE_PRIORITY + 2
 #define TASK_CAN_FORWARD_PRIO           tskIDLE_PRIORITY + 3
+#define TASK_FAULT_HANDLER_PRIO         tskIDLE_PRIORITY + 7
 
-#define TEST_TASK_PRIORITY              tskIDLE_PRIORITY + 1 
+#define TEST_TASK_PRIORITY              tskIDLE_PRIORITY + 3
 
 // Task Stack Size 
 #define TASK_INIT_STACK_SIZE                    configMINIMAL_STACK_SIZE

@@ -26,6 +26,9 @@
 extern StaticTask_t Precharge_Task_Buffer;
 extern StackType_t Precharge_Task_Stack[PRECHARGE_TASK_STACK_SIZE];
 
+/* handle for the Precharge task, defined in PrechargeTask.c */
+extern TaskHandle_t hprecharge_task;
+
 typedef enum
 {
     PRECHARGE_STATE_INITIAL = 0, // Precharge sequence hasn't started, start by closing main contactor and starting a timer to check for precharge timeout
@@ -45,9 +48,10 @@ void Init_PrechargeTask();
  * @brief Checks the repeated fault conditions for precharge sequence, if any fault condition is met, will call fault handler and not return
  * @param Array_Voltage most recent array voltage reading in mV
  * @param Battery_Voltage most recent battery voltage reading in mV
+ * @param State current state of precharge system, to prevent undervoltage fault while in idle
  * @retval None
  */
-void Fault_Checker(uint32_t Array_Voltage, uint32_t Battery_Voltage);
+void Fault_Checker(uint32_t Array_Voltage, uint32_t Battery_Voltage, Precharge_State_t State);
 
 /**
  * @brief Precharge task main execution function, implements precharge pseudo state machine and fault handling
@@ -56,5 +60,3 @@ void Fault_Checker(uint32_t Array_Voltage, uint32_t Battery_Voltage);
  */
 void Task_Precharge();
 
-/* handle for the Precharge task, defined in PrechargeTask.c */
-extern TaskHandle_t hprecharge_task;

@@ -58,6 +58,8 @@ contactor_state_t contactor_set(contactor_num_t contactor_num, contactor_state_t
         return CONTACTOR_ERROR;
     }
 
+    if ((contactorsMutex == NULL) && (fault_state != EMERGENCY)) return CONTACTOR_ERROR;
+
     contactor_t* contactor = &contactors[contactor_num];
 
     // if its emergency, dont bother with semaphore
@@ -66,11 +68,12 @@ contactor_state_t contactor_set(contactor_num_t contactor_num, contactor_state_t
     };
 
     // critical section:
-    HAL_GPIO_WritePin(contactor->control_pin.port, contactor->control_pin.pin, state);
+    HAL_GPIO_WritePin(contactor->control_pin.port, contactor->control_pin.pin, ((state == CONTACTOR_CLOSED) ? GPIO_PIN_SET : GPIO_PIN_RESET));
     contactor->state = state;
 
     /* start timer to check if the state of the contactor makes expected state, the exit critical section. Timer resets
-    when the contactor is set to another value, so no possible error with expected value changing from when timer is called*/
+    when the contactor is set to another value, so no possible error with expected value changing from when timer is called
+    the 0 param in xTimerStart indicates to start the timer immediately, not wait any ticks*/
     if ((fault_state != EMERGENCY)) { 
         xTimerStart(contactor->senseTimer, 0); 
         xSemaphoreGive(contactorsMutex);
@@ -108,14 +111,16 @@ void contactor_init() {
         .control_pin = { ARRAY_PRE_CONTROL_PORT, ARRAY_PRE_CONTROL_PIN },
         .sense_pin  = { ARRAY_PRE_SENSE_PORT,  ARRAY_PRE_SENSE_PIN  }
     };
-    
-    
+
     GPIO_InitTypeDef GPIO_InitStruct = { 0 };
 
     // loop to intialize contactor GPIO and timers
     for (uint8_t contactor_num = 0; contactor_num < NUM_CONTACTORS; contactor_num++) {
-
+        
         contactor_t* contactor = &contactors[contactor_num];
+        
+        // set output level
+        HAL_GPIO_WritePin(contactor->control_pin.port, contactor->control_pin.pin, GPIO_PIN_RESET);
 
         // init contactor control pins
         GPIO_InitStruct.Pin = contactor->control_pin.pin;
