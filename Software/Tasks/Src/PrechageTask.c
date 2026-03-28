@@ -21,6 +21,8 @@ void Init_PrechargeTask()
     configASSERT(xPrechargeEventGroup_handle); // check if handle is set
     // xEventGroupClearBits(xReadADCEventGroup_handle,    /* The event group being updated. */
     //                      0xFF );                    /* The bits being cleared. */
+
+    if (ADC_Sense_Init() != ADC_SENSE_OK) set_faultBit(ADC_ERROR);
 }
 
 void Fault_Checker(uint32_t Array_Voltage, uint32_t Battery_Voltage)

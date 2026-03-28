@@ -68,7 +68,7 @@ contactor_state_t contactor_get_command_state(contactor_num_t contactor_num);
  * @param emergency     If set to a fault state, executes immediately and bypasses standard safety delays.
  * @return contactor_state_t  Returns CONTACTOR_OK if command was accepted, CONTACTOR_ERR on hardware or RTOS failure.
  */
-contactor_state_t contactor_set(contactor_num_t contactor_num, contactor_state_t state, uint32_t wait_ms, fault_state_t emergency);
+contactor_state_t contactor_set(contactor_num_t contactor_num, contactor_state_t state, TickType_t wait_ms, fault_state_t emergency);
 
 /** * @brief RTOS Timer callback for contactor state verification.
  * @note This function is called when the sense timer for the contactor times out. 

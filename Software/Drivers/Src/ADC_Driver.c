@@ -200,7 +200,7 @@ ADC_Sense_Status_t ADC_Sense_Init(void) // Initialize ADCs and queues
     return ADC_SENSE_OK;
 }
 
-ADC_Sense_Status_t Read_ADC(uint32_t Timeout_MS, ADC_Sense_Result *Result) // Read ADC values and calculate voltages
+ADC_Sense_Status_t Read_ADC(TickType_t Timeout_MS, ADC_Sense_Result *Result) // Read ADC values and calculate voltages
 {
     if (!Is_Initialized)
     {

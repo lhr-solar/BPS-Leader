@@ -3,7 +3,6 @@
 
 
 #include "common.h"
-#include "I2C_Driver.h"
 #include "StatusLEDs.h"
 #include "SHT45.h"
 #include "DebugPrintf.h"

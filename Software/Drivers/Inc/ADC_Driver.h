@@ -61,6 +61,6 @@ ADC_Sense_Status_t ADC_Sense_Init(void);
  * @return  ADC_SENSE_OK if both ADC channels updated successfully,
  *          ADC_SENSE_ERR otherwise
  */
-ADC_Sense_Status_t Read_ADC(uint32_t Timeout_MS, ADC_Sense_Result *Result);
+ADC_Sense_Status_t Read_ADC(TickType_t Timeout_MS, ADC_Sense_Result *Result);
 
 

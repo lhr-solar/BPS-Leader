@@ -90,7 +90,7 @@ void Set_Fault_LED()
     }
 }
 
-void Task_FaultHandler()
+void Task_FaultHandler(void *argument)
 {   
 
     Init_FaultHandlerTask();

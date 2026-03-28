@@ -57,7 +57,7 @@ void EMC2305_I2C_init(void)
   {
     Error_Handler();
   }
-
+  
   /** Configure Digital filter
   */
   if (HAL_I2CEx_ConfigDigitalFilter(&hi2c3, 0) != HAL_OK)
@@ -128,7 +128,6 @@ EMC2305_Status EMC2305_Driver_init() {
         .derivative_options = EMC2305_DPT_BOTH,
         .error_window = EMC2305_ERG_200RPM,
     };
-    vTaskDelay(pdMS_TO_TICKS(250));
 
     EMC2305_SetFanConfig(&chip, EMC2305_FAN1, &cfg1, &cfg2);
     EMC2305_SetFanConfig(&chip, EMC2305_FAN2, &cfg1, &cfg2);

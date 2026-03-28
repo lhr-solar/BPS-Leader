@@ -3,10 +3,62 @@
 
 static uint32_t HAL_RCC_FDCAN_CLK_ENABLED=0;
 
-FDCAN_HandleTypeDef* car_can;
-FDCAN_HandleTypeDef* bps_can;
+FDCAN_HandleTypeDef* car_can = NULL;
+FDCAN_HandleTypeDef* bps_can = NULL;
 
 static bool is_initialized = false;
+
+static void FDCAN_Init_TXHeader(FDCAN_TxHeaderTypeDef* tx_header, uint32_t ID, uint32_t dataLength) {
+
+    tx_header->Identifier = ID;
+    tx_header->IdType = FDCAN_STANDARD_ID;
+    tx_header->TxFrameType = FDCAN_DATA_FRAME;
+    tx_header->DataLength = dataLength;
+    tx_header->ErrorStateIndicator = FDCAN_ESI_ACTIVE;
+    tx_header->BitRateSwitch = FDCAN_BRS_OFF;
+    tx_header->FDFormat = FDCAN_CLASSIC_CAN;
+    tx_header->TxEventFifoControl = FDCAN_STORE_TX_EVENTS;
+    tx_header->MessageMarker = 0;
+    
+}
+
+can_status_t car_can_send(uint32_t ID, uint8_t data[], uint32_t data_length, TickType_t delay_ms) {
+
+    if ((car_can == NULL) || (!is_initialized)) return CAN_ERR;
+
+    FDCAN_TxHeaderTypeDef tx_header;
+    FDCAN_Init_TXHeader(&tx_header, ID, data_length);
+
+    return can_fd_send(car_can, &tx_header, data, pdMS_TO_TICKS(delay_ms));
+}
+
+can_status_t bps_can_send(uint32_t ID, uint8_t data[], uint32_t data_length, TickType_t delay_ms) {
+
+    if ((bps_can == NULL) || (!is_initialized)) return CAN_ERR;
+
+    FDCAN_TxHeaderTypeDef tx_header;
+    FDCAN_Init_TXHeader(&tx_header, ID, data_length);
+
+    return can_fd_send(bps_can, &tx_header, data, pdMS_TO_TICKS(delay_ms));
+}
+
+can_status_t car_can_recv(uint32_t ID, uint8_t data[], uint32_t data_length, TickType_t delay_ms) {
+
+    if ((car_can == NULL) || (!is_initialized)) return CAN_ERR;
+
+    FDCAN_RxHeaderTypeDef rx_header = { 0 };
+
+    return can_fd_recv(car_can, ID, &rx_header, data, pdMS_TO_TICKS(delay_ms));
+}
+
+can_status_t bps_can_recv(uint32_t ID, uint8_t data[], uint32_t data_length, TickType_t delay_ms) {
+
+    if ((bps_can == NULL) || (!is_initialized)) return CAN_ERR;
+
+    FDCAN_RxHeaderTypeDef rx_header = { 0 };
+
+    return can_fd_recv(bps_can, ID, &rx_header, data, pdMS_TO_TICKS(delay_ms));
+}
 
 void HAL_FDCAN_MspInit(FDCAN_HandleTypeDef* fdcanHandle)
 {
@@ -132,18 +184,6 @@ static can_status_t BPS_CAN_Init(void)
 
     return CAN_OK;
 
-}
-
-void FDCAN_Init_TXHeader(FDCAN_TxHeaderTypeDef* tx_header, uint32_t ID, uint32_t dataLength) {
-    tx_header->Identifier = ID;
-    tx_header->IdType = FDCAN_STANDARD_ID;
-    tx_header->TxFrameType = FDCAN_DATA_FRAME;
-    tx_header->DataLength = dataLength;
-    tx_header->ErrorStateIndicator = FDCAN_ESI_ACTIVE;
-    tx_header->BitRateSwitch = FDCAN_BRS_OFF;
-    tx_header->FDFormat = FDCAN_CLASSIC_CAN;
-    tx_header->TxEventFifoControl = FDCAN_STORE_TX_EVENTS;
-    tx_header->MessageMarker = 0;
 }
 
 static can_status_t CAR_CAN_Init(void)

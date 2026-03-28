@@ -2,6 +2,8 @@
 
 #include <stdint.h>
 
+#define NUM_BPS_CAN_MSGS 20
+
 /* ================= CAN ID Macros ================= */
 
 #define CAN_ID_BPS_STATUS 0x1
@@ -79,7 +81,7 @@ typedef struct {
     uint8_t HV_Minus_Contactor_State;
     uint8_t Array_Contactor_State;
     uint8_t Array_Precharge_Contactor_State;
-    uint32_t Main_Battery_Voltage;
+    uint32_t Main_Battery_Voltage; 
     int16_t Main_Battery_Avg_Temperature;
 } bps_status_t;
 
@@ -196,4 +198,5 @@ typedef struct {
     uint32_t Precharge_Battery_Voltage;
     uint32_t Precharge_Array_Voltage;
 } bps_precharge_voltages_t;
+
 

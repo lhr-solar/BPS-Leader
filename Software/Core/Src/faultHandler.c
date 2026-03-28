@@ -29,8 +29,7 @@ void set_faultBit(fault_bit_t bit){
     taskYIELD();
 }
 
-void set_faultBitFromISR(fault_bit_t bit){
-    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+void set_faultBitFromISR(fault_bit_t bit, BaseType_t* xHigherPriorityTaskWoken){
 
     if(bit >= NUM_FAULTS){
         return;
@@ -39,7 +38,7 @@ void set_faultBitFromISR(fault_bit_t bit){
     xEventGroupSetBitsFromISR(
         faultBits,
         FAULT_BIT(bit),
-        &xHigherPriorityTaskWoken
+        xHigherPriorityTaskWoken
     );
 
     portYIELD_FROM_ISR(xHigherPriorityTaskWoken);

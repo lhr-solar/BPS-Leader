@@ -62,16 +62,17 @@ void Task_CanRxForward(){
 
     can_rx_payload_t payload;
 
-    FDCAN_TxHeaderTypeDef tx_forward_header;
-    uint32_t ID;
+    uint32_t ID, data_length;
+    uint8_t* data;
 
     while(1){
         
         if (xQueueReceive(canRxForwardQueue, &payload, portMAX_DELAY) == pdTRUE){
             ID = payload.header.Identifier;
-            FDCAN_Init_TXHeader(&tx_forward_header, ID, payload.header.DataLength);
+            data_length = payload.header.DataLength;
+            data = payload.data;
             
-            if (can_fd_send(hfdcan3, &tx_forward_header, payload.data, CAN_FORWARD_WAIT_TICKS) != CAN_OK) {
+            if (car_can_send(ID, data, data_length, CAN_FORWARD_WAIT_TICKS) != CAN_OK) {
                 // Panic
             }
         }

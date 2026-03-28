@@ -3,6 +3,9 @@
 #include "common.h"
 #include "EMC2305.h"
 
+// FAN CHIP DATA SHEET
+// https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/DataSheets/EMC2301-2-3-5-Data-Sheet-DS20006532A.pdf
+
 extern I2C_HandleTypeDef hi2c3;
 
 /** * @brief Minimum allowed fan speed in RPM. 

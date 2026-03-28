@@ -47,7 +47,7 @@ void SHT45_init(void);
  * * @param delay_ms delay in ms to wait for the I2C transactions to complete
  * @return SHT45_status_t Returns SHT45_OK on success, SHT45_ERR on failure.
  */
-SHT45_status_t SHT45_get(int32_t *tmpHmdBuffer, uint32_t delay_ms);
+SHT45_status_t SHT45_get(int32_t *tmpHmdBuffer, TickType_t delay_ms);
 
 /** * @brief Custom callback for SHT4x non-blocking I2C completion. 
  * * Handles internal state transitions after data is successfully received 

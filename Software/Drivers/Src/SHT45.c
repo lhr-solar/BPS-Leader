@@ -3,18 +3,20 @@
 #include "SHT45.h"
 #include "config.h"
 
-// time to let sensor sense and respond
-#define SENSE_WAIT_MS 100
-
-static SemaphoreHandle_t I2C_complete;
+static SemaphoreHandle_t I2C_complete = NULL;
 static StaticSemaphore_t I2C_complete_buffer;
+
+static SemaphoreHandle_t sensor_poll_mutex = NULL;
+static StaticSemaphore_t sensor_poll_buffer;
+
+bool is_initialized = false;
 
 I2C_HandleTypeDef hi2c4;
 
 static uint8_t pollCMD = 0xFD;
 
 // polls sensor for temp hmd information
-static SHT45_status_t sensorPoll(uint8_t* rx_bytes, uint32_t delay_ms) {
+static SHT45_status_t SHT45_poll_sensor(uint8_t* rx_bytes, TickType_t delay_ms) {
 
   // transmit data
    if (HAL_I2C_Master_Transmit_IT(&hi2c4, tmpHmdAdresss, &pollCMD, TX_SIZE) != HAL_OK) {
@@ -25,9 +27,6 @@ static SHT45_status_t sensorPoll(uint8_t* rx_bytes, uint32_t delay_ms) {
   if (xSemaphoreTake(I2C_complete, pdMS_TO_TICKS(delay_ms)) != pdTRUE) {
     return SHT45_ERR;
   }
-
-  // wait for sensor to sense
-  vTaskDelay(pdMS_TO_TICKS(SENSE_WAIT_MS));
 
   // recieve data
   if (HAL_I2C_Master_Receive_IT(&hi2c4, tmpHmdAdresss, rx_bytes, RX_SIZE) != HAL_OK) {
@@ -42,10 +41,10 @@ static SHT45_status_t sensorPoll(uint8_t* rx_bytes, uint32_t delay_ms) {
 }
 
 // read temperature and humidity, store them in the tmpHmdBuffer passed in as an argument  
-SHT45_status_t SHT45_get(int32_t *tmpHmdBuffer, uint32_t delay_ms) {
+SHT45_status_t SHT45_get(int32_t *tmpHmdBuffer, TickType_t delay_ms) {
 
   uint8_t rx_bytes[6];
-  if (sensorPoll(rx_bytes, delay_ms) != SHT45_OK) {
+  if (SHT45_poll_sensor(rx_bytes, delay_ms) != SHT45_OK) {
       return SHT45_ERR;
   }
 
@@ -69,13 +68,12 @@ void SHT45_I2C_MasterTxRxCpltCallback() {
   BaseType_t xHigherPriorityTaskWoken = pdFALSE;
 
   if (I2C_complete == NULL) {
-      set_faultBitFromISR(I2C_ERROR);
+      set_faultBitFromISR(I2C_ERROR, &xHigherPriorityTaskWoken);
   }
   else {
       xSemaphoreGiveFromISR(I2C_complete, &xHigherPriorityTaskWoken);
+      portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
   }
-
-  portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
 
 void SHT45_init(void)
@@ -136,6 +134,7 @@ void SHT45_init(void)
   HAL_NVIC_EnableIRQ(I2C4_ER_IRQn);
 
   I2C_complete = xSemaphoreCreateBinaryStatic(&I2C_complete_buffer);
+  sensor_poll_mutex = xSemaphoreCreateMutexStatic(&sensor_poll_buffer);
 
 }
 

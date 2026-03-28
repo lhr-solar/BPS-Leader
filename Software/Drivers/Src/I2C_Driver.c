@@ -78,7 +78,6 @@ void I2C4_ER_IRQHandler(void) {
  * the configuration information for the specified I2C.
  */
 void HAL_I2C_ErrorCallback(I2C_HandleTypeDef *hi2c) {
-    // Note: You could optionally check hi2c->Instance here if you wanted 
-    // to set different fault bits for the Fan vs. the SHT45.
-    set_faultBitFromISR(I2C_ERROR);
+    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+    set_faultBitFromISR(I2C_ERROR, &xHigherPriorityTaskWoken);
 }

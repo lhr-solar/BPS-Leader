@@ -51,7 +51,7 @@ static void vContactorCallback( TimerHandle_t senseTimer ) {
 }
 
 // sets contactor, updates state value, then starts timer to check expected state matches actual state. 
-contactor_state_t contactor_set(contactor_num_t contactor_num, contactor_state_t state,  uint32_t wait_ms, fault_state_t fault_state) {
+contactor_state_t contactor_set(contactor_num_t contactor_num, contactor_state_t state,  TickType_t wait_ms, fault_state_t fault_state) {
     
     // check that contactor exists
     if ((contactor_num < 0) || (contactor_num >= NUM_CONTACTORS)) {
@@ -87,9 +87,6 @@ void contactor_init() {
     __HAL_RCC_GPIOA_CLK_ENABLE();
     __HAL_RCC_GPIOB_CLK_ENABLE();
     __HAL_RCC_GPIOC_CLK_ENABLE();
-
-    // INITIALIZE MUTEX
-    contactorsMutex = xSemaphoreCreateMutexStatic(&contactorsMutexBuffer);
 
     // initializing the pindef into contactor structs
     contactors[HV_PLUS_CONTACTOR] = (contactor_t){   
@@ -147,6 +144,9 @@ void contactor_init() {
         );
     }
 
+    // INITIALIZE MUTEX
+    contactorsMutex = xSemaphoreCreateMutexStatic(&contactorsMutexBuffer);
+
     contactor_is_initialized = true;
 }
 
@@ -155,8 +155,9 @@ void emergency_open_contactors(void) {
 
     contactor_init();
 
+    // pdTICKS_TO_MS 
     for (uint8_t contactor_num = 0; contactor_num < NUM_CONTACTORS; contactor_num++) {
-    contactor_set(contactor_num, CONTACTOR_OPEN, portMAX_DELAY, EMERGENCY);
-  }
+        contactor_set(contactor_num, CONTACTOR_OPEN, pdTICKS_TO_MS(portMAX_DELAY), EMERGENCY);
+    }
 }
 
