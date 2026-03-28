@@ -5,7 +5,7 @@ EMC2305_HandleTypeDef chip;
 
 I2C_HandleTypeDef hi2c3;
 
-#define EMC2305_STARTUP_WAIT_MS 10
+#define EMC2305_STARTUP_WAIT_MS 200
 
 void EMC2305_I2C_init(void)
 { 

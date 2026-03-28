@@ -4,7 +4,7 @@
 #include "config.h"
 
 // time to let sensor sense and respond
-#define SENSE_WAIT_MS 10
+#define SENSE_WAIT_MS 100
 
 static SemaphoreHandle_t I2C_complete;
 static StaticSemaphore_t I2C_complete_buffer;

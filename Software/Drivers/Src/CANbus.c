@@ -3,6 +3,9 @@
 
 static uint32_t HAL_RCC_FDCAN_CLK_ENABLED=0;
 
+FDCAN_HandleTypeDef* car_can;
+FDCAN_HandleTypeDef* bps_can;
+
 static bool is_initialized = false;
 
 void HAL_FDCAN_MspInit(FDCAN_HandleTypeDef* fdcanHandle)
@@ -90,6 +93,7 @@ static can_status_t BPS_CAN_Init(void)
     __HAL_RCC_SYSCFG_CLK_ENABLE();
     __HAL_RCC_PWR_CLK_ENABLE();
 
+    bps_can = hfdcan1;
     bps_can->Instance = FDCAN1;
     bps_can->Init.ClockDivider = FDCAN_CLOCK_DIV1;
     bps_can->Init.FrameFormat = FDCAN_FRAME_CLASSIC;
@@ -148,6 +152,7 @@ static can_status_t CAR_CAN_Init(void)
     __HAL_RCC_SYSCFG_CLK_ENABLE();
     __HAL_RCC_PWR_CLK_ENABLE();
 
+    car_can = hfdcan3;
     car_can->Instance = FDCAN3;
     car_can->Init.ClockDivider = FDCAN_CLOCK_DIV1;
     car_can->Init.FrameFormat = FDCAN_FRAME_CLASSIC;

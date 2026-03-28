@@ -3,14 +3,6 @@
 #include "common.h"
 #include "CAN_FD.h"
 
-/** * @brief Logical alias for the main Vehicle (CAR) CAN hardware handle. 
- */
-#define car_can hfdcan3
-
-/** * @brief Logical alias for the Battery Protection System (BPS) CAN hardware handle. 
- */
-#define bps_can hfdcan1
-
 /** * @brief Transmits a message over the CAR CAN bus.
  * @note Automatically converts the millisecond delay into RTOS ticks.
  * * @param tx_header Pointer to the configured FDCAN_TxHeaderTypeDef structure.
