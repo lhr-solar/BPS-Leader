@@ -1,5 +1,10 @@
 #include "BPS_Tasks.h"
-#include "LEDs.h"
+#include "EMC2305_Driver.h"
+#include "CANbus.h"
+#include "StatusLEDs.h"
+#include "Contactors.h"
+#include "DebugPrintf.h"
+#include "SHT45.h"
 
 // Task Stack Arrays
 StackType_t Task_Temperature_Stack_Array[ TASK_TEMPERATURE_MONITOR_STACK_SIZE ];
@@ -18,8 +23,18 @@ EventGroupHandle_t xWDogEventGroup_handle;
 
 
 void Task_Init(){
+
     Init_WDogTask();
-    Heartbeat_Init();
+
+    CAN_Init();
+    
+    LEDs_init();
+
+    contactor_init();
+
+    SHT45_init();
+
+    EMC2305_Driver_init();
 
     xTaskCreateStatic(
         Task_Temperature_Monitor,           /* The function that implements the task. */
@@ -31,15 +46,17 @@ void Task_Init(){
         &Task_Temperature_Buffer            /* Buffer for static allocation. */
    );
 
-    xTaskCreateStatic(
-        Task_Voltage_Monitor,               /* The function that implements the task. */
-        "Voltage Monitor Task",             /* Text name for the task. */
-        TASK_VOLTAGE_MONITOR_STACK_SIZE,    /* The size (in words) of the stack that should be created for the task. */
-        (void*)NULL,                        /* Paramter passed into the task. */
-        TASK_VOLTAGE_MONITOR_PRIO,          /* Task Prioriy. */
-        Task_Voltage_Stack_Array,           /* Stack array. */
-        &Task_Voltage_Buffer                /* Buffer for static allocation. */
-   );
+   // WIP
+//    xTaskCreateStatic(
+//        Task_Voltage_Monitor,               /* The function that implements the task. */
+//        "Voltage Monitor Task",             /* Text name for the task. */
+//        TASK_VOLTAGE_MONITOR_STACK_SIZE,    /* The size (in words) of the stack that should be created for the task. */
+//        (void*)NULL,                        /* Paramter passed into the task. */
+//        TASK_VOLTAGE_MONITOR_PRIO,          /* Task Prioriy. */
+//        Task_Voltage_Stack_Array,           /* Stack array. */
+//        &Task_Voltage_Buffer                /* Buffer for static allocation. */
+//   );
+   
 
    xTaskCreateStatic(
         Task_PetWatchdog,                   /* The function that implements the task. */

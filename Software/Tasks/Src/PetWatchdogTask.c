@@ -4,8 +4,6 @@
  -----------------------------------------------------------*/
 #include "BPS_Tasks.h"
 #include "IWDG.h"
-#include "LEDs.h"
-#include <timers.h>
 
 
 /* RTOS Timer - Used as a window period for IWDG */
@@ -41,7 +39,7 @@ void Init_WDogTask() {
     // Window timer init
     xWindowTimer = xTimerCreateStatic( 
                 "Timer",                /* Just a text name, not used by the RTOS kernel. */
-                IWDG_WINDOW_MS,         /* The timer period in ms (must be > 0). */ 
+                IWDG_WINDOW_TICKS,         /* The timer period in ms (must be > 0). */ 
                 pdFALSE,                /* Whether timer will auto-reload after expiring. */
                 NULL,                   /* ID assigned to timer being created. */
                 WDog_WindowCallback,    /* Callback when timer expires. */
@@ -74,7 +72,6 @@ void Task_PetWatchdog() {
              * and window timer has run down; can refresh Watchdog.
              */
             IWDG_Refresh();
-            Heartbeat_Toggle();
             xEventGroupClearBits(xWDogEventGroup_handle, ALL_TASKS_DONE);
 
             // Reset timer and do not wait for it to be sent to timer queue

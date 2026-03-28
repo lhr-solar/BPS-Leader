@@ -3,10 +3,7 @@
  * Not specific to a single board/unit
  */
 
-#ifndef CONFIG_H__
-#define CONFIG_H__
-
-typedef enum ErrorStatus_e {ERROR = 0, SUCCESS = !ERROR} ErrorStatus;
+#pragma once
 
 //--------------------------------------------------------------------------------
 // Battery Pack layout
@@ -18,7 +15,22 @@ typedef enum ErrorStatus_e {ERROR = 0, SUCCESS = !ERROR} ErrorStatus;
 #define NUM_TEMPERATURE_SENSORS         32      // Number of temperature sensors
 #endif
 
+// precharge macros
+#define OVERVOLTAGE_THRESHOLD_MV 140000 // 140 V
+#define UNDERVOLTAGE_THRESHOLD_MV 80000 // 80.0 V
+
+#define IRQ_BASE_PRIO configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY
+
+// interrupt priorites
+#define SHT45_IRQ_PRIO (IRQ_BASE_PRIO + 4)
+#define EMC2305_IRQ_PRIO (IRQ_BASE_PRIO + 2)
+#define FDCAN_NVIC_PRIO (IRQ_BASE_PRIO + 3)
+#define ADC_IRQ_PRIO (IRQ_BASE_PRIO + 1)
 
 
 
-#endif
+
+#define PRE(s)  "\r    "s"  "   // \r removes the filepath and 'note: '#pragma message:...' parts
+#define STR(x)  #x
+#define XSTR(x) STR(x)
+

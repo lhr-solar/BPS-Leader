@@ -1,5 +1,4 @@
-#ifndef IWDG_H
-#define IWDG_H
+#pragma once
 
 #include "stm32xx_hal.h"
 
@@ -42,10 +41,10 @@ Common Timeouts
 /* ---------------------------- MACROS ----------------------------*/
 
 #define IWDG_PRESCALAR IWDG_PRESCALER_8 
-#define IWDG_COUNTDOWN 79               // Tick value before we refresh the IDWG (current value converts to ~20ms)
+#define IWDG_COUNTDOWN_TICKS 79               // Tick value before we refresh the IDWG (current value converts to ~20ms)
 
 #define IWDG_TIMEOUT_MS 20
-#define IWDG_WINDOW_MS  8
+#define IWDG_WINDOW_TICKS 27
 /* ----------------------------------------------------------------*/
 
 
@@ -80,5 +79,3 @@ uint8_t IWDG_CheckIfReset();
  * @brief Error Handler: Contains procedures for Watchdog failure
  */
 void IWDG_Error_Handler(void);
-
-#endif
