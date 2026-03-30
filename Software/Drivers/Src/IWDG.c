@@ -4,8 +4,9 @@
 The Watchdog will trigger a reset sequence if it is not refreshed 
 within an expected time window. 
 --------------------------------------------------------- */
-
+#include "common.h"
 #include "IWDG.h"
+#include "faultHandler.h"
 
 /* IWDG struct */
 IWDG_HandleTypeDef iwdg_h = {0};
@@ -19,15 +20,15 @@ void IWDG_Init() {
     iwdg_h.Init.Window = IWDG_WINDOW_TICKS;
 }
 
-void IWDG_Start(void(*errorHandler)(void)) {
+void IWDG_Start() {
     // Check for previous reset
     if (IWDG_CheckIfReset() == 1) {
-        errorHandler();
+        set_faultBit(WATCHDOG_ERROR);
     }
 
     // Initialize / start IWDG and check init status
     if (HAL_IWDG_Init(&iwdg_h) != HAL_OK) {
-        errorHandler();
+        Error_Handler();
     }
 }
 

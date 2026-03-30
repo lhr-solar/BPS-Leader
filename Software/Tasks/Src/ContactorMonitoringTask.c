@@ -1,10 +1,15 @@
+#include "common.h"
 #include "BPS_Tasks.h"
+#include "CANbus.h"
+
 
 void Task_Temperature_Monitor(){
 
     while(1){
+
         // Delays 10 ms
-        vTaskDelay(TEMP_MONITOR_TASK_DELAY_MS);
+        vTaskDelay(CONTACTOR_MONITOR_TASK_DELAY_MS);
+
 
         // Set event group bit
         xEventGroupSetBits(xWDogEventGroup_handle,     /* The event group being updated. */

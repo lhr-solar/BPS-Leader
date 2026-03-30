@@ -1,3 +1,4 @@
+#include "common.h"
 #include "BPS_Tasks.h"
 #include "EMC2305_Driver.h"
 #include "CANbus.h"
@@ -5,6 +6,7 @@
 #include "Contactors.h"
 #include "DebugPrintf.h"
 #include "SHT45.h"
+#include "FaultHandlerTask.h"
 
 // Task Stack Arrays
 StackType_t Task_Temperature_Stack_Array[ TASK_TEMPERATURE_MONITOR_STACK_SIZE ];
@@ -21,10 +23,7 @@ StaticTask_t Task_Petwdog_Buffer;
 // Event Group
 EventGroupHandle_t xWDogEventGroup_handle;
 
-
 void Task_Init(){
-
-    Init_WDogTask();
 
     CAN_Init();
     
@@ -35,6 +34,18 @@ void Task_Init(){
     SHT45_init();
 
     EMC2305_Driver_init();
+
+    Init_WDogTask();
+
+    xTaskCreateStatic(
+        Task_FaultHandler,             // Task function
+        "FaultHandler",                // Name of the task (for debugging)
+        configMINIMAL_STACK_SIZE,   // Stack size in words
+        NULL,                       // Task input parameter
+        tskIDLE_PRIORITY + 3,       // Task priority
+        FaultHandler_Task_Stack,       // Task handle
+        &FaultHandler_Task_Buffer      // Static task buffer (optional)
+    );
 
     xTaskCreateStatic(
         Task_Temperature_Monitor,           /* The function that implements the task. */

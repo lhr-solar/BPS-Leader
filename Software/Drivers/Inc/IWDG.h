@@ -60,7 +60,7 @@ void IWDG_Init();
  * (2): Waits until status flag is reset; check if Init failed
  * @param errorHandler Pointer to user defined function for error handling
  */
-void IWDG_Start(void(*errorHandler)(void));
+void IWDG_Start();
 
 /**
  * @brief Refresh ("pet") the watchdog so it does not reset the system

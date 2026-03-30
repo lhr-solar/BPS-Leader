@@ -15,6 +15,12 @@
 #define NUM_TEMPERATURE_SENSORS         32      // Number of temperature sensors
 #endif
 
+#ifndef NUM_VOLTAGE_SENSORS
+#define NUM_VOLTAGE_SENSORS             32      // Number of temperature sensors
+#endif
+
+#define NUM_VOLTTEMP_BOARDS                 8       // Number of volt temp boards
+
 // precharge macros
 #define OVERVOLTAGE_THRESHOLD_MV 140000 // 140 V
 #define UNDERVOLTAGE_THRESHOLD_MV 80000 // 80.0 V

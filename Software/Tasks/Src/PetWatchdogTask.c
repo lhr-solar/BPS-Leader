@@ -53,6 +53,8 @@ void Init_WDogTask() {
 
 void Task_PetWatchdog() {
     // Start timer; do not wait for timer to be sent to timer command queue
+
+    Init_WDogTask
     xTimerStart(xWindowTimer, 0);
     
     IWDG_Start(IWDG_Error_Handler);

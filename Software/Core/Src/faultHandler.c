@@ -11,11 +11,15 @@ EventGroupHandle_t faultBits;
 // Static buffer to store the event handle
 StaticEventGroup_t faultBitsBuffer;
 
+static bool is_initialized = false;
+
 uint8_t faultHandler_init(void){
+    if (is_initialized) return 0;
     faultBits = xEventGroupCreateStatic( &faultBitsBuffer );
     if(faultBits == NULL){
         return 0;
     }
+    is_initialized = true;
     return 1;
 }
 

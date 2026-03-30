@@ -8,6 +8,7 @@
 #include <timers.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include "config.h"
 
 #include "pindef.h"
 

@@ -4,6 +4,8 @@
 
 /* ================= CAN ID Macros ================= */
 
+#define CAN_ID_BPS_STATUS 0x1
+#define CAN_ID_BPS_AGGREGATE_ARR 0xB
 #define CAN_ID_VCU_STATUS 0x18
 #define CAN_ID_CONTROLS_STATUS 0x19
 #define CAN_ID_VCU_PRECHARGE_VOLTAGES 0x21
@@ -36,6 +38,8 @@
 
 /* ================= CAN Length Macros ================= */
 
+#define CAN_DLC_BPS_STATUS 7
+#define CAN_DLC_BPS_AGGREGATE_ARR 7
 #define CAN_DLC_VCU_STATUS 6
 #define CAN_DLC_CONTROLS_STATUS 4
 #define CAN_DLC_VCU_PRECHARGE_VOLTAGES 6
@@ -68,6 +72,26 @@
 
 
 /* ================= Value Table Enums ================= */
+
+typedef enum {
+    BPS_STATUS_BPS_FAULT_DISCHARGING_OVERCURRENT = 16,
+    BPS_STATUS_BPS_FAULT_CHARGING_OVERCURRENT = 15,
+    BPS_STATUS_BPS_FAULT_ESTOP_3 = 14,
+    BPS_STATUS_BPS_FAULT_ESTOP_2 = 13,
+    BPS_STATUS_BPS_FAULT_ESTOP_1 = 12,
+    BPS_STATUS_BPS_FAULT_ARRAY_PCHG_CONTACTOR_SENSE = 11,
+    BPS_STATUS_BPS_FAULT_ARRAY_CONTACTOR_SENSE = 10,
+    BPS_STATUS_BPS_FAULT_HV_MINUS_CONTACTOR_SENSE = 9,
+    BPS_STATUS_BPS_FAULT_HV_PLUS_CONTACTOR_SENSE = 8,
+    BPS_STATUS_BPS_FAULT_WATCHDOG = 7,
+    BPS_STATUS_BPS_FAULT_ARRAY_PRECHARGE_TIMEOUT = 6,
+    BPS_STATUS_BPS_FAULT_ELCON = 5,
+    BPS_STATUS_BPS_FAULT_OVERTEMPERATURE = 4,
+    BPS_STATUS_BPS_FAULT_REGEN = 3,
+    BPS_STATUS_BPS_FAULT_UNDERVOLTAGE = 2,
+    BPS_STATUS_BPS_FAULT_OVERVOLTAGE = 1,
+    BPS_STATUS_BPS_FAULT_NO_FAULT = 0,
+} bps_status_bps_fault_e;
 
 typedef enum {
     VCU_STATUS_VCU_FAULT_MOTOR_HV_UNDERVOLTAGE = 6,
@@ -204,6 +228,24 @@ typedef enum {
 } lws_config_lws_ccw_e;
 
 /* ================= Message Structs ================= */
+
+typedef struct {
+    uint8_t BPS_Fault;
+    uint8_t BPS_Charge_OK;
+    uint8_t BPS_Regen_OK;
+    uint8_t HV_Plus_Contactor_State;
+    uint8_t HV_Minus_Contactor_State;
+    uint8_t Array_Contactor_State;
+    uint8_t Array_Precharge_Contactor_State;
+    uint32_t Main_Battery_Voltage;
+    int16_t Main_Battery_Avg_Temperature;
+} bps_status_t;
+
+typedef struct {
+    uint8_t BPS_Tap_idx;
+    uint16_t BPS_Voltage_Tap_Data;
+    int32_t BPS_Temperature_Tap_Data;
+} bps_aggregate_arr_t;
 
 typedef struct {
     uint8_t VCU_Fault;
