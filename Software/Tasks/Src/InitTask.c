@@ -36,6 +36,7 @@ void Task_Init(){
 
     EMC2305_Driver_init();
 
+   // placeholder task
     xTaskCreateStatic(
         Task_Temperature_Monitor,           /* The function that implements the task. */
         "Temperature Monitor Task",         /* Text name for the task. */
@@ -46,17 +47,26 @@ void Task_Init(){
         &Task_Temperature_Buffer            /* Buffer for static allocation. */
    );
 
-   // WIP
-//    xTaskCreateStatic(
-//        Task_Voltage_Monitor,               /* The function that implements the task. */
-//        "Voltage Monitor Task",             /* Text name for the task. */
-//        TASK_VOLTAGE_MONITOR_STACK_SIZE,    /* The size (in words) of the stack that should be created for the task. */
-//        (void*)NULL,                        /* Paramter passed into the task. */
-//        TASK_VOLTAGE_MONITOR_PRIO,          /* Task Prioriy. */
-//        Task_Voltage_Stack_Array,           /* Stack array. */
-//        &Task_Voltage_Buffer                /* Buffer for static allocation. */
-//   );
-   
+   // placeholder task
+   xTaskCreateStatic(
+       Task_Voltage_Monitor,               /* The function that implements the task. */
+       "Voltage Monitor Task",             /* Text name for the task. */
+       TASK_VOLTAGE_MONITOR_STACK_SIZE,    /* The size (in words) of the stack that should be created for the task. */
+       (void*)NULL,                        /* Paramter passed into the task. */
+       TASK_VOLTAGE_MONITOR_PRIO,          /* Task Prioriy. */
+       Task_Voltage_Stack_Array,           /* Stack array. */
+       &Task_Voltage_Buffer                /* Buffer for static allocation. */
+  );
+
+    xTaskCreateStatic(
+        Task_Amperes_Monitor,           /* The function that implements the task. */
+        "Amperes Monitor Task",         /* Text name for the task. */
+        TASK_VOLTAGE_MONITOR_STACK_SIZE,/* The size (in words) of the stack that should be created for the task. */
+        (void*)NULL,                        /* Paramter passed into the task. */
+        TASK_AMPERES_MONITOR_PRIO,      /* Task Prioriy. */
+        Task_Amperes_Stack_Array,       /* Stack array. */
+        &Task_Amperes_Buffer            /* Buffer for static allocation. */
+   );
 
    xTaskCreateStatic(
         Task_PetWatchdog,                   /* The function that implements the task. */

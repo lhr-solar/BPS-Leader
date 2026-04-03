@@ -50,12 +50,14 @@ extern StaticTask_t Task_Can_Forward_Buffer;
 #define TEMP_MONITOR_TASK_DELAY_MS 10
 #define VOLT_MONITOR_TASK_DELAY_MS 5
 #define PRECHARGE_TASK_DELAY_MS 100
+#define AMPERES_MONITOR_TASK_DELAY_MS 100
 
 // Task Inits
 void Task_Init();
 void Task_Voltage_Monitor();
-void Task_Temperature_Monitor();
+void Task_Amperes_Monitor();
 void Task_PetWatchdog();
+void Task_Temperature_Monitor();
 void Task_CanRxForward();
 
 /* ---- Watchdog Event Group ---- */
@@ -64,5 +66,6 @@ extern EventGroupHandle_t xWDogEventGroup_handle;
 #define TEMP_MONITOR_DONE   (1 << 0)
 #define VOLT_MONITOR_DONE   (1 << 1)
 #define WINDOW_TIMER_DONE   (1 << 2)
-#define ALL_TASKS_DONE (TEMP_MONITOR_DONE | VOLT_MONITOR_DONE | WINDOW_TIMER_DONE)
+#define AMPERES_MONITOR_DONE (1 << 3)
+#define ALL_TASKS_DONE (TEMP_MONITOR_DONE | VOLT_MONITOR_DONE | WINDOW_TIMER_DONE | AMPERES_MONITOR_DONE)
 
