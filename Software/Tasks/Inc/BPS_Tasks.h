@@ -10,7 +10,7 @@
 #define TASK_AMPERES_MONITOR_PRIO                tskIDLE_PRIORITY + 6
 #define TASK_PETWDOG_PRIO                        tskIDLE_PRIORITY + 2
 #define TASK_CAN_FORWARD_PRIO                    tskIDLE_PRIORITY + 3
-#define TASK_FAULT_HANDLER_PRIO                  tskIDLE_PRIORITY + 7
+#define TASK_FAULT_HANDLER_PRIO                  tskIDLE_PRIORITY + 3
 #define TASK_CONTACTOR_MOINITORING_PRIO tskIDLE_PRIORITY + 3
 
 #define TEST_TASK_PRIORITY                       tskIDLE_PRIORITY + 3
@@ -38,6 +38,7 @@ extern StackType_t Precharge_Task_Stack[ PRECHARGE_TASK_STACK_SIZE ];
 extern StackType_t FaultHandler_Task_Stack[ FAULT_HANDLER_TASK_STACK_SIZE ];
 extern StackType_t Task_Can_Forward_Stack[ TASK_CAN_FORWARD_STACK_SIZE ];
 extern StackType_t Task_Contactor_Monitoring_Stack[ TASK_CONTACTOR_MOINITORING_STACK_SIZE ];
+extern StackType_t Init_Task_Stack[ TASK_INIT_STACK_SIZE ];
 
 // Task Buffers
 extern StaticTask_t Task_Temperature_Buffer;
@@ -48,16 +49,18 @@ extern StaticTask_t Precharge_Task_Buffer;
 extern StaticTask_t FaultHandler_Task_Buffer;
 extern StaticTask_t Task_Can_Forward_Buffer;
 extern StaticTask_t Task_Contactor_Monitoring_Buffer;
+extern StaticTask_t Init_Task_Buffer;
 
 // Task Delays
 #define TEMP_MONITOR_TASK_DELAY_MS      10
-#define VOLT_MONITOR_TASK_DELAY_MS      30
+#define VOLT_MONITOR_TASK_DELAY_MS      300
 #define PRECHARGE_TASK_DELAY_MS         100
 #define CONTACTOR_MONITOR_TASK_DELAY_MS 30
 
 // Task Inits
 void Task_Init();
 void Task_Voltage_Monitor();
+void Task_FaultHandler(void *pvParameters);
 void Task_Temperature_Monitor();
 void Task_PetWatchdog();
 void Task_CanRxForward();

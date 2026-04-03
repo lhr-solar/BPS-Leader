@@ -18,6 +18,7 @@ void Error_Handler() {
     vTaskDelay(pdMS_TO_TICKS(1000));
     LED_set(DEBUG_LED, LED_OFF);
     vTaskDelay(pdMS_TO_TICKS(1000));
+    printf("Faulted\n\r");
   }
 }
 

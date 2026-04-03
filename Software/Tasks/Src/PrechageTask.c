@@ -33,14 +33,14 @@ void Fault_Checker(uint32_t Array_Voltage, uint32_t Battery_Voltage, Precharge_S
         set_faultBit(ARRAY_GREATER_THAN_BATTERY_FAULT);
     }
 
-    if (Battery_Voltage > OVERVOLTAGE_THRESHOLD_MV)
+    if (Battery_Voltage > PACK_OVERVOLTAGE_THRESHOLD_MV)
     {
         /* BATTERY ABOUT TO GO BOOM */
         // Fault handler
         set_faultBit(BATTERY_OVERVOLTAGE_FAULT);
     }
 
-    if ((Battery_Voltage < UNDERVOLTAGE_THRESHOLD_MV) && (State != PRECHARGE_STATE_IDLE))
+    if ((Battery_Voltage < PACK_UNDERVOLTAGE_THRESHOLD_MV) && (State != PRECHARGE_STATE_IDLE))
     {
         /* Battery voltage is too low or battery is disconnected, treat as fault */
         // Fault handler

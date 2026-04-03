@@ -8,9 +8,6 @@
 
 EventBits_t fault_bits = 0;
 
-StaticTask_t FaultHandler_Task_Buffer;
-StackType_t FaultHandler_Task_Stack[PRECHARGE_TASK_STACK_SIZE];
-
 void Init_FaultHandlerTask()
 {   
     if (faultHandler_init() != 1)
@@ -52,6 +49,9 @@ static void print_fault(){
             case FAULT_BIT(CONTACTOR_UNEXPECTED_STATE_FAULT):
                 printf("Fault: Contactor Unexpected State Fault\r\n");
                 break;
+            case FAULT_BIT(BPS_CAN_ERROR):
+                printf("BPS CAN Error\r\n");
+                break;
             default:
                 printf("Fault: Unknown\r\n");
                 break;
@@ -92,11 +92,10 @@ void Set_Fault_LED()
     }
 }
 
-void Task_FaultHandler(void *argument)
+void Task_FaultHandler(void *pvParameters)
 {   
-
     Init_FaultHandlerTask();
-    
+
     while (true) {
 
     fault_bits = faultBit_wait(NUM_FAULTS, portMAX_DELAY);

@@ -22,8 +22,12 @@
 #define NUM_VOLTTEMP_BOARDS                 8       // Number of volt temp boards
 
 // precharge macros
-#define OVERVOLTAGE_THRESHOLD_MV 140000 // 140 V
-#define UNDERVOLTAGE_THRESHOLD_MV 80000 // 80.0 V
+#define PACK_OVERVOLTAGE_THRESHOLD_MV 140000 // 140 V
+#define PACK_UNDERVOLTAGE_THRESHOLD_MV 80000 // 80.0 V
+
+// volttemp segment voltage 
+#define CELL_OVERVOLTAGE_THRESHOLD_MV 4200 // 4.2 V
+#define CELL_UNDERVOLTAGE_THRESHOLD_MV 2500 // 2.5 V
 
 #define IRQ_BASE_PRIO configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY
 
