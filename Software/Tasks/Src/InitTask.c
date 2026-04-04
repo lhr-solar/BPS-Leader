@@ -9,21 +9,25 @@
 
 // Task Stack Arrays
 StackType_t Task_Temperature_Stack_Array[ TASK_TEMPERATURE_MONITOR_STACK_SIZE ];
+StackType_t FaultHandler_Task_Stack[ FAULT_HANDLER_TASK_STACK_SIZE ];
+StackType_t Precharge_Task_Stack[ PRECHARGE_TASK_STACK_SIZE ];
 StackType_t Task_Voltage_Stack_Array[ TASK_VOLTAGE_MONITOR_STACK_SIZE ];
 StackType_t Task_Amperes_Stack_Array[ TASK_AMPERES_MONITOR_STACK_SIZE ];
 StackType_t Task_Petwdog_Stack_Array[ TASK_PETWDOG_STACK_SIZE ];
-
-StaticTask_t FaultHandler_Task_Buffer;
-StackType_t FaultHandler_Task_Stack[ FAULT_HANDLER_TASK_STACK_SIZE ];
-
-StaticTask_t Init_Task_Buffer;
+StackType_t Task_Contactor_Monitoring_Stack[ TASK_CONTACTOR_MONITORING_STACK_SIZE ];
 StackType_t Init_Task_Stack[ FAULT_HANDLER_TASK_STACK_SIZE ];
+StackType_t Task_Can_Forward_Stack[ TASK_CAN_FORWARD_STACK_SIZE ];
 
 // Task Buffers
+StaticTask_t Init_Task_Buffer;
+StaticTask_t FaultHandler_Task_Buffer;
 StaticTask_t Task_Temperature_Buffer;
 StaticTask_t Task_Voltage_Buffer;
 StaticTask_t Task_Amperes_Buffer;
 StaticTask_t Task_Petwdog_Buffer;
+StaticTask_t Precharge_Task_Buffer;
+StaticTask_t Task_Contactor_Monitoring_Buffer;
+StaticTask_t Task_Can_Forward_Buffer;
 
 // Event Group
 EventGroupHandle_t xWDogEventGroup_handle;

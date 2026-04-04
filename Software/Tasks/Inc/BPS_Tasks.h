@@ -24,7 +24,7 @@
 #define PRECHARGE_TASK_STACK_SIZE                configMINIMAL_STACK_SIZE
 #define FAULT_HANDLER_TASK_STACK_SIZE            configMINIMAL_STACK_SIZE
 #define TASK_CAN_FORWARD_STACK_SIZE              configMINIMAL_STACK_SIZE
-#define TASK_CONTACTOR_MOINITORING_STACK_SIZE    configMINIMAL_STACK_SIZE
+#define TASK_CONTACTOR_MONITORING_STACK_SIZE    configMINIMAL_STACK_SIZE
 
 #define TEST_TASK_STACK_SIZE                     configMINIMAL_STACK_SIZE
 
@@ -37,7 +37,7 @@ extern StackType_t Task_Petwdog_Stack_Array[ TASK_PETWDOG_STACK_SIZE ];
 extern StackType_t Precharge_Task_Stack[ PRECHARGE_TASK_STACK_SIZE ];
 extern StackType_t FaultHandler_Task_Stack[ FAULT_HANDLER_TASK_STACK_SIZE ];
 extern StackType_t Task_Can_Forward_Stack[ TASK_CAN_FORWARD_STACK_SIZE ];
-extern StackType_t Task_Contactor_Monitoring_Stack[ TASK_CONTACTOR_MOINITORING_STACK_SIZE ];
+extern StackType_t Task_Contactor_Monitoring_Stack[ TASK_CONTACTOR_MONITORING_STACK_SIZE ];
 extern StackType_t Init_Task_Stack[ TASK_INIT_STACK_SIZE ];
 
 // Task Buffers

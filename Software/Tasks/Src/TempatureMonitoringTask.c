@@ -1,4 +1,4 @@
-// TODO: Temp temps have multiple faults, this does not discriminate. Add discrimination later.
+// TODO: Volt temps have multiple faults, this does not discriminate. Add discrimination later.
 // TODO: CAN QueueSet solution
 
 #include "common.h"
@@ -32,10 +32,7 @@ static void temp_can_unpack(uint8_t *raw_temp_can_data, bps_temperature_arr_t *t
 {
 
     // if sensor not sending, skip. Watchdog will err eventually if it doesn't receive more data
-    if (raw_temp_can_data == NULL)
-    {
-        return;
-    }
+    if (raw_temp_can_data == NULL) return;
 
     uint8_t tap_index = raw_temp_can_data[0] & temp_id_mask;
 

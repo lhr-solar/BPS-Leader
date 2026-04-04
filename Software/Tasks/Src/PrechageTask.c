@@ -11,9 +11,6 @@ TaskHandle_t hprecharge_task = NULL;
 StaticEventGroup_t xPrechargeEventGroup;
 EventGroupHandle_t xPrechargeEventGroup_handle;
 
-StaticTask_t Precharge_Task_Buffer;
-StackType_t Precharge_Task_Stack[PRECHARGE_TASK_STACK_SIZE];
-
 void Init_PrechargeTask()
 {
     // Event Group init

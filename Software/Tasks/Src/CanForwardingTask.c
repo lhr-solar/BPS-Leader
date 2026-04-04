@@ -10,9 +10,6 @@ static StaticQueue_t canRxForwardQueueBuffer;
 static uint8_t canRxForwardQueueStorage[CAN_RX_FORWARD_QUEUE_SIZE * sizeof(can_rx_payload_t)];
 static QueueHandle_t canRxForwardQueue;
 
-StaticTask_t Task_Can_Forward_Buffer;
-StackType_t Task_Can_Forward_Stack[TASK_CAN_FORWARD_STACK_SIZE];
-
 // UNCOMMENT FOR CAN TEST (I don't like this either)
 #define CAN_TEST
 

@@ -1,4 +1,6 @@
 // TODO: Volt temps have multiple faults, this does not discriminate. Add discrimination later.
+// TODO: CAN QueueSet solution
+
 
 #include "common.h"
 #include "BPS_Tasks.h"
@@ -27,10 +29,8 @@ static StaticTimer_t volt_timer_buffer;
 static void volt_can_unpack(uint8_t *raw_volt_can_data, bps_voltage_arr_t *volt_can_data)
 {
 
-    if (raw_volt_can_data == NULL)
-    {
-        return;
-    }
+    if (raw_volt_can_data == NULL) return;
+
 
     uint8_t tap_index = raw_volt_can_data[0] & volt_id_mask;
 
@@ -70,8 +70,7 @@ static void can_recv_all_taps(uint32_t can_msg_ID, bps_voltage_arr_t volt_can_da
 static void vVoltageWatchdogCallback(TimerHandle_t volt_timer)
 {
     if (volt_sensor_bitmap != ALL_DATA)
-    {   
-        printf("missing volttemp input!");
+    {
         set_faultBit(BPS_CAN_ERROR);
     }
     volt_sensor_bitmap = 0;
@@ -88,7 +87,7 @@ void Task_Voltage_Monitor()
         "Volt Watchdog",                    /* Name of the timer */
         pdMS_TO_TICKS(WATCHDOG_TIMEOUT_MS), /* Timer period in ticks */
         pdTRUE,                             /* auto-reload */
-        (void*)0,                           /* Timer ID */
+        (void *)0,                          /* Timer ID */
         vVoltageWatchdogCallback,           /* Callback function */
         &volt_timer_buffer                  /* Buffer to hold timer data */
     );
