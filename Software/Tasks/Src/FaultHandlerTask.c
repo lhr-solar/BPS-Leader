@@ -9,7 +9,7 @@
 EventBits_t fault_bits = 0;
 
 StaticTask_t FaultHandler_Task_Buffer;
-StackType_t FaultHandler_Task_Stack[PRECHARGE_TASK_STACK_SIZE];
+StackType_t FaultHandler_Task_Stack[FAULT_HANDLER_TASK_STACK_SIZE];
 
 void Init_FaultHandlerTask()
 {   

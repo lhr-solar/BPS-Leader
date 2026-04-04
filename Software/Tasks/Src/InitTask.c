@@ -30,42 +30,54 @@ void Task_Init(){
     
     LEDs_init();
 
-    contactor_init();
+    // contactor_init();
 
-    SHT45_init();
+    // SHT45_init();
 
-    EMC2305_Driver_init();
+    // EMC2305_Driver_init(); // call from task
 
-   // placeholder task
-    xTaskCreateStatic(
-        Task_Temperature_Monitor,           /* The function that implements the task. */
-        "Temperature Monitor Task",         /* Text name for the task. */
-        TASK_TEMPERATURE_MONITOR_STACK_SIZE,/* The size (in words) of the stack that should be created for the task. */
+    debugPrintf_init();
+
+//     xTaskCreateStatic(
+//         Task_Temperature_Monitor,           /* The function that implements the task. */
+//         "Temperature Monitor Task",         /* Text name for the task. */
+//         TASK_TEMPERATURE_MONITOR_STACK_SIZE,/* The size (in words) of the stack that should be created for the task. */
+//         (void*)NULL,                        /* Paramter passed into the task. */
+//         TASK_TEMPERATURE_MONITOR_PRIO,      /* Task Prioriy. */
+//         Task_Temperature_Stack_Array,       /* Stack array. */
+//         &Task_Temperature_Buffer            /* Buffer for static allocation. */
+//    );
+
+   // WIP
+//    xTaskCreateStatic(
+//        Task_Voltage_Monitor,               /* The function that implements the task. */
+//        "Voltage Monitor Task",             /* Text name for the task. */
+//        TASK_VOLTAGE_MONITOR_STACK_SIZE,    /* The size (in words) of the stack that should be created for the task. */
+//        (void*)NULL,                        /* Paramter passed into the task. */
+//        TASK_VOLTAGE_MONITOR_PRIO,          /* Task Prioriy. */
+//        Task_Voltage_Stack_Array,           /* Stack array. */
+//        &Task_Voltage_Buffer                /* Buffer for static allocation. */
+//   );
+   
+
+   xTaskCreateStatic(
+        Task_Amperes_Monitor,                   /* The function that implements the task. */
+        "Amperes Monitor Task",                      /* Text name for the task. */
+        TASK_AMPERES_MONITOR_STACK_SIZE,            /* The size (in words) of the stack that should be created for the task. */
         (void*)NULL,                        /* Paramter passed into the task. */
-        TASK_TEMPERATURE_MONITOR_PRIO,      /* Task Prioriy. */
-        Task_Temperature_Stack_Array,       /* Stack array. */
-        &Task_Temperature_Buffer            /* Buffer for static allocation. */
+        TASK_AMPERES_MONITOR_PRIO,                  /* Task Prioriy. */
+        Task_Amperes_Stack_Array,           /* Stack array. */
+        &Task_Amperes_Buffer                /* Buffer for static allocation. */
    );
 
-   // placeholder task
-   xTaskCreateStatic(
-       Task_Voltage_Monitor,               /* The function that implements the task. */
-       "Voltage Monitor Task",             /* Text name for the task. */
-       TASK_VOLTAGE_MONITOR_STACK_SIZE,    /* The size (in words) of the stack that should be created for the task. */
-       (void*)NULL,                        /* Paramter passed into the task. */
-       TASK_VOLTAGE_MONITOR_PRIO,          /* Task Prioriy. */
-       Task_Voltage_Stack_Array,           /* Stack array. */
-       &Task_Voltage_Buffer                /* Buffer for static allocation. */
-  );
-
     xTaskCreateStatic(
-        Task_Amperes_Monitor,           /* The function that implements the task. */
-        "Amperes Monitor Task",         /* Text name for the task. */
-        TASK_VOLTAGE_MONITOR_STACK_SIZE,/* The size (in words) of the stack that should be created for the task. */
+        Task_FaultHandler,                   /* The function that implements the task. */
+        "Fault Handler Task",                      /* Text name for the task. */
+        FAULT_HANDLER_TASK_STACK_SIZE,            /* The size (in words) of the stack that should be created for the task. */
         (void*)NULL,                        /* Paramter passed into the task. */
-        TASK_AMPERES_MONITOR_PRIO,      /* Task Prioriy. */
-        Task_Amperes_Stack_Array,       /* Stack array. */
-        &Task_Amperes_Buffer            /* Buffer for static allocation. */
+        TASK_FAULT_HANDLER_PRIO,                  /* Task Prioriy. */
+        FaultHandler_Task_Stack,           /* Stack array. */
+        &FaultHandler_Task_Buffer                /* Buffer for static allocation. */
    );
 
    xTaskCreateStatic(
