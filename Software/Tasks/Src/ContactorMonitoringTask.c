@@ -3,7 +3,7 @@
 #include "CANbus.h"
 
 
-void Task_Temperature_Monitor(){
+void Task_Contactor_Monitor(){
 
     while(1){
 
@@ -12,8 +12,8 @@ void Task_Temperature_Monitor(){
 
 
         // Set event group bit
-        xEventGroupSetBits(xWDogEventGroup_handle,     /* The event group being updated. */
-                           TEMP_MONITOR_DONE);         /* The bits being set. */
+        // xEventGroupSetBits(xWDogEventGroup_handle,     /* The event group being updated. */
+        //                    TEMP_MONITOR_DONE);         /* The bits being set. */
     }
     
 }

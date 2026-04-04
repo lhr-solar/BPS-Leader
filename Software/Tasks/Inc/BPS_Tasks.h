@@ -11,7 +11,7 @@
 #define TASK_PETWDOG_PRIO                        tskIDLE_PRIORITY + 2
 #define TASK_CAN_FORWARD_PRIO                    tskIDLE_PRIORITY + 3
 #define TASK_FAULT_HANDLER_PRIO                  tskIDLE_PRIORITY + 3
-#define TASK_CONTACTOR_MOINITORING_PRIO tskIDLE_PRIORITY + 3
+#define TASK_CONTACTOR_MOINITORING_PRIO          tskIDLE_PRIORITY + 3
 
 #define TEST_TASK_PRIORITY                       tskIDLE_PRIORITY + 3
 
@@ -31,7 +31,7 @@
 // (exposed so that tests can init tasks)
 // Task Stack Arrays 
 extern StackType_t Task_Temperature_Stack_Array[ TASK_TEMPERATURE_MONITOR_STACK_SIZE ];
-extern StackType_t Task_Voltage_Stack_Array[ TASK_TEMPERATURE_MONITOR_STACK_SIZE ];
+extern StackType_t Task_Voltage_Stack_Array[ TASK_VOLTAGE_MONITOR_STACK_SIZE ];
 extern StackType_t Task_Amperes_Stack_Array[ TASK_AMPERES_MONITOR_STACK_SIZE ];
 extern StackType_t Task_Petwdog_Stack_Array[ TASK_PETWDOG_STACK_SIZE ];
 extern StackType_t Precharge_Task_Stack[ PRECHARGE_TASK_STACK_SIZE ];
@@ -52,7 +52,7 @@ extern StaticTask_t Task_Contactor_Monitoring_Buffer;
 extern StaticTask_t Init_Task_Buffer;
 
 // Task Delays
-#define TEMP_MONITOR_TASK_DELAY_MS      10
+#define TEMP_MONITOR_TASK_DELAY_MS      300
 #define VOLT_MONITOR_TASK_DELAY_MS      300
 #define PRECHARGE_TASK_DELAY_MS         100
 #define CONTACTOR_MONITOR_TASK_DELAY_MS 30
@@ -60,6 +60,7 @@ extern StaticTask_t Init_Task_Buffer;
 // Task Inits
 void Task_Init();
 void Task_Voltage_Monitor();
+void Task_Temperature_Monitor();
 void Task_FaultHandler(void *pvParameters);
 void Task_Temperature_Monitor();
 void Task_PetWatchdog();

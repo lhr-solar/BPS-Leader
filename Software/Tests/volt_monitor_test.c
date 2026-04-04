@@ -55,9 +55,11 @@ static void volt_can_pack(uint8_t* raw_volt_can_data, const bps_voltage_arr_t* v
 
 void vFakeVoltSend(void *pvParameters) {
 
+    vTaskDelay(pdMS_TO_TICKS(250));
+
     bps_voltage_arr_t message_struct = {
         .BPS_Tap_idx = 0,
-        .BPS_Voltage_Tap_Data = 11500,
+        .BPS_Voltage_Tap_Data = CELL_UNDERVOLTAGE_THRESHOLD_MV,
         .BPS_Voltage_Tap_Fault = 0
     };
 
@@ -67,7 +69,7 @@ void vFakeVoltSend(void *pvParameters) {
 
     while (true) {
 
-        vTaskDelay(pdMS_TO_TICKS(VOLT_MONITOR_TASK_DELAY_MS*90) / 32);
+        vTaskDelay(pdMS_TO_TICKS(VOLT_MONITOR_TASK_DELAY_MS) / 32);
         
         volt_can_pack(can_message, &message_struct);
 
@@ -79,7 +81,7 @@ void vFakeVoltSend(void *pvParameters) {
         
         can_id = message_struct.BPS_Tap_idx / 4 + 2;
 
-        message_struct.BPS_Voltage_Tap_Data = (message_struct.BPS_Voltage_Tap_Data > 16000) ? 11500 : message_struct.BPS_Voltage_Tap_Data + 20;
+        message_struct.BPS_Voltage_Tap_Data = (message_struct.BPS_Voltage_Tap_Data >= CELL_OVERVOLTAGE_THRESHOLD_MV - 10) ? CELL_UNDERVOLTAGE_THRESHOLD_MV : message_struct.BPS_Voltage_Tap_Data + 10;
         
     }
 }
@@ -91,7 +93,6 @@ int main() {
 
     SystemClock_Config();
 
-    /*
     xTaskCreateStatic(
         vFakeVoltSend,
         "Fake Voltage Measurements",
@@ -101,7 +102,6 @@ int main() {
         xTestStack,
         &xTestTaskBuffer
     );
-    */
     
 
     xTaskCreateStatic(

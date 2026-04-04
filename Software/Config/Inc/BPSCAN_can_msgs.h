@@ -255,6 +255,13 @@ typedef struct {
     uint8_t BPS_Temperature_Tap_Fault;
     int32_t BPS_Temperature_Tap_Data;
     uint16_t BPS_Temperature_Tap_RawV;
+} bps_temperature_arr_t;
+
+typedef struct {
+    uint8_t BPS_Tap_idx;
+    uint8_t BPS_Temperature_Tap_Fault;
+    int32_t BPS_Temperature_Tap_Data;
+    uint16_t BPS_Temperature_Tap_RawV;
 } bps_vt0_temperature_arr_t;
 
 typedef struct {

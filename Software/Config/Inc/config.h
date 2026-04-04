@@ -29,6 +29,9 @@
 #define CELL_OVERVOLTAGE_THRESHOLD_MV 4200 // 4.2 V
 #define CELL_UNDERVOLTAGE_THRESHOLD_MV 2500 // 2.5 V
 
+// battery segment temp voltage
+#define OVERTEMP_THRESHOLD_MC 60000 // 60 C
+
 #define IRQ_BASE_PRIO configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY
 
 // interrupt priorites
