@@ -16,7 +16,7 @@
 #endif
 
 #ifndef NUM_VOLTAGE_SENSORS
-#define NUM_VOLTAGE_SENSORS             32      // Number of temperature sensors
+#define NUM_VOLTAGE_SENSORS             32      // Number of voltage sensors
 #endif
 
 #define NUM_VOLTTEMP_BOARDS                 8       // Number of volt temp boards
