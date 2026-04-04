@@ -22,8 +22,6 @@ void Task_Amperes_Monitor() {
     TickType_t xLastWakeTime = xTaskGetTickCount();
 
     while (1) {
-        toggleHeartbeat();
-
         // Delays 100 ms
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(AMPERES_MONITOR_TASK_DELAY_MS));
 
