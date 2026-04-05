@@ -29,11 +29,15 @@ void Task_Amperes_Monitor() {
         uint8_t buffer[CAN_DLC_BPS_PACK_CURRENT] = {0};
         if (bps_can_recv(CAN_ID_BPS_PACK_CURRENT, buffer, CAN_DLC_BPS_PACK_CURRENT, AMPERES_CAN_TIMEOUT_MS) != CAN_OK) {
             amperesCANFaultCount++;
-        } else {
+        } 
+        else {
             AmperesData.Main_Battery_Current =  AMPERES_UNPACK_CURRENT_mA(buffer);
             AmperesData.Main_Battery_Current_RawV =  AMPERES_UNPACK_RAW_mV(buffer);
             amperesCANFaultCount = 0;
+            printf("============ Current Data ============");
             printf("Received, ma = %li \r\n", AmperesData.Main_Battery_Current);
+            printf("======================================");
+
         }
 
         // Handle CAN fault

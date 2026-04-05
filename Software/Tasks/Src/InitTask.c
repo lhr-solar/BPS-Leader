@@ -15,7 +15,7 @@ StackType_t Task_Voltage_Stack_Array[ TASK_VOLTAGE_MONITOR_STACK_SIZE ];
 StackType_t Task_Amperes_Stack_Array[ TASK_AMPERES_MONITOR_STACK_SIZE ];
 StackType_t Task_Petwdog_Stack_Array[ TASK_PETWDOG_STACK_SIZE ];
 StackType_t Task_Contactor_Monitoring_Stack[ TASK_CONTACTOR_MONITORING_STACK_SIZE ];
-StackType_t Init_Task_Stack[ FAULT_HANDLER_TASK_STACK_SIZE ];
+StackType_t Init_Task_Stack[ TASK_INIT_STACK_SIZE ];
 StackType_t Task_Can_Forward_Stack_Array[ TASK_CAN_FORWARD_STACK_SIZE ];
 
 // Task Buffers
@@ -50,15 +50,15 @@ void Task_Init(){
 
     // Init_WDogTask();
 
-    xTaskCreateStatic(
-        Task_FaultHandler,             // Task function
-        "FaultHandler",                // Name of the task (for debugging)
-        FAULT_HANDLER_TASK_STACK_SIZE,   // Stack size in words
-        (void*)NULL,                       // Task input parameter
-        TASK_FAULT_HANDLER_PRIO,       // Task priority
-        FaultHandler_Task_Stack,       // Task handle
-        &FaultHandler_Task_Buffer      // Static task buffer (optional)
-    );
+    // xTaskCreateStatic(
+    //     Task_FaultHandler,             // Task function
+    //     "FaultHandler",                // Name of the task (for debugging)
+    //     FAULT_HANDLER_TASK_STACK_SIZE,   // Stack size in words
+    //     (void*)NULL,                       // Task input parameter
+    //     TASK_FAULT_HANDLER_PRIO,       // Task priority
+    //     FaultHandler_Task_Stack,       // Task handle
+    //     &FaultHandler_Task_Buffer      // Static task buffer (optional)
+    // );
 
     xTaskCreateStatic(
             Task_Amperes_Monitor,                       /* The function that implements the task. */
@@ -92,15 +92,15 @@ void Task_Init(){
     // );
 
 
-    xTaskCreateStatic(
-       Task_Voltage_Monitor,               /* The function that implements the task. */
-       "Voltage Monitor Task",             /* Text name for the task. */
-       TASK_VOLTAGE_MONITOR_STACK_SIZE,    /* The size (in words) of the stack that should be created for the task. */
-       (void*)NULL,                        /* Paramter passed into the task. */
-       TASK_VOLTAGE_MONITOR_PRIO,          /* Task Prioriy. */
-       Task_Voltage_Stack_Array,           /* Stack array. */
-       &Task_Voltage_Buffer                /* Buffer for static allocation. */
-  );
+//     xTaskCreateStatic(
+//        Task_Voltage_Monitor,               /* The function that implements the task. */
+//        "Voltage Monitor Task",             /* Text name for the task. */
+//        TASK_VOLTAGE_MONITOR_STACK_SIZE,    /* The size (in words) of the stack that should be created for the task. */
+//        (void*)NULL,                        /* Paramter passed into the task. */
+//        TASK_VOLTAGE_MONITOR_PRIO,          /* Task Prioriy. */
+//        Task_Voltage_Stack_Array,           /* Stack array. */
+//        &Task_Voltage_Buffer                /* Buffer for static allocation. */
+//   );
    
 
     // xTaskCreateStatic(

@@ -77,7 +77,7 @@ static void volt_can_pack(bps_voltage_aggregate_arr_t volt_can_data, uint8_t *ms
     msgArr[0] = (volt_can_data.BPS_Tap_idx & VOLT_ID_MASK);
 
     // bit 5 is the watchdog
-    msgArr[0] = (volt_can_data.BPS_Tap_Msg_WDog & 0x01) << 5;
+    msgArr[0] |= (volt_can_data.BPS_Tap_Msg_WDog & 0x01) << 5;
 
     // bytes 1 and 2 are voltage data
     memcpy(&msgArr[1], &(volt_can_data.BPS_Voltage_Tap_Data), sizeof(uint16_t));
@@ -145,6 +145,7 @@ void Task_Voltage_Monitor()
     {
         // Delays
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(VOLT_MONITOR_TASK_DELAY_MS));
+        toggleHeartbeat();
 
         // loops through each can ID
         for (uint8_t can_id = CAN_ID_BPS_VT0_VOLTAGE_ARR; can_id <= CAN_ID_BPS_VT7_VOLTAGE_ARR; can_id++)
@@ -156,6 +157,7 @@ void Task_Voltage_Monitor()
 
         uint8_t msgBuff[CAN_DLC_BPS_VOLTAGE_AGGREGATE_ARR] = {0};
 
+        printf("\r\n Voltages={");
         for (uint8_t i = 0; i < NUM_VOLTAGE_SENSORS; i++)
         {
             if (volt_can_data[i].BPS_Voltage_Tap_Data > CELL_OVERVOLTAGE_THRESHOLD_MV)
@@ -168,11 +170,12 @@ void Task_Voltage_Monitor()
                 volt_can_data[i].BPS_Voltage_Tap_Fault = BPS_VOLTAGE_AGGREGATE_ARR_BPS_VOLTAGE_TAP_FAULT_UNDER_VOLTAGE;
                 set_faultBit(BATTERY_UNDERVOLTAGE_FAULT);
             }
-
+            printf("\r\n %u,", volt_can_data[i].BPS_Voltage_Tap_Data);
             // pack data for the BPS_VOLTAGE_AGGREGATE_ARR msg
             volt_can_pack(volt_can_data[i], msgBuff);
             car_can_send(CAN_ID_BPS_VOLTAGE_AGGREGATE_ARR, msgBuff, CAN_DLC_BPS_VOLTAGE_AGGREGATE_ARR, pdMS_TO_TICKS(VOLT_MONITOR_TASK_DELAY_MS));
         }
+        printf("}\r\n");
 
         // Set event group bit
         // xEventGroupSetBits(xWDogEventGroup_handle,     /* The event group being updated. */
