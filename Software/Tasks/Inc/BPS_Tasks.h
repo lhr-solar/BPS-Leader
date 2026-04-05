@@ -1,6 +1,7 @@
 #pragma once
 
 #include "common.h"
+#include "BPSCAN_can_msgs.h"
 #include <event_groups.h>
 
 // Task configuration
@@ -10,7 +11,7 @@
 #define TASK_AMPERES_MONITOR_PRIO       tskIDLE_PRIORITY + 6
 #define TASK_PETWDOG_PRIO               tskIDLE_PRIORITY + 2
 #define TASK_CAN_FORWARD_PRIO           tskIDLE_PRIORITY + 3
-#define TASK_FAULT_HANDLER_PRIO         tskIDLE_PRIORITY + 7
+#define TASK_FAULT_HANDLER_PRIO         tskIDLE_PRIORITY + 5    // lower than tasks?
 
 #define TEST_TASK_PRIORITY              tskIDLE_PRIORITY + 3
 
@@ -50,13 +51,18 @@ extern StaticTask_t Task_Can_Forward_Buffer;
 #define TEMP_MONITOR_TASK_DELAY_MS 10
 #define VOLT_MONITOR_TASK_DELAY_MS 5
 #define PRECHARGE_TASK_DELAY_MS 100
+#define AMPERES_MONITOR_TASK_DELAY_MS 100
 
 // Task Inits
 void Task_Init();
 void Task_Voltage_Monitor();
-void Task_Temperature_Monitor();
+void Task_Amperes_Monitor();
 void Task_PetWatchdog();
+void Task_Temperature_Monitor();
 void Task_CanRxForward();
+void Task_FaultHandler(void *argument);
+
+extern bps_pack_current_t AmperesData;
 
 /* ---- Watchdog Event Group ---- */
 void Init_WDogTask();
@@ -64,5 +70,6 @@ extern EventGroupHandle_t xWDogEventGroup_handle;
 #define TEMP_MONITOR_DONE   (1 << 0)
 #define VOLT_MONITOR_DONE   (1 << 1)
 #define WINDOW_TIMER_DONE   (1 << 2)
-#define ALL_TASKS_DONE (TEMP_MONITOR_DONE | VOLT_MONITOR_DONE | WINDOW_TIMER_DONE)
+#define AMPERES_MONITOR_DONE (1 << 3)
+#define ALL_TASKS_DONE (WINDOW_TIMER_DONE | AMPERES_MONITOR_DONE)
 

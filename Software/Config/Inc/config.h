@@ -27,7 +27,9 @@
 #define FDCAN_NVIC_PRIO (IRQ_BASE_PRIO + 3)
 #define ADC_IRQ_PRIO (IRQ_BASE_PRIO + 1)
 
-
+// Amperes Overcurrent Setpoints: 70A discharge, 40A charge
+#define OVERCURRENT_DISCHARGE_THRESHOLD_mA  (68000)
+#define OVERCURRENT_CHARGE_THRESHOLD_mA     (-38000)
 
 
 #define PRE(s)  "\r    "s"  "   // \r removes the filepath and 'note: '#pragma message:...' parts
