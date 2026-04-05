@@ -56,6 +56,7 @@ extern StaticTask_t Init_Task_Buffer;
 #define VOLT_MONITOR_TASK_DELAY_MS      300
 #define PRECHARGE_TASK_DELAY_MS         100
 #define CONTACTOR_MONITOR_TASK_DELAY_MS 30
+#define AMPERES_MONITOR_TASK_DELAY_MS   100
 
 // Task Inits
 void Task_Init();
@@ -63,7 +64,7 @@ void Task_Voltage_Monitor();
 void Task_Temperature_Monitor();
 void Task_FaultHandler(void *pvParameters);
 void Task_Temperature_Monitor();
-void Task_Amperes_Monitor(void *pvParameters);
+void Task_Amperes_Monitor();
 void Task_PetWatchdog();
 void Task_Temperature_Monitor();
 void Task_CanRxForward();
