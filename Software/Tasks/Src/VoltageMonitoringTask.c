@@ -7,6 +7,7 @@
 #include "CANbus.h"
 #include "StatusLEDs.h"
 #include "BPSCAN_can_msgs.h"
+#include "CarCAN_can_msgs.h"
 
 #define VOLTAGE_CAN_DELAY_MS 10u
 
@@ -26,7 +27,7 @@ static TimerHandle_t voltage_watchdog_timer;
 static StaticTimer_t volt_timer_buffer;
 
 // pass in pointer to raw data, return packed structs
-static void volt_can_unpack(uint8_t *raw_volt_can_data, bps_voltage_arr_t *volt_can_data)
+static void volt_can_unpack(uint8_t *raw_volt_can_data, bps_voltage_aggregate_arr_t *volt_can_data)
 {
 
     if (raw_volt_can_data == NULL) return;
@@ -50,7 +51,7 @@ static void volt_can_unpack(uint8_t *raw_volt_can_data, bps_voltage_arr_t *volt_
 }
 
 // gets all can data from each tap from a passed in volttemp board, unpacks it and puts it into array
-static void can_recv_all_taps(uint32_t can_msg_ID, bps_voltage_arr_t volt_can_data[])
+static void can_recv_all_taps(uint32_t can_msg_ID, bps_voltage_aggregate_arr_t volt_can_data[])
 {
 
     // can recieve for all 4 voltage taps for each volttemp board
@@ -76,11 +77,12 @@ static void vVoltageWatchdogCallback(TimerHandle_t volt_timer)
     volt_sensor_bitmap = 0;
 }
 
+
 void Task_Voltage_Monitor()
 {
 
     // array to hold struct packed can data
-    bps_voltage_arr_t volt_can_data[NUM_VOLTAGE_SENSORS] = {0};
+    bps_voltage_aggregate_arr_t volt_can_data[NUM_VOLTAGE_SENSORS] = {0};
 
     // Make timer for watchdog
     voltage_watchdog_timer = xTimerCreateStatic(

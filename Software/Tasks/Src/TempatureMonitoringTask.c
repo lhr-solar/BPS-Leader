@@ -6,6 +6,8 @@
 #include "CANbus.h"
 #include "StatusLEDs.h"
 #include "BPSCAN_can_msgs.h"
+#include "CarCAN_can_msgs.h"
+
 
 #define TEMPERATURE_CAN_DELAY_MS 10u
 
@@ -28,7 +30,7 @@ static TimerHandle_t temperature_watchdog_timer;
 static StaticTimer_t temp_timer_buffer;
 
 // pass in pointer to raw data, packs struct into arr. Returns the tap id.
-static void temp_can_unpack(uint8_t *raw_temp_can_data, bps_temperature_arr_t *temp_can_data)
+static void temp_can_unpack(uint8_t *raw_temp_can_data, bps_temperature_aggregate_arr_t *temp_can_data)
 {
 
     // if sensor not sending, skip. Watchdog will err eventually if it doesn't receive more data
@@ -54,7 +56,7 @@ static void temp_can_unpack(uint8_t *raw_temp_can_data, bps_temperature_arr_t *t
 }
 
 // gets all can data from each tap from a passed in volttemp board, unpacks it and puts it into array
-static void can_recv_all_taps(uint32_t can_msg_ID, bps_temperature_arr_t temp_can_data[])
+static void can_recv_all_taps(uint32_t can_msg_ID, bps_temperature_aggregate_arr_t temp_can_data[])
 {
 
     // can recieve for all 4 temperature taps for each temptemp board
@@ -84,7 +86,7 @@ void Task_Temperature_Monitor()
 {
 
     // array to hold struct packed can data
-    bps_temperature_arr_t temp_can_data[NUM_TEMPERATURE_SENSORS] = {0};
+    bps_temperature_aggregate_arr_t temp_can_data[NUM_TEMPERATURE_SENSORS] = {0};
 
     // Make timer for watchdog
     temperature_watchdog_timer = xTimerCreateStatic(

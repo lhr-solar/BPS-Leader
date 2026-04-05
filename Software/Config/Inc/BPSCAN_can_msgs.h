@@ -21,6 +21,7 @@
 #define CAN_ID_BPS_VT5_TEMPERATURE_ARR 0x15
 #define CAN_ID_BPS_VT6_TEMPERATURE_ARR 0x16
 #define CAN_ID_BPS_VT7_TEMPERATURE_ARR 0x17
+#define CAN_ID_BPS_BALANCE_DISCHARGE 0x7A0
 
 /* ================= CAN Length Macros ================= */
 
@@ -41,6 +42,7 @@
 #define CAN_DLC_BPS_VT5_TEMPERATURE_ARR 7
 #define CAN_DLC_BPS_VT6_TEMPERATURE_ARR 7
 #define CAN_DLC_BPS_VT7_TEMPERATURE_ARR 7
+#define CAN_DLC_BPS_BALANCE_DISCHARGE 1
 
 
 /* ================= Value Table Enums ================= */
@@ -195,12 +197,6 @@ typedef struct {
     uint8_t BPS_Tap_idx;
     uint16_t BPS_Voltage_Tap_Data;
     uint8_t BPS_Voltage_Tap_Fault;
-} bps_voltage_arr_t;
-
-typedef struct {
-    uint8_t BPS_Tap_idx;
-    uint16_t BPS_Voltage_Tap_Data;
-    uint8_t BPS_Voltage_Tap_Fault;
 } bps_vt0_voltage_arr_t;
 
 typedef struct {
@@ -249,13 +245,6 @@ typedef struct {
     int32_t Main_Battery_Current;
     uint16_t Main_Battery_Current_RawV;
 } bps_pack_current_t;
-
-typedef struct {
-    uint8_t BPS_Tap_idx;
-    uint8_t BPS_Temperature_Tap_Fault;
-    int32_t BPS_Temperature_Tap_Data;
-    uint16_t BPS_Temperature_Tap_RawV;
-} bps_temperature_arr_t;
 
 typedef struct {
     uint8_t BPS_Tap_idx;
@@ -312,4 +301,9 @@ typedef struct {
     int32_t BPS_Temperature_Tap_Data;
     uint16_t BPS_Temperature_Tap_RawV;
 } bps_vt7_temperature_arr_t;
+
+typedef struct {
+    uint8_t BPS_Segment_idx;
+    uint8_t BPS_Tap_idx;
+} bps_balance_discharge_t;
 
