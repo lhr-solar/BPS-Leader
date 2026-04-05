@@ -22,6 +22,11 @@ void Error_Handler() {
   }
 }
 
+TickType_t Calculate_TimeDifference(TickType_t newTime, TickType_t oldTime){
+  // the timer is an up counter
+  return newTime - oldTime;
+} 
+
 void SystemClock_Config(void)
 {
 

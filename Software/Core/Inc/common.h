@@ -23,5 +23,7 @@ void Fault_Handler(void);
 void Error_Handler(void);
 void SystemClock_Config(void);
 
+TickType_t Calculate_TimeDifference(TickType_t newTime, TickType_t oldTime);
+
 
 

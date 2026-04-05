@@ -8,6 +8,7 @@
 #include "StatusLEDs.h"
 #include "BPSCAN_can_msgs.h"
 #include "CarCAN_can_msgs.h"
+#include "string.h"
 
 #define VOLTAGE_CAN_DELAY_MS 10u
 
@@ -18,7 +19,7 @@
 #define WATCHDOG_TIMEOUT_MS 1000
 
 // get first four bits of volt can message, which is id
-static const uint8_t volt_id_mask = 0x1F;
+#define VOLT_ID_MASK 0x1F
 
 // watchdog bitmap
 uint32_t volt_sensor_bitmap;
@@ -27,27 +28,67 @@ static TimerHandle_t voltage_watchdog_timer;
 static StaticTimer_t volt_timer_buffer;
 
 // pass in pointer to raw data, return packed structs
-static void volt_can_unpack(uint8_t *raw_volt_can_data, bps_voltage_aggregate_arr_t *volt_can_data)
+static uint8_t volt_can_unpack(uint8_t *raw_volt_can_data, bps_voltage_aggregate_arr_t *volt_can_data)
 {
 
-    if (raw_volt_can_data == NULL) return;
+    // this function takes payloads from the bps_vt[X]_voltage_arr_t message, and packs it into bps_voltage_aggregate_arr_t
 
+    if (raw_volt_can_data == NULL) {
+        return 0;
+    }
 
-    uint8_t tap_index = raw_volt_can_data[0] & volt_id_mask;
+    // byte 0 is the tap ID
+    uint8_t tap_index = raw_volt_can_data[0] & VOLT_ID_MASK;
 
+    // tap index is out of bounds
+    if(tap_index >= NUM_VOLTAGE_SENSORS){
+        return 0;
+    }
     volt_can_data[tap_index].BPS_Tap_idx = tap_index;
+
+    // byte 1 - 2 is the actual tap data
     volt_can_data[tap_index].BPS_Voltage_Tap_Data = raw_volt_can_data[1];
     volt_can_data[tap_index].BPS_Voltage_Tap_Data |= raw_volt_can_data[2] << 8;
-    volt_can_data[tap_index].BPS_Voltage_Tap_Fault = raw_volt_can_data[3] << 0;
 
-    // if no fault, set watchdog
-    if (volt_can_data[tap_index].BPS_Voltage_Tap_Fault == 0)
-    {
-        portENTER_CRITICAL();
-        // set corresponding bit in recv bitmap
-        volt_sensor_bitmap |= (1U << tap_index);
-        portEXIT_CRITICAL();
+    // byte 3 is the fault
+    // we'll preserve whatever fault is set, and then in later logic we'll change it depending on tap voltage
+    volt_can_data[tap_index].BPS_Voltage_Tap_Fault = raw_volt_can_data[3];
+
+    // set the time since last recieve
+    volt_can_data[tap_index].BPS_Voltage_Tap_Age = Calculate_TimeDifference(pdMS_TO_TICKS(xTaskGetTickCount()) , pdMS_TO_TICKS(volt_can_data[tap_index].BPS_Voltage_Tap_Age));
+
+    // set the volt sensor watchdog bitmap
+    portENTER_CRITICAL();
+    // set corresponding bit in recv bitmap
+    volt_sensor_bitmap |= (1U << tap_index);
+    portEXIT_CRITICAL();
+    volt_can_data[tap_index].BPS_Tap_Msg_WDog = 0;
+
+    return 1;
+
+}
+
+static void volt_can_pack(bps_voltage_aggregate_arr_t volt_can_data, uint8_t *msgArr){
+    if(msgArr == NULL){
+        return;
     }
+
+    // bits 0-4 are the tap id
+    msgArr[0] = (volt_can_data.BPS_Tap_idx & VOLT_ID_MASK);
+
+    // bit 5 is the watchdog
+    msgArr[0] = (volt_can_data.BPS_Tap_Msg_WDog & 0x01) << 5;
+
+    // bytes 1 and 2 are voltage data
+    memcpy(&msgArr[1], &(volt_can_data.BPS_Voltage_Tap_Data), sizeof(uint16_t));
+
+    // byte 3 is the fault
+    // data stored in struct a 1:1 mapping of what's sent over CAN
+    msgArr[3] = volt_can_data.BPS_Voltage_Tap_Fault;
+
+    // bytes 4 and 5 is the time since last recieve
+    memcpy(&msgArr[4], &(volt_can_data.BPS_Voltage_Tap_Age), sizeof(uint16_t));
+
 }
 
 // gets all can data from each tap from a passed in volttemp board, unpacks it and puts it into array
@@ -58,15 +99,17 @@ static void can_recv_all_taps(uint32_t can_msg_ID, bps_voltage_aggregate_arr_t v
     for (uint8_t i = 0; i < TAPS_PER_BOARD; i++)
     {
 
-        uint8_t raw_databuffer[CAN_DLC_BPS_VT0_VOLTAGE_ARR] = {0};
+        uint8_t raw_databuffer[CAN_DLC_BPS_VOLTAGE_AGGREGATE_ARR] = {0};
 
         // if can recv fails, set the fault bit of the struct on to indicate that this sensor isnt working
-        if (bps_can_recv(can_msg_ID, raw_databuffer, CAN_DLC_BPS_VT0_VOLTAGE_ARR, VOLTAGE_CAN_DELAY_MS) == CAN_OK)
+        if (bps_can_recv(can_msg_ID, raw_databuffer, CAN_DLC_BPS_VOLTAGE_AGGREGATE_ARR, VOLTAGE_CAN_DELAY_MS) == CAN_OK)
         {
+            // unpack the BPS voltage message from BPS CAN to the BPS aggregate array message
             volt_can_unpack(raw_databuffer, volt_can_data);
         }
     }
 }
+
 
 static void vVoltageWatchdogCallback(TimerHandle_t volt_timer)
 {
@@ -96,10 +139,12 @@ void Task_Voltage_Monitor()
 
     xTimerStart(voltage_watchdog_timer, 0);
 
+    TickType_t xLastWakeTime = xTaskGetTickCount();
+
     while (1)
     {
         // Delays
-        vTaskDelay(pdMS_TO_TICKS(VOLT_MONITOR_TASK_DELAY_MS));
+        vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(VOLT_MONITOR_TASK_DELAY_MS));
 
         // loops through each can ID
         for (uint8_t can_id = CAN_ID_BPS_VT0_VOLTAGE_ARR; can_id <= CAN_ID_BPS_VT7_VOLTAGE_ARR; can_id++)
@@ -109,16 +154,24 @@ void Task_Voltage_Monitor()
             can_recv_all_taps(can_id, volt_can_data);
         }
 
+        uint8_t msgBuff[CAN_DLC_BPS_VOLTAGE_AGGREGATE_ARR] = {0};
+
         for (uint8_t i = 0; i < NUM_VOLTAGE_SENSORS; i++)
         {
             if (volt_can_data[i].BPS_Voltage_Tap_Data > CELL_OVERVOLTAGE_THRESHOLD_MV)
             {
+                volt_can_data[i].BPS_Voltage_Tap_Fault = BPS_VOLTAGE_AGGREGATE_ARR_BPS_VOLTAGE_TAP_FAULT_OVER_VOLTAGE;
                 set_faultBit(BATTERY_OVERVOLTAGE_FAULT);
             }
-            if (volt_can_data[i].BPS_Voltage_Tap_Data < CELL_UNDERVOLTAGE_THRESHOLD_MV)
+            else if (volt_can_data[i].BPS_Voltage_Tap_Data < CELL_UNDERVOLTAGE_THRESHOLD_MV)
             {
+                volt_can_data[i].BPS_Voltage_Tap_Fault = BPS_VOLTAGE_AGGREGATE_ARR_BPS_VOLTAGE_TAP_FAULT_UNDER_VOLTAGE;
                 set_faultBit(BATTERY_UNDERVOLTAGE_FAULT);
             }
+
+            // pack data for the BPS_VOLTAGE_AGGREGATE_ARR msg
+            volt_can_pack(volt_can_data[i], msgBuff);
+            car_can_send(CAN_ID_BPS_VOLTAGE_AGGREGATE_ARR, msgBuff, CAN_DLC_BPS_VOLTAGE_AGGREGATE_ARR, pdMS_TO_TICKS(VOLT_MONITOR_TASK_DELAY_MS));
         }
 
         // Set event group bit

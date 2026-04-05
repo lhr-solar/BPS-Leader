@@ -3,7 +3,7 @@
 #include "BPS_Tasks.h"
 
 
-#define CAN_RX_FORWARD_QUEUE_SIZE    10   
+#define CAN_RX_FORWARD_QUEUE_SIZE    50   
 #define CAN_FORWARD_WAIT_TICKS       pdMS_TO_TICKS(10)
 
 static StaticQueue_t canRxForwardQueueBuffer;
