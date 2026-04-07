@@ -20,7 +20,7 @@
 
 // get first four bits of volt can message, which is id
 #define VOLT_ID_MASK 0x1F
-
+    
 // watchdog bitmap
 uint32_t volt_sensor_bitmap;
 

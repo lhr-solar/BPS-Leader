@@ -36,7 +36,7 @@ extern StackType_t Task_Amperes_Stack_Array[ TASK_AMPERES_MONITOR_STACK_SIZE ];
 extern StackType_t Task_Petwdog_Stack_Array[ TASK_PETWDOG_STACK_SIZE ];
 extern StackType_t Precharge_Task_Stack[ PRECHARGE_TASK_STACK_SIZE ];
 extern StackType_t FaultHandler_Task_Stack[ FAULT_HANDLER_TASK_STACK_SIZE ];
-extern StackType_t Task_Can_Forward_Stack_Array[ TASK_CAN_FORWARD_STACK_SIZE ];
+extern StackType_t Task_Can_Forward_Stack[ TASK_CAN_FORWARD_STACK_SIZE ];
 extern StackType_t Task_Contactor_Monitoring_Stack[ TASK_CONTACTOR_MONITORING_STACK_SIZE ];
 extern StackType_t Init_Task_Stack[ TASK_INIT_STACK_SIZE ];
 
@@ -68,7 +68,6 @@ void Task_Amperes_Monitor();
 void Task_PetWatchdog();
 void Task_Temperature_Monitor();
 void Task_CanRxForward();
-void Task_FaultHandler(void *argument);
 
 extern bps_pack_current_t AmperesData;
 

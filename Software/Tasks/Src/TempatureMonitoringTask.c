@@ -65,7 +65,7 @@ static void can_recv_all_taps(uint32_t can_msg_ID, bps_temperature_aggregate_arr
 
         uint8_t raw_databuffer[CAN_DLC_BPS_VT0_TEMPERATURE_ARR] = {0};
 
-        // if can recv fails, set the fault bit of the struct on to indicate that this sensor isnt working. Otherwise, prossess message
+        // if can fails then message will not be unpacked and the watchdog will trip
         if (bps_can_recv(can_msg_ID, raw_databuffer, CAN_DLC_BPS_VT0_TEMPERATURE_ARR, TEMPERATURE_CAN_DELAY_MS) == CAN_OK)
         {
             temp_can_unpack(raw_databuffer, temp_can_data);

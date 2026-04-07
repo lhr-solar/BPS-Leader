@@ -16,7 +16,7 @@ StackType_t Task_Amperes_Stack_Array[ TASK_AMPERES_MONITOR_STACK_SIZE ];
 StackType_t Task_Petwdog_Stack_Array[ TASK_PETWDOG_STACK_SIZE ];
 StackType_t Task_Contactor_Monitoring_Stack[ TASK_CONTACTOR_MONITORING_STACK_SIZE ];
 StackType_t Init_Task_Stack[ TASK_INIT_STACK_SIZE ];
-StackType_t Task_Can_Forward_Stack_Array[ TASK_CAN_FORWARD_STACK_SIZE ];
+StackType_t Task_Can_Forward_Stack[ TASK_CAN_FORWARD_STACK_SIZE ];
 
 // Task Buffers
 StaticTask_t Init_Task_Buffer;
@@ -76,7 +76,7 @@ void Task_Init(){
             TASK_CAN_FORWARD_STACK_SIZE,                /* The size (in words) of the stack that should be created for the task. */
             (void*)NULL,                                /* Paramter passed into the task. */
             TASK_CAN_FORWARD_PRIO,                      /* Task Prioriy. */
-            Task_Can_Forward_Stack_Array,               /* Stack array. */
+            Task_Can_Forward_Stack,                     /* Stack array. */
             &Task_Can_Forward_Buffer                    /* Buffer for static allocation. */
     );
     

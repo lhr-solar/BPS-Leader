@@ -52,7 +52,11 @@ void CanRxForwardTask_Init(void){
     }
 }
 
+
+// NOTE: any CAN forwards that require more processing than simply forwarding (i.e. packing the voltage aggregate msg) will be done in their respective tasks
 void Task_CanRxForward(){
+
+    uint32_t fault_count = 0;
 
     // canbus MUST be initialized by now
     CanRxForwardTask_Init();
@@ -66,12 +70,23 @@ void Task_CanRxForward(){
         
         if (xQueueReceive(canRxForwardQueue, &payload, portMAX_DELAY) == pdTRUE){
             ID = payload.header.Identifier;
+
+            // These messages will be forwarded by aggregate array.
+            if (ID >= CAN_ID_BPS_VT0_VOLTAGE_ARR && ID <= CAN_ID_BPS_VT7_VOLTAGE_ARR) continue;
+            else if (ID >= CAN_ID_BPS_VT0_TEMPERATURE_ARR && ID <= CAN_ID_BPS_VT7_TEMPERATURE_ARR) continue;
+
             data_length = payload.header.DataLength;
             data = payload.data;
             
             if (car_can_send(ID, data, data_length, CAN_FORWARD_WAIT_TICKS) != CAN_OK) {
-                // Panic
+                fault_count++;
             }
+            else fault_count = 0;
+
+            if (fault_count == 5) {
+                set_faultBit(BPS_CAN_ERROR);
+            }
+
         }
     }
 }
