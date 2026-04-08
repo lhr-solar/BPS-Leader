@@ -50,7 +50,7 @@ void Fault_Checker(uint32_t Array_Voltage, uint32_t Battery_Voltage, Precharge_S
         set_faultBit(CONTACTOR_ARRAY_FAULT);
     }
 
-    if (contactor_verify(ARRAY_PRE_CONTACTOR))
+    if (contactor_verify(ARRAY_PRE_CONTACTOR) != CONTACTOR_OK)
     {
         // Fault handler
         set_faultBit(CONTACTOR_ARRAY_PRE_FAULT);

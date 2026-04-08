@@ -50,7 +50,6 @@ typedef enum
     NUM_FAULTS,
 } fault_bit_t;
 
-#define NUM_FAULTS sizeof(fault_bit_t)
 
 /* Convert enum to bitmask */
 #define FAULT_BIT(fault) (1UL << (fault))

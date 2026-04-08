@@ -147,11 +147,6 @@ void contactor_init()
 
     GPIO_InitTypeDef GPIO_InitStruct = {0};
 
-    // set estop output level
-    HAL_GPIO_WritePin(ESTOP1_PORT, ESTOP1_PIN, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(ESTOP2_PORT, ESTOP2_PIN, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(ESTOP3_PORT, ESTOP3_PIN, GPIO_PIN_RESET);
-
     // init estops
     GPIO_InitStruct.Pin = ESTOP1_PIN;
     GPIO_InitStruct.Mode = GPIO_MODE_INPUT;

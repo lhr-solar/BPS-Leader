@@ -53,7 +53,7 @@ void Task_Amperes_Monitor() {
             set_faultBit(BATTERY_OVERCURRENT_FAULT);
         }
         else {
-            if (get_state_bit(AMPHERES_MONITOR) == 0) {
+            if (get_task_bit(AMPHERES_MONITOR) == 0) {
                 set_task_bit(AMPHERES_MONITOR);
             }
         }

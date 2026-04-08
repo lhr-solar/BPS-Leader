@@ -140,7 +140,7 @@ void Task_Voltage_Monitor()
 {
 
     // array to hold struct packed can data
-    bps_voltage_aggregate_arr_t volt_can_data[NUM_VOLTAGE_SENSORS] = {0};
+    static bps_voltage_aggregate_arr_t volt_can_data[NUM_VOLTAGE_SENSORS] = {0};
 
     // Make timer for watchdog
     voltage_watchdog_timer = xTimerCreateStatic(
