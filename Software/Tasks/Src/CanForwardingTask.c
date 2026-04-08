@@ -6,6 +6,8 @@
 #define CAN_FORWARD_WAIT_TICKS pdMS_TO_TICKS(10)
 #define CAN_FORWARD_TASK_DELAY_MS 4
 
+#define FAULT_COUNT_ERROR_THRESHOLD 5
+
 static StaticQueue_t canRxForwardQueueBuffer;
 static uint8_t canRxForwardQueueStorage[CAN_RX_FORWARD_QUEUE_SIZE * sizeof(can_rx_payload_t)];
 static QueueHandle_t canRxForwardQueue;
@@ -78,14 +80,7 @@ void Task_CanRxForward()
 
         if (xQueueReceive(canRxForwardQueue, &payload, portMAX_DELAY) == pdTRUE)
         {
-            ID = payload.header.Identifier;
-
-            // These messages will be forwarded by aggregate array.
-            if (ID >= CAN_ID_BPS_VT0_VOLTAGE_ARR && ID <= CAN_ID_BPS_VT7_VOLTAGE_ARR)
-                continue;
-            else if (ID >= CAN_ID_BPS_VT0_TEMPERATURE_ARR && ID <= CAN_ID_BPS_VT7_TEMPERATURE_ARR)
-                continue;
-
+            ID = payload.header.Identifier;            
             data_length = payload.header.DataLength;
             data = payload.data;
 
@@ -96,7 +91,7 @@ void Task_CanRxForward()
             else
                 fault_count = 0;
 
-            if (fault_count == 5)
+            if (fault_count == FAULT_COUNT_ERROR_THRESHOLD)
             {
                 set_faultBit(BPS_CAN_ERROR);
             }

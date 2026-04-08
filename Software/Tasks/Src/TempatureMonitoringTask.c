@@ -21,10 +21,10 @@
 #define get_temp_threshold() ((get_state_bit(DISCHARGING_BATT_STATE) == 0) ? OVERTEMP_THRESHOLD_CHARGING_MC : OVERTEMP_THRESHOLD_DISCHARGING_MC)
 
 // get first four bits of temp can message, which is id
-static const uint8_t temp_id_mask = 0x1F;
+#define TEMP_ID_MASK 0x1F
 
 // get bits 5:7 of temp can message, which is fault code
-static const uint8_t temp_fault_mask = 0x7;
+#define TEMP_FAULT_MASK 0x7
 
 // watchdog bitmap
 uint32_t temp_sensor_bitmap;
@@ -42,13 +42,13 @@ static uint8_t temp_can_unpack(uint8_t *raw_temp_can_data, bps_temperature_aggre
     if (raw_temp_can_data == NULL)
         return 0;
 
-    uint8_t tap_index = raw_temp_can_data[0] & temp_id_mask;
+    uint8_t tap_index = raw_temp_can_data[0] & TEMP_ID_MASK;
 
     if (tap_index >= NUM_TEMPERATURE_SENSORS)
         return 0;
 
     temp_can_data[tap_index].BPS_Tap_idx = tap_index;
-    temp_can_data[tap_index].BPS_Temperature_Tap_Fault = (raw_temp_can_data[0] >> 5) & temp_fault_mask;
+    temp_can_data[tap_index].BPS_Temperature_Tap_Fault = (raw_temp_can_data[0] >> 5) & TEMP_FAULT_MASK;
     temp_can_data[tap_index].BPS_Temperature_Tap_Data = raw_temp_can_data[1] << 0;
     temp_can_data[tap_index].BPS_Temperature_Tap_Data |= raw_temp_can_data[2] << 8;
     temp_can_data[tap_index].BPS_Temperature_Tap_Data |= raw_temp_can_data[3] << 16;
@@ -85,10 +85,10 @@ static void temp_can_pack(bps_temperature_aggregate_arr_t temp_can_data, uint8_t
     }
 
     // bits 0-4 are the tap id
-    msgArr[0] = (temp_can_data.BPS_Tap_idx & temp_id_mask);
+    msgArr[0] = (temp_can_data.BPS_Tap_idx & TEMP_ID_MASK);
 
     // bits 5-7 is the fault
-    msgArr[0] |= (temp_can_data.BPS_Temperature_Tap_Fault & 0x7) << 5;
+    msgArr[0] |= (temp_can_data.BPS_Temperature_Tap_Fault & TEMP_FAULT_MASK) << 5;
 
     // bytes 1-4 are temp data
     memcpy(&msgArr[1], &(temp_can_data.BPS_Temperature_Tap_Data), sizeof(uint32_t));
@@ -103,16 +103,14 @@ static void temp_can_pack(bps_temperature_aggregate_arr_t temp_can_data, uint8_t
 // gets all can data from each tap from a passed in volttemp board, unpacks it and puts it into array
 static void can_recv_all_taps(uint32_t can_msg_ID, bps_temperature_aggregate_arr_t temp_can_data[])
 {
-
     // can recieve for all 4 temperature taps for each temptemp board
     for (uint8_t i = 0; i < TEMP_TAPS_PER_BOARD; i++)
     {
-
         uint8_t raw_databuffer[CAN_DLC_BPS_VT0_TEMPERATURE_ARR] = {0};
-
         // if can fails then message will not be unpacked and the watchdog will trip
         if (bps_can_recv(can_msg_ID, raw_databuffer, CAN_DLC_BPS_VT0_TEMPERATURE_ARR, TEMPERATURE_CAN_DELAY_MS) == CAN_OK)
         {
+            // Unpacking temp CAN messages in aggregate temp array
             temp_can_unpack(raw_databuffer, temp_can_data);
         }
     }
@@ -164,26 +162,27 @@ void Task_Temperature_Monitor()
 
         uint8_t msgBuff[CAN_DLC_BPS_TEMPERATURE_AGGREGATE_ARR] = {0};
 
+        // gets the threshold for this iteration of the loop, (since threshold changes depending if the battery is charging or discharging)
         uint32_t temp_threshold = get_temp_threshold();
 
-        bool good_state = 1;
+        bool task_state_ready = true;
 
         for (uint8_t i = 0; i < NUM_TEMPERATURE_SENSORS; i++)
         {
             if (temp_can_data[i].BPS_Temperature_Tap_Data > temp_threshold)
             {
                 set_faultBit(BATTERY_OVERTEMP_FAULT);
-                good_state = 0;
+                task_state_ready = false;
             }
 
             temp_can_pack(temp_can_data[i], msgBuff);
             car_can_send(CAN_ID_BPS_TEMPERATURE_AGGREGATE_ARR, msgBuff, CAN_DLC_BPS_TEMPERATURE_AGGREGATE_ARR, pdMS_TO_TICKS(TEMPERATURE_CAN_DELAY_MS));
         }
-        if (good_state == 1)
+        if (task_state_ready)
         {
-            if (get_task_bit(TEMPERATURE_MONITOR) == 0)
+            if (get_state_bit(TEMPERATURE_MONITOR_GOOD) == 0)
             {
-                set_task_bit(TEMPERATURE_MONITOR);
+                set_state_bit(TEMPERATURE_MONITOR_GOOD);
             }
         }
 

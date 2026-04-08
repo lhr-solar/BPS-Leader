@@ -76,8 +76,9 @@ estop_status_t contactor_estop_checker()
     {
         return ESTOP3_FAULT;
     }
-    else
+    else {
         return ESTOP_OK;
+    }
 }
 
 // sets contactor, updates state value, then starts timer to check expected state matches actual state.

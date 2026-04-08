@@ -23,7 +23,7 @@ void IWDG_Init() {
 void IWDG_Start() {
     // Check for previous reset
     if (IWDG_CheckIfReset() == 1) {
-        set_faultBit(WATCHDOG_ERROR);
+        set_faultBit(RTOS_WATCHDOG_ERROR);
     }
 
     // Initialize / start IWDG and check init status

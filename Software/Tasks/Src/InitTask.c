@@ -7,7 +7,7 @@
 #include "DebugPrintf.h"
 #include "SHT45.h"
 
-#define ALL_TASK_BITS ((1 << AMPHERES_MONITOR) | (1 << CONTACTOR_MONITOR) | (1 << VOLTAGE_MONITOR) | (1 << TEMPERATURE_MONITOR))
+#define ALL_TASK_BITS ((1 << AMPERES_MONITOR_GOOD) | (1 << CONTACTOR_MONITOR_GOOD) | (1 << VOLTAGE_MONITOR_GOOD) | (1 << TEMPERATURE_MONITOR_GOOD))
 
 // Task Stack Arrays
 StackType_t Task_Temperature_Stack_Array[TASK_TEMPERATURE_MONITOR_STACK_SIZE];
@@ -54,7 +54,6 @@ void Task_Init()
 
     debugPrintf_init();
 
-    xTaskBits = xEventGroupCreateStatic(&xTaskBits_buffer);
     xStateBits = xEventGroupCreateStatic(&xStateBits_buffer);
 
     if (xTaskBits == NULL || xStateBits == NULL)

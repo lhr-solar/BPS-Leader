@@ -10,7 +10,7 @@ void Task_Contactor_Monitor(void *pvParameters)
 
     while (1)
     {
-        bool good_state = true;
+        bool task_state_ready = true;
 
         // Delays CONTACTOR_MONITOR_TASK_DELAY_MS
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(CONTACTOR_MONITOR_TASK_DELAY_MS));
@@ -31,32 +31,32 @@ void Task_Contactor_Monitor(void *pvParameters)
             else
                 set_faultBit(BPS_ESTOP3_FAULT);
 
-            good_state = false;
+            task_state_ready = false;
         }
 
         if (contactor_verify(HV_MINUS_CONTACTOR) != CONTACTOR_OK)
         {
             set_faultBit(CONTACTOR_HV_MINUS_FAULT);
-            good_state = false;
+            task_state_ready = false;
         }
 
         if (contactor_verify(ARRAY_CONTACTOR) != CONTACTOR_OK)
         {
             set_faultBit(CONTACTOR_ARRAY_FAULT);
-            good_state = false;
+            task_state_ready = false;
         }
 
         if (contactor_verify(ARRAY_PRE_CONTACTOR) != CONTACTOR_OK)
         {
             set_faultBit(CONTACTOR_ARRAY_PRE_FAULT);
-            good_state = false;
+            task_state_ready = false;
         }
 
-        if (good_state)
+        if (task_state_ready)
         {
-            if (get_task_bit(CONTACTOR_MONITOR) == 0)
+            if (get_state_bit(CONTACTOR_MONITOR_GOOD) == 0)
             {
-                set_task_bit(CONTACTOR_MONITOR);
+                set_state_bit(CONTACTOR_MONITOR_GOOD);
             }
         }
     }

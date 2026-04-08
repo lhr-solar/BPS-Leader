@@ -2,6 +2,9 @@
 #include "StatusLEDs.h"
 #include "common.h"
 
+// delays if scheduler is started or not
+#define universal_delay(ms) ((xTaskGetSchedulerState() == taskSCHEDULER_RUNNING) ? vTaskDelay(pdMS_TO_TICKS(ms)) : HAL_Delay(ms))
+
 // for software errors
 void Error_Handler() {
 
@@ -13,9 +16,9 @@ void Error_Handler() {
     LED_set(FAULT_LED, LED_ON);
     while (true) {
         LED_set(DEBUG_LED, LED_ON);
-        vTaskDelay(pdMS_TO_TICKS(1000));
+        universal_delay(1000);
         LED_set(DEBUG_LED, LED_OFF);
-        vTaskDelay(pdMS_TO_TICKS(1000));
+        universal_delay(1000);
         printf("Faulted\n\r");
     }
 }

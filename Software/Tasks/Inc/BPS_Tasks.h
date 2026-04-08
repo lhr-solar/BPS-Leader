@@ -11,8 +11,8 @@
 #define TASK_AMPERES_MONITOR_PRIO       tskIDLE_PRIORITY + 3
 #define TASK_PETWDOG_PRIO               tskIDLE_PRIORITY + 1
 #define TASK_CAN_FORWARD_PRIO           tskIDLE_PRIORITY + 2
-#define TASK_FAULT_HANDLER_PRIO         tskIDLE_PRIORITY + 4
-#define TASK_CONTACTOR_MONITOR_PRIO     tskIDLE_PRIORITY + 3
+#define TASK_FAULT_HANDLER_PRIO         tskIDLE_PRIORITY + 5
+#define TASK_CONTACTOR_MONITOR_PRIO     tskIDLE_PRIORITY + 4
 
 #define TEST_TASK_PRIORITY              tskIDLE_PRIORITY + 2
 
@@ -56,7 +56,7 @@ extern StaticTask_t Init_Task_Buffer;
 #define TEMP_MONITOR_TASK_DELAY_MS      290
 #define VOLT_MONITOR_TASK_DELAY_MS      290
 #define PRECHARGE_TASK_DELAY_MS         100
-#define CONTACTOR_MONITOR_TASK_DELAY_MS 50
+#define CONTACTOR_MONITOR_TASK_DELAY_MS 200
 #define AMPERES_MONITOR_TASK_DELAY_MS   90
 
 // Task Inits
@@ -87,25 +87,20 @@ extern EventGroupHandle_t xWDogEventGroup_handle;
 extern EventGroupHandle_t xTaskBits;
 extern EventGroupHandle_t xStateBits;
 
-#define set_task_bit(bit) (xEventGroupSetBits(xTaskBits, (1U << bit))) 
 #define set_state_bit(bit) (xEventGroupSetBits(xStateBits, (1U << bit))) 
 
 #define get_state_bit(bit) ((xEventGroupGetBits(xStateBits) & (1U << bit)) >> bit)
-#define get_task_bit(bit) ((xEventGroupGetBits(xTaskBits) & (1U << bit)) >> bit)
 
 #define clear_state_bit(bit) (xEventGroupClearBits(xStateBits, (1U << bit)))
 
 typedef enum {
-    AMPHERES_MONITOR,
-    VOLTAGE_MONITOR,
-    TEMPERATURE_MONITOR,
-    CONTACTOR_MONITOR,
-    NUM_TASK_CHECK_BITS
-} task_check_bits;
-
-typedef enum {
     DISCHARGING_BATT_STATE,    // 1 = Discharging, 0 = charging
-} state_bits;
+    AMPERES_MONITOR_GOOD,
+    VOLTAGE_MONITOR_GOOD,
+    TEMPERATURE_MONITOR_GOOD,
+    CONTACTOR_MONITOR_GOOD,
+    NUM_STATE_BITS
+} state_bits_t;
 
 
 

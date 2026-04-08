@@ -59,9 +59,9 @@ void Task_Amperes_Monitor()
         }
         else
         {
-            if (get_task_bit(AMPHERES_MONITOR) == 0)
+            if (get_state_bit(AMPERES_MONITOR_GOOD) == 0)
             {
-                set_task_bit(AMPHERES_MONITOR);
+                set_state_bit(AMPERES_MONITOR_GOOD);
             }
         }
 

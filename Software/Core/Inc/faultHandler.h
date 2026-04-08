@@ -22,7 +22,7 @@ typedef enum
     BATTERY_OVERVOLTAGE_FAULT,  // Battery voltage is greater than OVERVOLTAGE_THRESHOLD  (from volt-temp)
     BATTERY_UNDERVOLTAGE_FAULT, // Battery voltage is less than UNDERVOLTAGE_THRESHOLD    (from volt-temp)
     BATTERY_OVERTEMP_FAULT,     // Battery temperature is too high (from volt-temp)
-    BATTERY_OVERCURRENT_FAULT,  // Battery Current is too high    (from ampheres)
+    BATTERY_OVERCURRENT_FAULT,  // Battery Current is too high    (from amperes)
     CONTACTOR_HV_PLUS_FAULT,    // Contactor does not match expected state (Very bad 😡)
     CONTACTOR_HV_MINUS_FAULT,   // Contactor does not match expected state (Very bad 😡)
     CONTACTOR_ARRAY_FAULT,      // Contactor does not match expected state (Very bad 😡)
@@ -35,21 +35,20 @@ typedef enum
     BPS_ESTOP3_FAULT,         // ESTOP3 pressed, or you forgot the jumpers
 
     // Precharge faults
-    ARRAY_GREATER_THAN_BATTERY_FAULT, // Array voltage is greater than battery voltage  (from precharge ADC signal)
+    ARRAY_GREATER_THAN_BATTERY_FAULT, // Array voltage is greater than battery voltage (from precharge ADC signal)
     PRECHARGE_TIMEOUT_FAULT,          // Precharge sequence took too long
-    PRECHARGE_HYSTERESIS_FAULT,       // Precharge Array voltage fell under hysteresis while precharging
+    PRECHARGE_HYSTERESIS_FAULT,       // Precharge Array voltage fell under hysteresis threshold while precharging
 
     // Software Errors
-    WATCHDOG_ERROR, // Watchdog did not get pet in time, code is likely blocking somewhere
-    BPS_CAN_ERROR,  // BPS CAN failed a send or receive after configured retries
-    CAR_CAN_ERROR,  // CAR CAN failed a send or receive after configured retries
-    I2C_ERROR,      // I2C failed communication after configured retries (with fan chip or SHT45)
-    ADC_ERROR,      // Error with ADC
-    FAN_CHIP_ERROR, // Fan chip not responding or not responding properly
+    RTOS_WATCHDOG_ERROR, // Watchdog did not get pet in time, code is likely blocking somewhere
+    BPS_CAN_ERROR,       // BPS CAN failed a send or receive after configured retries
+    CAR_CAN_ERROR,       // CAR CAN failed a send or receive after configured retries
+    I2C_ERROR,           // I2C failed communication after configured retries (with fan chip or SHT45)
+    ADC_ERROR,           // Error with ADC
+    FAN_CHIP_ERROR,      // Fan chip not responding or not responding properly
 
     NUM_FAULTS,
 } fault_bit_t;
-
 
 /* Convert enum to bitmask */
 #define FAULT_BIT(fault) (1UL << (fault))
@@ -60,7 +59,7 @@ _Static_assert(NUM_FAULTS <= MAX_FAULT_BITS, "Too many fault bits for EventGroup
  * @brief Initializes fault bitmap
  *
  * @param none
- * @return 0 on failure, 1 on success
+ * @return 0 on failure, 1 on success. If already initialized returns 1.
  */
 uint8_t faultHandler_init(void);
 
