@@ -2,10 +2,9 @@
 #include "CANbus.h"
 #include "BPS_Tasks.h"
 
-
-#define CAN_RX_FORWARD_QUEUE_SIZE    50   
-#define CAN_FORWARD_WAIT_TICKS       pdMS_TO_TICKS(10)
-#define CAN_FORWARD_TASK_DELAY_MS    4
+#define CAN_RX_FORWARD_QUEUE_SIZE 50
+#define CAN_FORWARD_WAIT_TICKS pdMS_TO_TICKS(10)
+#define CAN_FORWARD_TASK_DELAY_MS 4
 
 static StaticQueue_t canRxForwardQueueBuffer;
 static uint8_t canRxForwardQueueStorage[CAN_RX_FORWARD_QUEUE_SIZE * sizeof(can_rx_payload_t)];
@@ -15,47 +14,50 @@ static QueueHandle_t canRxForwardQueue;
 #define CAN_TEST
 
 #ifdef CAN_TEST
-    static volatile bool enable_bench_forwarding = true;
+static volatile bool enable_bench_forwarding = true;
 #endif
 
-void can_fd_rx_callback_hook(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs, can_rx_payload_t recv_payload) 
-{ 
+void can_fd_rx_callback_hook(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs, can_rx_payload_t recv_payload)
+{
 
     BaseType_t higherPriorityTaskWoken = pdFALSE;
 
 #ifdef CAN_TEST
-    if (!enable_bench_forwarding) return;       
+    if (!enable_bench_forwarding)
+        return;
     enable_bench_forwarding = false;
 #endif
 
-    if (hfdcan->Instance == BPS_CAN_CHANNEL) {
-        if(canRxForwardQueue != NULL){
-            xQueueSendCircularBufferFromISR (
+    if (hfdcan->Instance == BPS_CAN_CHANNEL)
+    {
+        if (canRxForwardQueue != NULL)
+        {
+            xQueueSendCircularBufferFromISR(
                 canRxForwardQueue,
                 &recv_payload,
                 &higherPriorityTaskWoken,
-                recv_payload.header.DataLength
-            );
+                recv_payload.header.DataLength);
         }
     }
 }
 
-void CanRxForwardTask_Init(void){
+void CanRxForwardTask_Init(void)
+{
     canRxForwardQueue = xQueueCreateStatic(
         CAN_RX_FORWARD_QUEUE_SIZE,
         sizeof(can_rx_payload_t),
         canRxForwardQueueStorage,
-        &canRxForwardQueueBuffer
-    );
+        &canRxForwardQueueBuffer);
 
-    if(canRxForwardQueue == NULL){
+    if (canRxForwardQueue == NULL)
+    {
         return;
     }
 }
 
-
 // NOTE: any CAN forwards that require more processing than simply forwarding (i.e. packing the voltage aggregate msg) will be done in their respective tasks
-void Task_CanRxForward(){
+void Task_CanRxForward()
+{
 
     uint32_t fault_count = 0;
 
@@ -65,33 +67,39 @@ void Task_CanRxForward(){
     can_rx_payload_t payload;
 
     uint32_t ID, data_length;
-    uint8_t* data;
+    uint8_t *data;
 
     TickType_t xLastWakeTime = xTaskGetTickCount();
 
-    while(1){
+    while (1)
+    {
 
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(CAN_FORWARD_TASK_DELAY_MS));
-        
-        if (xQueueReceive(canRxForwardQueue, &payload, portMAX_DELAY) == pdTRUE){
+
+        if (xQueueReceive(canRxForwardQueue, &payload, portMAX_DELAY) == pdTRUE)
+        {
             ID = payload.header.Identifier;
 
             // These messages will be forwarded by aggregate array.
-            if (ID >= CAN_ID_BPS_VT0_VOLTAGE_ARR && ID <= CAN_ID_BPS_VT7_VOLTAGE_ARR) continue;
-            else if (ID >= CAN_ID_BPS_VT0_TEMPERATURE_ARR && ID <= CAN_ID_BPS_VT7_TEMPERATURE_ARR) continue;
+            if (ID >= CAN_ID_BPS_VT0_VOLTAGE_ARR && ID <= CAN_ID_BPS_VT7_VOLTAGE_ARR)
+                continue;
+            else if (ID >= CAN_ID_BPS_VT0_TEMPERATURE_ARR && ID <= CAN_ID_BPS_VT7_TEMPERATURE_ARR)
+                continue;
 
             data_length = payload.header.DataLength;
             data = payload.data;
-            
-            if (car_can_send(ID, data, data_length, CAN_FORWARD_WAIT_TICKS) != CAN_OK) {
+
+            if (car_can_send(ID, data, data_length, CAN_FORWARD_WAIT_TICKS) != CAN_OK)
+            {
                 fault_count++;
             }
-            else fault_count = 0;
+            else
+                fault_count = 0;
 
-            if (fault_count == 5) {
+            if (fault_count == 5)
+            {
                 set_faultBit(BPS_CAN_ERROR);
             }
-
         }
     }
 }

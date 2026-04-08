@@ -1,5 +1,6 @@
-// TODO: Volt temps have multiple faults, this does not discriminate. Add discrimination later.
+// TODO: Volt temps have multiple faults, this does not discriminate. Add discrimination.
 // TODO: CAN QueueSet solution
+// TODO: Implement Fram ID thing Parthiv was talking about
 
 #include "common.h"
 #include "BPS_Tasks.h"
@@ -47,7 +48,7 @@ static uint8_t temp_can_unpack(uint8_t *raw_temp_can_data, bps_temperature_aggre
         return 0;
 
     temp_can_data[tap_index].BPS_Tap_idx = tap_index;
-    temp_can_data[tap_index].BPS_Temperature_Tap_Fault = (raw_temp_can_data[0] << 5) & temp_fault_mask;
+    temp_can_data[tap_index].BPS_Temperature_Tap_Fault = (raw_temp_can_data[0] >> 5) & temp_fault_mask;
     temp_can_data[tap_index].BPS_Temperature_Tap_Data = raw_temp_can_data[1] << 0;
     temp_can_data[tap_index].BPS_Temperature_Tap_Data |= raw_temp_can_data[2] << 8;
     temp_can_data[tap_index].BPS_Temperature_Tap_Data |= raw_temp_can_data[3] << 16;
@@ -95,6 +96,7 @@ static void temp_can_pack(bps_temperature_aggregate_arr_t temp_can_data, uint8_t
     // bytes 5 and 6 is the time since last recieve
     memcpy(&msgArr[5], &(temp_can_data.BPS_Temperature_Tap_Age), sizeof(uint16_t));
 
+    // TODO: Implement Fram ID thing Parthiv was talking about
     msgArr[7] = 0x67;
 }
 
@@ -160,7 +162,7 @@ void Task_Temperature_Monitor()
             can_recv_all_taps(can_id, temp_can_data);
         }
 
-        uint8_t msgBuff[CAN_DLC_BPS_VOLTAGE_AGGREGATE_ARR] = {0};
+        uint8_t msgBuff[CAN_DLC_BPS_TEMPERATURE_AGGREGATE_ARR] = {0};
 
         uint32_t temp_threshold = get_temp_threshold();
 

@@ -4,12 +4,12 @@
 #include "Contactors.h"
 
 void Task_Contactor_Monitor(void *pvParameters)
-{   
+{
 
     TickType_t xLastWakeTime = xTaskGetTickCount();
 
     while (1)
-    {   
+    {
         bool good_state = true;
 
         // Delays CONTACTOR_MONITOR_TASK_DELAY_MS
@@ -17,16 +17,19 @@ void Task_Contactor_Monitor(void *pvParameters)
 
         // confirm every contactor is in the correct state
         if (contactor_verify(HV_PLUS_CONTACTOR) != CONTACTOR_OK)
-        {   
+        {
             estop_status_t estop_status = contactor_estop_checker();
 
             if (estop_status == ESTOP_OK)
             {
                 set_faultBit(CONTACTOR_HV_PLUS_FAULT);
             }
-            else if (estop_status == ESTOP1_FAULT) set_faultBit(BPS_ESTOP1_FAULT);
-            else if (estop_status == ESTOP2_FAULT) set_faultBit(BPS_ESTOP2_FAULT);
-            else set_faultBit(BPS_ESTOP3_FAULT);
+            else if (estop_status == ESTOP1_FAULT)
+                set_faultBit(BPS_ESTOP1_FAULT);
+            else if (estop_status == ESTOP2_FAULT)
+                set_faultBit(BPS_ESTOP2_FAULT);
+            else
+                set_faultBit(BPS_ESTOP3_FAULT);
 
             good_state = false;
         }
@@ -49,8 +52,10 @@ void Task_Contactor_Monitor(void *pvParameters)
             good_state = false;
         }
 
-        if (good_state) {
-            if (get_task_bit(CONTACTOR_MONITOR) == 0) {
+        if (good_state)
+        {
+            if (get_task_bit(CONTACTOR_MONITOR) == 0)
+            {
                 set_task_bit(CONTACTOR_MONITOR);
             }
         }

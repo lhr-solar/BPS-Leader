@@ -4,12 +4,12 @@
 #define FAULT_LOOP_PRINTF_DELAY_MS 10000
 #define FAULT_LOOP_PERIOD_MS 500
 
-#define FAULT_PRINTF_COUNTER (FAULT_LOOP_PRINTF_DELAY_MS/FAULT_LOOP_PERIOD_MS)
+#define FAULT_PRINTF_COUNTER (FAULT_LOOP_PRINTF_DELAY_MS / FAULT_LOOP_PERIOD_MS)
 
 EventBits_t fault_bits = 0;
 
 void Init_FaultHandlerTask()
-{   
+{
     if (faultHandler_init() != 1)
     {
         // Fault bit initialization failed
@@ -20,36 +20,36 @@ void Init_FaultHandlerTask()
 }
 
 void Kill_Precharge_Task()
-{   
+{
     if (hprecharge_task != NULL)
     {
         vTaskDelete(hprecharge_task);
     }
-    
 }
 
-static void print_fault(){
+static void print_fault()
+{
     switch (fault_bits) // compare against individual bitmasks
-        {
-            case FAULT_BIT(ARRAY_GREATER_THAN_BATTERY_FAULT):
-                printf("Fault: ARRAY Voltage Greater Than Battery Voltage\r\n");
-                break;
-            case FAULT_BIT(BATTERY_OVERVOLTAGE_FAULT):
-                printf("Fault: Battery Overvoltage\r\n");
-                break;
-            case FAULT_BIT(BATTERY_UNDERVOLTAGE_FAULT):
-                printf("Fault: Battery Undervoltage\r\n");
-                break;
-            case FAULT_BIT(PRECHARGE_TIMEOUT_FAULT):
-                printf("Fault: Precharge Sequence Timeout\r\n");
-                break;
-            case FAULT_BIT(BPS_CAN_ERROR):
-                printf("BPS CAN Error\r\n");
-                break;
-            default:
-                printf("Fault: Unknown\r\n");
-                break;
-        }
+    {
+    case FAULT_BIT(ARRAY_GREATER_THAN_BATTERY_FAULT):
+        printf("Fault: ARRAY Voltage Greater Than Battery Voltage\r\n");
+        break;
+    case FAULT_BIT(BATTERY_OVERVOLTAGE_FAULT):
+        printf("Fault: Battery Overvoltage\r\n");
+        break;
+    case FAULT_BIT(BATTERY_UNDERVOLTAGE_FAULT):
+        printf("Fault: Battery Undervoltage\r\n");
+        break;
+    case FAULT_BIT(PRECHARGE_TIMEOUT_FAULT):
+        printf("Fault: Precharge Sequence Timeout\r\n");
+        break;
+    case FAULT_BIT(BPS_CAN_ERROR):
+        printf("BPS CAN Error\r\n");
+        break;
+    default:
+        printf("Fault: Unknown\r\n");
+        break;
+    }
 }
 
 void Fault_Loop()
@@ -60,14 +60,14 @@ void Fault_Loop()
     {
         fault_printf_debug_counter++;
 
-        if(fault_printf_debug_counter >= FAULT_PRINTF_COUNTER){
+        if (fault_printf_debug_counter >= FAULT_PRINTF_COUNTER)
+        {
             print_fault();
             fault_printf_debug_counter = 0;
         }
 
         toggleHeartbeat();
         vTaskDelay(pdMS_TO_TICKS(FAULT_LOOP_PERIOD_MS));
-
     }
 }
 
@@ -87,28 +87,28 @@ void Set_Fault_LED()
 }
 
 void Task_FaultHandler(void *pvParameters)
-{   
+{
     Init_FaultHandlerTask();
 
-    while (true) {
+    while (true)
+    {
 
-    fault_bits = faultBit_wait(NUM_FAULTS, portMAX_DELAY);
-    
-    if (fault_bits != 0)
-    {   
-        LEDs_clear();
+        fault_bits = faultBit_wait(NUM_FAULTS, portMAX_DELAY);
 
-        LED_set(FAULT_LED, LED_ON);
+        if (fault_bits != 0)
+        {
+            LEDs_clear();
 
-        Kill_Precharge_Task();
-        emergency_open_contactors();
+            LED_set(FAULT_LED, LED_ON);
 
-        print_fault();
+            Kill_Precharge_Task();
+            emergency_open_contactors();
 
-        Fault_Loop(); // WILL NEVER RETURN - while(true)
-        
-    }
-    
-    vTaskDelay(pdMS_TO_TICKS(500));
+            print_fault();
+
+            Fault_Loop(); // WILL NEVER RETURN - while(true)
+        }
+
+        vTaskDelay(pdMS_TO_TICKS(500));
     }
 }

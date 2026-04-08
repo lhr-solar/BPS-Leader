@@ -3,7 +3,7 @@
 #include "config.h"
 
 #define PRECHARGE_PRINTF_DEBUG_PERIOD_MS 10000
-#define PRECHARGE_PRINTF_DEBUG_COUNTER (PRECHARGE_PRINTF_DEBUG_PERIOD_MS/PRECHARGE_TASK_DELAY_MS)
+#define PRECHARGE_PRINTF_DEBUG_COUNTER (PRECHARGE_PRINTF_DEBUG_PERIOD_MS / PRECHARGE_TASK_DELAY_MS)
 
 /* handle for the Precharge task, defined here */
 TaskHandle_t hprecharge_task = NULL;
@@ -19,7 +19,8 @@ void Init_PrechargeTask()
     // xEventGroupClearBits(xReadADCEventGroup_handle,    /* The event group being updated. */
     //                      0xFF );                    /* The bits being cleared. */
 
-    if (ADC_Sense_Init() != ADC_SENSE_OK) set_faultBit(ADC_ERROR);
+    if (ADC_Sense_Init() != ADC_SENSE_OK)
+        set_faultBit(ADC_ERROR);
 }
 
 void Fault_Checker(uint32_t Array_Voltage, uint32_t Battery_Voltage, Precharge_State_t State)
@@ -57,21 +58,22 @@ void Fault_Checker(uint32_t Array_Voltage, uint32_t Battery_Voltage, Precharge_S
     }
 }
 
-static void print_Precharge_State(Precharge_State_t State){
+static void print_Precharge_State(Precharge_State_t State)
+{
     switch (State)
     {
-        case PRECHARGE_STATE_INITIAL:
-            printf("Precharge State: Initial\r\n");
-            break;
-        case PRECHARGE_STATE_PRECHARGING:
-            printf("Precharge State: Precharging\r\n");
-            break;
-        case PRECHARGE_STATE_RUN:
-            printf("Precharge State: Run\r\n");
-            break;
-        default:
-            printf("Unknown\r\n");
-            break;
+    case PRECHARGE_STATE_INITIAL:
+        printf("Precharge State: Initial\r\n");
+        break;
+    case PRECHARGE_STATE_PRECHARGING:
+        printf("Precharge State: Precharging\r\n");
+        break;
+    case PRECHARGE_STATE_RUN:
+        printf("Precharge State: Run\r\n");
+        break;
+    default:
+        printf("Unknown\r\n");
+        break;
     }
 }
 
@@ -104,72 +106,72 @@ void Task_Precharge()
 
         switch (State)
         {
-            case PRECHARGE_STATE_IDLE:
+        case PRECHARGE_STATE_IDLE:
 
-                Fault_Checker(Array_Voltage, Battery_Voltage, State);
+            Fault_Checker(Array_Voltage, Battery_Voltage, State);
 
-                break;
-                
-            case PRECHARGE_STATE_INITIAL: // Startup state: Closes main contactor and moves to precharging state
-                if (contactor_set(ARRAY_CONTACTOR, CONTACTOR_CLOSED, CALLBACK_BLOCKING_TIME_MS, NORMAL) != CONTACTOR_OK)
+            break;
+
+        case PRECHARGE_STATE_INITIAL: // Startup state: Closes main contactor and moves to precharging state
+            if (contactor_set(ARRAY_CONTACTOR, CONTACTOR_CLOSED, CALLBACK_BLOCKING_TIME_MS, NORMAL) != CONTACTOR_OK)
+            {
+                set_faultBit(CONTACTOR_CALLBACK_FAULT);
+            }
+            State = PRECHARGE_STATE_PRECHARGING;
+
+            // Start a timer for precharging
+            Start_Tick = xTaskGetTickCount();
+            break;
+
+        case PRECHARGE_STATE_PRECHARGING: // Precharging state: Waits for battery voltage to reach 90% of array voltage, then closes precharge contactor and moves to run state
+
+            Fault_Checker(Array_Voltage, Battery_Voltage, State); // Check for faults while precharging, if any fault conditions are met, will call fault handler and not proceed with precharge sequence
+
+            const TickType_t Current_Tick = xTaskGetTickCount();                   // Check how long we've been precharging for, fault if not precharged after PRECHARGE_TIMEOUT_MS
+            if ((Current_Tick - Start_Tick) > pdMS_TO_TICKS(PRECHARGE_TIMEOUT_MS)) // Faults if precharging takes too long
+            {
+                // Check if array voltage is within 90% of battery voltage (precharge complete)
+                if (Array_Voltage * RATIO_SCALE >= Battery_Voltage * PRECHARGE_THRESHOLD_90)
                 {
-                    set_faultBit(CONTACTOR_CALLBACK_FAULT);
+                    if (contactor_set(ARRAY_PRE_CONTACTOR, CONTACTOR_CLOSED, CALLBACK_BLOCKING_TIME_MS, false) != CONTACTOR_OK)
+                    {
+                        set_faultBit(CONTACTOR_CALLBACK_FAULT);
+                    }
+                    State = PRECHARGE_STATE_RUN;
                 }
-                State = PRECHARGE_STATE_PRECHARGING;
-
-                // Start a timer for precharging
-                Start_Tick = xTaskGetTickCount();
-                break;
-
-            case PRECHARGE_STATE_PRECHARGING: // Precharging state: Waits for battery voltage to reach 90% of array voltage, then closes precharge contactor and moves to run state
-
-                Fault_Checker(Array_Voltage, Battery_Voltage, State); // Check for faults while precharging, if any fault conditions are met, will call fault handler and not proceed with precharge sequence
-
-                const TickType_t Current_Tick = xTaskGetTickCount(); // Check how long we've been precharging for, fault if not precharged after PRECHARGE_TIMEOUT_MS
-                if ((Current_Tick - Start_Tick) > pdMS_TO_TICKS(PRECHARGE_TIMEOUT_MS)) // Faults if precharging takes too long
+                else
                 {
-                    // Check if array voltage is within 90% of battery voltage (precharge complete)
-                    if (Array_Voltage * RATIO_SCALE >= Battery_Voltage * PRECHARGE_THRESHOLD_90)
-                    {
-                        if (contactor_set(ARRAY_PRE_CONTACTOR, CONTACTOR_CLOSED, CALLBACK_BLOCKING_TIME_MS, false) != CONTACTOR_OK)
-                        {
-                            set_faultBit(CONTACTOR_CALLBACK_FAULT);
-                        }
-                        State = PRECHARGE_STATE_RUN;
-                    }
-                    else
-                    {
-                        // Precharging took too long
-                        set_faultBit(PRECHARGE_TIMEOUT_FAULT);
-                    }
+                    // Precharging took too long
+                    set_faultBit(PRECHARGE_TIMEOUT_FAULT);
                 }
-                break;
-            case PRECHARGE_STATE_RUN: // Run state: Continuously checks that array voltage stays within 80% of battery voltage
+            }
+            break;
+        case PRECHARGE_STATE_RUN: // Run state: Continuously checks that array voltage stays within 80% of battery voltage
 
-                Fault_Checker(Array_Voltage, Battery_Voltage, State); // Check for faults while precharging, if any fault conditions are met, will call fault handler and not proceed with precharge sequence
+            Fault_Checker(Array_Voltage, Battery_Voltage, State); // Check for faults while precharging, if any fault conditions are met, will call fault handler and not proceed with precharge sequence
 
-                // Use 80% threshold for hysteresis
-                if (Array_Voltage * RATIO_SCALE < Battery_Voltage * PRECHARGE_THRESHOLD_80)
-                {   
-                    set_faultBit(PRECHARGE_HYSTERESIS_FAULT);
-                }
-                break;
-            default:
-                break;
+            // Use 80% threshold for hysteresis
+            if (Array_Voltage * RATIO_SCALE < Battery_Voltage * PRECHARGE_THRESHOLD_80)
+            {
+                set_faultBit(PRECHARGE_HYSTERESIS_FAULT);
+            }
+            break;
+        default:
+            break;
         }
 
-        if(printDebugCounter >= 100){
+        if (printDebugCounter >= 100)
+        {
 
             // prints battery and array voltage
             printf("Array: %ld mV | Battery: %ld mV\r\n",
-               Array_Voltage,
-               Battery_Voltage);
+                   Array_Voltage,
+                   Battery_Voltage);
 
             // prints current precharge state
             print_Precharge_State(State);
             printDebugCounter = 0;
         }
-
 
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(PRECHARGE_TASK_DELAY_MS));
     }
