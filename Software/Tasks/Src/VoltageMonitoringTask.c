@@ -118,7 +118,7 @@ static void can_recv_all_taps(uint32_t can_msg_ID, bps_voltage_aggregate_arr_t v
         uint8_t raw_databuffer[CAN_DLC_BPS_VT0_VOLTAGE_ARR] = {0};
 
         // if can recv fails, set the fault bit of the struct on to indicate that this sensor isnt working
-        if (bps_can_recv(can_msg_ID, raw_databuffer, CAN_DLC_BPS_VOLTAGE_AGGREGATE_ARR, VOLTAGE_CAN_DELAY_MS) == CAN_OK)
+        if (bps_can_recv(can_msg_ID, raw_databuffer, CAN_DLC_BPS_VT0_VOLTAGE_ARR, VOLTAGE_CAN_DELAY_MS) == CAN_OK)
         {
             // unpack the BPS voltage message from BPS CAN to the BPS aggregate array message
             volt_can_unpack(raw_databuffer, volt_can_data);
