@@ -8,6 +8,12 @@
 
 #define DELAY_1S pdMS_TO_TICKS(1000)
 
+typedef struct {
+    uint8_t BPS_Tap_idx;
+    uint16_t BPS_Voltage_Tap_Data;
+    uint8_t BPS_Voltage_Tap_Fault;
+} bps_voltage_arr_t;
+
 // Static task buffers
 static StaticTask_t xBlinkyTaskBuffer;
 static StackType_t xBlinkyStack[BLINKY_TASK_STACK_SIZE];
@@ -77,14 +83,11 @@ void vFakeVoltSend(void *pvParameters)
 
         volt_can_pack(can_message, &message_struct);
 
-        if (car_can_send(can_id, can_message, CAN_DLC_BPS_VT0_VOLTAGE_ARR, 10) != CAN_OK)
-        {
-            set_faultBit(BATTERY_OVERVOLTAGE_FAULT);
-        }
+        car_can_send(can_id, can_message, CAN_DLC_BPS_VT0_VOLTAGE_ARR, 0);
 
         (message_struct.BPS_Tap_idx == 31) ? (message_struct.BPS_Tap_idx = 0) : message_struct.BPS_Tap_idx++;
 
-        can_id = message_struct.BPS_Tap_idx / 4 + 2;
+        can_id = message_struct.BPS_Tap_idx / 4 + CAN_ID_BPS_VT0_VOLTAGE_ARR;
 
         message_struct.BPS_Voltage_Tap_Data = (message_struct.BPS_Voltage_Tap_Data >= CELL_OVERVOLTAGE_THRESHOLD_MV - 10) ? CELL_UNDERVOLTAGE_THRESHOLD_MV : message_struct.BPS_Voltage_Tap_Data + 10;
     }

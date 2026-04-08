@@ -197,12 +197,6 @@ typedef struct {
     uint8_t BPS_Tap_idx;
     uint16_t BPS_Voltage_Tap_Data;
     uint8_t BPS_Voltage_Tap_Fault;
-} bps_voltage_arr_t;
-
-typedef struct {
-    uint8_t BPS_Tap_idx;
-    uint16_t BPS_Voltage_Tap_Data;
-    uint8_t BPS_Voltage_Tap_Fault;
 } bps_vt0_voltage_arr_t;
 
 typedef struct {
@@ -251,13 +245,6 @@ typedef struct {
     int32_t Main_Battery_Current;
     uint16_t Main_Battery_Current_RawV;
 } bps_pack_current_t;
-
-typedef struct {
-    uint8_t BPS_Tap_idx;
-    uint8_t BPS_Temperature_Tap_Fault;
-    int32_t BPS_Temperature_Tap_Data;
-    uint16_t BPS_Temperature_Tap_RawV;
-} bps_temperature_arr_t;
 
 typedef struct {
     uint8_t BPS_Tap_idx;

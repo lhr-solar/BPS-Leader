@@ -46,14 +46,30 @@ void Task_Amperes_Monitor() {
             set_faultBit(BPS_CAN_ERROR);
         }
 
-        // Set fault bits if needed
+        // Set fault bits if needed. If good, set the event group bit
         if ((AmperesData.Main_Battery_Current < OVERCURRENT_CHARGE_THRESHOLD_mA) ||
             (AmperesData.Main_Battery_Current > OVERCURRENT_DISCHARGE_THRESHOLD_mA) ) {
             printf("Overcurrent, ma = %li \r\n", AmperesData.Main_Battery_Current);
             set_faultBit(BATTERY_OVERCURRENT_FAULT);
         }
+        else {
+            if (get_state_bit(AMPHERES_MONITOR) == 0) {
+                set_task_bit(AMPHERES_MONITOR);
+            }
+        }
+
+        if (AmperesData.Main_Battery_Current > 0) {
+            if (get_state_bit(DISCHARGING_BATT_STATE) == 0) {
+                set_state_bit(DISCHARGING_BATT_STATE);
+            }
+        }
+        else {
+            if (get_state_bit(DISCHARGING_BATT_STATE) != 0) {
+                clear_state_bit(DISCHARGING_BATT_STATE);
+            }
+        }
 
         // Set event group bit so watchdog knows we ran
-        // xEventGroupSetBits(xWDogEventGroup_handle, AMPERES_MONITOR_DONE);
+        xEventGroupSetBits(xWDogEventGroup_handle, AMPERES_MONITOR_DONE);
     }
 }

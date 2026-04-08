@@ -5,6 +5,7 @@
 
 #define CAN_RX_FORWARD_QUEUE_SIZE    50   
 #define CAN_FORWARD_WAIT_TICKS       pdMS_TO_TICKS(10)
+#define CAN_FORWARD_TASK_DELAY_MS    4
 
 static StaticQueue_t canRxForwardQueueBuffer;
 static uint8_t canRxForwardQueueStorage[CAN_RX_FORWARD_QUEUE_SIZE * sizeof(can_rx_payload_t)];
@@ -66,7 +67,11 @@ void Task_CanRxForward(){
     uint32_t ID, data_length;
     uint8_t* data;
 
+    TickType_t xLastWakeTime = xTaskGetTickCount();
+
     while(1){
+
+        vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(CAN_FORWARD_TASK_DELAY_MS));
         
         if (xQueueReceive(canRxForwardQueue, &payload, portMAX_DELAY) == pdTRUE){
             ID = payload.header.Identifier;

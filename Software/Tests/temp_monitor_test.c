@@ -1,16 +1,28 @@
 #include "BPS_Tasks.h"
 #include "StatusLEDs.h"
+#include "Contactors.h"
 #include "CANbus.h"
 #include "BPSCAN_can_msgs.h"
+#include "SHT45.h"
+#include "DebugPrintf.h"
+#include "EMC2305_Driver.h"
 
 #define BLINKY_TASK_STACK_SIZE configMINIMAL_STACK_SIZE
 #define BLINKY_TASK_PRIORITY (tskIDLE_PRIORITY + 1)
 
 #define DELAY_1S pdMS_TO_TICKS(1000)
 
+typedef struct {
+    uint8_t BPS_Tap_idx;
+    uint8_t BPS_Temperature_Tap_Fault;
+    int32_t BPS_Temperature_Tap_Data;
+    uint16_t BPS_Temperature_Tap_RawV;
+} bps_temperature_arr_t;
+
 // Static task buffers
 static StaticTask_t xBlinkyTaskBuffer;
 static StackType_t xBlinkyStack[BLINKY_TASK_STACK_SIZE];
+
 
 StaticTask_t xTestTaskBuffer;
 StackType_t xTestStack[TEST_TASK_STACK_SIZE];
@@ -85,16 +97,13 @@ void vFakeTempSend(void *pvParameters)
 
         temp_can_pack(can_message, &message_struct);
 
-        if (car_can_send(can_id, can_message, CAN_DLC_BPS_VT0_TEMPERATURE_ARR, 10) != CAN_OK)
-        {
-            set_faultBit(BATTERY_OVERTEMP_FAULT);
-        }
+        car_can_send(can_id, can_message, CAN_DLC_BPS_VT0_TEMPERATURE_ARR, 10);
 
         (message_struct.BPS_Tap_idx == 31) ? (message_struct.BPS_Tap_idx = 0) : message_struct.BPS_Tap_idx++;
 
-        can_id = message_struct.BPS_Tap_idx / 4 + 2;
+        can_id = message_struct.BPS_Tap_idx / 4 + CAN_ID_BPS_VT0_TEMPERATURE_ARR;
 
-        message_struct.BPS_Temperature_Tap_Data = (message_struct.BPS_Temperature_Tap_Data >= OVERTEMP_THRESHOLD_MC - 10) ? 0 : message_struct.BPS_Temperature_Tap_Data + 10;
+        message_struct.BPS_Temperature_Tap_Data = (message_struct.BPS_Temperature_Tap_Data >= OVERTEMP_THRESHOLD_CHARGING_MC - 10) ? 0 : message_struct.BPS_Temperature_Tap_Data + 10;
     }
 }
 
@@ -106,6 +115,20 @@ int main()
 
     SystemClock_Config();
 
+    CAN_Init();
+    
+    LEDs_init();
+
+    contactor_init();
+
+    SHT45_init();
+
+    EMC2305_Driver_init();
+
+    debugPrintf_init();
+
+    printf("Initialized\n\r");
+
     xTaskCreateStatic(
         vFakeTempSend,
         "Fake Temperature Measurements",
@@ -116,13 +139,13 @@ int main()
         &xTestTaskBuffer);
 
     xTaskCreateStatic(
-        Task_Init,            // Task function
-        "Init Task",          // Name of the task (for debugging)
-        TASK_INIT_STACK_SIZE, // Stack size in words
-        NULL,                 // Task input parameter
-        TASK_INIT_PRIO,       // Task priority
-        Init_Task_Stack,      // Task handle
-        &Init_Task_Buffer     // Static task buffer (optional)
+        Task_FaultHandler,             // Task function
+        "FaultHandler",                // Name of the task (for debugging)
+        FAULT_HANDLER_TASK_STACK_SIZE,   // Stack size in words
+        (void*)NULL,                       // Task input parameter
+        TASK_FAULT_HANDLER_PRIO,       // Task priority
+        FaultHandler_Task_Stack,       // Task handle
+        &FaultHandler_Task_Buffer      // Static task buffer (optional)
     );
 
     xTaskCreateStatic(

@@ -17,36 +17,40 @@ extern bool fault_task_initialized;
 
 typedef enum
 {
-    // BPS main saefty loop faults 
-    BPS_FAULT,                        // If any major fault is detected; indicates we're in an emergency state
-    BATTERY_OVERVOLTAGE_FAULT,        // Battery voltage is greater than OVERVOLTAGE_THRESHOLD  (from volt-temp)
-    BATTERY_UNDERVOLTAGE_FAULT,       // Battery voltage is less than UNDERVOLTAGE_THRESHOLD    (from volt-temp)
-    BATTERY_OVERTEMP_FAULT,           // Battery temperature is too high (from volt-temp)
-    BATTERY_OVERCURRENT_FAULT,        // Battery Current is too high    (from ampheres)
-    CONTACTOR_UNEXPECTED_STATE_FAULT, // Contactor does not match expected state (Very bad 😡)
-    CONTACTOR_TIMEOUT_FAULT,          // Timeout while reading contactor sense, someone is hogging semaphore.
-    BOARD_OVERTEMP_FAULT,             // Board ambient temperature is too high    (from SHT45)
-    ESTOP_FAULT,                      // Any ESTOP button pressed, or you forgot the jumpers 
+    // BPS main saefty loop faults
+    BPS_FAULT,                  // If any major fault is detected; indicates we're in an emergency state
+    BATTERY_OVERVOLTAGE_FAULT,  // Battery voltage is greater than OVERVOLTAGE_THRESHOLD  (from volt-temp)
+    BATTERY_UNDERVOLTAGE_FAULT, // Battery voltage is less than UNDERVOLTAGE_THRESHOLD    (from volt-temp)
+    BATTERY_OVERTEMP_FAULT,     // Battery temperature is too high (from volt-temp)
+    BATTERY_OVERCURRENT_FAULT,  // Battery Current is too high    (from ampheres)
+    CONTACTOR_HV_PLUS_FAULT,    // Contactor does not match expected state (Very bad 😡)
+    CONTACTOR_HV_MINUS_FAULT,   // Contactor does not match expected state (Very bad 😡)
+    CONTACTOR_ARRAY_FAULT,      // Contactor does not match expected state (Very bad 😡)
+    CONTACTOR_ARRAY_PRE_FAULT,  // Contactor does not match expected state (Very bad 😡)
+
+    CONTACTOR_CALLBACK_FAULT, // Callback failed (RIP Driver)
+    BOARD_OVERTEMP_FAULT,     // Board ambient temperature is too high    (from SHT45)
+    BPS_ESTOP1_FAULT,         // ESTOP1 pressed, or you forgot the jumpers
+    BPS_ESTOP2_FAULT,         // ESTOP2 pressed, or you forgot the jumpers
+    BPS_ESTOP3_FAULT,         // ESTOP3 pressed, or you forgot the jumpers
 
     // Precharge faults
-    ARRAY_GREATER_THAN_BATTERY_FAULT, // Array voltage is greater than battery voltage  (from precharge ADC signal)       
+    ARRAY_GREATER_THAN_BATTERY_FAULT, // Array voltage is greater than battery voltage  (from precharge ADC signal)
     PRECHARGE_TIMEOUT_FAULT,          // Precharge sequence took too long
-    PRECHARGE_HYSTERESIS_FAULT,       // Precharge Array voltage fell under hysteresis while precharging  
-    
+    PRECHARGE_HYSTERESIS_FAULT,       // Precharge Array voltage fell under hysteresis while precharging
+
     // Software Errors
-    WATCHDOG_ERROR,                    // Watchdog did not get pet in time, code is likely blocking somewhere
-    BPS_CAN_ERROR,                     // BPS CAN failed a send or receive after configured retries 
-    CAR_CAN_ERROR,                     // CAR CAN failed a send or receive after configured retries 
-    I2C_ERROR,                         // I2C failed communication after configured retries (with fan chip or SHT45)
-    UART_ERROR,                        // UART failed communication after configured retries (with ESP)
-    ADC_ERROR,                         // Error with ADC 
-    FAN_CHIP_ERROR,                    // Fan chip not responding or not responding properly
-    SHT45_CHIP_ERROR,                  // SHT45 Temp & humidity sensor not responding or not responding properly
+    WATCHDOG_ERROR, // Watchdog did not get pet in time, code is likely blocking somewhere
+    BPS_CAN_ERROR,  // BPS CAN failed a send or receive after configured retries
+    CAR_CAN_ERROR,  // CAR CAN failed a send or receive after configured retries
+    I2C_ERROR,      // I2C failed communication after configured retries (with fan chip or SHT45)
+    ADC_ERROR,      // Error with ADC
+    FAN_CHIP_ERROR, // Fan chip not responding or not responding properly
 
-    // Counter
-    NUM_FAULTS                         // Total number of faults
-
+    NUM_FAULTS,
 } fault_bit_t;
+
+#define NUM_FAULTS sizeof(fault_bit_t)
 
 /* Convert enum to bitmask */
 #define FAULT_BIT(fault) (1UL << (fault))
@@ -84,4 +88,4 @@ EventBits_t faultBit_wait(fault_bit_t bit, TickType_t xTicksToWait);
  * @param bit which fault is being set
  * @return none
  */
-void set_faultBitFromISR(fault_bit_t bit, BaseType_t* xHigherPriorityTaskWoken);
+void set_faultBitFromISR(fault_bit_t bit, BaseType_t *xHigherPriorityTaskWoken);

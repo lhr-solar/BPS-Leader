@@ -6,7 +6,7 @@ static StaticSemaphore_t contactorsMutexBuffer;
 
 bool contactor_is_initialized = false;
 
-static const char *CONTACTOR_NAMES[NUM_CONTACTORS] = {
+static const char* CONTACTOR_NAMES[NUM_CONTACTORS] = {
     "HV Positive Contactor",
     "HV Negative Contactor",
     "Array Contactor",
@@ -26,11 +26,11 @@ contactor_state_t contactor_get(contactor_num_t contactor_num)
     }
 
     contactor_t *contactor = &contactors[contactor_num];
-    return HAL_GPIO_ReadPin(contactor->sense_pin.port, contactor->sense_pin.pin);
+    return (HAL_GPIO_ReadPin(contactor->sense_pin.port, contactor->sense_pin.pin) ? CONTACTOR_CLOSED : CONTACTOR_OPEN);
 }
 
-// get expected state
-contactor_state_t contactor_get_command_state(contactor_num_t contactor_num)
+// determines if the contactor physical state matches the expected state
+contactor_state_t contactor_verify (contactor_num_t contactor_num)
 {
 
     // check that contactor exists
@@ -40,7 +40,13 @@ contactor_state_t contactor_get_command_state(contactor_num_t contactor_num)
     }
 
     contactor_t *contactor = &contactors[contactor_num];
-    return ((HAL_GPIO_ReadPin(contactor->sense_pin.port, contactor->sense_pin.pin) == GPIO_PIN_SET) ? CONTACTOR_CLOSED : CONTACTOR_OPEN);
+
+    // if timer is active contactor could be in either state
+    if (xTimerIsTimerActive(contactor->senseTimer) == pdTRUE) {
+        return CONTACTOR_OK;
+    }
+
+    return (contactor_get(contactor_num) == contactor->state) ? CONTACTOR_OK : CONTACTOR_ERROR;
 }
 
 static void vContactorCallback(TimerHandle_t senseTimer)
@@ -51,7 +57,7 @@ static void vContactorCallback(TimerHandle_t senseTimer)
 
     if (contactor->state != contactor_get(contactor_num))
     {
-        set_faultBit(CONTACTOR_UNEXPECTED_STATE_FAULT);
+        set_faultBit(CONTACTOR_CALLBACK_FAULT);
     }
 }
 

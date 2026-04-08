@@ -40,14 +40,8 @@ static void print_fault(){
             case FAULT_BIT(BATTERY_UNDERVOLTAGE_FAULT):
                 printf("Fault: Battery Undervoltage\r\n");
                 break;
-            case FAULT_BIT(CONTACTOR_TIMEOUT_FAULT):
-                printf("Fault: Contactor Sense Timeout\r\n");
-                break;
             case FAULT_BIT(PRECHARGE_TIMEOUT_FAULT):
                 printf("Fault: Precharge Sequence Timeout\r\n");
-                break;
-            case FAULT_BIT(CONTACTOR_UNEXPECTED_STATE_FAULT):
-                printf("Fault: Contactor Unexpected State Fault\r\n");
                 break;
             case FAULT_BIT(BPS_CAN_ERROR):
                 printf("BPS CAN Error\r\n");

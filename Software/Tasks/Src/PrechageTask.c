@@ -44,16 +44,16 @@ void Fault_Checker(uint32_t Array_Voltage, uint32_t Battery_Voltage, Precharge_S
         set_faultBit(BATTERY_UNDERVOLTAGE_FAULT);
     }
 
-    if (contactor_get(ARRAY_CONTACTOR) != contactor_get_command_state(ARRAY_CONTACTOR))
+    if (contactor_verify(ARRAY_CONTACTOR) != CONTACTOR_OK)
     {
         // Fault handler
-        set_faultBit(CONTACTOR_UNEXPECTED_STATE_FAULT);
+        set_faultBit(CONTACTOR_ARRAY_FAULT);
     }
 
-    if (contactor_get(ARRAY_PRE_CONTACTOR) != contactor_get_command_state(ARRAY_PRE_CONTACTOR))
+    if (contactor_verify(ARRAY_PRE_CONTACTOR))
     {
         // Fault handler
-        set_faultBit(CONTACTOR_UNEXPECTED_STATE_FAULT);
+        set_faultBit(CONTACTOR_ARRAY_PRE_FAULT);
     }
 }
 
@@ -86,6 +86,8 @@ void Task_Precharge()
 
     uint8_t printDebugCounter = 0;
 
+    TickType_t xLastWakeTime = xTaskGetTickCount();
+
     while (1)
     {
 
@@ -111,7 +113,7 @@ void Task_Precharge()
             case PRECHARGE_STATE_INITIAL: // Startup state: Closes main contactor and moves to precharging state
                 if (contactor_set(ARRAY_CONTACTOR, CONTACTOR_CLOSED, CALLBACK_BLOCKING_TIME_MS, NORMAL) != CONTACTOR_OK)
                 {
-                    set_faultBit(CONTACTOR_TIMEOUT_FAULT);
+                    set_faultBit(CONTACTOR_CALLBACK_FAULT);
                 }
                 State = PRECHARGE_STATE_PRECHARGING;
 
@@ -131,7 +133,7 @@ void Task_Precharge()
                     {
                         if (contactor_set(ARRAY_PRE_CONTACTOR, CONTACTOR_CLOSED, CALLBACK_BLOCKING_TIME_MS, false) != CONTACTOR_OK)
                         {
-                            set_faultBit(CONTACTOR_TIMEOUT_FAULT);
+                            set_faultBit(CONTACTOR_CALLBACK_FAULT);
                         }
                         State = PRECHARGE_STATE_RUN;
                     }
@@ -169,6 +171,6 @@ void Task_Precharge()
         }
 
 
-        vTaskDelay(pdMS_TO_TICKS(PRECHARGE_TASK_DELAY_MS));
+        vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(PRECHARGE_TASK_DELAY_MS));
     }
 }

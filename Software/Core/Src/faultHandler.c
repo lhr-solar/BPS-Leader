@@ -14,7 +14,7 @@ StaticEventGroup_t faultBitsBuffer;
 static bool is_initialized = false;
 
 uint8_t faultHandler_init(void){
-    if (is_initialized) return 0;
+    if (is_initialized) return 1;
     faultBits = xEventGroupCreateStatic( &faultBitsBuffer );
     if(faultBits == NULL){
         return 0;
