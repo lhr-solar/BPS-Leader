@@ -39,8 +39,7 @@ EventGroupHandle_t xWDogEventGroup_handle;
 EventGroupHandle_t xStateBits;
 StaticEventGroup_t xStateBits_buffer;
 
-void Task_Init()
-{
+void Task_Init() {
 
     CAN_Init();
 
@@ -70,7 +69,7 @@ void Task_Init()
         Task_FaultHandler,             // Task function
         "FaultHandler",                // Name of the task (for debugging)
         FAULT_HANDLER_TASK_STACK_SIZE, // Stack size in words
-        (void *)NULL,                  // Task input parameter
+        (void*)NULL,                  // Task input parameter
         TASK_FAULT_HANDLER_PRIO,       // Task priority
         FaultHandler_Task_Stack,       // Task handle
         &FaultHandler_Task_Buffer      // Static task buffer (optional)
@@ -80,7 +79,7 @@ void Task_Init()
         Task_Amperes_Monitor,            /* The function that implements the task. */
         "Amperes Monitor Task",          /* Text name for the task. */
         TASK_AMPERES_MONITOR_STACK_SIZE, /* The size (in words) of the stack that should be created for the task. */
-        (void *)NULL,                    /* Paramter passed into the task. */
+        (void*)NULL,                    /* Paramter passed into the task. */
         TASK_AMPERES_MONITOR_PRIO,       /* Task Prioriy. */
         Task_Amperes_Stack_Array,        /* Stack array. */
         &Task_Amperes_Buffer             /* Buffer for static allocation. */
@@ -90,7 +89,7 @@ void Task_Init()
         Task_Fan_Controller,            /* The function that implements the task. */
         "Fan Controller Task",          /* Text name for the task. */
         TASK_FAN_CONTROLLER_STACK_SIZE, /* The size (in words) of the stack that should be created for the task. */
-        (void *)NULL,                   /* Paramter passed into the task. */
+        (void*)NULL,                   /* Paramter passed into the task. */
         TASK_FAN_CONTROLLER_PRIO,       /* Task Prioriy. */
         Task_Fan_Controller_Stack,      /* Stack array. */
         &Task_Fan_Controller_Buffer            /* Buffer for static allocation. */
@@ -100,7 +99,7 @@ void Task_Init()
         Task_CanRxForward,           /* The function that implements the task. */
         "CAN Forward Task",          /* Text name for the task. */
         TASK_CAN_FORWARD_STACK_SIZE, /* The size (in words) of the stack that should be created for the task. */
-        (void *)NULL,                /* Paramter passed into the task. */
+        (void*)NULL,                /* Paramter passed into the task. */
         TASK_CAN_FORWARD_PRIO,       /* Task Prioriy. */
         Task_Can_Forward_Stack,      /* Stack array. */
         &Task_Can_Forward_Buffer     /* Buffer for static allocation. */
@@ -110,7 +109,7 @@ void Task_Init()
         Task_Temperature_Monitor,            /* The function that implements the task. */
         "Temperature Monitor Task",          /* Text name for the task. */
         TASK_TEMPERATURE_MONITOR_STACK_SIZE, /* The size (in words) of the stack that should be created for the task. */
-        (void *)NULL,                        /* Paramter passed into the task. */
+        (void*)NULL,                        /* Paramter passed into the task. */
         TASK_TEMPERATURE_MONITOR_PRIO,       /* Task Prioriy. */
         Task_Temperature_Stack_Array,        /* Stack array. */
         &Task_Temperature_Buffer             /* Buffer for static allocation. */
@@ -120,7 +119,7 @@ void Task_Init()
         Task_Contactor_Monitor,               /* The function that implements the task. */
         "Cotnactor State-checking Task",      /* Text name for the task. */
         TASK_CONTACTOR_MONITORING_STACK_SIZE, /* The size (in words) of the stack that should be created for the task. */
-        (void *)NULL,                         /* Paramter passed into the task. */
+        (void*)NULL,                         /* Paramter passed into the task. */
         TASK_CONTACTOR_MONITOR_PRIO,          /* Task Prioriy. */
         Task_Contactor_Monitor_Stack,         /* Stack array. */
         &Task_Contactor_Monitor_Buffer        /* Buffer for static allocation. */
@@ -130,7 +129,7 @@ void Task_Init()
         Task_Voltage_Monitor,            /* The function that implements the task. */
         "Voltage Monitor Task",          /* Text name for the task. */
         TASK_VOLTAGE_MONITOR_STACK_SIZE, /* The size (in words) of the stack that should be created for the task. */
-        (void *)NULL,                    /* Paramter passed into the task. */
+        (void*)NULL,                    /* Paramter passed into the task. */
         TASK_VOLTAGE_MONITOR_PRIO,       /* Task Prioriy. */
         Task_Voltage_Stack_Array,        /* Stack array. */
         &Task_Voltage_Buffer             /* Buffer for static allocation. */
@@ -146,7 +145,7 @@ void Task_Init()
     //     &Task_Petwdog_Buffer                /* Buffer for static allocation. */
     // );
 
-    // wait till all tasks check in
+    // Wait till all tasks check in
     xEventGroupWaitBits(
         xStateBits,    // The event group handle
         ALL_TASK_BITS, // The bits to wait for (your 'xTaskBits')
@@ -157,8 +156,15 @@ void Task_Init()
 
     // IGNITION LOGIC GOES HERE (like can recieve messages n shi)
 
-    contactor_set(HV_PLUS_CONTACTOR, CONTACTOR_CLOSED, 10, NORMAL);
-    contactor_set(HV_MINUS_CONTACTOR, CONTACTOR_CLOSED, 10, NORMAL);
+    // All tasks have checked in, ensure nothing faulted on startup before closing contactors
+    if (faultBit_wait(NUM_FAULTS, 0) == 0) {
+        contactor_set(HV_PLUS_CONTACTOR, CONTACTOR_CLOSED, 10, NORMAL);
+        contactor_set(HV_MINUS_CONTACTOR, CONTACTOR_CLOSED, 10, NORMAL);
+        printf("================================\r\n");
+        printf("HV PLUS CONTACTOR CLOSED\r\n");
+        printf("HV MINUS CONTACTOR CLOSED\r\n");
+        printf("================================\r\n");
+    }
 
     // Task deletes itself after all other taks are init'd
     vTaskDelete(NULL);
