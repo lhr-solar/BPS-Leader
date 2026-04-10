@@ -151,19 +151,19 @@ void contactor_init()
     // init estops
     GPIO_InitStruct.Pin = ESTOP1_PIN;
     GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Pull = GPIO_PULLDOWN;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
     HAL_GPIO_Init(ESTOP1_PORT, &GPIO_InitStruct);
 
     GPIO_InitStruct.Pin = ESTOP2_PIN;
     GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Pull = GPIO_PULLDOWN;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
     HAL_GPIO_Init(ESTOP2_PORT, &GPIO_InitStruct);
 
     GPIO_InitStruct.Pin = ESTOP3_PIN;
     GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Pull = GPIO_PULLDOWN;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
     HAL_GPIO_Init(ESTOP3_PORT, &GPIO_InitStruct);
 

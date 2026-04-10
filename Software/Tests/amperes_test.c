@@ -13,10 +13,11 @@ int main(void) {
     HAL_Init();
     SystemClock_Config();
 
-    // Init_WDogTask();
+    Init_WDogTask();
     CAN_Init();
     LEDs_init();
     debugPrintf_init();
+    
 
     xStateBits = xEventGroupCreateStatic(&xStateBits_buffer);
    

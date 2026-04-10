@@ -69,6 +69,9 @@ static uint8_t temp_can_unpack(uint8_t *raw_temp_can_data, bps_temperature_aggre
 
     s_last_rx_times[tap_index] = current_time;
 
+    printf("id: %x.  Temperature: %lu.%lu\r\n", temp_can_data[tap_index].BPS_Tap_idx, temp_can_data[tap_index].BPS_Temperature_Tap_Data / 1000, temp_can_data[tap_index].BPS_Temperature_Tap_Data % 1000);
+
+
     portENTER_CRITICAL();
     // set corresponding bit in recv bitmap
     temp_sensor_bitmap |= (1U << tap_index);

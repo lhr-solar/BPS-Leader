@@ -5,19 +5,21 @@
 
 // Task configuration
 #define BLINKY_TASK_STACK_SIZE configMINIMAL_STACK_SIZE
-#define BLINKY_TASK_PRIORITY   ( tskIDLE_PRIORITY + 1 )
-#define DELAY_1S             pdMS_TO_TICKS(1000)
+#define BLINKY_TASK_PRIORITY (tskIDLE_PRIORITY + 1)
+#define DELAY_1S pdMS_TO_TICKS(1000)
 
 // Static task buffers
 static StaticTask_t xBlinkyTaskBuffer;
 static StackType_t xBlinkyStack[BLINKY_TASK_STACK_SIZE];
 
 // blink
-void vBlinkyTask(void *pvParameters) {
+void vBlinkyTask(void *pvParameters)
+{
     contactor_init();
-    while (true) {
-        vTaskDelay(DELAY_1S/2);
-        
+    while (true)
+    {
+        vTaskDelay(DELAY_1S / 2);
+
         switch (contactor_estop_checker())
         {
         case ESTOP_OK:
@@ -38,7 +40,8 @@ void vBlinkyTask(void *pvParameters) {
     }
 }
 
-int main() {
+int main()
+{
 
     HAL_Init();
 
@@ -55,11 +58,9 @@ int main() {
         NULL,
         BLINKY_TASK_PRIORITY,
         xBlinkyStack,
-        &xBlinkyTaskBuffer
-    );
+        &xBlinkyTaskBuffer);
 
     vTaskStartScheduler();
 
     return 0;
-
 }

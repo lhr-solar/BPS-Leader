@@ -10,11 +10,11 @@ extern I2C_HandleTypeDef hi2c3;
 
 /** * @brief Minimum allowed fan speed in RPM. 
  */
-#define FAN_MIN_RPM 3200
+#define FAN_MIN_RPM 100
 
 /** * @brief Maximum allowed fan speed in RPM. 
  */
-#define FAN_MAX_RPM 8000
+#define FAN_MAX_RPM 4950
 
 /** * @brief Global hardware handle for the EMC2305 fan controller chip. 
  */

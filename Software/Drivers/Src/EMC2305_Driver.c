@@ -100,7 +100,7 @@ void EMC2305_I2C_init(void)
 static void fan_init(EMC2305_Fan fan) {
 
     // Depends on the fan lol (should be in fan datasheet)
-    if (EMC2305_SetPWMBaseFrequency(&chip, fan, EMC2305_PWM_19k53) != EMC2305_OK) {
+    if (EMC2305_SetPWMBaseFrequency(&chip, fan, EMC2305_PWM_26k00) != EMC2305_OK) {
         set_faultBit(FAN_CHIP_ERROR);
     }
 
@@ -111,7 +111,7 @@ static void fan_init(EMC2305_Fan fan) {
 
     // Set PID Gain to lowest (1x)
     if (EMC2305_WriteReg(&chip, EMC2305_FAN_REG_ADDR(fan, EMC2305_REG_GAIN1), 0x00) != EMC2305_OK) {
-        set_faultBit(FAN_CHIP_ERROR);
+        set_faultBit(FAN_CHIP_ERROR);   
     }
 
     // Set PWM output mode to open-drain (use false for push-pull)
