@@ -14,21 +14,28 @@
 #define AMPERES_UNPACK_CURRENT_mA(x) ((int32_t)(((uint32_t)(x)[2] << 24) | ((uint32_t)(x)[1] << 16) | ((uint32_t)(x)[0] << 8)) >> 8)
 #define AMPERES_UNPACK_RAW_mV(x) ((uint16_t)((x[4] << 8) | (uint16_t)x[3]))
 
-// Global variable
-bps_pack_current_t AmperesData = {0};
+// Printf period macros
+#define AMPERES_LOOP_PRINTF_DELAY_MS 2000
+#define AMPERES_PRINTF_COUNTER (AMPERES_LOOP_PRINTF_DELAY_MS / AMPERES_MONITOR_TASK_DELAY_MS)
 
-void Task_Amperes_Monitor()
-{
+// Global variable
+bps_pack_current_t AmperesData = { 0 };
+
+void Task_Amperes_Monitor() {
     uint8_t amperesCANFaultCount = 0;
     TickType_t xLastWakeTime = xTaskGetTickCount();
 
+    uint32_t amps_printf_debug_counter = 0;
+
     while (1)
     {
+        amps_printf_debug_counter++;
+
         // Delays 100 ms
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(AMPERES_MONITOR_TASK_DELAY_MS));
 
         // Receive from CAN
-        uint8_t buffer[CAN_DLC_BPS_PACK_CURRENT] = {0};
+        uint8_t buffer[CAN_DLC_BPS_PACK_CURRENT] = { 0 };
         if (bps_can_recv(CAN_ID_BPS_PACK_CURRENT, buffer, CAN_DLC_BPS_PACK_CURRENT, AMPERES_CAN_TIMEOUT_MS) != CAN_OK)
         {
             amperesCANFaultCount++;
@@ -38,15 +45,20 @@ void Task_Amperes_Monitor()
             AmperesData.Main_Battery_Current = AMPERES_UNPACK_CURRENT_mA(buffer);
             AmperesData.Main_Battery_Current_RawV = AMPERES_UNPACK_RAW_mV(buffer);
             amperesCANFaultCount = 0;
-            printf("============ Current Data ============");
-            printf("Received, ma = %li \r\n", AmperesData.Main_Battery_Current);
-            printf("======================================");
+
+            // Print current at lower rate
+            if (amps_printf_debug_counter >= AMPERES_PRINTF_COUNTER)
+            {
+                printf("Pack Current: %li mA\r\n", AmperesData.Main_Battery_Current);
+                printf("\r\n");
+                amps_printf_debug_counter = 0;
+            }
         }
 
         // Handle CAN fault
         if (amperesCANFaultCount >= AMPERES_CAN_TIMEOUT_TRIGGER_COUNT)
         {
-            printf("CAN receive fault \r\n");
+            printf("FAULT: AMPERES CAN RECV\r\n");
             set_faultBit(BPS_CAN_ERROR);
         }
 
@@ -54,7 +66,7 @@ void Task_Amperes_Monitor()
         if ((AmperesData.Main_Battery_Current < OVERCURRENT_CHARGE_THRESHOLD_mA) ||
             (AmperesData.Main_Battery_Current > OVERCURRENT_DISCHARGE_THRESHOLD_mA))
         {
-            printf("Overcurrent, ma = %li \r\n", AmperesData.Main_Battery_Current);
+            printf("FAULT: OVERCURRENT - %li mA\r\n", AmperesData.Main_Battery_Current);
             set_faultBit(BATTERY_OVERCURRENT_FAULT);
         }
         else

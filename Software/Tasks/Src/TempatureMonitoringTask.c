@@ -26,6 +26,10 @@
 // get bits 5:7 of temp can message, which is fault code
 #define TEMP_FAULT_MASK 0x7
 
+// Printf period macros
+#define TEMP_LOOP_PRINTF_DELAY_MS 2000
+#define TEMP_PRINTF_COUNTER (TEMP_LOOP_PRINTF_DELAY_MS / TEMP_MONITOR_TASK_DELAY_MS)
+
 // watchdog bitmap
 uint32_t temp_sensor_bitmap;
 
@@ -33,10 +37,9 @@ static TimerHandle_t temperature_watchdog_timer;
 static StaticTimer_t temp_timer_buffer;
 
 // pass in pointer to raw data, packs struct into arr. Returns the tap id.
-static uint8_t temp_can_unpack(uint8_t *raw_temp_can_data, bps_temperature_aggregate_arr_t *temp_can_data)
-{
+static uint8_t temp_can_unpack(uint8_t* raw_temp_can_data, bps_temperature_aggregate_arr_t* temp_can_data) {
 
-    static TickType_t s_last_rx_times[NUM_TEMPERATURE_SENSORS] = {0};
+    static TickType_t s_last_rx_times[NUM_TEMPERATURE_SENSORS] = { 0 };
 
     // if sensor not sending, skip. Watchdog will err eventually if it doesn't receive more data
     if (raw_temp_can_data == NULL)
@@ -69,9 +72,6 @@ static uint8_t temp_can_unpack(uint8_t *raw_temp_can_data, bps_temperature_aggre
 
     s_last_rx_times[tap_index] = current_time;
 
-    printf("id: %x.  Temperature: %lu.%lu\r\n", temp_can_data[tap_index].BPS_Tap_idx, temp_can_data[tap_index].BPS_Temperature_Tap_Data / 1000, temp_can_data[tap_index].BPS_Temperature_Tap_Data % 1000);
-
-
     portENTER_CRITICAL();
     // set corresponding bit in recv bitmap
     temp_sensor_bitmap |= (1U << tap_index);
@@ -80,8 +80,7 @@ static uint8_t temp_can_unpack(uint8_t *raw_temp_can_data, bps_temperature_aggre
     return 1;
 }
 
-static void temp_can_pack(bps_temperature_aggregate_arr_t temp_can_data, uint8_t *msgArr)
-{
+static void temp_can_pack(bps_temperature_aggregate_arr_t temp_can_data, uint8_t* msgArr) {
     if (msgArr == NULL)
     {
         return;
@@ -104,12 +103,11 @@ static void temp_can_pack(bps_temperature_aggregate_arr_t temp_can_data, uint8_t
 }
 
 // gets all can data from each tap from a passed in volttemp board, unpacks it and puts it into array
-static void can_recv_all_taps(uint32_t can_msg_ID, bps_temperature_aggregate_arr_t temp_can_data[])
-{
+static void can_recv_all_taps(uint32_t can_msg_ID, bps_temperature_aggregate_arr_t temp_can_data[]) {
     // can recieve for all 4 temperature taps for each temptemp board
     for (uint8_t i = 0; i < TEMP_TAPS_PER_BOARD; i++)
     {
-        uint8_t raw_databuffer[CAN_DLC_BPS_VT0_TEMPERATURE_ARR] = {0};
+        uint8_t raw_databuffer[CAN_DLC_BPS_VT0_TEMPERATURE_ARR] = { 0 };
         // if can fails then message will not be unpacked and the watchdog will trip
         if (bps_can_recv(can_msg_ID, raw_databuffer, CAN_DLC_BPS_VT0_TEMPERATURE_ARR, TEMPERATURE_CAN_DELAY_MS) == CAN_OK)
         {
@@ -119,8 +117,7 @@ static void can_recv_all_taps(uint32_t can_msg_ID, bps_temperature_aggregate_arr
     }
 }
 
-static void vTemperatureWatchdogCallback(TimerHandle_t temp_timer)
-{
+static void vTemperatureWatchdogCallback(TimerHandle_t temp_timer) {
 
     if (temp_sensor_bitmap != TEMP_TAPS_ALL_DATA)
     {
@@ -129,18 +126,17 @@ static void vTemperatureWatchdogCallback(TimerHandle_t temp_timer)
     temp_sensor_bitmap = 0;
 }
 
-void Task_Temperature_Monitor()
-{
+void Task_Temperature_Monitor() {
 
     // array to hold struct packed can data
-    static bps_temperature_aggregate_arr_t temp_can_data[NUM_TEMPERATURE_SENSORS] = {0};
+    static bps_temperature_aggregate_arr_t temp_can_data[NUM_TEMPERATURE_SENSORS] = { 0 };
 
     // Make timer for watchdog
     temperature_watchdog_timer = xTimerCreateStatic(
         "Temp Watchdog",                         /* Name of the timer */
         pdMS_TO_TICKS(TEMP_WATCHDOG_TIMEOUT_MS), /* Timer period in ticks */
         pdTRUE,                                  /* auto-reload */
-        (void *)0,                               /* Timer ID */
+        (void*)0,                               /* Timer ID */
         vTemperatureWatchdogCallback,            /* Callback function */
         &temp_timer_buffer                       /* Buffer to hold timer data */
     );
@@ -149,8 +145,11 @@ void Task_Temperature_Monitor()
 
     TickType_t xLastWakeTime = xTaskGetTickCount();
 
+    uint32_t temp_printf_debug_counter = 0;
+
     while (1)
     {
+        temp_printf_debug_counter++;
 
         // Delays
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(TEMP_MONITOR_TASK_DELAY_MS));
@@ -163,7 +162,7 @@ void Task_Temperature_Monitor()
             can_recv_all_taps(can_id, temp_can_data);
         }
 
-        uint8_t msgBuff[CAN_DLC_BPS_TEMPERATURE_AGGREGATE_ARR] = {0};
+        uint8_t msgBuff[CAN_DLC_BPS_TEMPERATURE_AGGREGATE_ARR] = { 0 };
 
         // gets the threshold for this iteration of the loop, (since threshold changes depending if the battery is charging or discharging)
         uint32_t temp_threshold = get_temp_threshold();
@@ -178,9 +177,23 @@ void Task_Temperature_Monitor()
                 all_temp_good = false;
             }
 
+            // Print temps at lower rate
+            if (temp_printf_debug_counter >= TEMP_PRINTF_COUNTER)
+            {
+                printf("Tap %d Temperature: %lu.%lu C\r\n", temp_can_data[i].BPS_Tap_idx, temp_can_data[i].BPS_Temperature_Tap_Data / 1000, temp_can_data[i].BPS_Temperature_Tap_Data % 1000);
+            }
+
             temp_can_pack(temp_can_data[i], msgBuff);
             car_can_send(CAN_ID_BPS_TEMPERATURE_AGGREGATE_ARR, msgBuff, CAN_DLC_BPS_TEMPERATURE_AGGREGATE_ARR, pdMS_TO_TICKS(TEMPERATURE_CAN_DELAY_MS));
         }
+
+        // Reset printf counter (outside loop so all taps print)
+        if (temp_printf_debug_counter >= TEMP_PRINTF_COUNTER)
+        {
+            printf("\r\n");
+            temp_printf_debug_counter = 0;
+        }
+
         if (all_temp_good)
         {
             set_state_bit(TEMPERATURE_MONITOR_GOOD, STATE_BIT_SET);
@@ -188,6 +201,6 @@ void Task_Temperature_Monitor()
 
         // Set event group bit
         xEventGroupSetBits(xWDogEventGroup_handle, /* The event group being updated. */
-                           TEMP_MONITOR_DONE);     /* The bits being set. */
+            TEMP_MONITOR_DONE);     /* The bits being set. */
     }
 }
