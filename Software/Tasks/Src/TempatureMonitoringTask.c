@@ -18,7 +18,7 @@
 
 #define TEMP_WATCHDOG_TIMEOUT_MS 1000
 
-#define get_temp_threshold() ((get_state_bit(DISCHARGING_BATT_STATE) == 0) ? OVERTEMP_THRESHOLD_CHARGING_MC : OVERTEMP_THRESHOLD_DISCHARGING_MC)
+#define get_temp_threshold() ((get_state_bit(DISCHARGING_BATT_STATE) == STATE_BIT_SET) ? OVERTEMP_THRESHOLD_DISCHARGING_MC : OVERTEMP_THRESHOLD_CHARGING_MC)
 
 // get first four bits of temp can message, which is id
 #define TEMP_ID_MASK 0x1F
@@ -165,25 +165,22 @@ void Task_Temperature_Monitor()
         // gets the threshold for this iteration of the loop, (since threshold changes depending if the battery is charging or discharging)
         uint32_t temp_threshold = get_temp_threshold();
 
-        bool task_state_ready = true;
+        bool all_temp_good = true;
 
         for (uint8_t i = 0; i < NUM_TEMPERATURE_SENSORS; i++)
         {
             if (temp_can_data[i].BPS_Temperature_Tap_Data > temp_threshold)
             {
                 set_faultBit(BATTERY_OVERTEMP_FAULT);
-                task_state_ready = false;
+                all_temp_good = false;
             }
 
             temp_can_pack(temp_can_data[i], msgBuff);
             car_can_send(CAN_ID_BPS_TEMPERATURE_AGGREGATE_ARR, msgBuff, CAN_DLC_BPS_TEMPERATURE_AGGREGATE_ARR, pdMS_TO_TICKS(TEMPERATURE_CAN_DELAY_MS));
         }
-        if (task_state_ready)
+        if (all_temp_good)
         {
-            if (get_state_bit(TEMPERATURE_MONITOR_GOOD) == 0)
-            {
-                set_state_bit(TEMPERATURE_MONITOR_GOOD);
-            }
+            set_state_bit(TEMPERATURE_MONITOR_GOOD, STATE_BIT_SET);
         }
 
         // Set event group bit

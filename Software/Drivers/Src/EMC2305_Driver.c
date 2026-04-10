@@ -5,10 +5,32 @@ EMC2305_HandleTypeDef chip;
 
 I2C_HandleTypeDef hi2c3;
 
+bool i2c_initialized = false;
+bool driver_initialized = false;
+
 #define EMC2305_STARTUP_WAIT_MS 200
+
+// pwm is value greater than 0 less than 100
+EMC2305_Status set_fan_pwm(EMC2305_Fan fan, uint16_t pwm) {
+
+    if (pwm > 100) pwm = 100;
+
+    return EMC2305_SetFanPWM(&chip, fan, pwm);
+}
+
+// rpm is value greater than FAN_MIN_RPM less than FAN_MAX_RPM
+EMC2305_Status set_fan_rpm(EMC2305_Fan fan, uint16_t rpm) {
+
+    if (rpm > FAN_MAX_RPM) rpm = FAN_MAX_RPM;
+    if (rpm < FAN_MIN_RPM) rpm = FAN_MIN_RPM;
+
+    return EMC2305_SetFanRPM(&chip, fan, rpm);
+}
 
 void EMC2305_I2C_init(void)
 { 
+
+
 
   GPIO_InitTypeDef init = {0};
   
@@ -70,6 +92,8 @@ void EMC2305_I2C_init(void)
 
   HAL_NVIC_SetPriority(I2C3_ER_IRQn, EMC2305_IRQ_PRIO, 0);
   HAL_NVIC_EnableIRQ(I2C3_ER_IRQn);
+
+  i2c_initialized = true;
 
 }
 
@@ -135,12 +159,18 @@ EMC2305_Status EMC2305_Driver_init() {
     fan_init(EMC2305_FAN1);
     fan_init(EMC2305_FAN2);
 
+    driver_initialized = true;
+
     return EMC2305_OK;
 }
 
 // Sets all fans to max RPM in case of fault. Will do this anyways after some time, but its best to do it sooner
 // TODO: check if fans are intialized. If not, initialize them. 
 void set_fans_MAX(void) {
+
+    if (!i2c_initialized) EMC2305_I2C_init();
+    if (!driver_initialized) EMC2305_Driver_init();
+
     EMC2305_SetFanRPM(&chip, EMC2305_FAN1, FAN_MAX_RPM);
     EMC2305_SetFanRPM(&chip, EMC2305_FAN2, FAN_MAX_RPM);
 }

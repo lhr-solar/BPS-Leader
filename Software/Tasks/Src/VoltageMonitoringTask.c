@@ -170,7 +170,7 @@ void Task_Voltage_Monitor()
         }
 
         uint8_t msgBuff[CAN_DLC_BPS_VOLTAGE_AGGREGATE_ARR] = {0};
-        bool task_state_ready = true;
+        bool all_voltage_good = true;
 
         for (uint8_t i = 0; i < NUM_VOLTAGE_SENSORS; i++)
         {
@@ -179,25 +179,22 @@ void Task_Voltage_Monitor()
                 volt_can_data[i].BPS_Voltage_Tap_Fault = BPS_VOLTAGE_AGGREGATE_ARR_BPS_VOLTAGE_TAP_FAULT_OVER_VOLTAGE;
 
                 set_faultBit(BATTERY_OVERVOLTAGE_FAULT);
-                task_state_ready = false;
+                all_voltage_good = false;
             }
             else if (volt_can_data[i].BPS_Voltage_Tap_Data < CELL_UNDERVOLTAGE_THRESHOLD_MV)
             {
                 volt_can_data[i].BPS_Voltage_Tap_Fault = BPS_VOLTAGE_AGGREGATE_ARR_BPS_VOLTAGE_TAP_FAULT_UNDER_VOLTAGE;
                 set_faultBit(BATTERY_UNDERVOLTAGE_FAULT);
-                task_state_ready = false;
+                all_voltage_good = false;
             }
 
             // pack data for the  msg
             volt_can_pack(volt_can_data[i], msgBuff);
             car_can_send(CAN_ID_BPS_VOLTAGE_AGGREGATE_ARR, msgBuff, CAN_DLC_BPS_VOLTAGE_AGGREGATE_ARR, pdMS_TO_TICKS(VOLTAGE_CAN_DELAY_MS));
         }
-        if (task_state_ready)
+        if (all_voltage_good)
         {
-            if (get_state_bit(VOLTAGE_MONITOR_GOOD) == 0)
-            {
-                set_state_bit(VOLTAGE_MONITOR_GOOD);
-            }
+            set_state_bit(VOLTAGE_MONITOR_GOOD, STATE_BIT_SET);
         }
 
         // Set event group bit

@@ -50,6 +50,7 @@ void Task_Init()
 
     SHT45_init();
 
+    EMC2305_I2C_init();
     EMC2305_Driver_init();
 
     debugPrintf_init();

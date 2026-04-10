@@ -59,25 +59,18 @@ void Task_Amperes_Monitor()
         }
         else
         {
-            if (get_state_bit(AMPERES_MONITOR_GOOD) == 0)
-            {
-                set_state_bit(AMPERES_MONITOR_GOOD);
-            }
+            set_state_bit(AMPERES_MONITOR_GOOD, STATE_BIT_SET);
         }
 
         if (AmperesData.Main_Battery_Current > 0)
         {
-            if (get_state_bit(DISCHARGING_BATT_STATE) == 0)
-            {
-                set_state_bit(DISCHARGING_BATT_STATE);
-            }
+            set_state_bit(DISCHARGING_BATT_STATE, STATE_BIT_SET);
+            set_state_bit(CHARGING_BATT_STATE, STATE_BIT_RESET);
         }
         else
         {
-            if (get_state_bit(DISCHARGING_BATT_STATE) != 0)
-            {
-                clear_state_bit(DISCHARGING_BATT_STATE);
-            }
+            set_state_bit(DISCHARGING_BATT_STATE, STATE_BIT_RESET);
+            set_state_bit(CHARGING_BATT_STATE, STATE_BIT_SET);
         }
 
         // Set event group bit so watchdog knows we ran

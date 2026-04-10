@@ -36,3 +36,27 @@ EMC2305_Status EMC2305_Driver_init(void);
  * @note  used as a failsafe during system fault conditions.
  */
 void set_fans_MAX(void);
+
+/**
+ * @brief Sets the target RPM (Revolutions Per Minute) for the specified fan.
+ * * @details This function configures the EMC2305's closed-loop Fan Speed Control (FSC) 
+ * algorithm to automatically drive the fan to the requested RPM. The controller will 
+ * adjust the PWM output dynamically based on the tachometer feedback to maintain this target.
+ *
+ * @param[in] fan The fan channel to configure (e.g., FAN_1, FAN_2, etc. defined in EMC2305_Fan).
+ * @param[in] rpm The target fan speed in Revolutions Per Minute.
+ * * @return EMC2305_Status Execution status of the command.
+ */
+EMC2305_Status set_fan_rpm(EMC2305_Fan fan, uint16_t rpm);
+
+/**
+ * @brief Sets the direct PWM (Pulse Width Modulation) drive value for the specified fan.
+ * * @details This function is used for open-loop control. It disables the closed-loop 
+ * RPM algorithm for the specified channel and forces the PWM output to the requested 
+ * duty cycle. 
+ *
+ * @param[in] fan The fan channel to configure (e.g., FAN_1, FAN_2, etc. defined in EMC2305_Fan).
+ * @param[in] pwm The target PWM duty cycle value to apply.
+ * * @return EMC2305_Status Execution status of the command.
+ */
+EMC2305_Status set_fan_pwm(EMC2305_Fan fan, uint16_t pwm);

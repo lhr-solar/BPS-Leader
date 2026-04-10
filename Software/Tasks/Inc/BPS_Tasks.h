@@ -13,6 +13,7 @@
 #define TASK_CAN_FORWARD_PRIO           tskIDLE_PRIORITY + 2
 #define TASK_FAULT_HANDLER_PRIO         tskIDLE_PRIORITY + 5
 #define TASK_CONTACTOR_MONITOR_PRIO     tskIDLE_PRIORITY + 4
+#define TASK_FAN_CONTROLLER_PRIO        tskIDLE_PRIORITY + 3
 
 #define TEST_TASK_PRIORITY              tskIDLE_PRIORITY + 2
 
@@ -26,6 +27,7 @@
 #define FAULT_HANDLER_TASK_STACK_SIZE            (configMINIMAL_STACK_SIZE*2)
 #define TASK_CAN_FORWARD_STACK_SIZE              (configMINIMAL_STACK_SIZE*2)
 #define TASK_CONTACTOR_MONITORING_STACK_SIZE     (configMINIMAL_STACK_SIZE*2)
+#define TASK_FAN_CONTROLLER_STACK_SIZE           (configMINIMAL_STACK_SIZE*2)
 
 #define TEST_TASK_STACK_SIZE                     (configMINIMAL_STACK_SIZE*2)
 
@@ -40,6 +42,7 @@ extern StackType_t FaultHandler_Task_Stack[ FAULT_HANDLER_TASK_STACK_SIZE ];
 extern StackType_t Task_Can_Forward_Stack[ TASK_CAN_FORWARD_STACK_SIZE ];
 extern StackType_t Task_Contactor_Monitoring_Stack[ TASK_CONTACTOR_MONITORING_STACK_SIZE ];
 extern StackType_t Init_Task_Stack[ TASK_INIT_STACK_SIZE ];
+extern StackType_t Task_Fan_Controller_Stack[ TASK_FAN_CONTROLLER_STACK_SIZE ];
 
 // Task Buffers
 extern StaticTask_t Task_Temperature_Buffer;
@@ -51,6 +54,7 @@ extern StaticTask_t FaultHandler_Task_Buffer;
 extern StaticTask_t Task_Can_Forward_Buffer;
 extern StaticTask_t Task_Contactor_Monitoring_Buffer;
 extern StaticTask_t Init_Task_Buffer;
+extern StaticTask_t Task_Fan_Controller_Buffer;
 
 // Task Delays
 #define TEMP_MONITOR_TASK_DELAY_MS      290
@@ -58,6 +62,7 @@ extern StaticTask_t Init_Task_Buffer;
 #define PRECHARGE_TASK_DELAY_MS         100
 #define CONTACTOR_MONITOR_TASK_DELAY_MS 200
 #define AMPERES_MONITOR_TASK_DELAY_MS   90
+#define FAN_CONTROLLER_TASK_DELAY_MS    300
 
 // Task Inits
 void Task_Init();
@@ -65,6 +70,7 @@ void Task_Voltage_Monitor();
 void Task_Temperature_Monitor();
 void Task_FaultHandler(void *pvParameters);
 void Task_Temperature_Monitor();
+void Task_Fan_Controller();
 void Task_Amperes_Monitor();
 void Task_PetWatchdog();
 void Task_Temperature_Monitor();
@@ -87,14 +93,15 @@ extern EventGroupHandle_t xWDogEventGroup_handle;
 extern EventGroupHandle_t xTaskBits;
 extern EventGroupHandle_t xStateBits;
 
-#define set_state_bit(bit) (xEventGroupSetBits(xStateBits, (1U << bit))) 
-
 #define get_state_bit(bit) ((xEventGroupGetBits(xStateBits) & (1U << bit)) >> bit)
+
+#define set_state_bit(bit, state) ((state) ? (xEventGroupSetBits(xStateBits, (1U << bit))) : (clear_state_bit(bit))) 
 
 #define clear_state_bit(bit) (xEventGroupClearBits(xStateBits, (1U << bit)))
 
 typedef enum {
-    DISCHARGING_BATT_STATE,    // 1 = Discharging, 0 = charging
+    DISCHARGING_BATT_STATE,
+    CHARGING_BATT_STATE,
     AMPERES_MONITOR_GOOD,
     VOLTAGE_MONITOR_GOOD,
     TEMPERATURE_MONITOR_GOOD,
@@ -102,5 +109,7 @@ typedef enum {
     NUM_STATE_BITS
 } state_bits_t;
 
+#define STATE_BIT_SET (1)
+#define STATE_BIT_RESET (0)
 
 
