@@ -90,8 +90,9 @@ extern EventGroupHandle_t xWDogEventGroup_handle;
 #define ALL_TASKS_DONE (TEMP_MONITOR_DONE | VOLT_MONITOR_DONE | WINDOW_TIMER_DONE | AMPERES_MONITOR_DONE)
 
 // Task Checkin init stuff.
-extern EventGroupHandle_t xTaskBits;
 extern EventGroupHandle_t xStateBits;
+
+extern StaticEventGroup_t xStateBits_buffer;
 
 #define get_state_bit(bit) ((xEventGroupGetBits(xStateBits) & (1U << bit)) >> bit)
 

@@ -17,6 +17,8 @@ int main(void) {
     CAN_Init();
     LEDs_init();
     debugPrintf_init();
+
+    xStateBits = xEventGroupCreateStatic(&xStateBits_buffer);
    
     xTaskCreateStatic(
             Task_Amperes_Monitor,                       /* The function that implements the task. */

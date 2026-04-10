@@ -1,6 +1,10 @@
 #include "BPS_Tasks.h"
 #include "StatusLEDs.h"
 #include "CANbus.h"
+#include "Contactors.h"
+#include "DebugPrintf.h"
+#include "SHT45.h"
+#include "EMC2305_Driver.h"
 #include "BPSCAN_can_msgs.h"
 
 #define BLINKY_TASK_STACK_SIZE configMINIMAL_STACK_SIZE
@@ -101,6 +105,24 @@ int main()
 
     SystemClock_Config();
 
+    CAN_Init();
+    
+    LEDs_init();
+
+    contactor_init();
+
+    SHT45_init();
+
+    EMC2305_Driver_init();
+
+    debugPrintf_init();
+
+    Init_WDogTask();
+
+    printf("Initialized\n\r");
+
+    xStateBits = xEventGroupCreateStatic(&xStateBits_buffer);
+
     xTaskCreateStatic(
         vFakeVoltSend,
         "Fake Voltage Measurements",
@@ -111,13 +133,13 @@ int main()
         &xTestTaskBuffer);
 
     xTaskCreateStatic(
-        Task_Init,            // Task function
-        "Init Task",          // Name of the task (for debugging)
-        TASK_INIT_STACK_SIZE, // Stack size in words
-        NULL,                 // Task input parameter
-        TASK_INIT_PRIO,       // Task priority
-        Init_Task_Stack,      // Task handle
-        &Init_Task_Buffer     // Static task buffer (optional)
+        Task_FaultHandler,             // Task function
+        "FaultHandler",                // Name of the task (for debugging)
+        FAULT_HANDLER_TASK_STACK_SIZE,   // Stack size in words
+        (void*)NULL,                       // Task input parameter
+        TASK_FAULT_HANDLER_PRIO,       // Task priority
+        FaultHandler_Task_Stack,       // Task handle
+        &FaultHandler_Task_Buffer      // Static task buffer (optional)
     );
 
     xTaskCreateStatic(

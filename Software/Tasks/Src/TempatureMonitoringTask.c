@@ -20,7 +20,7 @@
 
 #define get_temp_threshold() ((get_state_bit(DISCHARGING_BATT_STATE) == STATE_BIT_SET) ? OVERTEMP_THRESHOLD_DISCHARGING_MC : OVERTEMP_THRESHOLD_CHARGING_MC)
 
-// get first four bits of temp can message, which is id
+// get first five bits of temp can message, which is id
 #define TEMP_ID_MASK 0x1F
 
 // get bits 5:7 of temp can message, which is fault code
@@ -118,7 +118,7 @@ static void can_recv_all_taps(uint32_t can_msg_ID, bps_temperature_aggregate_arr
 
 static void vTemperatureWatchdogCallback(TimerHandle_t temp_timer)
 {
-    printf("%lx\r\n", temp_sensor_bitmap);
+
     if (temp_sensor_bitmap != TEMP_TAPS_ALL_DATA)
     {
         set_faultBit(BPS_CAN_ERROR);

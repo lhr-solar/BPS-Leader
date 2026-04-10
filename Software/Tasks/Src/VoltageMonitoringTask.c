@@ -73,6 +73,7 @@ static uint8_t volt_can_unpack(uint8_t *raw_volt_can_data, bps_voltage_aggregate
 
     s_last_rx_times[tap_index] = current_time;
 
+
     // set the volt sensor watchdog bitmap
     portENTER_CRITICAL();
     // set corresponding bit in recv bitmap
@@ -183,6 +184,7 @@ void Task_Voltage_Monitor()
             }
             else if (volt_can_data[i].BPS_Voltage_Tap_Data < CELL_UNDERVOLTAGE_THRESHOLD_MV)
             {
+
                 volt_can_data[i].BPS_Voltage_Tap_Fault = BPS_VOLTAGE_AGGREGATE_ARR_BPS_VOLTAGE_TAP_FAULT_UNDER_VOLTAGE;
                 set_faultBit(BATTERY_UNDERVOLTAGE_FAULT);
                 all_voltage_good = false;

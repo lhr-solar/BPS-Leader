@@ -127,7 +127,11 @@ int main()
 
     debugPrintf_init();
 
+    Init_WDogTask();
+
     printf("Initialized\n\r");
+
+    xStateBits = xEventGroupCreateStatic(&xStateBits_buffer);
 
     xTaskCreateStatic(
         vFakeTempSend,

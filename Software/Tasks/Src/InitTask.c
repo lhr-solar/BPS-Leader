@@ -19,6 +19,7 @@ StackType_t Task_Petwdog_Stack_Array[TASK_PETWDOG_STACK_SIZE];
 StackType_t Task_Contactor_Monitor_Stack[TASK_CONTACTOR_MONITORING_STACK_SIZE];
 StackType_t Init_Task_Stack[TASK_INIT_STACK_SIZE];
 StackType_t Task_Can_Forward_Stack[TASK_CAN_FORWARD_STACK_SIZE];
+StackType_t Task_Fan_Controller_Stack[TASK_FAN_CONTROLLER_STACK_SIZE];
 
 // Task Buffer
 StaticTask_t Init_Task_Buffer;
@@ -30,13 +31,12 @@ StaticTask_t Task_Petwdog_Buffer;
 StaticTask_t Precharge_Task_Buffer;
 StaticTask_t Task_Contactor_Monitor_Buffer;
 StaticTask_t Task_Can_Forward_Buffer;
+StaticTask_t Task_Fan_Controller_Buffer;
 
 // Event Group
 EventGroupHandle_t xWDogEventGroup_handle;
-EventGroupHandle_t xTaskBits;
-EventGroupHandle_t xStateBits;
 
-StaticEventGroup_t xTaskBits_buffer;
+EventGroupHandle_t xStateBits;
 StaticEventGroup_t xStateBits_buffer;
 
 void Task_Init()
@@ -57,14 +57,14 @@ void Task_Init()
 
     xStateBits = xEventGroupCreateStatic(&xStateBits_buffer);
 
-    if (xTaskBits == NULL || xStateBits == NULL)
+    if (xStateBits == NULL)
     {
         Error_Handler();
     }
 
-    printf("Initialized\n\r");
-
     Init_WDogTask();
+
+    printf("Initialized\n\r");
 
     xTaskCreateStatic(
         Task_FaultHandler,             // Task function
@@ -84,6 +84,16 @@ void Task_Init()
         TASK_AMPERES_MONITOR_PRIO,       /* Task Prioriy. */
         Task_Amperes_Stack_Array,        /* Stack array. */
         &Task_Amperes_Buffer             /* Buffer for static allocation. */
+    );
+
+    xTaskCreateStatic(
+        Task_Fan_Controller,            /* The function that implements the task. */
+        "Fan Controller Task",          /* Text name for the task. */
+        TASK_FAN_CONTROLLER_STACK_SIZE, /* The size (in words) of the stack that should be created for the task. */
+        (void *)NULL,                   /* Paramter passed into the task. */
+        TASK_FAN_CONTROLLER_PRIO,       /* Task Prioriy. */
+        Task_Fan_Controller_Stack,      /* Stack array. */
+        &Task_Fan_Controller_Buffer            /* Buffer for static allocation. */
     );
 
     xTaskCreateStatic(
@@ -138,7 +148,7 @@ void Task_Init()
 
     // wait till all tasks check in
     xEventGroupWaitBits(
-        xTaskBits,     // 1. The event group handle
+        xStateBits,    // The event group handle
         ALL_TASK_BITS, // The bits to wait for (your 'xTaskBits')
         pdFALSE,       // do not Clear the bits after they are met
         pdTRUE,        // xWaitForAllBits: pdTRUE = AND (Wait for ALL)
