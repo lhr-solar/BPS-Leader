@@ -59,7 +59,7 @@ void Task_Amperes_Monitor() {
         // Handle CAN fault
         if (amperesCANFaultCount >= AMPERES_CAN_TIMEOUT_TRIGGER_COUNT)
         {
-            printf("FAULT: AMPERES CAN RECV\r\n");
+            // printf("FAULT: AMPERES CAN RECV\r\n");
             set_faultBit(BPS_CAN_ERROR);
         }
 
@@ -67,7 +67,7 @@ void Task_Amperes_Monitor() {
         if ((AmperesData.Main_Battery_Current < OVERCURRENT_CHARGE_THRESHOLD_mA) ||
             (AmperesData.Main_Battery_Current > OVERCURRENT_DISCHARGE_THRESHOLD_mA))
         {
-            printf("FAULT: OVERCURRENT - %li mA\r\n", AmperesData.Main_Battery_Current);
+            // printf("FAULT: OVERCURRENT - %li mA\r\n", AmperesData.Main_Battery_Current);
             set_faultBit(PACK_OVERCURRENT_FAULT);
         }
         else

@@ -89,16 +89,16 @@ static void temp_can_pack(bps_temperature_aggregate_arr_t temp_can_data, uint8_t
     // bits 0-4 are the tap id
     msgArr[0] = (temp_can_data.BPS_Tap_idx & TEMP_ID_MASK);
 
-    // bits 5-7 is the fault
-    msgArr[0] |= (temp_can_data.BPS_Temperature_Tap_Fault & TEMP_FAULT_MASK) << 5;
+    // bits 8-15 is the fault
+    msgArr[1] = temp_can_data.BPS_Temperature_Tap_Fault;
 
-    // bytes 1-4 are temp data
-    memcpy(&msgArr[1], &(temp_can_data.BPS_Temperature_Tap_Data), sizeof(uint32_t));
+    // bits 16-39 are temp data
+    memcpy(&msgArr[2], &(temp_can_data.BPS_Temperature_Tap_Data), 3UL);
 
-    // bytes 5 and 6 is the time since last recieve
+    // bits 40-55
     memcpy(&msgArr[5], &(temp_can_data.BPS_Temperature_Tap_Age), sizeof(uint16_t));
 
-    // TODO: Implement Fram ID thing Parthiv was talking about
+    // TODO: Implement Frame ID thing Parthiv was talking about
     msgArr[7] = 0x67;
 }
 
