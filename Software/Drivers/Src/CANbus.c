@@ -13,7 +13,7 @@ static void FDCAN_Init_TXHeader(FDCAN_TxHeaderTypeDef* tx_header, uint32_t ID, u
     tx_header->Identifier = ID;
     tx_header->IdType = FDCAN_STANDARD_ID;
     tx_header->TxFrameType = FDCAN_DATA_FRAME;
-    tx_header->DataLength = dataLength;
+    tx_header->DataLength = dataLength << 16;
     tx_header->ErrorStateIndicator = FDCAN_ESI_ACTIVE;
     tx_header->BitRateSwitch = FDCAN_BRS_OFF;
     tx_header->FDFormat = FDCAN_CLASSIC_CAN;
@@ -150,7 +150,7 @@ static can_status_t BPS_CAN_Init(void)
     bps_can->Init.ClockDivider = FDCAN_CLOCK_DIV1;
     bps_can->Init.FrameFormat = FDCAN_FRAME_CLASSIC;
     bps_can->Init.Mode = FDCAN_MODE_NORMAL;
-    bps_can->Init.AutoRetransmission = ENABLE;
+    bps_can->Init.AutoRetransmission = DISABLE;
     bps_can->Init.TransmitPause = DISABLE;
     bps_can->Init.ProtocolException = DISABLE;
     bps_can->Init.NominalPrescaler = 20;
@@ -161,7 +161,7 @@ static can_status_t BPS_CAN_Init(void)
     bps_can->Init.DataSyncJumpWidth = 1;
     bps_can->Init.DataTimeSeg1 = 1;
     bps_can->Init.DataTimeSeg2 = 1;
-    bps_can->Init.StdFiltersNbr = 1;
+    bps_can->Init.StdFiltersNbr = 0;
     bps_can->Init.ExtFiltersNbr = 0;
     bps_can->Init.TxFifoQueueMode = FDCAN_TX_FIFO_OPERATION;
 
@@ -197,7 +197,7 @@ static can_status_t CAR_CAN_Init(void)
     car_can->Init.ClockDivider = FDCAN_CLOCK_DIV1;
     car_can->Init.FrameFormat = FDCAN_FRAME_CLASSIC;
     car_can->Init.Mode = FDCAN_MODE_NORMAL;
-    car_can->Init.AutoRetransmission = ENABLE;
+    car_can->Init.AutoRetransmission = DISABLE;
     car_can->Init.TransmitPause = DISABLE;
     car_can->Init.ProtocolException = DISABLE;
     car_can->Init.NominalPrescaler = 20;
@@ -208,7 +208,7 @@ static can_status_t CAR_CAN_Init(void)
     car_can->Init.DataSyncJumpWidth = 1;
     car_can->Init.DataTimeSeg1 = 1;
     car_can->Init.DataTimeSeg2 = 1;
-    car_can->Init.StdFiltersNbr = 1;
+    car_can->Init.StdFiltersNbr = 0;
     car_can->Init.ExtFiltersNbr = 0;
     car_can->Init.TxFifoQueueMode = FDCAN_TX_FIFO_OPERATION;
 

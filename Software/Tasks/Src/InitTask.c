@@ -69,6 +69,16 @@ void Task_Init(){
    );
 
 
-   // Task deletes itself after all other taks are init'd
+   xTaskCreateStatic(
+        Task_Elcon_Charging,                /* The function that implements the task. */
+        "Elcon Charging Task",              /* Text name for the task. */
+        TASK_ELCON_CHARGING_STACK_SIZE,     /* The size (in words) of the stack that should be created for the task. */
+        (void*)NULL,                        /* Parameter passed into the task. */
+        TASK_ELCON_CHARGING_PRIO,           /* Task Priority. */
+        Task_Elcon_Charging_Stack,          /* Stack array. */
+        &Task_Elcon_Charging_Buffer         /* Buffer for static allocation. */
+   );
+
+   // Task deletes itself after all other tasks are init'd
     vTaskDelete(NULL);
 }
