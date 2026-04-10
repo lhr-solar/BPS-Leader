@@ -19,10 +19,11 @@ typedef enum
 {
     // BPS main saefty loop faults
     BPS_FAULT,                  // If any major fault is detected; indicates we're in an emergency state
-    BATTERY_OVERVOLTAGE_FAULT,  // Battery voltage is greater than OVERVOLTAGE_THRESHOLD  (from volt-temp)
-    BATTERY_UNDERVOLTAGE_FAULT, // Battery voltage is less than UNDERVOLTAGE_THRESHOLD    (from volt-temp)
-    BATTERY_OVERTEMP_FAULT,     // Battery temperature is too high (from volt-temp)
-    BATTERY_OVERCURRENT_FAULT,  // Battery Current is too high    (from amperes)
+    CELL_OVERVOLTAGE_FAULT,  // Cell voltage is greater than OVERVOLTAGE_THRESHOLD  (from volt-temp)
+    CELL_UNDERVOLTAGE_FAULT, // Cell voltage is less than UNDERVOLTAGE_THRESHOLD    (from volt-temp)
+    BQ_CHIP_FAULT,                // BQ Chip faulted or not responding    (from volt-temp)
+    CELL_OVERTEMP_FAULT,     // Cell temperature is too high (from volt-temp)
+    PACK_OVERCURRENT_FAULT,  // Battery Pack Current is too high    (from amperes)
     CONTACTOR_HV_PLUS_FAULT,    // Contactor does not match expected state (Very bad 😡)
     CONTACTOR_HV_MINUS_FAULT,   // Contactor does not match expected state (Very bad 😡)
     CONTACTOR_ARRAY_FAULT,      // Contactor does not match expected state (Very bad 😡)
@@ -38,6 +39,8 @@ typedef enum
     ARRAY_GREATER_THAN_BATTERY_FAULT, // Array voltage is greater than battery voltage (from precharge ADC signal)
     PRECHARGE_TIMEOUT_FAULT,          // Precharge sequence took too long
     PRECHARGE_HYSTERESIS_FAULT,       // Precharge Array voltage fell under hysteresis threshold while precharging
+    // PACK_OVERVOLTAGE_FAULT,           // Pack voltage is too high (Precharge ADC reading)
+    // PACK_UNDERVOLTAGE_FAULT,          // Pack voltage is too low (Precharge ADC reading)
 
     // Software Errors
     RTOS_WATCHDOG_ERROR, // Watchdog did not get pet in time, code is likely blocking somewhere
@@ -86,4 +89,4 @@ EventBits_t faultBit_wait(fault_bit_t bit, TickType_t xTicksToWait);
  * @param bit which fault is being set
  * @return none
  */
-void set_faultBitFromISR(fault_bit_t bit, BaseType_t *xHigherPriorityTaskWoken);
+void set_faultBitFromISR(fault_bit_t bit, BaseType_t* xHigherPriorityTaskWoken);

@@ -64,7 +64,7 @@ void Task_Init()
 
     Init_WDogTask();
 
-    printf("Initialized\n\r");
+    printf("Initialized...\n\r");
 
     xTaskCreateStatic(
         Task_FaultHandler,             // Task function

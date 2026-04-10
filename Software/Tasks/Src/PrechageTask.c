@@ -23,6 +23,7 @@ void Init_PrechargeTask()
         set_faultBit(ADC_ERROR);
 }
 
+// TODO(rshah): currently this throws cell over/undervoltage due to not enough bits in eventgroup. could make another eventgroup to distinguish
 void Fault_Checker(uint32_t Array_Voltage, uint32_t Battery_Voltage, Precharge_State_t State)
 {
     if (Array_Voltage > (Battery_Voltage * VOLTAGE_TOLERANCE_NUMERATOR / VOLTAGE_TOLERANCE_DENOMINATOR))
@@ -35,14 +36,14 @@ void Fault_Checker(uint32_t Array_Voltage, uint32_t Battery_Voltage, Precharge_S
     {
         /* BATTERY ABOUT TO GO BOOM */
         // Fault handler
-        set_faultBit(BATTERY_OVERVOLTAGE_FAULT);
+        set_faultBit(CELL_OVERVOLTAGE_FAULT);
     }
 
     if ((Battery_Voltage < PACK_UNDERVOLTAGE_THRESHOLD_MV) && (State != PRECHARGE_STATE_IDLE))
     {
         /* Battery voltage is too low or battery is disconnected, treat as fault */
         // Fault handler
-        set_faultBit(BATTERY_UNDERVOLTAGE_FAULT);
+        set_faultBit(CELL_UNDERVOLTAGE_FAULT);
     }
 
     if (contactor_verify(ARRAY_CONTACTOR) != CONTACTOR_OK)

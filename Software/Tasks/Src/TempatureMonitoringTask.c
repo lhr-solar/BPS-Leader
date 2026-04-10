@@ -173,7 +173,7 @@ void Task_Temperature_Monitor() {
         {
             if (temp_can_data[i].BPS_Temperature_Tap_Data > temp_threshold)
             {
-                set_faultBit(BATTERY_OVERTEMP_FAULT);
+                set_faultBit(CELL_OVERTEMP_FAULT);
                 all_temp_good = false;
             }
 
@@ -190,7 +190,6 @@ void Task_Temperature_Monitor() {
         // Reset printf counter (outside loop so all taps print)
         if (temp_printf_debug_counter >= TEMP_PRINTF_COUNTER)
         {
-            printf("\r\n");
             temp_printf_debug_counter = 0;
         }
 

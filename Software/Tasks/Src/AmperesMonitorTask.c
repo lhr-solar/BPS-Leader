@@ -49,6 +49,7 @@ void Task_Amperes_Monitor() {
             // Print current at lower rate
             if (amps_printf_debug_counter >= AMPERES_PRINTF_COUNTER)
             {
+                printf("\r\n");
                 printf("Pack Current: %li mA\r\n", AmperesData.Main_Battery_Current);
                 printf("\r\n");
                 amps_printf_debug_counter = 0;
@@ -67,7 +68,7 @@ void Task_Amperes_Monitor() {
             (AmperesData.Main_Battery_Current > OVERCURRENT_DISCHARGE_THRESHOLD_mA))
         {
             printf("FAULT: OVERCURRENT - %li mA\r\n", AmperesData.Main_Battery_Current);
-            set_faultBit(BATTERY_OVERCURRENT_FAULT);
+            set_faultBit(PACK_OVERCURRENT_FAULT);
         }
         else
         {
