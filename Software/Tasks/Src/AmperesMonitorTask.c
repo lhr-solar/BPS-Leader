@@ -79,11 +79,13 @@ void Task_Amperes_Monitor() {
         {
             set_state_bit(DISCHARGING_BATT_STATE, STATE_BIT_SET);
             set_state_bit(CHARGING_BATT_STATE, STATE_BIT_RESET);
+            LED_set(CHARGING_LED, LED_OFF);
         }
         else
         {
             set_state_bit(DISCHARGING_BATT_STATE, STATE_BIT_RESET);
             set_state_bit(CHARGING_BATT_STATE, STATE_BIT_SET);
+            LED_set(CHARGING_LED, LED_ON);
         }
 
         // Set event group bit so watchdog knows we ran

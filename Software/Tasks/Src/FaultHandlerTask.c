@@ -1,7 +1,7 @@
 #include "FaultHandlerTask.h"
 #include "PrechargeTask.h" // for hprecharge_task handle
 
-#define FAULT_LOOP_PRINTF_DELAY_MS 500
+#define FAULT_LOOP_PRINTF_DELAY_MS 2000
 #define FAULT_LOOP_PERIOD_MS 500
 
 #define FAULT_PRINTF_COUNTER (FAULT_LOOP_PRINTF_DELAY_MS / FAULT_LOOP_PERIOD_MS)
@@ -44,9 +44,11 @@ static void print_fault() {
         printf("FAULT: BQ CHIP ERR\r\n");
         break;
     case FAULT_BIT(CELL_OVERTEMP_FAULT):
+        LED_set(OVER_TEMP_LED, LED_ON);
         printf("FAULT: CELL OVERTEMP\r\n");
         break;
     case FAULT_BIT(PACK_OVERCURRENT_FAULT):
+        LED_set(OVER_AMP_LED, LED_ON);
         printf("FAULT: PACK OVERCURRENT\r\n");
         break;
     case FAULT_BIT(BOARD_OVERTEMP_FAULT):
