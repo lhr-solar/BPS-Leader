@@ -36,6 +36,9 @@ uint32_t temp_sensor_bitmap;
 static TimerHandle_t temperature_watchdog_timer;
 static StaticTimer_t temp_timer_buffer;
 
+// array to hold struct packed can data
+bps_temperature_aggregate_arr_t temp_can_data[NUM_TEMPERATURE_SENSORS] = { 0 };
+
 // pass in pointer to raw data, packs struct into arr. Returns the tap id.
 static uint8_t temp_can_unpack(uint8_t* raw_temp_can_data, bps_temperature_aggregate_arr_t* temp_can_data) {
 
@@ -127,9 +130,6 @@ static void vTemperatureWatchdogCallback(TimerHandle_t temp_timer) {
 }
 
 void Task_Temperature_Monitor() {
-
-    // array to hold struct packed can data
-    static bps_temperature_aggregate_arr_t temp_can_data[NUM_TEMPERATURE_SENSORS] = { 0 };
 
     // Make timer for watchdog
     temperature_watchdog_timer = xTimerCreateStatic(

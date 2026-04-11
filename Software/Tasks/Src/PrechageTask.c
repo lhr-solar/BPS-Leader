@@ -19,8 +19,10 @@ void Init_PrechargeTask()
     // xEventGroupClearBits(xReadADCEventGroup_handle,    /* The event group being updated. */
     //                      0xFF );                    /* The bits being cleared. */
 
-    if (ADC_Sense_Init() != ADC_SENSE_OK)
-        set_faultBit(ADC_ERROR);
+    if (ADC_Sense_Init() != ADC_SENSE_OK) {
+        // WILL FIX AFTER CHARGING
+        // set_faultBit(ADC_ERROR);
+    }
 }
 
 // TODO(rshah): currently this throws cell over/undervoltage due to not enough bits in eventgroup. could make another eventgroup to distinguish

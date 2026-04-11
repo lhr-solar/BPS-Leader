@@ -1,3 +1,5 @@
+// todo
+
 #include "BPS_Tasks.h"
 #include "config.h"
 #include "CANbus.h"
@@ -64,12 +66,10 @@ void Task_Amperes_Monitor() {
         }
 
         // Set fault bits if needed. If good, set the event group bit
-        if ((AmperesData.Main_Battery_Current < OVERCURRENT_CHARGE_THRESHOLD_mA) ||
-            (AmperesData.Main_Battery_Current > OVERCURRENT_DISCHARGE_THRESHOLD_mA))
-        {
-            // printf("FAULT: OVERCURRENT - %li mA\r\n", AmperesData.Main_Battery_Current);
-            set_faultBit(PACK_OVERCURRENT_FAULT);
-        }
+        if (AmperesData.Main_Battery_Current < OVERCURRENT_CHARGE_THRESHOLD_mA) set_faultBit(PACK_OVERCURRENT_CHARGING_FAULT); 
+
+        else if (AmperesData.Main_Battery_Current > OVERCURRENT_DISCHARGE_THRESHOLD_mA) set_faultBit(PACK_OVERCURRENT_DISCHARGING_FAULT);
+
         else
         {
             set_state_bit(AMPERES_MONITOR_GOOD, STATE_BIT_SET);

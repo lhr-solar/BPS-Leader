@@ -47,13 +47,18 @@ static void print_fault() {
         LED_set(OVER_TEMP_LED, LED_ON);
         printf("FAULT: CELL OVERTEMP\r\n");
         break;
-    case FAULT_BIT(PACK_OVERCURRENT_FAULT):
+    case FAULT_BIT(PACK_OVERCURRENT_CHARGING_FAULT):
         LED_set(OVER_AMP_LED, LED_ON);
-        printf("FAULT: PACK OVERCURRENT\r\n");
+        printf("FAULT: PACK OVERCURRENT WHILE CHARGING\r\n");
         break;
-    case FAULT_BIT(BOARD_OVERTEMP_FAULT):
-        printf("FAULT: BPS COMPARTMENT OVERTEMP\r\n");
+    case FAULT_BIT(PACK_OVERCURRENT_DISCHARGING_FAULT):
+        LED_set(OVER_AMP_LED, LED_ON);
+        printf("FAULT: PACK OVERCURRENT WHILE DISCHARGING\r\n");
         break;
+    // erm will fix after charging
+    // case FAULT_BIT(BOARD_OVERTEMP_FAULT):
+    //     printf("FAULT: BPS COMPARTMENT OVERTEMP\r\n");
+    //     break;
     case FAULT_BIT(BPS_CAN_ERROR):
         printf("FAULT: BPS CAN ERR\r\n");
         break;
@@ -108,12 +113,12 @@ static void print_fault() {
     case FAULT_BIT(CAR_CAN_ERROR):
         printf("FAULT: CAR CAN ERR\r\n");
         break;
-    case FAULT_BIT(I2C_ERROR):
-        printf("FAULT: I2C ERR\r\n");
-        break;
-    case FAULT_BIT(ADC_ERROR):
-        printf("FAULT: ADC ERR\r\n");
-        break;
+    // case FAULT_BIT(I2C_ERROR):
+    //     printf("FAULT: I2C ERR\r\n");
+    //     break;
+    // case FAULT_BIT(ADC_ERROR):
+    //     printf("FAULT: ADC ERR\r\n");
+    //     break;
     case FAULT_BIT(FAN_CHIP_ERROR):
         printf("FAULT: FAN CHIP ERR\r\n");
         break;

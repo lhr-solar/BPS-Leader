@@ -2,6 +2,7 @@
 
 #include "common.h"
 #include "BPSCAN_can_msgs.h"
+#include "CarCAN_can_msgs.h"
 #include <event_groups.h>
 
 // Task configuration
@@ -14,6 +15,7 @@
 #define TASK_FAULT_HANDLER_PRIO         tskIDLE_PRIORITY + 5
 #define TASK_CONTACTOR_MONITOR_PRIO     tskIDLE_PRIORITY + 4
 #define TASK_FAN_CONTROLLER_PRIO        tskIDLE_PRIORITY + 3
+#define TASK_CAN_STATUS_PRIO            tskIDLE_PRIORITY + 4
 
 #define TEST_TASK_PRIORITY              tskIDLE_PRIORITY + 2
 
@@ -28,6 +30,7 @@
 #define TASK_CAN_FORWARD_STACK_SIZE              (configMINIMAL_STACK_SIZE*2)
 #define TASK_CONTACTOR_MONITORING_STACK_SIZE     (configMINIMAL_STACK_SIZE*2)
 #define TASK_FAN_CONTROLLER_STACK_SIZE           (configMINIMAL_STACK_SIZE*2)
+#define TASK_CAN_STATUS_STACK_SIZE               (configMINIMAL_STACK_SIZE*2)
 
 #define TEST_TASK_STACK_SIZE                     (configMINIMAL_STACK_SIZE*2)
 
@@ -43,6 +46,7 @@ extern StackType_t Task_Can_Forward_Stack[ TASK_CAN_FORWARD_STACK_SIZE ];
 extern StackType_t Task_Contactor_Monitoring_Stack[ TASK_CONTACTOR_MONITORING_STACK_SIZE ];
 extern StackType_t Init_Task_Stack[ TASK_INIT_STACK_SIZE ];
 extern StackType_t Task_Fan_Controller_Stack[ TASK_FAN_CONTROLLER_STACK_SIZE ];
+extern StackType_t Task_Can_Status_Stack[ TASK_CAN_STATUS_STACK_SIZE ];
 
 // Task Buffers
 extern StaticTask_t Task_Temperature_Buffer;
@@ -55,6 +59,7 @@ extern StaticTask_t Task_Can_Forward_Buffer;
 extern StaticTask_t Task_Contactor_Monitoring_Buffer;
 extern StaticTask_t Init_Task_Buffer;
 extern StaticTask_t Task_Fan_Controller_Buffer;
+extern StaticTask_t Task_Can_Status_Buffer;
 
 // Task Delays
 #define TEMP_MONITOR_TASK_DELAY_MS      290
@@ -63,6 +68,7 @@ extern StaticTask_t Task_Fan_Controller_Buffer;
 #define CONTACTOR_MONITOR_TASK_DELAY_MS 200
 #define AMPERES_MONITOR_TASK_DELAY_MS   90
 #define FAN_CONTROLLER_TASK_DELAY_MS    300
+#define CAN_STATUS_TASK_DELAY_MS        500
 
 // Task Inits
 void Task_Init();
@@ -76,9 +82,12 @@ void Task_PetWatchdog();
 void Task_Temperature_Monitor();
 void Task_CanRxForward();
 void Task_Contactor_Monitor();
+void Task_Can_Status();
 
-
-extern bps_pack_current_t AmperesData;
+extern bps_voltage_aggregate_arr_t volt_can_data[NUM_VOLTAGE_SENSORS];
+extern bps_temperature_aggregate_arr_t temp_can_data[NUM_TEMPERATURE_SENSORS];
+extern uint32_t volt_sensor_bitmap;
+extern uint32_t temp_sensor_bitmap;
 
 /* ---- Watchdog Event Group ---- */
 void Init_WDogTask();
@@ -93,6 +102,8 @@ extern EventGroupHandle_t xWDogEventGroup_handle;
 extern EventGroupHandle_t xStateBits;
 
 extern StaticEventGroup_t xStateBits_buffer;
+
+extern EventGroupHandle_t faultBits;
 
 #define get_state_bit(bit) ((xEventGroupGetBits(xStateBits) & (1U << bit)) >> bit)
 

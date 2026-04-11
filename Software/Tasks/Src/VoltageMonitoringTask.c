@@ -30,6 +30,9 @@ uint32_t volt_sensor_bitmap;
 static TimerHandle_t voltage_watchdog_timer;
 static StaticTimer_t volt_timer_buffer;
 
+// array to hold struct packed can data
+bps_voltage_aggregate_arr_t volt_can_data[NUM_VOLTAGE_SENSORS] = { 0 };
+
 // pass in pointer to raw data, return packed structs
 static uint8_t volt_can_unpack(uint8_t* raw_volt_can_data, bps_voltage_aggregate_arr_t* volt_can_data) {
 
@@ -138,9 +141,6 @@ static void vVoltageWatchdogCallback(TimerHandle_t volt_timer) {
 }
 
 void Task_Voltage_Monitor() {
-
-    // array to hold struct packed can data
-    static bps_voltage_aggregate_arr_t volt_can_data[NUM_VOLTAGE_SENSORS] = { 0 };
 
     // Make timer for watchdog
     voltage_watchdog_timer = xTimerCreateStatic(

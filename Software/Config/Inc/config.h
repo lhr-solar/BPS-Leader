@@ -19,7 +19,8 @@
 #define NUM_VOLTAGE_SENSORS             32      // Number of voltage sensors
 #endif
 
-#define NUM_VOLTTEMP_BOARDS                 8       // Number of volt temp boards
+#define NUM_VOLTTEMP_BOARDS              8       // Number of volt temp boards
+#define NUM_SEGMENTS                    8
 
 // precharge macros
 #define PACK_OVERVOLTAGE_THRESHOLD_MV 140000 // 140 V

@@ -79,5 +79,5 @@ void I2C4_ER_IRQHandler(void) {
  */
 void HAL_I2C_ErrorCallback(I2C_HandleTypeDef *hi2c) {
     BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-    set_faultBitFromISR(I2C_ERROR, &xHigherPriorityTaskWoken);
+    set_faultBitFromISR(FAN_CHIP_ERROR, &xHigherPriorityTaskWoken);
 }
