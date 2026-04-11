@@ -212,7 +212,7 @@
             pack_bps_status_message(&bps_status_message, bps_status_raw_can);
 
             if (car_can_send(CAN_ID_BPS_STATUS, bps_status_raw_can, CAN_DLC_BPS_STATUS, BPS_STATUS_CAN_DELAY_MS) != CAN_OK) {
-                set_faultBit(BPS_CAN_ERROR);
+                // Don't handle, we don't want to fault when CarCAN is faulted
             };
         }
     }

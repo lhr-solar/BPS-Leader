@@ -62,7 +62,6 @@ void Task_Amperes_Monitor() {
         // Handle CAN fault
         if (amperesCANFaultCount >= AMPERES_CAN_TIMEOUT_TRIGGER_COUNT)
         {
-            // printf("FAULT: AMPERES CAN RECV\r\n");
             set_faultBit(BPS_CAN_ERROR);
         }
 

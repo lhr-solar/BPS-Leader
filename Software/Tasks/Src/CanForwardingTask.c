@@ -90,11 +90,6 @@ void Task_CanRxForward()
             }
             else
                 fault_count = 0;
-
-            if (fault_count == FAULT_COUNT_ERROR_THRESHOLD)
-            {
-                set_faultBit(BPS_CAN_ERROR);
-            }
         }
     }
 }
