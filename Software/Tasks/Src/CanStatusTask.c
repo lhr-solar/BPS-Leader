@@ -73,15 +73,15 @@
     // returns 1 if good else 0
     static uint8_t get_segment_status(uint8_t segment_num) {
 
-        uint8_t segment_status = 1;
+        uint8_t segment_status = 0;
 
-        if (((temp_sensor_bitmap >> (segment_num * MODULES_PER_SEGMENT)) & 0xF) != 0xF) segment_status = 0;
-        if (((volt_sensor_bitmap >> (segment_num * MODULES_PER_SEGMENT)) & 0xF) != 0xF) segment_status = 0;
+        if (((exposed_temp_sensor_bitmap >> (segment_num * MODULES_PER_SEGMENT)) & 0xF) != 0xF) segment_status = 1;
+        if (((exposed_volt_sensor_bitmap >> (segment_num * MODULES_PER_SEGMENT)) & 0xF) != 0xF) segment_status = 1;
 
         for (uint8_t i = segment_num*MODULES_PER_SEGMENT; i < (segment_num+1)*MODULES_PER_SEGMENT; i++) {
 
-            if (temp_can_data[i].BPS_Temperature_Tap_Fault != BPS_TEMPERATURE_AGGREGATE_ARR_BPS_TEMPERATURE_TAP_FAULT_OK)  segment_status = 0;
-            if (volt_can_data[i].BPS_Voltage_Tap_Fault != BPS_VOLTAGE_AGGREGATE_ARR_BPS_VOLTAGE_TAP_FAULT_OK)              segment_status = 0;
+            if (temp_can_data[i].BPS_Temperature_Tap_Fault != BPS_TEMPERATURE_AGGREGATE_ARR_BPS_TEMPERATURE_TAP_FAULT_OK)  segment_status = 1;
+            if (volt_can_data[i].BPS_Voltage_Tap_Fault != BPS_VOLTAGE_AGGREGATE_ARR_BPS_VOLTAGE_TAP_FAULT_OK)              segment_status = 1;
         }
 
         return segment_status;
@@ -153,16 +153,14 @@
         
         TickType_t xLastWakeTime = xTaskGetTickCount();
 
-        while (1) {
+        bps_status_t bps_status_message = {0};
+        uint8_t bps_status_raw_can[CAN_DLC_BPS_STATUS] = {0};
+        uint32_t fault_bitmap = 0;
 
+        while (1) {
             vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(CAN_STATUS_TASK_DELAY_MS));
 
-            bps_status_t bps_status_message = {0};
-            uint8_t bps_status_raw_can[CAN_DLC_BPS_STATUS] = {0};
-
-            uint32_t fault_bitmap = (uint32_t)xEventGroupGetBits(faultBits);
-
-     
+            fault_bitmap = (uint32_t)xEventGroupGetBits(faultBits);
 
             if ((fault_bitmap & FAULT_BIT(CELL_OVERVOLTAGE_FAULT)) != 0)                    bps_status_message.BPS_Fault = BPS_STATUS_BPS_FAULT_OVERVOLTAGE;
             else if ((fault_bitmap & FAULT_BIT(CELL_UNDERVOLTAGE_FAULT)) != 0)              bps_status_message.BPS_Fault = BPS_STATUS_BPS_FAULT_UNDERVOLTAGE;
@@ -202,7 +200,7 @@
             bps_status_message.Array_Precharge_Contactor_State =    (contactor_get(ARRAY_PRE_CONTACTOR) == CONTACTOR_CLOSED) ? 1 : 0;
 
             bps_status_message.Main_Battery_Voltage =               (get_pack_voltage());
-            bps_status_message.Main_Battery_Avg_Temperature =       (get_avg_temp());
+            bps_status_message.Main_Battery_Avg_Temperature =       (get_avg_temp()/10);
 
             bps_status_message.BPS_Segment0_Status = get_segment_status(0);
             bps_status_message.BPS_Segment1_Status = get_segment_status(1);
@@ -215,7 +213,7 @@
 
             pack_bps_status_message(&bps_status_message, bps_status_raw_can);
 
-            if (car_can_send(CAN_ID_BPS_STATUS, bps_status_raw_can, CAN_DLC_BPS_STATUS, BPS_STATUS_CAN_DELAY_MS)) {
+            if (car_can_send(CAN_ID_BPS_STATUS, bps_status_raw_can, CAN_DLC_BPS_STATUS, BPS_STATUS_CAN_DELAY_MS) != CAN_OK) {
                 set_faultBit(BPS_CAN_ERROR);
             };
         }

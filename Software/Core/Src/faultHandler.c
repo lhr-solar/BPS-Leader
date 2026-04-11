@@ -11,22 +11,21 @@ EventGroupHandle_t faultBits;
 // Static buffer to store the event handle
 StaticEventGroup_t faultBitsBuffer;
 
-static bool is_initialized = false;
 
 uint8_t faultHandler_init(void){
-    if (is_initialized) return 1;
+    if (fault_task_initialized) return 1;
     faultBits = xEventGroupCreateStatic( &faultBitsBuffer );
     if(faultBits == NULL){
         return 0;
     }
-    is_initialized = true;
+    fault_task_initialized = true;
     return 1;
 }
 
 void set_faultBit(fault_bit_t bit){
     
     if((bit >= NUM_FAULTS) || (!fault_task_initialized)){ 
-        Error_Handler();
+        return;
     }
 
     // chat we're cooked

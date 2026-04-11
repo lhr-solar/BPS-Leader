@@ -33,6 +33,9 @@
 // watchdog bitmap
 uint32_t temp_sensor_bitmap;
 
+// start in exposed condition
+uint32_t exposed_temp_sensor_bitmap = 0xFFFFFFFF;
+
 static TimerHandle_t temperature_watchdog_timer;
 static StaticTimer_t temp_timer_buffer;
 
@@ -124,6 +127,7 @@ static void vTemperatureWatchdogCallback(TimerHandle_t temp_timer) {
 
     if (temp_sensor_bitmap != TEMP_TAPS_ALL_DATA)
     {
+        exposed_temp_sensor_bitmap = temp_sensor_bitmap;
         set_faultBit(BPS_CAN_ERROR);
     }
     temp_sensor_bitmap = 0;

@@ -86,8 +86,8 @@ void Task_Can_Status();
 
 extern bps_voltage_aggregate_arr_t volt_can_data[NUM_VOLTAGE_SENSORS];
 extern bps_temperature_aggregate_arr_t temp_can_data[NUM_TEMPERATURE_SENSORS];
-extern uint32_t volt_sensor_bitmap;
-extern uint32_t temp_sensor_bitmap;
+extern uint32_t exposed_volt_sensor_bitmap;
+extern uint32_t exposed_temp_sensor_bitmap;
 
 /* ---- Watchdog Event Group ---- */
 void Init_WDogTask();

@@ -27,6 +27,9 @@
 // watchdog bitmap
 uint32_t volt_sensor_bitmap;
 
+//start in good condition
+uint32_t exposed_volt_sensor_bitmap = 0xFFFFFFFF;
+
 static TimerHandle_t voltage_watchdog_timer;
 static StaticTimer_t volt_timer_buffer;
 
@@ -135,6 +138,7 @@ static void vVoltageWatchdogCallback(TimerHandle_t volt_timer) {
 
     if (volt_sensor_bitmap != VOLT_TAPS_ALL_DATA)
     {
+        exposed_volt_sensor_bitmap = volt_sensor_bitmap;
         set_faultBit(BPS_CAN_ERROR);
     }
     volt_sensor_bitmap = 0;
