@@ -12,6 +12,7 @@
 #define TASK_PETWDOG_PRIO               tskIDLE_PRIORITY + 2
 #define TASK_CAN_FORWARD_PRIO           tskIDLE_PRIORITY + 3
 #define TASK_FAULT_HANDLER_PRIO         tskIDLE_PRIORITY + 5
+#define TASK_ELCON_CHARGING_PRIO         tskIDLE_PRIORITY + 5
 
 #define TEST_TASK_PRIORITY                       tskIDLE_PRIORITY + 3
 
@@ -25,6 +26,7 @@
 #define FAULT_HANDLER_TASK_STACK_SIZE            configMINIMAL_STACK_SIZE
 #define TASK_CAN_FORWARD_STACK_SIZE              configMINIMAL_STACK_SIZE
 #define TASK_CONTACTOR_MONITORING_STACK_SIZE    configMINIMAL_STACK_SIZE
+#define TASK_ELCON_CHARGING_STACK_SIZE                 configMINIMAL_STACK_SIZE
 
 #define TEST_TASK_STACK_SIZE                     configMINIMAL_STACK_SIZE
 
@@ -39,6 +41,7 @@ extern StackType_t FaultHandler_Task_Stack[ FAULT_HANDLER_TASK_STACK_SIZE ];
 extern StackType_t Task_Can_Forward_Stack_Array[ TASK_CAN_FORWARD_STACK_SIZE ];
 extern StackType_t Task_Contactor_Monitoring_Stack[ TASK_CONTACTOR_MONITORING_STACK_SIZE ];
 extern StackType_t Init_Task_Stack[ TASK_INIT_STACK_SIZE ];
+extern StackType_t  Task_Elcon_Charging_Stack[TASK_ELCON_CHARGING_STACK_SIZE];
 
 // Task Buffers
 extern StaticTask_t Task_Temperature_Buffer;
@@ -50,6 +53,7 @@ extern StaticTask_t FaultHandler_Task_Buffer;
 extern StaticTask_t Task_Can_Forward_Buffer;
 extern StaticTask_t Task_Contactor_Monitoring_Buffer;
 extern StaticTask_t Init_Task_Buffer;
+extern StaticTask_t Task_Elcon_Charging_Buffer;
 
 // Task Delays
 #define TEMP_MONITOR_TASK_DELAY_MS      300
@@ -69,6 +73,7 @@ void Task_PetWatchdog();
 void Task_Temperature_Monitor();
 void Task_CanRxForward();
 void Task_FaultHandler(void *argument);
+void Task_Elcon_Charging();
 
 extern bps_pack_current_t AmperesData;
 
