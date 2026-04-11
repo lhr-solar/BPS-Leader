@@ -8,16 +8,6 @@
 
 EventBits_t fault_bits = 0;
 
-void Init_FaultHandlerTask() {
-    if (faultHandler_init() != 1)
-    {
-        // Fault bit initialization failed
-        Error_Handler();
-    }
-
-    fault_task_initialized = true;
-}
-
 void Kill_Precharge_Task() {
     if (hprecharge_task != NULL)
     {
@@ -146,7 +136,6 @@ void Fault_Loop() {
 }
 
 void Task_FaultHandler(void* pvParameters) {
-    Init_FaultHandlerTask();
 
     while (true)
     {

@@ -29,7 +29,7 @@ void Task_Contactor_Monitor(void *pvParameters)
         else if (estop_status == ESTOP3_FAULT)
             set_faultBit(BPS_ESTOP3_FAULT);
 
-        // confirm every contactor is in the correct state
+        //confirm every contactor is in the correct state
         if (contactor_verify(HV_PLUS_CONTACTOR) != CONTACTOR_OK)
         {
             set_faultBit(CONTACTOR_HV_PLUS_FAULT);

@@ -8,6 +8,7 @@
 #include "SHT45.h"
 
 #define ALL_TASK_BITS ((1 << AMPERES_MONITOR_GOOD) | (1 << CONTACTOR_MONITOR_GOOD) | (1 << VOLTAGE_MONITOR_GOOD) | (1 << TEMPERATURE_MONITOR_GOOD))
+#define STARTUP_DELAY_MS (1000)
 
 // Task Stack Arrays
 StackType_t Task_Temperature_Stack_Array[TASK_TEMPERATURE_MONITOR_STACK_SIZE];
@@ -41,7 +42,10 @@ EventGroupHandle_t xWDogEventGroup_handle;
 EventGroupHandle_t xStateBits;
 StaticEventGroup_t xStateBits_buffer;
 
-void Task_Init() {
+void Task_Init()
+{
+
+    vTaskDelay(pdMS_TO_TICKS(STARTUP_DELAY_MS));
 
     CAN_Init();
 
@@ -65,13 +69,18 @@ void Task_Init() {
 
     Init_WDogTask();
 
+    if (faultHandler_init() == 0)
+    {
+        Error_Handler();
+    }
+
     printf("Initialized...\n\r");
 
     xTaskCreateStatic(
         Task_FaultHandler,             // Task function
         "FaultHandler",                // Name of the task (for debugging)
         FAULT_HANDLER_TASK_STACK_SIZE, // Stack size in words
-        (void*)NULL,                  // Task input parameter
+        (void *)NULL,                  // Task input parameter
         TASK_FAULT_HANDLER_PRIO,       // Task priority
         FaultHandler_Task_Stack,       // Task handle
         &FaultHandler_Task_Buffer      // Static task buffer (optional)
@@ -81,7 +90,7 @@ void Task_Init() {
         Task_Amperes_Monitor,            /* The function that implements the task. */
         "Amperes Monitor Task",          /* Text name for the task. */
         TASK_AMPERES_MONITOR_STACK_SIZE, /* The size (in words) of the stack that should be created for the task. */
-        (void*)NULL,                    /* Paramter passed into the task. */
+        (void *)NULL,                    /* Paramter passed into the task. */
         TASK_AMPERES_MONITOR_PRIO,       /* Task Prioriy. */
         Task_Amperes_Stack_Array,        /* Stack array. */
         &Task_Amperes_Buffer             /* Buffer for static allocation. */
@@ -91,17 +100,17 @@ void Task_Init() {
         Task_Fan_Controller,            /* The function that implements the task. */
         "Fan Controller Task",          /* Text name for the task. */
         TASK_FAN_CONTROLLER_STACK_SIZE, /* The size (in words) of the stack that should be created for the task. */
-        (void*)NULL,                   /* Paramter passed into the task. */
+        (void *)NULL,                   /* Paramter passed into the task. */
         TASK_FAN_CONTROLLER_PRIO,       /* Task Prioriy. */
         Task_Fan_Controller_Stack,      /* Stack array. */
-        &Task_Fan_Controller_Buffer            /* Buffer for static allocation. */
+        &Task_Fan_Controller_Buffer     /* Buffer for static allocation. */
     );
 
     xTaskCreateStatic(
         Task_CanRxForward,           /* The function that implements the task. */
         "CAN Forward Task",          /* Text name for the task. */
         TASK_CAN_FORWARD_STACK_SIZE, /* The size (in words) of the stack that should be created for the task. */
-        (void*)NULL,                /* Paramter passed into the task. */
+        (void *)NULL,                /* Paramter passed into the task. */
         TASK_CAN_FORWARD_PRIO,       /* Task Prioriy. */
         Task_Can_Forward_Stack,      /* Stack array. */
         &Task_Can_Forward_Buffer     /* Buffer for static allocation. */
@@ -111,7 +120,7 @@ void Task_Init() {
         Task_Temperature_Monitor,            /* The function that implements the task. */
         "Temperature Monitor Task",          /* Text name for the task. */
         TASK_TEMPERATURE_MONITOR_STACK_SIZE, /* The size (in words) of the stack that should be created for the task. */
-        (void*)NULL,                        /* Paramter passed into the task. */
+        (void *)NULL,                        /* Paramter passed into the task. */
         TASK_TEMPERATURE_MONITOR_PRIO,       /* Task Prioriy. */
         Task_Temperature_Stack_Array,        /* Stack array. */
         &Task_Temperature_Buffer             /* Buffer for static allocation. */
@@ -121,7 +130,7 @@ void Task_Init() {
         Task_Contactor_Monitor,               /* The function that implements the task. */
         "Cotnactor State-checking Task",      /* Text name for the task. */
         TASK_CONTACTOR_MONITORING_STACK_SIZE, /* The size (in words) of the stack that should be created for the task. */
-        (void*)NULL,                         /* Paramter passed into the task. */
+        (void *)NULL,                         /* Paramter passed into the task. */
         TASK_CONTACTOR_MONITOR_PRIO,          /* Task Prioriy. */
         Task_Contactor_Monitor_Stack,         /* Stack array. */
         &Task_Contactor_Monitor_Buffer        /* Buffer for static allocation. */
@@ -131,7 +140,7 @@ void Task_Init() {
         Task_Voltage_Monitor,            /* The function that implements the task. */
         "Voltage Monitor Task",          /* Text name for the task. */
         TASK_VOLTAGE_MONITOR_STACK_SIZE, /* The size (in words) of the stack that should be created for the task. */
-        (void*)NULL,                    /* Paramter passed into the task. */
+        (void *)NULL,                    /* Paramter passed into the task. */
         TASK_VOLTAGE_MONITOR_PRIO,       /* Task Prioriy. */
         Task_Voltage_Stack_Array,        /* Stack array. */
         &Task_Voltage_Buffer             /* Buffer for static allocation. */
@@ -139,12 +148,12 @@ void Task_Init() {
 
     xTaskCreateStatic(
         Task_Can_Status,            /* The function that implements the task. */
-        "CAN Status Sending Task",          /* Text name for the task. */
+        "CAN Status Sending Task",  /* Text name for the task. */
         TASK_CAN_STATUS_STACK_SIZE, /* The size (in words) of the stack that should be created for the task. */
-        (void*)NULL,                    /* Paramter passed into the task. */
+        (void *)NULL,               /* Paramter passed into the task. */
         TASK_CAN_STATUS_PRIO,       /* Task Prioriy. */
-        Task_Voltage_Stack_Array,        /* Stack array. */
-        &Task_Voltage_Buffer             /* Buffer for static allocation. */
+        Task_Can_Status_Stack,   /* Stack array. */
+        &Task_Can_Status_Buffer        /* Buffer for static allocation. */
     );
 
     // xTaskCreateStatic(
@@ -169,7 +178,8 @@ void Task_Init() {
     // IGNITION LOGIC GOES HERE (like can recieve messages n shi)
 
     // All tasks have checked in, ensure nothing faulted on startup before closing contactors
-    if (faultBit_wait(NUM_FAULTS, 0) == 0) {
+    if (faultBit_wait(NUM_FAULTS, 0) == 0)
+    {
         contactor_set(HV_PLUS_CONTACTOR, CONTACTOR_CLOSED, 10, NORMAL);
         contactor_set(HV_MINUS_CONTACTOR, CONTACTOR_CLOSED, 10, NORMAL);
         printf("================================\r\n");
