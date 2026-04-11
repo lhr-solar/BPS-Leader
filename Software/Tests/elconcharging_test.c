@@ -15,7 +15,6 @@ int main(void) {
 
     LEDs_init();
     debugPrintf_init();
-    faultHandler_init();
 
     if (CAN_Init() != CAN_OK) {
         printf("CAN_Init failed!\r\n");

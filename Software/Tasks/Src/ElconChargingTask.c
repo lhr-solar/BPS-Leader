@@ -16,7 +16,7 @@
 
 StackType_t  Task_Elcon_Charging_Stack[TASK_ELCON_CHARGING_STACK_SIZE];
 StaticTask_t Task_Elcon_Charging_Buffer;
-TaskHandle_t Elcon_Charging_Task = NULL;
+TaskHandle_t Elcon_Charging_Task;
 
 static volatile bool  charger_timeout_fault = false;
 static TimerHandle_t  xChargerTimeoutTimer;
@@ -29,9 +29,7 @@ static StaticTimer_t  xChargerTimeoutBuffer;
 static void charger_timeout_callback(TimerHandle_t xTimer)
 {
     (void)xTimer;
-    // NOTE: cannot call LED_set here — timer callbacks run in the timer daemon
-    // task and LED_set internally takes a mutex (blocking call, illegal here).
-    // The main task checks charger_timeout_fault and sets the LED itself.
+
     charger_timeout_fault = true;
 }
     
@@ -55,7 +53,8 @@ void Task_Elcon_Charging()
     while (1)
     {
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(ELCON_TASK_PERIOD_MS));
-
+        
+        
         // Heartbeat: toggle every cycle to show the task is alive
         toggleHeartbeat();
 
