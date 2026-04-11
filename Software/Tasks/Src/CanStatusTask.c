@@ -101,15 +101,13 @@
 
     static uint32_t get_avg_temp() {
         
-        // DO NOT REVIEW {
-        int64_t temp_sum = 0;
-        // }
+        int32_t temp_sum = 0;
 
         for (uint8_t module_num = 0; module_num < NUM_BATTERY_MODULES; module_num++) {
-            temp_sum += temp_can_data[module_num].BPS_Temperature_Tap_Data;
+            temp_sum += (temp_can_data[module_num].BPS_Temperature_Tap_Data/10);
         }
 
-        return (uint32_t)(temp_sum / NUM_BATTERY_MODULES);
+        return  (temp_sum / NUM_BATTERY_MODULES);
     }
 
     static void pack_bps_status_message(const bps_status_t *status, uint8_t *can_data) {
@@ -200,7 +198,7 @@
             bps_status_message.Array_Precharge_Contactor_State =    (contactor_get(ARRAY_PRE_CONTACTOR) == CONTACTOR_CLOSED) ? 1 : 0;
 
             bps_status_message.Main_Battery_Voltage =               (get_pack_voltage());
-            bps_status_message.Main_Battery_Avg_Temperature =       (get_avg_temp()/10);
+            bps_status_message.Main_Battery_Avg_Temperature =       (get_avg_temp());
 
             bps_status_message.BPS_Segment0_Status = get_segment_status(0);
             bps_status_message.BPS_Segment1_Status = get_segment_status(1);

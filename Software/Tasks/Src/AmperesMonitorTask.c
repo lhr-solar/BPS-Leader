@@ -11,6 +11,7 @@
 #define AMPERES_CAN_TIMEOUT_MS AMPERES_MONITOR_TASK_DELAY_MS
 #define AMPERES_CAN_TIMEOUT_FAULT_MS 500
 #define AMPERES_CAN_TIMEOUT_TRIGGER_COUNT AMPERES_CAN_TIMEOUT_FAULT_MS / AMPERES_CAN_TIMEOUT_MS
+#define CHARGING_THRESHOLD (-50)
 
 // CAN message decoding
 #define AMPERES_UNPACK_CURRENT_mA(x) ((int32_t)(((uint32_t)(x)[2] << 24) | ((uint32_t)(x)[1] << 16) | ((uint32_t)(x)[0] << 8)) >> 8)
@@ -75,7 +76,7 @@ void Task_Amperes_Monitor() {
             set_state_bit(AMPERES_MONITOR_GOOD, STATE_BIT_SET);
         }
 
-        if (AmperesData.Main_Battery_Current > 0)
+        if (AmperesData.Main_Battery_Current > CHARGING_THRESHOLD)
         {
             set_state_bit(DISCHARGING_BATT_STATE, STATE_BIT_SET);
             set_state_bit(CHARGING_BATT_STATE, STATE_BIT_RESET);
