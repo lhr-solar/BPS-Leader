@@ -27,21 +27,22 @@
 // watchdog bitmap
 uint32_t volt_sensor_bitmap;
 
-//start in good condition
+// start in good condition
 uint32_t exposed_volt_sensor_bitmap = 0xFFFFFFFF;
 
 static TimerHandle_t voltage_watchdog_timer;
 static StaticTimer_t volt_timer_buffer;
 
 // array to hold struct packed can data
-bps_voltage_aggregate_arr_t volt_can_data[NUM_VOLTAGE_SENSORS] = { 0 };
+bps_voltage_aggregate_arr_t volt_can_data[NUM_VOLTAGE_SENSORS] = {0};
 
 // pass in pointer to raw data, return packed structs
-static uint8_t volt_can_unpack(uint8_t* raw_volt_can_data, bps_voltage_aggregate_arr_t* volt_can_data) {
+static uint8_t volt_can_unpack(uint8_t *raw_volt_can_data, bps_voltage_aggregate_arr_t *volt_can_data)
+{
 
     // this function takes payloads from the bps_vt[X]_voltage_arr_t message, and packs it into bps_voltage_aggregate_arr_t
 
-    static TickType_t s_last_rx_times[NUM_VOLTAGE_SENSORS] = { 0 };
+    static TickType_t s_last_rx_times[NUM_VOLTAGE_SENSORS] = {0};
 
     if (raw_volt_can_data == NULL)
     {
@@ -82,48 +83,47 @@ static uint8_t volt_can_unpack(uint8_t* raw_volt_can_data, bps_voltage_aggregate
 
     s_last_rx_times[tap_index] = current_time;
 
-
     // set the volt sensor watchdog bitmap
     portENTER_CRITICAL();
     // set corresponding bit in recv bitmap
     volt_sensor_bitmap |= (1U << tap_index);
     portEXIT_CRITICAL();
-    volt_can_data[tap_index].BPS_Tap_Msg_WDog = 0;
 
     return 1;
 }
 
-static void volt_can_pack(bps_voltage_aggregate_arr_t volt_can_data, uint8_t* msgArr) {
+static void volt_can_pack(bps_voltage_aggregate_arr_t volt_can_data, uint8_t *msgArr)
+{
     if (msgArr == NULL)
     {
         return;
     }
 
-    // bits 0-4 are the tap id
+    // bits [0:4]: Tap index (Byte 0)
     msgArr[0] = (volt_can_data.BPS_Tap_idx & VOLT_ID_MASK);
 
-    // bit 5 is the watchdog
-    msgArr[0] |= (volt_can_data.BPS_Tap_Msg_WDog & 0x01) << 5;
-
-    // bytes 1 and 2 are voltage data
+    // bits [8:23]: Voltage data (Bytes 1-2)
+    // Using sizeof(uint16_t) ensures 2 bytes are copied
     memcpy(&msgArr[1], &(volt_can_data.BPS_Voltage_Tap_Data), sizeof(uint16_t));
 
-    // byte 3 is the fault
-    // data stored in struct a 1:1 mapping of what's sent over CAN
+    // bits [24:31]: Fault data (Byte 3)
     msgArr[3] = volt_can_data.BPS_Voltage_Tap_Fault;
 
-    // bytes 4 and 5 is the time since last recieve
+    // bits [32:47]: Tap age (Bytes 4-5)
+    // Note: The previous implementation used msgArr[4],
+    // but the table confirms bits 32-47 occupy bytes 4 and 5.
     memcpy(&msgArr[4], &(volt_can_data.BPS_Voltage_Tap_Age), sizeof(uint16_t));
 }
 
 // gets all can data from each tap from a passed in volttemp board, unpacks it and puts it into array
-static void can_recv_all_taps(uint32_t can_msg_ID, bps_voltage_aggregate_arr_t volt_can_data[]) {
+static void can_recv_all_taps(uint32_t can_msg_ID, bps_voltage_aggregate_arr_t volt_can_data[])
+{
 
     // can recieve for all 4 voltage taps for each volttemp board
     for (uint8_t i = 0; i < VOLT_TAPS_PER_BOARD; i++)
     {
 
-        uint8_t raw_databuffer[CAN_DLC_BPS_VT0_VOLTAGE_ARR] = { 0 };
+        uint8_t raw_databuffer[CAN_DLC_BPS_VT0_VOLTAGE_ARR] = {0};
 
         // if can recv fails, set the fault bit of the struct on to indicate that this sensor isnt working
         if (bps_can_recv(can_msg_ID, raw_databuffer, CAN_DLC_BPS_VT0_VOLTAGE_ARR, VOLTAGE_CAN_DELAY_MS) == CAN_OK)
@@ -134,7 +134,8 @@ static void can_recv_all_taps(uint32_t can_msg_ID, bps_voltage_aggregate_arr_t v
     }
 }
 
-static void vVoltageWatchdogCallback(TimerHandle_t volt_timer) {
+static void vVoltageWatchdogCallback(TimerHandle_t volt_timer)
+{
 
     if (volt_sensor_bitmap != VOLT_TAPS_ALL_DATA)
     {
@@ -144,14 +145,15 @@ static void vVoltageWatchdogCallback(TimerHandle_t volt_timer) {
     volt_sensor_bitmap = 0;
 }
 
-void Task_Voltage_Monitor() {
+void Task_Voltage_Monitor()
+{
 
     // Make timer for watchdog
     voltage_watchdog_timer = xTimerCreateStatic(
         "Volt Watchdog",                         /* Name of the timer */
         pdMS_TO_TICKS(VOLT_WATCHDOG_TIMEOUT_MS), /* Timer period in ticks */
         pdTRUE,                                  /* auto-reload */
-        (void*)0,                               /* Timer ID */
+        (void *)0,                               /* Timer ID */
         vVoltageWatchdogCallback,                /* Callback function */
         &volt_timer_buffer                       /* Buffer to hold timer data */
     );
@@ -177,7 +179,7 @@ void Task_Voltage_Monitor() {
             can_recv_all_taps(can_id, volt_can_data);
         }
 
-        uint8_t msgBuff[CAN_DLC_BPS_VOLTAGE_AGGREGATE_ARR] = { 0 };
+        uint8_t msgBuff[CAN_DLC_BPS_VOLTAGE_AGGREGATE_ARR] = {0};
         bool all_voltage_good = true;
 
         for (uint8_t i = 0; i < NUM_VOLTAGE_SENSORS; i++)
@@ -221,6 +223,6 @@ void Task_Voltage_Monitor() {
 
         // Set event group bit
         xEventGroupSetBits(xWDogEventGroup_handle, /* The event group being updated. */
-            VOLT_MONITOR_DONE);     /* The bits being set. */
+                           VOLT_MONITOR_DONE);     /* The bits being set. */
     }
 }

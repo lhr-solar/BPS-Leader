@@ -14,8 +14,8 @@
 #define CHARGING_THRESHOLD (-50)
 
 // CAN message decoding
-#define AMPERES_UNPACK_CURRENT_mA(x) ((int32_t)(((uint32_t)(x)[2] << 24) | ((uint32_t)(x)[1] << 16) | ((uint32_t)(x)[0] << 8)) >> 8)
-#define AMPERES_UNPACK_RAW_mV(x) ((uint16_t)((x[4] << 8) | (uint16_t)x[3]))
+#define AMPERES_UNPACK_CURRENT_mA(x) (((int32_t)(((uint32_t)(x)[3] << 24) | ((uint32_t)(x)[2] << 16) | ((uint32_t)(x)[1] << 8))) >> 8)
+#define AMPERES_UNPACK_FAULT(x) ((uint8_t)((x[0])))
 
 // Printf period macros
 #define AMPERES_LOOP_PRINTF_DELAY_MS 2000
@@ -46,7 +46,7 @@ void Task_Amperes_Monitor() {
         else
         {
             AmperesData.Main_Battery_Current = AMPERES_UNPACK_CURRENT_mA(buffer);
-            AmperesData.Main_Battery_Current_RawV = AMPERES_UNPACK_RAW_mV(buffer);
+            AmperesData.BPS_Amperes_Fault = AMPERES_UNPACK_FAULT(buffer);
             amperesCANFaultCount = 0;
 
             // Print current at lower rate
@@ -69,6 +69,24 @@ void Task_Amperes_Monitor() {
         if (AmperesData.Main_Battery_Current < OVERCURRENT_CHARGE_THRESHOLD_mA) set_faultBit(PACK_OVERCURRENT_CHARGING_FAULT); 
 
         else if (AmperesData.Main_Battery_Current > OVERCURRENT_DISCHARGE_THRESHOLD_mA) set_faultBit(PACK_OVERCURRENT_DISCHARGING_FAULT);
+
+
+        else if (AmperesData.BPS_Amperes_Fault != BPS_PACK_CURRENT_BPS_AMPERES_FAULT_OK) {
+            switch (AmperesData.BPS_Amperes_Fault) {
+                case BPS_PACK_CURRENT_BPS_AMPERES_FAULT_OUT_OF_BOUNDS:
+                    set_faultBit(AMPERES_WATCHDOG_FAULT);
+                    break;
+                case BPS_PACK_CURRENT_BPS_AMPERES_FAULT_OVER_CURRENT_DISCHARGE_:
+                    set_faultBit(PACK_OVERCURRENT_DISCHARGING_FAULT);
+                    break;
+                case BPS_PACK_CURRENT_BPS_AMPERES_FAULT_OVER_CURRENT_CHARGE_:
+                    set_faultBit(PACK_OVERCURRENT_CHARGING_FAULT);
+                    break;
+                case BPS_PACK_CURRENT_BPS_AMPERES_FAULT_MESSAGE_WATCHDOG:
+                    set_faultBit(AMPERES_WATCHDOG_FAULT);
+                    break;
+            }
+        }
 
         else
         {

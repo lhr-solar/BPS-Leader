@@ -1,6 +1,5 @@
 // TODO: Volt temps have multiple faults, this does not discriminate. Add discrimination.
 // TODO: CAN QueueSet solution
-// TODO: Implement Fram ID thing Parthiv was talking about
 
 #include "common.h"
 #include "BPS_Tasks.h"
@@ -40,32 +39,49 @@ static TimerHandle_t temperature_watchdog_timer;
 static StaticTimer_t temp_timer_buffer;
 
 // array to hold struct packed can data
-bps_temperature_aggregate_arr_t temp_can_data[NUM_TEMPERATURE_SENSORS] = { 0 };
+bps_temperature_aggregate_arr_t temp_can_data[NUM_TEMPERATURE_SENSORS] = {0};
+bps_temp_rawv_aggregate_arr_t temp_can_data2[NUM_TEMPERATURE_SENSORS] = {0};
 
-// pass in pointer to raw data, packs struct into arr. Returns the tap id.
-static uint8_t temp_can_unpack(uint8_t* raw_temp_can_data, bps_temperature_aggregate_arr_t* temp_can_data) {
 
-    static TickType_t s_last_rx_times[NUM_TEMPERATURE_SENSORS] = { 0 };
+// pass in pointer to raw data, packs struct into arr
+static uint8_t temp_can_unpack(uint8_t *raw_temp_can_data, bps_temperature_aggregate_arr_t *temp_can_data, bps_temp_rawv_aggregate_arr_t *temp_can_data2)
+{
+
+    static uint8_t frame_id = 0;
+
+    static TickType_t s_last_rx_times[NUM_TEMPERATURE_SENSORS] = {0};
 
     // if sensor not sending, skip. Watchdog will err eventually if it doesn't receive more data
     if (raw_temp_can_data == NULL)
         return 0;
 
+    // bits [0:4]: Tap index (Byte 0)
     uint8_t tap_index = raw_temp_can_data[0] & TEMP_ID_MASK;
 
     if (tap_index >= NUM_TEMPERATURE_SENSORS)
         return 0;
 
     temp_can_data[tap_index].BPS_Tap_idx = tap_index;
-    temp_can_data[tap_index].BPS_Temperature_Tap_Fault = (raw_temp_can_data[0] >> 5) & TEMP_FAULT_MASK;
+
+    // bits [8:31]: Temp data (24 bits, Bytes 1-3)
     temp_can_data[tap_index].BPS_Temperature_Tap_Data = raw_temp_can_data[1] << 0;
     temp_can_data[tap_index].BPS_Temperature_Tap_Data |= raw_temp_can_data[2] << 8;
     temp_can_data[tap_index].BPS_Temperature_Tap_Data |= raw_temp_can_data[3] << 16;
-    temp_can_data[tap_index].BPS_Temperature_Tap_Data |= raw_temp_can_data[4] << 24;
+
+    // bits [32:39]: Fault data (8 bits, Byte 4)
+    temp_can_data[tap_index].BPS_Temperature_Tap_Fault = raw_temp_can_data[4];
+
+    // bits [40:55]: Raw Voltage data (16 bits, Bytes 5-6)
+    temp_can_data2[tap_index].BPS_Tap_idx = tap_index;
+    temp_can_data2[tap_index].BPS_Temperature_Tap_RawV = raw_temp_can_data[5] << 0;
+    temp_can_data2[tap_index].BPS_Temperature_Tap_RawV |= raw_temp_can_data[6] << 8;
+
+    temp_can_data2[tap_index].FrameID_BPS_Temperature = frame_id;
+    temp_can_data[tap_index].FrameID_BPS_Temperature = frame_id;
 
     TickType_t current_time = xTaskGetTickCount();
 
-    // set the time since last recieve
+    // set the time since last receive
     if (s_last_rx_times[tap_index] == 0)
     {
         temp_can_data[tap_index].BPS_Temperature_Tap_Age = 0;
@@ -78,52 +94,84 @@ static uint8_t temp_can_unpack(uint8_t* raw_temp_can_data, bps_temperature_aggre
 
     s_last_rx_times[tap_index] = current_time;
 
+
     portENTER_CRITICAL();
     // set corresponding bit in recv bitmap
     temp_sensor_bitmap |= (1U << tap_index);
     portEXIT_CRITICAL();
 
+    frame_id = (frame_id + 1) % 128;
+
     return 1;
 }
 
-static void temp_can_pack(bps_temperature_aggregate_arr_t temp_can_data, uint8_t* msgArr) {
+static void temp_can_pack(bps_temperature_aggregate_arr_t temp_can_data, uint8_t *msgArr)
+{
+
     if (msgArr == NULL)
     {
         return;
     }
 
-    // bits 0-4 are the tap id
-    msgArr[0] = (temp_can_data.BPS_Tap_idx & TEMP_ID_MASK);
+    // bits [0:4]: Tap index (length 5, byte 0)
+    msgArr[0] = (temp_can_data.BPS_Tap_idx & TEMP_ID_MASK); // Assuming TEMP_ID_MASK is 0x1F
 
-    // bits 8-15 is the fault
-    msgArr[1] = temp_can_data.BPS_Temperature_Tap_Fault;
+    // bits [8:31]: Temp data (length 24, bytes 1-3)
+    memcpy(&msgArr[1], &(temp_can_data.BPS_Temperature_Tap_Data), 3UL);
 
-    // bits 16-39 are temp data
-    memcpy(&msgArr[2], &(temp_can_data.BPS_Temperature_Tap_Data), 3UL);
+    // bits [32:39]: Fault data (length 8, byte 4)
+    msgArr[4] = temp_can_data.BPS_Temperature_Tap_Fault;
 
-    // bits 40-55
+    // bits [40:55]: Tap age (length 16, bytes 5-6)
     memcpy(&msgArr[5], &(temp_can_data.BPS_Temperature_Tap_Age), sizeof(uint16_t));
 
-    // TODO: Implement Frame ID thing Parthiv was talking about
-    msgArr[7] = 0x67;
+    // bits [56:63]: Frame ID (length 8, byte 7)
+    msgArr[7] = temp_can_data.FrameID_BPS_Temperature;
+}
+
+// typedef struct {
+//     uint8_t BPS_Tap_idx;
+//     uint16_t BPS_Temperature_Tap_RawV;
+//     uint8_t FrameID_BPS_Temperature;
+// } bps_temp_rawv_aggregate_arr_t;
+
+// If temp_can_pack was so good, why don't they make another?
+static void temp_can_pack2(bps_temp_rawv_aggregate_arr_t temp_can_data, uint8_t *msgArr)
+{
+    if (msgArr == NULL)
+    {
+        return;
+    }
+
+    // bits [0:4]: Tap index (length 5, byte 0)
+    // 0x1F is the hex mask for 5 bits (0b00011111)
+    msgArr[0] = (temp_can_data.BPS_Tap_idx & 0x1F);
+
+    // bits [8:23]: Raw Voltage (length 16, bytes 1-2)
+    memcpy(&msgArr[1], &(temp_can_data.BPS_Temperature_Tap_RawV), sizeof(uint16_t));
+
+    // bits [24:31]: Frame ID (length 8, byte 3)
+    msgArr[3] = temp_can_data.FrameID_BPS_Temperature;
 }
 
 // gets all can data from each tap from a passed in volttemp board, unpacks it and puts it into array
-static void can_recv_all_taps(uint32_t can_msg_ID, bps_temperature_aggregate_arr_t temp_can_data[]) {
+static void can_recv_all_taps(uint32_t can_msg_ID, bps_temperature_aggregate_arr_t temp_can_data[], bps_temp_rawv_aggregate_arr_t temp_can_data2[])
+{
     // can recieve for all 4 temperature taps for each temptemp board
     for (uint8_t i = 0; i < TEMP_TAPS_PER_BOARD; i++)
     {
-        uint8_t raw_databuffer[CAN_DLC_BPS_VT0_TEMPERATURE_ARR] = { 0 };
+        uint8_t raw_databuffer[CAN_DLC_BPS_VT0_TEMPERATURE_ARR] = {0};
         // if can fails then message will not be unpacked and the watchdog will trip
         if (bps_can_recv(can_msg_ID, raw_databuffer, CAN_DLC_BPS_VT0_TEMPERATURE_ARR, TEMPERATURE_CAN_DELAY_MS) == CAN_OK)
         {
             // Unpacking temp CAN messages in aggregate temp array
-            temp_can_unpack(raw_databuffer, temp_can_data);
+            temp_can_unpack(raw_databuffer, temp_can_data, temp_can_data2);
         }
     }
 }
 
-static void vTemperatureWatchdogCallback(TimerHandle_t temp_timer) {
+static void vTemperatureWatchdogCallback(TimerHandle_t temp_timer)
+{
 
     if (temp_sensor_bitmap != TEMP_TAPS_ALL_DATA)
     {
@@ -133,14 +181,14 @@ static void vTemperatureWatchdogCallback(TimerHandle_t temp_timer) {
     temp_sensor_bitmap = 0;
 }
 
-void Task_Temperature_Monitor() {
-
+void Task_Temperature_Monitor()
+{
     // Make timer for watchdog
     temperature_watchdog_timer = xTimerCreateStatic(
         "Temp Watchdog",                         /* Name of the timer */
         pdMS_TO_TICKS(TEMP_WATCHDOG_TIMEOUT_MS), /* Timer period in ticks */
         pdTRUE,                                  /* auto-reload */
-        (void*)0,                               /* Timer ID */
+        (void *)0,                               /* Timer ID */
         vTemperatureWatchdogCallback,            /* Callback function */
         &temp_timer_buffer                       /* Buffer to hold timer data */
     );
@@ -163,10 +211,11 @@ void Task_Temperature_Monitor() {
         {
 
             // recieve data from all taps from each id
-            can_recv_all_taps(can_id, temp_can_data);
+            can_recv_all_taps(can_id, temp_can_data, temp_can_data2);
         }
 
-        uint8_t msgBuff[CAN_DLC_BPS_TEMPERATURE_AGGREGATE_ARR] = { 0 };
+        uint8_t msgBuff[CAN_DLC_BPS_TEMPERATURE_AGGREGATE_ARR] = {0};
+        uint8_t msgBuff2[CAN_DLC_BPS_TEMP_RAWV_AGGREGATE_ARR] = {0};
 
         // gets the threshold for this iteration of the loop, (since threshold changes depending if the battery is charging or discharging)
         uint32_t temp_threshold = get_temp_threshold();
@@ -188,7 +237,10 @@ void Task_Temperature_Monitor() {
             }
 
             temp_can_pack(temp_can_data[i], msgBuff);
+            temp_can_pack2(temp_can_data2[i], msgBuff2);
+
             car_can_send(CAN_ID_BPS_TEMPERATURE_AGGREGATE_ARR, msgBuff, CAN_DLC_BPS_TEMPERATURE_AGGREGATE_ARR, pdMS_TO_TICKS(TEMPERATURE_CAN_DELAY_MS));
+            car_can_send(CAN_ID_BPS_TEMP_RAWV_AGGREGATE_ARR, msgBuff2, CAN_DLC_BPS_TEMP_RAWV_AGGREGATE_ARR, pdMS_TO_TICKS(TEMPERATURE_CAN_DELAY_MS));
         }
 
         // Reset printf counter (outside loop so all taps print)
@@ -204,6 +256,6 @@ void Task_Temperature_Monitor() {
 
         // Set event group bit
         xEventGroupSetBits(xWDogEventGroup_handle, /* The event group being updated. */
-            TEMP_MONITOR_DONE);     /* The bits being set. */
+                           TEMP_MONITOR_DONE);     /* The bits being set. */
     }
 }
