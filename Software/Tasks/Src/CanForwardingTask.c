@@ -11,7 +11,6 @@ static StaticQueue_t canRxForwardQueueBuffer;
 static uint8_t canRxForwardQueueStorage[CAN_RX_FORWARD_QUEUE_SIZE * sizeof(can_rx_payload_t)];
 static QueueHandle_t canRxForwardQueue;
 
-// UNCOMMENT FOR CAN TEST (I don't like this either)
 
 void can_fd_rx_callback_hook(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs, can_rx_payload_t recv_payload)
 {

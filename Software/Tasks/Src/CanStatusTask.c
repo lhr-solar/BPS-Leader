@@ -158,7 +158,7 @@
         while (1) {
             vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(CAN_STATUS_TASK_DELAY_MS));
 
-            fault_bitmap = (uint32_t)xEventGroupGetBits(faultBits);
+            fault_bitmap = (uint32_t)xEventGroupGetBits(faultBits_1);
 
             if ((fault_bitmap & FAULT_BIT(CELL_OVERVOLTAGE_FAULT)) != 0)                    bps_status_message.BPS_Fault = BPS_STATUS_BPS_FAULT_OVERVOLTAGE;
             else if ((fault_bitmap & FAULT_BIT(CELL_UNDERVOLTAGE_FAULT)) != 0)              bps_status_message.BPS_Fault = BPS_STATUS_BPS_FAULT_UNDERVOLTAGE;

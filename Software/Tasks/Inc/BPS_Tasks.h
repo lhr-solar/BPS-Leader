@@ -103,7 +103,8 @@ extern EventGroupHandle_t xStateBits;
 
 extern StaticEventGroup_t xStateBits_buffer;
 
-extern EventGroupHandle_t faultBits;
+extern EventGroupHandle_t faultBits_1;
+extern EventGroupHandle_t faultBits_2;
 
 #define get_state_bit(bit) ((xEventGroupGetBits(xStateBits) & (1U << bit)) >> bit)
 
