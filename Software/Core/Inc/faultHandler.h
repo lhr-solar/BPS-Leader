@@ -13,6 +13,7 @@
 #define MAX_FAULT_BITS 8U
 #endif
 
+// NOTE: FAULTS USED IN CAN STATUS TASK ((MUST))
 typedef enum
 {
     // BPS main saefty loop faults
@@ -37,27 +38,29 @@ typedef enum
     // Precharge faults
     ARRAY_GREATER_THAN_BATTERY_FAULT, // Array voltage is greater than battery voltage (from precharge ADC signal)
     PRECHARGE_TIMEOUT_FAULT,          // Precharge sequence took too long
-    PRECHARGE_HYSTERESIS_FAULT,       // Precharge Array voltage fell under hysteresis threshold while precharging
+    PRECHARGE_OUT_OF_BOUNDS_FAULT,    // Precharge Array voltage fell under hysteresis threshold while precharging
     PACK_OVERVOLTAGE_FAULT,           // Pack voltage is too high (Precharge ADC reading)
     PACK_UNDERVOLTAGE_FAULT,          // Pack voltage is too low (Precharge ADC reading)
+    FAN_TACHOMETER_FAULT,             // Fan tach values is reading wrong value
 
     // Software Errors
     RTOS_WATCHDOG_ERROR, // Watchdog did not get pet in time, code is likely blocking somewhere
     BPS_CAN_ERROR,       // BPS CAN failed a send or receive after configured retries
     CAR_CAN_ERROR,       // CAR CAN failed a send or receive after configured retries
     FAN_CHIP_ERROR,      // Fan chip not responding or not responding properly
+    ADC_ERROR,           // Error with ADC
     ELCON_FAULT,         // ELCON faulted while chargin
+    REGEN_FAULT,         // Regen braking faulted
 
     NUM_FAULTS
 } fault_bit_t;
 
-extern const char* const fault_bit_strings[NUM_FAULTS];
+extern const char *const fault_bit_strings[NUM_FAULTS];
 
 /* Convert enum to bitmask */
 #define FAULT_BIT(fault) (1UL << (fault))
 
-_Static_assert(NUM_FAULTS <= MAX_FAULT_BITS*2, "Too many fault bits for EventGroup");
-
+_Static_assert(NUM_FAULTS <= MAX_FAULT_BITS * 2, "Too many fault bits for EventGroup");
 
 extern bool fault_task_initialized;
 extern SemaphoreHandle_t faultSemaphore;
@@ -66,7 +69,7 @@ extern bool system_has_faulted;
 extern volatile uint32_t first_fault_id;
 
 extern EventGroupHandle_t faultBits_1;
-extern EventGroupHandle_t faultBits_2; 
+extern EventGroupHandle_t faultBits_2;
 
 /**
  * @brief Set a fault in the fault bitmap
@@ -74,23 +77,26 @@ extern EventGroupHandle_t faultBits_2;
  * @param bit which fault is being set
  * @return none
  */
-#define set_faultBit(bit_index) \
-    do { \
-        if (fault_task_initialized && ((bit_index) < NUM_FAULTS)) { \
-            /* ATOMIC LATCH: Only the very first execution succeeds */ \
-            taskENTER_CRITICAL(); \
-            if (!system_has_faulted) { \
-                first_fault_id = (bit_index); /* Save the root cause! */ \
-                system_has_faulted = true; \
-            } \
-            taskEXIT_CRITICAL(); \
-            \
-            /* Continue setting the event group normally to wake the handler */ \
+#define set_faultBit(bit_index)                                                                           \
+    do                                                                                                    \
+    {                                                                                                     \
+        if (fault_task_initialized && ((bit_index) < NUM_FAULTS))                                         \
+        {                                                                                                 \
+            /* ATOMIC LATCH: Only the very first execution succeeds */                                    \
+            taskENTER_CRITICAL();                                                                         \
+            if (!system_has_faulted)                                                                      \
+            {                                                                                             \
+                first_fault_id = (bit_index); /* Save the root cause! */                                  \
+                system_has_faulted = true;                                                                \
+            }                                                                                             \
+            taskEXIT_CRITICAL();                                                                          \
+                                                                                                          \
+            /* Continue setting the event group normally to wake the handler */                           \
             EventGroupHandle_t target_group = ((bit_index) < MAX_FAULT_BITS) ? faultBits_1 : faultBits_2; \
-            xEventGroupSetBits(target_group, FAULT_BIT((bit_index) % MAX_FAULT_BITS)); \
-            xSemaphoreGive(faultSemaphore); \
-        } \
-    } while(0)
+            xEventGroupSetBits(target_group, FAULT_BIT((bit_index) % MAX_FAULT_BITS));                    \
+            xSemaphoreGive(faultSemaphore);                                                               \
+        }                                                                                                 \
+    } while (0)
 
 /**
  * @brief Set a fault in the fault bitmap from an ISR
@@ -99,28 +105,30 @@ extern EventGroupHandle_t faultBits_2;
  * @param pxHigherPriorityTaskWoken address of pxHigherPriorityTaskWoken
  * @return none
  */
-#define set_faultBitFromISR(bit_index, pxHigherPriorityTaskWoken) \
-    do { \
-        /* Check initialization AND ensure bit is within valid total range */ \
-        if (fault_task_initialized && ((bit_index) < NUM_FAULTS)) { \
-            \
+#define set_faultBitFromISR(bit_index, pxHigherPriorityTaskWoken)                    \
+    do                                                                               \
+    {                                                                                \
+        /* Check initialization AND ensure bit is within valid total range */        \
+        if (fault_task_initialized && ((bit_index) < NUM_FAULTS))                    \
+        {                                                                            \
+                                                                                     \
             /* ATOMIC LATCH: Capture the very first fault, ignore subsequent ones */ \
-            UBaseType_t uxSavedInterruptStatus = taskENTER_CRITICAL_FROM_ISR(); \
-            if (!system_has_faulted) { \
-                first_fault_id = (bit_index); \
-                system_has_faulted = true; \
-            } \
-            taskEXIT_CRITICAL_FROM_ISR(uxSavedInterruptStatus);\
-            /* Set the event group bit to wake the handler task */ \
-            xEventGroupSetBitsFromISR( \
-                ((bit_index) < MAX_FAULT_BITS) ? faultBits_1 : faultBits_2, \
-                FAULT_BIT((bit_index) % MAX_FAULT_BITS), \
-                (pxHigherPriorityTaskWoken) \
-            ); \
-            xSemaphoreGiveFromISR(faultSemaphore, pxHigherPriorityTaskWoken); \
-            portYIELD_FROM_ISR(*pxHigherPriorityTaskWoken); \
-        } \
-    } while(0)
+            UBaseType_t uxSavedInterruptStatus = taskENTER_CRITICAL_FROM_ISR();      \
+            if (!system_has_faulted)                                                 \
+            {                                                                        \
+                first_fault_id = (bit_index);                                        \
+                system_has_faulted = true;                                           \
+            }                                                                        \
+            taskEXIT_CRITICAL_FROM_ISR(uxSavedInterruptStatus);                      \
+            /* Set the event group bit to wake the handler task */                   \
+            xEventGroupSetBitsFromISR(                                               \
+                ((bit_index) < MAX_FAULT_BITS) ? faultBits_1 : faultBits_2,          \
+                FAULT_BIT((bit_index) % MAX_FAULT_BITS),                             \
+                (pxHigherPriorityTaskWoken));                                        \
+            xSemaphoreGiveFromISR(faultSemaphore, pxHigherPriorityTaskWoken);        \
+            portYIELD_FROM_ISR(*pxHigherPriorityTaskWoken);                          \
+        }                                                                            \
+    } while (0)
 
 /**
  * @brief Initializes fault bitmap
@@ -138,4 +146,3 @@ uint8_t faultHandler_init(void);
  * @return first_fault_id, the bit index of the first fault bit that was set
  */
 uint32_t faultBit_wait(fault_bit_t bit, TickType_t xTicksToWait);
-

@@ -5,6 +5,8 @@
 // delays if scheduler is started or not
 #define universal_delay(ms) ((xTaskGetSchedulerState() == taskSCHEDULER_RUNNING) ? vTaskDelay(pdMS_TO_TICKS(ms)) : HAL_Delay(ms))
 
+#define glorious_printf(str) ((xTaskGetSchedulerState() == taskSCHEDULER_RUNNING) ? printf(str) : 0) 
+
 // for software errors
 void Error_Handler() {
 
@@ -19,7 +21,7 @@ void Error_Handler() {
         universal_delay(1000);
         LED_set(DEBUG_LED, LED_OFF);
         universal_delay(1000);
-        printf("Faulted\n\r");
+        glorious_printf("Faulted\n\r");
     }
 }
 

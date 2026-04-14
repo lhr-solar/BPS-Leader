@@ -60,17 +60,19 @@ const char* const fault_bit_strings[NUM_FAULTS] = {
     // Precharge faults
     [ARRAY_GREATER_THAN_BATTERY_FAULT]   = "ARRAY_GREATER_THAN_BATTERY_FAULT",
     [PRECHARGE_TIMEOUT_FAULT]            = "PRECHARGE_TIMEOUT_FAULT",
-    [PRECHARGE_HYSTERESIS_FAULT]         = "PRECHARGE_HYSTERESIS_FAULT",
-    
+    [PRECHARGE_OUT_OF_BOUNDS_FAULT]      = "PRECHARGE_OUT_OF_BOUNDS_FAULT",
     [PACK_OVERVOLTAGE_FAULT]             = "PACK_OVERVOLTAGE_FAULT",
     [PACK_UNDERVOLTAGE_FAULT]            = "PACK_UNDERVOLTAGE_FAULT",
+    [FAN_TACHOMETER_FAULT]               = "FAN_TACHOMETER_FAULT",
 
     // Software Errors
     [RTOS_WATCHDOG_ERROR]                = "RTOS_WATCHDOG_ERROR",
     [BPS_CAN_ERROR]                      = "BPS_CAN_ERROR",
     [CAR_CAN_ERROR]                      = "CAR_CAN_ERROR",
     [FAN_CHIP_ERROR]                     = "FAN_CHIP_ERROR",
-    [ELCON_FAULT]                        = "ELCON_FAULT"
+    [ELCON_FAULT]                        = "ELCON_FAULT",
+    [REGEN_FAULT]                        = "REGEN_FAULT",
+    [ADC_ERROR]                          = "ADC_ERROR"
 };
 
 uint32_t faultBit_wait(fault_bit_t bit, TickType_t xTicksToWait){

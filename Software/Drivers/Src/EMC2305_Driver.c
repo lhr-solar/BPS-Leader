@@ -11,30 +11,37 @@ bool driver_initialized = false;
 #define EMC2305_STARTUP_WAIT_MS 200
 
 // pwm is value greater than 0 less than 100
-EMC2305_Status set_fan_pwm(EMC2305_Fan fan, uint16_t pwm) {
+EMC2305_Status set_fan_pwm(EMC2305_Fan fan, uint16_t pwm)
+{
 
-    if (pwm > 100) pwm = 100;
+    if (!i2c_initialized || !driver_initialized)
+        return EMC2305_ERR;
+    if (pwm > 100)
+        pwm = 100;
 
     return EMC2305_SetFanPWM(&chip, fan, pwm);
 }
 
 // rpm is value greater than FAN_MIN_RPM less than FAN_MAX_RPM
-EMC2305_Status set_fan_rpm(EMC2305_Fan fan, uint16_t rpm) {
+EMC2305_Status set_fan_rpm(EMC2305_Fan fan, uint16_t rpm)
+{
 
-    if (rpm > FAN_MAX_RPM) rpm = FAN_MAX_RPM;
-    if (rpm < FAN_MIN_RPM) rpm = FAN_MIN_RPM;
+    if (!i2c_initialized || !driver_initialized)
+        return EMC2305_ERR;
+    if (rpm > FAN_MAX_RPM)
+        rpm = FAN_MAX_RPM;
+    if (rpm < FAN_MIN_RPM)
+        rpm = FAN_MIN_RPM;
 
     return EMC2305_SetFanRPM(&chip, fan, rpm);
 }
 
 void EMC2305_I2C_init(void)
-{ 
+{
 
+    GPIO_InitTypeDef init = {0};
 
-
-  GPIO_InitTypeDef init = {0};
-  
-   RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
+    RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
 
     PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_I2C3;
     PeriphClkInit.I2c3ClockSelection = RCC_I2C3CLKSOURCE_PCLK1;
@@ -43,89 +50,98 @@ void EMC2305_I2C_init(void)
         Error_Handler();
     }
 
-  __HAL_RCC_I2C3_CLK_ENABLE();
-  __HAL_RCC_GPIOC_CLK_ENABLE();
+    __HAL_RCC_I2C3_CLK_ENABLE();
+    __HAL_RCC_GPIOC_CLK_ENABLE();
 
-  init.Pin = FAN_SCL_PIN|FAN_SDA_PIN;
-  init.Mode = GPIO_MODE_AF_OD;
-  init.Pull = GPIO_NOPULL;
-  init.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  init.Alternate = GPIO_AF8_I2C3;
-  HAL_GPIO_Init(FAN_SCL_PORT, &init);
+    init.Pin = FAN_SCL_PIN | FAN_SDA_PIN;
+    init.Mode = GPIO_MODE_AF_OD;
+    init.Pull = GPIO_NOPULL;
+    init.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    init.Alternate = GPIO_AF8_I2C3;
+    HAL_GPIO_Init(FAN_SCL_PORT, &init);
 
-  init.Pin = FAN_ALERT_PIN;
-  init.Mode = GPIO_MODE_INPUT;
-  init.Pull = GPIO_NOPULL;
-  init.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(FAN_ALERT_PORT, &init);
+    init.Pin = FAN_ALERT_PIN;
+    init.Mode = GPIO_MODE_INPUT;
+    init.Pull = GPIO_NOPULL;
+    init.Speed = GPIO_SPEED_FREQ_LOW;
+    HAL_GPIO_Init(FAN_ALERT_PORT, &init);
 
-  hi2c3.Instance = FAN_I2C_CHANNEL;
-  hi2c3.Init.Timing = 0x00503D58;
-  hi2c3.Init.OwnAddress1 = 0;
-  hi2c3.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
-  hi2c3.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
-  hi2c3.Init.OwnAddress2 = 0;
-  hi2c3.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
-  hi2c3.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
-  hi2c3.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
-  if (HAL_I2C_Init(&hi2c3) != HAL_OK)
-  {
-    Error_Handler();
-  }
+    hi2c3.Instance = FAN_I2C_CHANNEL;
+    hi2c3.Init.Timing = 0x00503D58;
+    hi2c3.Init.OwnAddress1 = 0;
+    hi2c3.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+    hi2c3.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+    hi2c3.Init.OwnAddress2 = 0;
+    hi2c3.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
+    hi2c3.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+    hi2c3.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+    if (HAL_I2C_Init(&hi2c3) != HAL_OK)
+    {
+        Error_Handler();
+    }
 
-  /** Configure Analogue filter
-  */
-  if (HAL_I2CEx_ConfigAnalogFilter(&hi2c3, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  
-  /** Configure Digital filter
-  */
-  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c3, 0) != HAL_OK)
-  {
-    Error_Handler();
-  }
+    /** Configure Analogue filter
+     */
+    if (HAL_I2CEx_ConfigAnalogFilter(&hi2c3, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
+    {
+        Error_Handler();
+    }
 
-  HAL_NVIC_SetPriority(I2C3_EV_IRQn, EMC2305_IRQ_PRIO, 0);
-  HAL_NVIC_EnableIRQ(I2C3_EV_IRQn);
+    /** Configure Digital filter
+     */
+    if (HAL_I2CEx_ConfigDigitalFilter(&hi2c3, 0) != HAL_OK)
+    {
+        Error_Handler();
+    }
 
-  HAL_NVIC_SetPriority(I2C3_ER_IRQn, EMC2305_IRQ_PRIO, 0);
-  HAL_NVIC_EnableIRQ(I2C3_ER_IRQn);
+    HAL_NVIC_SetPriority(I2C3_EV_IRQn, EMC2305_IRQ_PRIO, 0);
+    HAL_NVIC_EnableIRQ(I2C3_EV_IRQn);
 
-  i2c_initialized = true;
+    HAL_NVIC_SetPriority(I2C3_ER_IRQn, EMC2305_IRQ_PRIO, 0);
+    HAL_NVIC_EnableIRQ(I2C3_ER_IRQn);
 
+    i2c_initialized = true;
 }
 
-static void fan_init(EMC2305_Fan fan) {
+static void fan_init(EMC2305_Fan fan)
+{
 
     // Depends on the fan lol (should be in fan datasheet)
-    if (EMC2305_SetPWMBaseFrequency(&chip, fan, EMC2305_PWM_26k00) != EMC2305_OK) {
+    if (EMC2305_SetPWMBaseFrequency(&chip, fan, EMC2305_PWM_26k00) != EMC2305_OK)
+    {
         set_faultBit(FAN_CHIP_ERROR);
     }
 
     // Set minimum drive to 0%
-    if (EMC2305_WriteReg(&chip, EMC2305_FAN_REG_ADDR(fan, EMC2305_REG_FAN1_MIN_DRIVE), 0x00) != EMC2305_OK) {
+    if (EMC2305_WriteReg(&chip, EMC2305_FAN_REG_ADDR(fan, EMC2305_REG_FAN1_MIN_DRIVE), 0x00) != EMC2305_OK)
+    {
         set_faultBit(FAN_CHIP_ERROR);
     }
 
     // Set PID Gain to lowest (1x)
-    if (EMC2305_WriteReg(&chip, EMC2305_FAN_REG_ADDR(fan, EMC2305_REG_GAIN1), 0x00) != EMC2305_OK) {
-        set_faultBit(FAN_CHIP_ERROR);   
+    if (EMC2305_WriteReg(&chip, EMC2305_FAN_REG_ADDR(fan, EMC2305_REG_GAIN1), 0x00) != EMC2305_OK)
+    {
+        set_faultBit(FAN_CHIP_ERROR);
     }
 
     // Set PWM output mode to open-drain (use false for push-pull)
-    if (EMC2305_SetPWMOutputMode(&chip, fan, true) != EMC2305_OK) {
+    if (EMC2305_SetPWMOutputMode(&chip, fan, true) != EMC2305_OK)
+    {
         set_faultBit(FAN_CHIP_ERROR);
     }
 }
 
 // CALL FROM TASK
-EMC2305_Status EMC2305_Driver_init() {
+EMC2305_Status EMC2305_Driver_init()
+{   
+    if (!i2c_initialized) {
+        return EMC2305_ERR;
+    }
 
     vTaskDelay(pdMS_TO_TICKS(EMC2305_STARTUP_WAIT_MS));
 
-    if (EMC2305_Init(&chip, &hi2c3, 0x4D) == EMC2305_ERR) {
+    if (EMC2305_Init(&chip, &hi2c3, 0x4D) == EMC2305_ERR)
+    {
         return EMC2305_ERR;
     }
 
@@ -165,11 +181,14 @@ EMC2305_Status EMC2305_Driver_init() {
 }
 
 // Sets all fans to max RPM in case of fault. Will do this anyways after some time, but its best to do it sooner
-// TODO: check if fans are intialized. If not, initialize them. 
-void set_fans_MAX(void) {
+// TODO: check if fans are intialized. If not, initialize them.
+void set_fans_MAX(void)
+{
 
-    if (!i2c_initialized) EMC2305_I2C_init();
-    if (!driver_initialized) EMC2305_Driver_init();
+    if (!i2c_initialized)
+        EMC2305_I2C_init();
+    if (!driver_initialized)
+        EMC2305_Driver_init();
 
     EMC2305_SetFanRPM(&chip, EMC2305_FAN1, FAN_MAX_RPM);
     EMC2305_SetFanRPM(&chip, EMC2305_FAN2, FAN_MAX_RPM);

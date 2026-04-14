@@ -2,69 +2,89 @@
 #include "FaultHandlerTask.h"
 #include "config.h"
 
+// Defined macro is now actually used below
 #define PRECHARGE_PRINTF_DEBUG_PERIOD_MS 10000
 #define PRECHARGE_PRINTF_DEBUG_COUNTER (PRECHARGE_PRINTF_DEBUG_PERIOD_MS / PRECHARGE_TASK_DELAY_MS)
 
-/* handle for the Precharge task, defined here */
 TaskHandle_t hprecharge_task = NULL;
 
 StaticEventGroup_t xPrechargeEventGroup;
 EventGroupHandle_t xPrechargeEventGroup_handle;
 
-void Init_PrechargeTask()
-{
-    // Event Group init
-    xPrechargeEventGroup_handle = xEventGroupCreateStatic(&xPrechargeEventGroup);
-    configASSERT(xPrechargeEventGroup_handle); // check if handle is set
-    // xEventGroupClearBits(xReadADCEventGroup_handle,    /* The event group being updated. */
-    //                      0xFF );                    /* The bits being cleared. */
+// The handle for our software timer
+static TimerHandle_t xPrechargeTimer = NULL;
+static StaticTimer_t xPrechargeTimer_buffer;
 
-    if (ADC_Sense_Init() != ADC_SENSE_OK) {
-        // WILL FIX AFTER CHARGING
-        // set_faultBit(ADC_ERROR);
-    }
+static uint8_t under_voltage_error_count = 0;
+
+// Flag to communicate between the Timer Task and Precharge Task
+static volatile bool precharge_timeout_expired = false;
+
+// The callback function executed by the FreeRTOS Timer Daemon
+void PrechargeTimeoutCallback(TimerHandle_t xTimer)
+{
+    precharge_timeout_expired = true;
 }
 
-// TODO(rshah): currently this throws cell over/undervoltage due to not enough bits in eventgroup. could make another eventgroup to distinguish
+void Init_PrechargeTask(void)
+{
+    xPrechargeEventGroup_handle = xEventGroupCreateStatic(&xPrechargeEventGroup);
+    configASSERT(xPrechargeEventGroup_handle);
+
+    if (ADC_Sense_Init() != ADC_SENSE_OK)
+    {
+        set_faultBit(ADC_ERROR);
+    }
+    // Create a One-Shot timer (pdFALSE) that does not auto-reload
+    xPrechargeTimer = xTimerCreateStatic(
+        "PrechargeTmr",                      // Text name
+        pdMS_TO_TICKS(PRECHARGE_TIMEOUT_MS), // Timer period
+        pdFALSE,                             // pdFALSE = One-Shot, pdTRUE = Auto-Reload
+        (void *) 0,                          // Timer ID (not used here)
+        PrechargeTimeoutCallback,             // Callback function
+        &xPrechargeTimer_buffer              // buffer for precharge timer
+    );
+}
+
+// could make another eventgroup to distinguish
 void Fault_Checker(uint32_t Array_Voltage, uint32_t Battery_Voltage, Precharge_State_t State)
 {
-    if (Array_Voltage > (Battery_Voltage * VOLTAGE_TOLERANCE_NUMERATOR / VOLTAGE_TOLERANCE_DENOMINATOR))
+    // Use uint64_t to prevent overflow during scaled multiplication of large mV values
+    if ((Array_Voltage * VOLTAGE_TOLERANCE_DENOMINATOR) > (Battery_Voltage * VOLTAGE_TOLERANCE_NUMERATOR))
     {
-        // Fault handler
         set_faultBit(ARRAY_GREATER_THAN_BATTERY_FAULT);
     }
 
     if (Battery_Voltage > PACK_OVERVOLTAGE_THRESHOLD_MV)
     {
         /* BATTERY ABOUT TO GO BOOM */
-        // Fault handler
-        set_faultBit(CELL_OVERVOLTAGE_FAULT);
+        set_faultBit(PACK_OVERVOLTAGE_FAULT);
     }
 
-    if ((Battery_Voltage < PACK_UNDERVOLTAGE_THRESHOLD_MV) && (State != PRECHARGE_STATE_IDLE))
+    if ((Battery_Voltage < PACK_UNDERVOLTAGE_THRESHOLD_MV) && (State != PRECHARGE_STATE_IDLE) && (State != PRECHARGE_STATE_FAULT))
     {
-        /* Battery voltage is too low or battery is disconnected, treat as fault */
-        // Fault handler
-        set_faultBit(CELL_UNDERVOLTAGE_FAULT);
-    }
+        if (State == PRECHARGE_STATE_PRECHARGING) {
+            under_voltage_error_count++;
+        }
+        else {
+            /* Battery voltage is too low or battery is disconnected, treat as fault */
+            set_faultBit(PACK_UNDERVOLTAGE_FAULT);
+        }
 
-    if (contactor_verify(ARRAY_CONTACTOR) != CONTACTOR_OK)
-    {
-        // Fault handler
-        set_faultBit(CONTACTOR_ARRAY_FAULT);
+        if (under_voltage_error_count > PRECHARGE_UNDERVOLTAGE_DEBOUNCE_LIMIT) {
+            set_faultBit(PACK_UNDERVOLTAGE_FAULT);
+        }
     }
-
-    if (contactor_verify(ARRAY_PRE_CONTACTOR) != CONTACTOR_OK)
-    {
-        // Fault handler
-        set_faultBit(CONTACTOR_ARRAY_PRE_FAULT);
-    }
+    else under_voltage_error_count = 0;
 }
 
 static void print_Precharge_State(Precharge_State_t State)
 {
     switch (State)
     {
+    case PRECHARGE_STATE_IDLE:
+        printf("Precharge State: IDLE\r\n");
+        break;
     case PRECHARGE_STATE_INITIAL:
         printf("Precharge State: Initial\r\n");
         break;
@@ -74,32 +94,40 @@ static void print_Precharge_State(Precharge_State_t State)
     case PRECHARGE_STATE_RUN:
         printf("Precharge State: Run\r\n");
         break;
+    case PRECHARGE_STATE_FAULT:
+        printf("Precharge State: FAULT\r\n");
+        break;
     default:
-        printf("Unknown\r\n");
+        printf("Precharge State: Unknown\r\n");
         break;
     }
 }
 
-void Task_Precharge()
+
+void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
 {
     Init_PrechargeTask();
+    printf("Precharge Task Initialized\r\n");
 
-    printf("all intialized\r\n");
-
-    static Precharge_State_t State = PRECHARGE_STATE_INITIAL;
-    static TickType_t Start_Tick = 0;
-
-    uint8_t printDebugCounter = 0;
+    static Precharge_State_t State = PRECHARGE_STATE_INITIAL;   
+    uint32_t printDebugCounter = 0;
 
     TickType_t xLastWakeTime = xTaskGetTickCount();
 
     while (1)
     {
 
+        vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(PRECHARGE_TASK_DELAY_MS));
+
+        // check this bool from fault handler
+        if (system_has_faulted) State = PRECHARGE_STATE_FAULT;
+
         ADC_Sense_Result ADC_Result = {0};
+
+        // to let your fault handler safely open contactors.
         if (Read_ADC(ADC_TIMEOUT_MS, &ADC_Result) != ADC_SENSE_OK)
         {
-            Error_Handler();
+            set_faultBit(ADC_ERROR);
         }
 
         uint32_t Battery_Voltage = ADC_Result.Battery_Voltage;
@@ -110,72 +138,72 @@ void Task_Precharge()
         switch (State)
         {
         case PRECHARGE_STATE_IDLE:
+            Fault_Checker(Array_Voltage, Battery_Voltage, State);
+            break;
 
+        case PRECHARGE_STATE_INITIAL:
+            // Double check hardware: Ensure this isn't closing the main positive before precharging!
+            if (contactor_set(ARRAY_PRE_CONTACTOR, CONTACTOR_CLOSED, CALLBACK_BLOCKING_TIME_MS, NORMAL) != CONTACTOR_OK)
+            {
+                set_faultBit(CONTACTOR_ARRAY_PRE_FAULT);
+            }
+
+            State = PRECHARGE_STATE_PRECHARGING;
+            xTimerStart(xPrechargeTimer, 0); // Start the timer
+            break;
+
+        case PRECHARGE_STATE_PRECHARGING:
             Fault_Checker(Array_Voltage, Battery_Voltage, State);
 
-            break;
-
-        case PRECHARGE_STATE_INITIAL: // Startup state: Closes main contactor and moves to precharging state
-            if (contactor_set(ARRAY_CONTACTOR, CONTACTOR_CLOSED, CALLBACK_BLOCKING_TIME_MS, NORMAL) != CONTACTOR_OK)
+            // 1. Evaluate success FIRST
+            if ((Array_Voltage * RATIO_SCALE) >= (Battery_Voltage * PRECHARGE_THRESHOLD_90))
             {
-                set_faultBit(CONTACTOR_CALLBACK_FAULT);
+                // stop timer since we did it we precharged
+                xTimerStop(xPrechargeTimer, 0);
+
+                if (contactor_set(ARRAY_CONTACTOR, CONTACTOR_CLOSED, CALLBACK_BLOCKING_TIME_MS, false) != CONTACTOR_OK)
+                {
+                    set_faultBit(CONTACTOR_ARRAY_FAULT);
+                }
+                if (contactor_set(ARRAY_PRE_CONTACTOR, CONTACTOR_OPEN, CALLBACK_BLOCKING_TIME_MS, false) != CONTACTOR_OK)
+                {
+                    set_faultBit(CONTACTOR_ARRAY_PRE_FAULT);
+                }
+                State = PRECHARGE_STATE_RUN;
             }
-            State = PRECHARGE_STATE_PRECHARGING;
-
-            // Start a timer for precharging
-            Start_Tick = xTaskGetTickCount();
-            break;
-
-        case PRECHARGE_STATE_PRECHARGING: // Precharging state: Waits for battery voltage to reach 90% of array voltage, then closes precharge contactor and moves to run state
-
-            Fault_Checker(Array_Voltage, Battery_Voltage, State); // Check for faults while precharging, if any fault conditions are met, will call fault handler and not proceed with precharge sequence
-
-            const TickType_t Current_Tick = xTaskGetTickCount();                   // Check how long we've been precharging for, fault if not precharged after PRECHARGE_TIMEOUT_MS
-            if ((Current_Tick - Start_Tick) > pdMS_TO_TICKS(PRECHARGE_TIMEOUT_MS)) // Faults if precharging takes too long
+            // 2. If not successful yet, check if we ran out of time
+            else if (precharge_timeout_expired)
             {
-                // Check if array voltage is within 90% of battery voltage (precharge complete)
-                if (Array_Voltage * RATIO_SCALE >= Battery_Voltage * PRECHARGE_THRESHOLD_90)
-                {
-                    if (contactor_set(ARRAY_PRE_CONTACTOR, CONTACTOR_CLOSED, CALLBACK_BLOCKING_TIME_MS, false) != CONTACTOR_OK)
-                    {
-                        set_faultBit(CONTACTOR_CALLBACK_FAULT);
-                    }
-                    State = PRECHARGE_STATE_RUN;
-                }
-                else
-                {
-                    // Precharging took too long
-                    set_faultBit(PRECHARGE_TIMEOUT_FAULT);
-                }
+                set_faultBit(PRECHARGE_TIMEOUT_FAULT);
+                State = PRECHARGE_STATE_IDLE; // Park in idle after faulting
             }
             break;
-        case PRECHARGE_STATE_RUN: // Run state: Continuously checks that array voltage stays within 80% of battery voltage
 
-            Fault_Checker(Array_Voltage, Battery_Voltage, State); // Check for faults while precharging, if any fault conditions are met, will call fault handler and not proceed with precharge sequence
+        case PRECHARGE_STATE_RUN:
+            Fault_Checker(Array_Voltage, Battery_Voltage, State);
 
             // Use 80% threshold for hysteresis
-            if (Array_Voltage * RATIO_SCALE < Battery_Voltage * PRECHARGE_THRESHOLD_80)
+            if ((Array_Voltage * RATIO_SCALE) < (Battery_Voltage * PRECHARGE_THRESHOLD_80))
             {
-                set_faultBit(PRECHARGE_HYSTERESIS_FAULT);
+                set_faultBit(PRECHARGE_OUT_OF_BOUNDS_FAULT);
             }
             break;
+
+        case PRECHARGE_STATE_FAULT:
+            xTimerStop(xPrechargeTimer, 0);
+            Fault_Checker(Array_Voltage, Battery_Voltage, State);
+            break;
+
         default:
             break;
         }
 
-        if (printDebugCounter >= 100)
+        // Use the macro instead of a magic number
+        if (printDebugCounter >= PRECHARGE_PRINTF_DEBUG_COUNTER)
         {
-
-            // prints battery and array voltage
-            printf("Array: %ld mV | Battery: %ld mV\r\n",
-                   Array_Voltage,
-                   Battery_Voltage);
-
-            // prints current precharge state
+            printf("Array: %lu mV | Battery: %lu mV\r\n", Array_Voltage, Battery_Voltage);
             print_Precharge_State(State);
             printDebugCounter = 0;
         }
-
-        vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(PRECHARGE_TASK_DELAY_MS));
     }
 }

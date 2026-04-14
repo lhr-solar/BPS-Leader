@@ -182,10 +182,7 @@ void Task_Init()
     {
         contactor_set(HV_PLUS_CONTACTOR, CONTACTOR_CLOSED, 10, NORMAL);
         contactor_set(HV_MINUS_CONTACTOR, CONTACTOR_CLOSED, 10, NORMAL);
-        printf("================================\r\n");
-        printf("HV PLUS CONTACTOR CLOSED\r\n");
-        printf("HV MINUS CONTACTOR CLOSED\r\n");
-        printf("================================\r\n");
+
     }
 
     // Task deletes itself after all other taks are init'd

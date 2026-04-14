@@ -34,6 +34,14 @@
 #define OVERTEMP_THRESHOLD_CHARGING_MC 55000 // 55 C
 #define OVERTEMP_THRESHOLD_DISCHARGING_MC 70000 // 70 C
 
+// Charging Thresholds
+#define PACK_CHARGING_VOLTAGE_THRESHOLD_MV 135000   // 135 V
+#define CHARGING_TEMP_THRESHOLD_MC 50000 // 50 C
+
+
+// How many bad voltage reads are tolerable when switching states and closing contactors 
+#define PRECHARGE_UNDERVOLTAGE_DEBOUNCE_LIMIT 10
+
 // interrupt priorites
 #define SHT45_IRQ_PRIO (configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY + 4)
 #define EMC2305_IRQ_PRIO (configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY + 2)

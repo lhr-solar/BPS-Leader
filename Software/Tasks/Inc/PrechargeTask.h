@@ -33,7 +33,8 @@ typedef enum
     PRECHARGE_STATE_INITIAL = 0, // Precharge sequence hasn't started, start by closing main contactor and starting a timer to check for precharge timeout
     PRECHARGE_STATE_PRECHARGING, // Precharge sequence started successfully, close contactor and check hysteresis
     PRECHARGE_STATE_RUN,         // Precharge got through hysteresis, now continuously polling ADC
-    PRECHARGE_STATE_IDLE         // Precharge sequence is waiting for array ignition state (do nothing)
+    PRECHARGE_STATE_IDLE,        // Precharge sequence is waiting for array ignition state (do nothing)
+    PRECHARGE_STATE_FAULT        // We had a fault, this state exits precharge from anywhere gracefully
 } Precharge_State_t;
 
 /**

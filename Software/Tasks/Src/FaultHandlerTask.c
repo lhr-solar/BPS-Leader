@@ -1,5 +1,6 @@
 #include "FaultHandlerTask.h"
 #include "PrechargeTask.h" // for hprecharge_task handle
+#include "EMC2305_Driver.h"
 
 #define FAULT_LOOP_PRINTF_DELAY_MS 1000
 #define FAULT_LOOP_PERIOD_MS 500
@@ -7,13 +8,6 @@
 #define FAULT_PRINTF_COUNTER (FAULT_LOOP_PRINTF_DELAY_MS / FAULT_LOOP_PERIOD_MS)
 
 EventBits_t fault_bits = 0;
-
-void Kill_Precharge_Task() {
-    if (hprecharge_task != NULL)
-    {
-        vTaskDelete(hprecharge_task);
-    }
-}
 
 // Print faults & set relevant LEDs
 static void print_fault() {
@@ -62,8 +56,8 @@ void Task_FaultHandler(void* pvParameters) {
             LEDs_clear();
             LED_set(FAULT_LED, LED_ON);
 
-            Kill_Precharge_Task();
             emergency_open_contactors();
+            set_fans_MAX();
 
             print_fault();
 

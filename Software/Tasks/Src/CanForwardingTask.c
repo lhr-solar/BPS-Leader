@@ -64,6 +64,7 @@ void Task_CanRxForward()
             data = payload.data;
 
             car_can_send(ID, data, data_length, CAN_FORWARD_WAIT_TICKS);
+            taskYIELD();
         } 
     }
 }

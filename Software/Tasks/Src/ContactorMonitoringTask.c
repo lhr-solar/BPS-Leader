@@ -5,8 +5,14 @@
 
 void Task_Contactor_Monitor(void *pvParameters)
 {
-
     TickType_t xLastWakeTime = xTaskGetTickCount();
+
+    // 1. Initialize history variables BEFORE the loop starts
+    // (Assuming  contactor_get returns an enum or bool of the physical state)
+    contactor_state_t prev_hv_plus   =  contactor_get(HV_PLUS_CONTACTOR);
+    contactor_state_t prev_hv_minus  =  contactor_get(HV_MINUS_CONTACTOR);
+    contactor_state_t prev_array     =  contactor_get(ARRAY_CONTACTOR);
+    contactor_state_t prev_array_pre =  contactor_get(ARRAY_PRE_CONTACTOR);
 
     while (1)
     {
@@ -15,6 +21,43 @@ void Task_Contactor_Monitor(void *pvParameters)
         // Delays CONTACTOR_MONITOR_TASK_DELAY_MS
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(CONTACTOR_MONITOR_TASK_DELAY_MS));
 
+        // ==========================================
+        // STATE CHANGE DETECTION
+        // ==========================================
+        
+        // 2. Read the current physical states
+        contactor_state_t curr_hv_plus   =  contactor_get(HV_PLUS_CONTACTOR);
+        contactor_state_t curr_hv_minus  =  contactor_get(HV_MINUS_CONTACTOR);
+        contactor_state_t curr_array     =  contactor_get(ARRAY_CONTACTOR);
+        contactor_state_t curr_array_pre =  contactor_get(ARRAY_PRE_CONTACTOR);
+
+        // 3. Compare and handle transitions
+        if (curr_hv_plus != prev_hv_plus) {
+                    printf("================================\r\n");
+        printf("HV PLUS CONTACTOR CLOSED\r\n");
+        printf("HV MINUS CONTACTOR CLOSED\r\n");
+        printf("================================\r\n");
+            // STATE CHANGED: Add your logging or CAN transmission here
+            // e.g., CAN_Send_Contactor_State(HV_PLUS_CONTACTOR,     curr_hv_plus);
+            prev_hv_plus = curr_hv_plus; // Update history for the next cycle
+        }
+
+        if (curr_hv_minus != prev_hv_minus) {
+            prev_hv_minus = curr_hv_minus; 
+        }
+
+        if (curr_array != prev_array) {
+            prev_array = curr_array; 
+        }
+
+        if (curr_array_pre != prev_array_pre) {
+            prev_array_pre = curr_array_pre; 
+        }
+
+        // ==========================================
+        // FAULT AND VERIFICATION LOGIC
+        // ==========================================
+
         estop_status_t estop_status = contactor_estop_checker();
 
         if (estop_status != ESTOP_OK)
@@ -22,14 +65,12 @@ void Task_Contactor_Monitor(void *pvParameters)
 
         if (estop_status == ESTOP1_FAULT)
             set_faultBit(BPS_ESTOP1_FAULT);
-
         else if (estop_status == ESTOP2_FAULT)
             set_faultBit(BPS_ESTOP2_FAULT);
-
         else if (estop_status == ESTOP3_FAULT)
             set_faultBit(BPS_ESTOP3_FAULT);
 
-        //confirm every contactor is in the correct state
+        // Confirm every contactor is in the correct state
         if (contactor_verify(HV_PLUS_CONTACTOR) != CONTACTOR_OK)
         {
             set_faultBit(CONTACTOR_HV_PLUS_FAULT);
