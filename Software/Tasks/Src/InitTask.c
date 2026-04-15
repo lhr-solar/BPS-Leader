@@ -47,16 +47,12 @@ void Task_Init()
 
     vTaskDelay(pdMS_TO_TICKS(STARTUP_DELAY_MS));
 
-    CAN_Init();
+    if (faultHandler_init() == 0)
+    {
+        Error_Handler();
+    }
 
     LEDs_init();
-
-    contactor_init();
-
-    SHT45_init();
-
-    EMC2305_I2C_init();
-    EMC2305_Driver_init();
 
     debugPrintf_init();
 
@@ -67,12 +63,16 @@ void Task_Init()
         Error_Handler();
     }
 
-    Init_WDogTask();
+    CAN_Init();
 
-    if (faultHandler_init() == 0)
-    {
-        Error_Handler();
-    }
+    contactor_init();
+
+    SHT45_init();
+
+    EMC2305_I2C_init();
+    EMC2305_Driver_init();
+
+    Init_WDogTask();
 
     printf("Initialized...\n\r");
 

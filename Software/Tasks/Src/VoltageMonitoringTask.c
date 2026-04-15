@@ -36,6 +36,18 @@ static StaticTimer_t volt_timer_buffer;
 // array to hold struct packed can data
 bps_voltage_aggregate_arr_t volt_can_data[NUM_VOLTAGE_SENSORS] = {0};
 
+
+static const uint32_t voltage_can_ids[NUM_VOLTTEMP_BOARDS] = {
+    CAN_ID_BPS_VT0_VOLTAGE_ARR,
+    CAN_ID_BPS_VT1_VOLTAGE_ARR,
+    CAN_ID_BPS_VT2_VOLTAGE_ARR,
+    CAN_ID_BPS_VT3_VOLTAGE_ARR,
+    CAN_ID_BPS_VT4_VOLTAGE_ARR,
+    CAN_ID_BPS_VT5_VOLTAGE_ARR,
+    CAN_ID_BPS_VT6_VOLTAGE_ARR,
+    CAN_ID_BPS_VT7_VOLTAGE_ARR
+};
+
 // pass in pointer to raw data, return packed structs
 static uint8_t volt_can_unpack(uint8_t *raw_volt_can_data, bps_voltage_aggregate_arr_t *volt_can_data)
 {
@@ -116,7 +128,7 @@ static void volt_can_pack(bps_voltage_aggregate_arr_t volt_can_data, uint8_t *ms
 }
 
 // gets all can data from each tap from a passed in volttemp board, unpacks it and puts it into array
-static void can_recv_all_taps(uint32_t can_msg_ID, bps_voltage_aggregate_arr_t volt_can_data[])
+static void can_recv_all_taps(uint32_t can_id_index, bps_voltage_aggregate_arr_t volt_can_data[])
 {
 
     // can recieve for all 4 voltage taps for each volttemp board
@@ -126,7 +138,7 @@ static void can_recv_all_taps(uint32_t can_msg_ID, bps_voltage_aggregate_arr_t v
         uint8_t raw_databuffer[CAN_DLC_BPS_VT0_VOLTAGE_ARR] = {0};
 
         // if can recv fails, set the fault bit of the struct on to indicate that this sensor isnt working
-        if (bps_can_recv(can_msg_ID, raw_databuffer, CAN_DLC_BPS_VT0_VOLTAGE_ARR, VOLTAGE_CAN_DELAY_MS) == CAN_OK)
+        if (bps_can_recv(voltage_can_ids[can_id_index], raw_databuffer, CAN_DLC_BPS_VT0_VOLTAGE_ARR, VOLTAGE_CAN_DELAY_MS) == CAN_OK)
         {
             // unpack the BPS voltage message from BPS CAN to the BPS aggregate array message
             volt_can_unpack(raw_databuffer, volt_can_data);
@@ -143,6 +155,37 @@ static void vVoltageWatchdogCallback(TimerHandle_t volt_timer)
         set_faultBit(BPS_CAN_ERROR);
     }
     volt_sensor_bitmap = 0;
+}
+
+uint32_t get_pack_voltage()
+{
+
+    uint32_t voltage_sum = 0;
+
+    for (uint8_t module_num = 0; module_num < NUM_BATTERY_MODULES; module_num++)
+    {
+        voltage_sum += volt_can_data[module_num].BPS_Voltage_Tap_Data;
+    }
+
+    return voltage_sum;
+}
+
+bool get_volt_segment_status(uint8_t segment_num) {
+
+    // confirm voltage readings are coming in
+    if (((exposed_volt_sensor_bitmap >> (segment_num * MODULES_PER_SEGMENT)) & 0xF) != 0xF) {
+        return false;
+    }
+
+    // make sure no faults 
+    for (uint8_t tap_num = segment_num * MODULES_PER_SEGMENT; tap_num < (segment_num + 1) * MODULES_PER_SEGMENT; tap_num++)
+    {
+
+        if (volt_can_data[tap_num].BPS_Voltage_Tap_Fault != BPS_VOLTAGE_AGGREGATE_ARR_BPS_VOLTAGE_TAP_FAULT_OK) {
+            return false;
+        }  
+    }      
+    return true;
 }
 
 void Task_Voltage_Monitor()
@@ -172,11 +215,11 @@ void Task_Voltage_Monitor()
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(VOLT_MONITOR_TASK_DELAY_MS));
 
         // loops through each can ID
-        for (uint8_t can_id = CAN_ID_BPS_VT0_VOLTAGE_ARR; can_id <= CAN_ID_BPS_VT7_VOLTAGE_ARR; can_id++)
+        for (uint8_t can_id_index = 0; can_id_index < NUM_VOLTTEMP_BOARDS; can_id_index++)
         {
 
             // recieve data from all taps from each id
-            can_recv_all_taps(can_id, volt_can_data);
+            can_recv_all_taps(can_id_index, volt_can_data);
         }
 
         uint8_t msgBuff[CAN_DLC_BPS_VOLTAGE_AGGREGATE_ARR] = {0};

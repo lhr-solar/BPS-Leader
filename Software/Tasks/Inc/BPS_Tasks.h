@@ -3,6 +3,7 @@
 #include "common.h"
 #include "BPSCAN_can_msgs.h"
 #include "CarCAN_can_msgs.h"
+#include "faultHandler.h"
 #include <event_groups.h>
 
 // Task configuration
@@ -11,13 +12,13 @@
 #define TASK_VOLTAGE_MONITOR_PRIO       tskIDLE_PRIORITY + 3
 #define TASK_AMPERES_MONITOR_PRIO       tskIDLE_PRIORITY + 3
 #define TASK_PETWDOG_PRIO               tskIDLE_PRIORITY + 1
-#define TASK_CAN_FORWARD_PRIO           tskIDLE_PRIORITY + 2
+#define TASK_CAN_FORWARD_PRIO           tskIDLE_PRIORITY + 1
 #define TASK_FAULT_HANDLER_PRIO         tskIDLE_PRIORITY + 5
 #define TASK_CONTACTOR_MONITOR_PRIO     tskIDLE_PRIORITY + 4
 #define TASK_FAN_CONTROLLER_PRIO        tskIDLE_PRIORITY + 3
 #define TASK_CAN_STATUS_PRIO            tskIDLE_PRIORITY + 4
 
-#define TEST_TASK_PRIORITY              tskIDLE_PRIORITY + 2
+#define TEST_TASK_PRIORITY              tskIDLE_PRIORITY + 3
 
 // Task Stack Size 
 #define TASK_INIT_STACK_SIZE                     (configMINIMAL_STACK_SIZE*2)
@@ -82,10 +83,18 @@ void Task_CanRxForward();
 void Task_Contactor_Monitor();
 void Task_Can_Status();
 
-extern bps_voltage_aggregate_arr_t volt_can_data[NUM_VOLTAGE_SENSORS];
-extern bps_temperature_aggregate_arr_t temp_can_data[NUM_TEMPERATURE_SENSORS];
-extern uint32_t exposed_volt_sensor_bitmap;
-extern uint32_t exposed_temp_sensor_bitmap;
+// access functions for 
+// returns the average temperature of all cells in the battery in mC
+uint32_t get_avg_temp();
+
+// returns sum of all voltage tap measurements of pack, which is pack voltage
+uint32_t get_pack_voltage();
+
+// takes a segment number, returns TRUE if segment is OK (sending temperature information, no errors) else returns FALSE
+bool get_temp_segment_status(uint8_t segment_num);
+
+// takes a segment number, returns TRUE if segment is OK (sending voltage information, no errors) else returns FALSE
+bool get_volt_segment_status(uint8_t segment_num);
 
 /* ---- Watchdog Event Group ---- */
 void Init_WDogTask();
@@ -94,21 +103,24 @@ extern EventGroupHandle_t xWDogEventGroup_handle;
 #define VOLT_MONITOR_DONE   (1 << 1)
 #define WINDOW_TIMER_DONE   (1 << 2)
 #define AMPERES_MONITOR_DONE (1 << 3)
-#define ALL_TASKS_DONE (TEMP_MONITOR_DONE | VOLT_MONITOR_DONE | WINDOW_TIMER_DONE | AMPERES_MONITOR_DONE)
+#define CONTACTOR_MONITOR_DONE (1 << 4)
+#define PRECHARGE_MONITOR_DONE (1 << 5)
+
+#define ALL_TASKS_DONE (TEMP_MONITOR_DONE | VOLT_MONITOR_DONE | WINDOW_TIMER_DONE | AMPERES_MONITOR_DONE | CONTACTOR_MONITOR_DONE | PRECHARGE_MONITOR_DONE)
 
 // Task Checkin init stuff.
 extern EventGroupHandle_t xStateBits;
 
 extern StaticEventGroup_t xStateBits_buffer;
 
-extern EventGroupHandle_t faultBits_1;
-extern EventGroupHandle_t faultBits_2;
-
 #define get_state_bit(bit) ((xEventGroupGetBits(xStateBits) & (1U << bit)) >> bit)
+
+#define clear_state_bit(bit) (xEventGroupClearBits(xStateBits, (1U << bit)))
 
 #define set_state_bit(bit, state) ((state) ? (xEventGroupSetBits(xStateBits, (1U << bit))) : (clear_state_bit(bit))) 
 
-#define clear_state_bit(bit) (xEventGroupClearBits(xStateBits, (1U << bit)))
+#define STATE_BIT_SET (1)
+#define STATE_BIT_RESET (0)
 
 typedef enum {
     DISCHARGING_BATT_STATE,
@@ -117,10 +129,11 @@ typedef enum {
     VOLTAGE_MONITOR_GOOD,
     TEMPERATURE_MONITOR_GOOD,
     CONTACTOR_MONITOR_GOOD,
+    TEMP_OK_FOR_CHARGING,
     NUM_STATE_BITS
 } state_bits_t;
 
-#define STATE_BIT_SET (1)
-#define STATE_BIT_RESET (0)
+
+
 
 

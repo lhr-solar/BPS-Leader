@@ -72,7 +72,7 @@ void SHT45_I2C_MasterTxRxCpltCallback() {
   BaseType_t xHigherPriorityTaskWoken = pdFALSE;
 
   if (I2C_complete == NULL) {
-      set_faultBitFromISR(FAN_CHIP_ERROR, &xHigherPriorityTaskWoken);
+      set_faultBitFromISR(I2C_ERROR, &xHigherPriorityTaskWoken);
   }
   else {
         xSemaphoreGiveFromISR(I2C_complete, &xHigherPriorityTaskWoken);

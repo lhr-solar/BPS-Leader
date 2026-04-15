@@ -9,10 +9,10 @@ void Task_Contactor_Monitor(void *pvParameters)
 
     // 1. Initialize history variables BEFORE the loop starts
     // (Assuming  contactor_get returns an enum or bool of the physical state)
-    contactor_state_t prev_hv_plus   =  contactor_get(HV_PLUS_CONTACTOR);
-    contactor_state_t prev_hv_minus  =  contactor_get(HV_MINUS_CONTACTOR);
-    contactor_state_t prev_array     =  contactor_get(ARRAY_CONTACTOR);
-    contactor_state_t prev_array_pre =  contactor_get(ARRAY_PRE_CONTACTOR);
+    contactor_state_t prev_hv_plus = contactor_get(HV_PLUS_CONTACTOR);
+    contactor_state_t prev_hv_minus = contactor_get(HV_MINUS_CONTACTOR);
+    contactor_state_t prev_array = contactor_get(ARRAY_CONTACTOR);
+    contactor_state_t prev_array_pre = contactor_get(ARRAY_PRE_CONTACTOR);
 
     while (1)
     {
@@ -24,34 +24,64 @@ void Task_Contactor_Monitor(void *pvParameters)
         // ==========================================
         // STATE CHANGE DETECTION
         // ==========================================
-        
+
         // 2. Read the current physical states
-        contactor_state_t curr_hv_plus   =  contactor_get(HV_PLUS_CONTACTOR);
-        contactor_state_t curr_hv_minus  =  contactor_get(HV_MINUS_CONTACTOR);
-        contactor_state_t curr_array     =  contactor_get(ARRAY_CONTACTOR);
-        contactor_state_t curr_array_pre =  contactor_get(ARRAY_PRE_CONTACTOR);
+        contactor_state_t curr_hv_plus = contactor_get(HV_PLUS_CONTACTOR);
+        contactor_state_t curr_hv_minus = contactor_get(HV_MINUS_CONTACTOR);
+        contactor_state_t curr_array = contactor_get(ARRAY_CONTACTOR);
+        contactor_state_t curr_array_pre = contactor_get(ARRAY_PRE_CONTACTOR);
 
         // 3. Compare and handle transitions
-        if (curr_hv_plus != prev_hv_plus) {
-                    printf("================================\r\n");
-        printf("HV PLUS CONTACTOR CLOSED\r\n");
-        printf("HV MINUS CONTACTOR CLOSED\r\n");
-        printf("================================\r\n");
-            // STATE CHANGED: Add your logging or CAN transmission here
-            // e.g., CAN_Send_Contactor_State(HV_PLUS_CONTACTOR,     curr_hv_plus);
+        if (curr_hv_plus != prev_hv_plus)
+        {
+            printf("================================\r\n");
+            if (curr_hv_plus == CONTACTOR_CLOSED) {
+                printf("HV PLUS CONTACTOR CLOSED\r\n");
+            } else {
+                printf("HV PLUS CONTACTOR OPENED\r\n");
+            }
+            printf("================================\r\n");
+            
             prev_hv_plus = curr_hv_plus; // Update history for the next cycle
         }
 
-        if (curr_hv_minus != prev_hv_minus) {
-            prev_hv_minus = curr_hv_minus; 
+        if (curr_hv_minus != prev_hv_minus)
+        {
+            printf("================================\r\n");
+            if (curr_hv_minus == CONTACTOR_CLOSED) {
+                printf("HV MINUS CONTACTOR CLOSED\r\n");
+            } else {
+                printf("HV MINUS CONTACTOR OPENED\r\n");
+            }
+            printf("================================\r\n");
+            
+            prev_hv_minus = curr_hv_minus;
         }
 
-        if (curr_array != prev_array) {
-            prev_array = curr_array; 
+        if (curr_array != prev_array)
+        {
+            printf("================================\r\n");
+            if (curr_array == CONTACTOR_CLOSED) {
+                printf("ARRAY CONTACTOR CLOSED\r\n");
+            } else {
+                printf("ARRAY CONTACTOR OPENED\r\n");
+            }
+            printf("================================\r\n");
+            
+            prev_array = curr_array;
         }
 
-        if (curr_array_pre != prev_array_pre) {
-            prev_array_pre = curr_array_pre; 
+        if (curr_array_pre != prev_array_pre)
+        {
+            printf("================================\r\n");
+            if (curr_array_pre == CONTACTOR_CLOSED) {
+                printf("ARRAY PRECHARGE CONTACTOR CLOSED\r\n");
+            } else {
+                printf("ARRAY PRECHARGE CONTACTOR OPENED\r\n");
+            }
+            printf("================================\r\n");
+            
+            prev_array_pre = curr_array_pre;
         }
 
         // ==========================================
@@ -70,7 +100,7 @@ void Task_Contactor_Monitor(void *pvParameters)
         else if (estop_status == ESTOP3_FAULT)
             set_faultBit(BPS_ESTOP3_FAULT);
 
-        // Confirm every contactor is in the correct state
+        // Confirm every contactor is in the correct state (expected command state matches physical pin sense readings OR callback timer is still running)
         if (contactor_verify(HV_PLUS_CONTACTOR) != CONTACTOR_OK)
         {
             set_faultBit(CONTACTOR_HV_PLUS_FAULT);

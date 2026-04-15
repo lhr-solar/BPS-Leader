@@ -7,25 +7,7 @@
 
 #define FAULT_PRINTF_COUNTER (FAULT_LOOP_PRINTF_DELAY_MS / FAULT_LOOP_PERIOD_MS)
 
-EventBits_t fault_bits = 0;
-
-// Print faults & set relevant LEDs
-static void print_fault() {
-
-
-    printf("================================\r\n");
-
-    if (fault_bits == 0) {
-        printf("Fault Handler Broken!\r\n");
-    }
-    else {
-        printf("FAULT: %s\r\n", fault_bit_strings[__builtin_ctz(fault_bits)]);
-    } 
-
-    printf("================================\r\n");
-}
-
-void Fault_Loop() {
+void Fault_Loop(uint32_t fault_bit_index) {
 
     uint32_t fault_printf_debug_counter = 0;
     while (1)
@@ -34,7 +16,7 @@ void Fault_Loop() {
 
         if (fault_printf_debug_counter >= FAULT_PRINTF_COUNTER)
         {
-            print_fault();
+            handle_fault(fault_bit_index);
             fault_printf_debug_counter = 0;
         }
 
@@ -48,10 +30,9 @@ void Task_FaultHandler(void* pvParameters) {
     while (true)
     {
         // Wait indefintiely for any fault bit to be set
-        fault_bits = faultBit_wait(NUM_FAULTS, portMAX_DELAY);
+        uint32_t fault_bit_index = faultBit_wait(NUM_FAULTS, portMAX_DELAY);
 
-        if (fault_bits != 0)
-        {
+
 
             LEDs_clear();
             LED_set(FAULT_LED, LED_ON);
@@ -59,11 +40,10 @@ void Task_FaultHandler(void* pvParameters) {
             emergency_open_contactors();
             set_fans_MAX();
 
-            print_fault();
+            handle_fault(fault_bit_index);
 
-            Fault_Loop(); // WILL NEVER RETURN - while(true)
-        }
+            Fault_Loop(fault_bit_index); // WILL NEVER RETURN - while(true)
+        
 
-        vTaskDelay(pdMS_TO_TICKS(500));
     }
 }

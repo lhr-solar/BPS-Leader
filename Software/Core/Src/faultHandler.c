@@ -1,89 +1,175 @@
 #include "faultHandler.h"
 #include "Contactors.h"
-#include "EMC2305_Driver.h"     
+#include "EMC2305_Driver.h"
 #include "StatusLEDs.h"
 
-bool fault_task_initialized = false;
+bool fault_bits_initialized = false;
 
 bool system_has_faulted = false;
 volatile uint32_t first_fault_id;
 static StaticSemaphore_t xFaultSemaphoreBuffer;
 
-// Event group handles to store fault state bits (split into two fault bit buffers)
-EventGroupHandle_t faultBits_1;
-EventGroupHandle_t faultBits_2; 
+// Event group array handles to store fault state bits (split into fault bit buffers)
+EventGroupHandle_t faultBits[FAULT_BIT_ARR_SIZE];
 
-// Static buffer to store the event handle
-StaticEventGroup_t faultBitsBuffer_1;
-StaticEventGroup_t faultBitsBuffer_2;
+// Static buffer arrary to store the event handle
+static StaticEventGroup_t faultBitsBuffer[FAULT_BIT_ARR_SIZE];
 
 SemaphoreHandle_t faultSemaphore = NULL;
 
-uint8_t faultHandler_init(void){
+uint8_t faultHandler_init(void)
+{
 
-    if (fault_task_initialized) return 1;
+    if (fault_bits_initialized)
+        return 1;
 
-    faultBits_1 = xEventGroupCreateStatic( &faultBitsBuffer_1 );
-    faultBits_2 = xEventGroupCreateStatic( &faultBitsBuffer_2 );
+    for (uint16_t i = 0; i < FAULT_BIT_ARR_SIZE; i++)
+    {
+        faultBits[i] = xEventGroupCreateStatic(&faultBitsBuffer[i]);
+
+        if (faultBits[i] == NULL)
+            return 0;
+    }
 
     faultSemaphore = xSemaphoreCreateBinaryStatic(&xFaultSemaphoreBuffer);
 
-    if(faultBits_1 == NULL || faultBits_2 == NULL){
+    if (faultSemaphore == NULL)
+    {
         return 0;
     }
 
-    fault_task_initialized = true;
-
+    fault_bits_initialized = true;
     return 1;
 }
 
-const char* const fault_bit_strings[NUM_FAULTS] = {
+const char *const fault_bit_strings[] = {
     // BPS main safety loop faults
-    [BPS_FAULT]                          = "BPS_FAULT",
-    [CELL_OVERVOLTAGE_FAULT]             = "CELL_OVERVOLTAGE_FAULT",
-    [CELL_UNDERVOLTAGE_FAULT]            = "CELL_UNDERVOLTAGE_FAULT",
-    [BQ_CHIP_FAULT]                      = "BQ_CHIP_FAULT",
-    [CELL_OVERTEMP_FAULT]                = "CELL_OVERTEMP_FAULT",
-    [PACK_OVERCURRENT_CHARGING_FAULT]    = "PACK_OVERCURRENT_CHARGING_FAULT",
+    [BPS_FAULT] = "BPS_FAULT",
+    [CELL_OVERVOLTAGE_FAULT] = "CELL_OVERVOLTAGE_FAULT",
+    [CELL_UNDERVOLTAGE_FAULT] = "CELL_UNDERVOLTAGE_FAULT",
+    [BQ_CHIP_FAULT] = "BQ_CHIP_FAULT",
+    [CELL_OVERTEMP_FAULT] = "CELL_OVERTEMP_FAULT",
+    [PACK_OVERCURRENT_CHARGING_FAULT] = "PACK_OVERCURRENT_CHARGING_FAULT",
     [PACK_OVERCURRENT_DISCHARGING_FAULT] = "PACK_OVERCURRENT_DISCHARGING_FAULT",
-    [CONTACTOR_HV_PLUS_FAULT]            = "CONTACTOR_HV_PLUS_FAULT",
-    [CONTACTOR_HV_MINUS_FAULT]           = "CONTACTOR_HV_MINUS_FAULT",
-    [CONTACTOR_ARRAY_FAULT]              = "CONTACTOR_ARRAY_FAULT",
-    [CONTACTOR_ARRAY_PRE_FAULT]          = "CONTACTOR_ARRAY_PRE_FAULT",
+    [CONTACTOR_HV_PLUS_FAULT] = "CONTACTOR_HV_PLUS_FAULT",
+    [CONTACTOR_HV_MINUS_FAULT] = "CONTACTOR_HV_MINUS_FAULT",
+    [CONTACTOR_ARRAY_FAULT] = "CONTACTOR_ARRAY_FAULT",
+    [CONTACTOR_ARRAY_PRE_FAULT] = "CONTACTOR_ARRAY_PRE_FAULT",
 
-    [CONTACTOR_CALLBACK_FAULT]           = "CONTACTOR_CALLBACK_FAULT",
-    [AMPERES_WATCHDOG_FAULT]             = "AMPERES_WATCHDOG_FAULT",
-    [BPS_ESTOP1_FAULT]                   = "BPS_ESTOP1_FAULT",
-    [BPS_ESTOP2_FAULT]                   = "BPS_ESTOP2_FAULT",
-    [BPS_ESTOP3_FAULT]                   = "BPS_ESTOP3_FAULT",
+    [CONTACTOR_CALLBACK_FAULT] = "CONTACTOR_CALLBACK_FAULT",
+    [AMPERES_WATCHDOG_FAULT] = "AMPERES_WATCHDOG_FAULT",
+    [BPS_ESTOP1_FAULT] = "BPS_ESTOP1_FAULT",
+    [BPS_ESTOP2_FAULT] = "BPS_ESTOP2_FAULT",
+    [BPS_ESTOP3_FAULT] = "BPS_ESTOP3_FAULT",
 
     // Precharge faults
-    [ARRAY_GREATER_THAN_BATTERY_FAULT]   = "ARRAY_GREATER_THAN_BATTERY_FAULT",
-    [PRECHARGE_TIMEOUT_FAULT]            = "PRECHARGE_TIMEOUT_FAULT",
-    [PRECHARGE_OUT_OF_BOUNDS_FAULT]      = "PRECHARGE_OUT_OF_BOUNDS_FAULT",
-    [PACK_OVERVOLTAGE_FAULT]             = "PACK_OVERVOLTAGE_FAULT",
-    [PACK_UNDERVOLTAGE_FAULT]            = "PACK_UNDERVOLTAGE_FAULT",
-    [FAN_TACHOMETER_FAULT]               = "FAN_TACHOMETER_FAULT",
+    [ARRAY_GREATER_THAN_BATTERY_FAULT] = "ARRAY_GREATER_THAN_BATTERY_FAULT",
+    [PRECHARGE_TIMEOUT_FAULT] = "PRECHARGE_TIMEOUT_FAULT",
+    [PRECHARGE_OUT_OF_BOUNDS_FAULT] = "PRECHARGE_OUT_OF_BOUNDS_FAULT",
+    [PACK_OVERVOLTAGE_FAULT] = "PACK_OVERVOLTAGE_FAULT",
+    [PACK_UNDERVOLTAGE_FAULT] = "PACK_UNDERVOLTAGE_FAULT",
+    [FAN_TACHOMETER_FAULT] = "FAN_TACHOMETER_FAULT",
 
     // Software Errors
-    [RTOS_WATCHDOG_ERROR]                = "RTOS_WATCHDOG_ERROR",
-    [BPS_CAN_ERROR]                      = "BPS_CAN_ERROR",
-    [CAR_CAN_ERROR]                      = "CAR_CAN_ERROR",
-    [FAN_CHIP_ERROR]                     = "FAN_CHIP_ERROR",
-    [ELCON_FAULT]                        = "ELCON_FAULT",
-    [REGEN_FAULT]                        = "REGEN_FAULT",
-    [ADC_ERROR]                          = "ADC_ERROR"
-};
+    [RTOS_WATCHDOG_ERROR] = "RTOS_WATCHDOG_ERROR",
+    [BPS_CAN_ERROR] = "BPS_CAN_ERROR",
+    [CAR_CAN_ERROR] = "CAR_CAN_ERROR",
+    [FAN_CHIP_ERROR] = "FAN_CHIP_ERROR",
+    [ELCON_FAULT] = "ELCON_FAULT",
+    [REGEN_FAULT] = "REGEN_FAULT",
+    [ADC_ERROR] = "ADC_ERROR",
+    [I2C_ERROR] = "I2C_ERROR"};
 
-uint32_t faultBit_wait(fault_bit_t bit, TickType_t xTicksToWait){
+static_assert((sizeof(fault_bit_strings) / sizeof(fault_bit_strings[0])) == NUM_FAULTS, "String array elements do not match fault enum!");
+
+uint32_t faultBit_wait(fault_bit_t bit, TickType_t xTicksToWait)
+{
 
     // NUM_FAULTS indiciates you want to wait for all bits
-    if(bit > NUM_FAULTS){
+    if (bit > NUM_FAULTS)
+    {
         return 0;
     }
 
     // EventBits_t uxBitsToWaitFor = bit == NUM_FAULTS ?     ALL_FAULT_BITS : (FAULT_BIT(bit));
-    if (xSemaphoreTake(faultSemaphore, xTicksToWait) == pdTRUE);
+    if (xSemaphoreTake(faultSemaphore, xTicksToWait) == pdTRUE)
+    {
+    }
 
     return first_fault_id;
+}
+
+// Print faults & set relevant LEDs
+void handle_fault(uint32_t fault_bit_index)
+{
+    // fault printing
+    printf("================================\r\n");
+    printf("FAULT: %s\r\n", fault_bit_strings[fault_bit_index]);
+    printf("================================\r\n");
+
+    // fault handling
+    switch (fault_bit_index)
+    {
+    case CELL_OVERVOLTAGE_FAULT:
+        LED_set(OVER_V_LED, LED_ON);
+        break;
+
+    case PACK_OVERVOLTAGE_FAULT:
+        LED_set(OVER_V_LED, LED_ON);
+        break;
+
+    case PACK_UNDERVOLTAGE_FAULT:
+        LED_set(LOW_V_LED, LED_ON);
+        break;
+
+    case CELL_UNDERVOLTAGE_FAULT:
+        LED_set(LOW_V_LED, LED_ON);
+        break;
+
+    case PACK_OVERCURRENT_CHARGING_FAULT:
+        LED_set(OVER_AMP_LED, LED_ON);
+        break;
+
+    case PACK_OVERCURRENT_DISCHARGING_FAULT:
+        LED_set(OVER_AMP_LED, LED_ON);
+        break;
+
+    case CELL_OVERTEMP_FAULT:
+        LED_set(OVER_TEMP_LED, LED_ON);
+        break;
+
+    case RTOS_WATCHDOG_ERROR:
+        LED_set(WATCHDOG_ERR_LED, LED_ON);
+        break;
+
+    default:
+        break;
+    }
+}
+
+bool is_fault_set(uint32_t bit_index)
+{
+
+    // check for all faultts if bit_index == NUM_FAULTS
+    if (bit_index == NUM_FAULTS)
+    {
+        for (uint16_t i = 0; i < FAULT_BIT_ARR_SIZE; i++) {
+            if (xEventGroupGetBits(faultBits[i]) != 0) {
+                return 1;
+            }
+        }
+        return 0;
+    }
+    else
+    {
+        // Select the correct group
+        EventGroupHandle_t target_group = faultBits[bit_index / MAX_FAULT_BITS];
+
+        // Get all bits from that group
+        EventBits_t all_bits = xEventGroupGetBits(target_group);
+
+        // Mask for the specific bit
+        // Using your FAULT_BIT macro and the modulo for the second group offset
+        return (all_bits & FAULT_BIT(bit_index % MAX_FAULT_BITS)) != 0;
+    }
 }

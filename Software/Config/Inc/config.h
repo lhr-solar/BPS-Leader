@@ -19,6 +19,8 @@
 #define NUM_VOLTAGE_SENSORS             32      // Number of voltage sensors
 #endif
 
+#define MODULES_PER_SEGMENT (NUM_BATTERY_MODULES / NUM_SEGMENTS)
+
 #define NUM_VOLTTEMP_BOARDS              8       // Number of volt temp boards
 #define NUM_SEGMENTS                    8
 
@@ -38,9 +40,13 @@
 #define PACK_CHARGING_VOLTAGE_THRESHOLD_MV 135000   // 135 V
 #define CHARGING_TEMP_THRESHOLD_MC 50000 // 50 C
 
+// current threshold to determine if battery is charging (negative number is charing, positive is discharging)
+#define CHARGING_THRESHOLD (-50) // -50 mA
+
+
 
 // How many bad voltage reads are tolerable when switching states and closing contactors 
-#define PRECHARGE_UNDERVOLTAGE_DEBOUNCE_LIMIT 10
+#define PRECHARGE_UNDERVOLTAGE_DEBOUNCE_LIMIT 2
 
 // interrupt priorites
 #define SHT45_IRQ_PRIO (configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY + 4)

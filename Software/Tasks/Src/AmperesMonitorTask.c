@@ -1,4 +1,4 @@
-// todo
+//toDone
 
 #include "BPS_Tasks.h"
 #include "config.h"
@@ -9,9 +9,7 @@
 
 // CAN timeout
 #define AMPERES_CAN_TIMEOUT_MS AMPERES_MONITOR_TASK_DELAY_MS
-#define AMPERES_CAN_TIMEOUT_FAULT_MS 500
-#define AMPERES_CAN_TIMEOUT_TRIGGER_COUNT AMPERES_CAN_TIMEOUT_FAULT_MS / AMPERES_CAN_TIMEOUT_MS
-#define CHARGING_THRESHOLD (-50)
+#define AMPERES_WATCHDOG_TIMEOUT_MS 500
 
 // CAN message decoding
 #define AMPERES_UNPACK_CURRENT_mA(x) (((int32_t)(((uint32_t)(x)[3] << 24) | ((uint32_t)(x)[2] << 16) | ((uint32_t)(x)[1] << 8))) >> 8)
@@ -21,14 +19,43 @@
 #define AMPERES_LOOP_PRINTF_DELAY_MS 2000
 #define AMPERES_PRINTF_COUNTER (AMPERES_LOOP_PRINTF_DELAY_MS / AMPERES_MONITOR_TASK_DELAY_MS)
 
+static TimerHandle_t amperes_watchdog_timer;
+static StaticTimer_t amperes_timer_buffer;
+
+static bool recv_amp_data = false;
+
 // Global variable
 bps_pack_current_t AmperesData = { 0 };
 
+static void vAmperesWatchdogCallback(TimerHandle_t amps_timer)
+{
+
+    if (recv_amp_data == false)
+    {
+        set_faultBit(AMPERES_WATCHDOG_FAULT);
+    }
+    else {
+        recv_amp_data = false;
+    }
+}
+
 void Task_Amperes_Monitor() {
-    uint8_t amperesCANFaultCount = 0;
     TickType_t xLastWakeTime = xTaskGetTickCount();
 
     uint32_t amps_printf_debug_counter = 0;
+    
+    // variable used to keep track if the car is currently charging
+    bool is_charging = false;
+
+    // Make timer for watchdog
+    amperes_watchdog_timer = xTimerCreateStatic(
+        "Amperes Watchdog",                         /* Name of the timer */
+        pdMS_TO_TICKS(AMPERES_WATCHDOG_TIMEOUT_MS), /* Timer period in ticks */
+        pdTRUE,                                  /* auto-reload */
+        (void *)0,                               /* Timer ID */
+        vAmperesWatchdogCallback,            /* Callback function */
+        &amperes_timer_buffer                       /* Buffer to hold timer data */
+    );
 
     while (1)
     {
@@ -39,15 +66,11 @@ void Task_Amperes_Monitor() {
 
         // Receive from CAN
         uint8_t buffer[CAN_DLC_BPS_PACK_CURRENT] = { 0 };
-        if (bps_can_recv(CAN_ID_BPS_PACK_CURRENT, buffer, CAN_DLC_BPS_PACK_CURRENT, AMPERES_CAN_TIMEOUT_MS) != CAN_OK)
+        if (bps_can_recv(CAN_ID_BPS_PACK_CURRENT, buffer, CAN_DLC_BPS_PACK_CURRENT, AMPERES_CAN_TIMEOUT_MS) == CAN_OK)
         {
-            amperesCANFaultCount++;
-        }
-        else
-        {
+            recv_amp_data = true;
             AmperesData.Main_Battery_Current = AMPERES_UNPACK_CURRENT_mA(buffer);
             AmperesData.BPS_Amperes_Fault = AMPERES_UNPACK_FAULT(buffer);
-            amperesCANFaultCount = 0;
 
             // Print current at lower rate
             if (amps_printf_debug_counter >= AMPERES_PRINTF_COUNTER)
@@ -59,17 +82,10 @@ void Task_Amperes_Monitor() {
             }
         }
 
-        // Handle CAN fault
-        if (amperesCANFaultCount >= AMPERES_CAN_TIMEOUT_TRIGGER_COUNT)
-        {
-            set_faultBit(BPS_CAN_ERROR);
-        }
-
         // Set fault bits if needed. If good, set the event group bit
         if (AmperesData.Main_Battery_Current < OVERCURRENT_CHARGE_THRESHOLD_mA) set_faultBit(PACK_OVERCURRENT_CHARGING_FAULT); 
 
         else if (AmperesData.Main_Battery_Current > OVERCURRENT_DISCHARGE_THRESHOLD_mA) set_faultBit(PACK_OVERCURRENT_DISCHARGING_FAULT);
-
 
         else if (AmperesData.BPS_Amperes_Fault != BPS_PACK_CURRENT_BPS_AMPERES_FAULT_OK) {
             switch (AmperesData.BPS_Amperes_Fault) {
@@ -87,23 +103,30 @@ void Task_Amperes_Monitor() {
                     break;
             }
         }
-
         else
         {
-            set_state_bit(AMPERES_MONITOR_GOOD, STATE_BIT_SET);
+            if (get_state_bit(AMPERES_MONITOR_GOOD) != STATE_BIT_SET) {
+                set_state_bit(AMPERES_MONITOR_GOOD, STATE_BIT_SET);
+            }
         }
 
         if (AmperesData.Main_Battery_Current > CHARGING_THRESHOLD)
         {
-            set_state_bit(DISCHARGING_BATT_STATE, STATE_BIT_SET);
-            set_state_bit(CHARGING_BATT_STATE, STATE_BIT_RESET);
-            LED_set(CHARGING_LED, LED_OFF);
+            if (is_charging) {
+                set_state_bit(DISCHARGING_BATT_STATE, STATE_BIT_SET);
+                set_state_bit(CHARGING_BATT_STATE, STATE_BIT_RESET);
+                LED_set(CHARGING_LED, LED_OFF);
+                is_charging = false;
+            }
         }
         else
         {
-            set_state_bit(DISCHARGING_BATT_STATE, STATE_BIT_RESET);
-            set_state_bit(CHARGING_BATT_STATE, STATE_BIT_SET);
-            LED_set(CHARGING_LED, LED_ON);
+            if (!is_charging) {
+                set_state_bit(DISCHARGING_BATT_STATE, STATE_BIT_RESET);
+                set_state_bit(CHARGING_BATT_STATE, STATE_BIT_SET);
+                LED_set(CHARGING_LED, LED_ON);
+                is_charging = true;
+            }
         }
 
         // Set event group bit so watchdog knows we ran

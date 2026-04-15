@@ -143,9 +143,9 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
 
         case PRECHARGE_STATE_INITIAL:
             // Double check hardware: Ensure this isn't closing the main positive before precharging!
-            if (contactor_set(ARRAY_PRE_CONTACTOR, CONTACTOR_CLOSED, CALLBACK_BLOCKING_TIME_MS, NORMAL) != CONTACTOR_OK)
+            if (contactor_set(ARRAY_CONTACTOR, CONTACTOR_CLOSED, CALLBACK_BLOCKING_TIME_MS, NORMAL) != CONTACTOR_OK)
             {
-                set_faultBit(CONTACTOR_ARRAY_PRE_FAULT);
+                set_faultBit(CONTACTOR_ARRAY_FAULT);
             }
 
             State = PRECHARGE_STATE_PRECHARGING;
@@ -161,21 +161,18 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
                 // stop timer since we did it we precharged
                 xTimerStop(xPrechargeTimer, 0);
 
-                if (contactor_set(ARRAY_CONTACTOR, CONTACTOR_CLOSED, CALLBACK_BLOCKING_TIME_MS, false) != CONTACTOR_OK)
-                {
-                    set_faultBit(CONTACTOR_ARRAY_FAULT);
-                }
-                if (contactor_set(ARRAY_PRE_CONTACTOR, CONTACTOR_OPEN, CALLBACK_BLOCKING_TIME_MS, false) != CONTACTOR_OK)
+                if (contactor_set(ARRAY_PRE_CONTACTOR, CONTACTOR_CLOSED, CALLBACK_BLOCKING_TIME_MS, NORMAL) != CONTACTOR_OK)
                 {
                     set_faultBit(CONTACTOR_ARRAY_PRE_FAULT);
                 }
+
                 State = PRECHARGE_STATE_RUN;
             }
             // 2. If not successful yet, check if we ran out of time
             else if (precharge_timeout_expired)
             {
                 set_faultBit(PRECHARGE_TIMEOUT_FAULT);
-                State = PRECHARGE_STATE_IDLE; // Park in idle after faulting
+                State = PRECHARGE_STATE_FAULT; // Park in idle after faulting
             }
             break;
 

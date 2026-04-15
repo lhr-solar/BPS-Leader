@@ -3,9 +3,10 @@
 #include "common.h"
 
 // delays if scheduler is started or not
-#define universal_delay(ms) ((xTaskGetSchedulerState() == taskSCHEDULER_RUNNING) ? vTaskDelay(pdMS_TO_TICKS(ms)) : HAL_Delay(ms))
+#define safe_delay(ms) ((xTaskGetSchedulerState() == taskSCHEDULER_RUNNING) ? vTaskDelay(pdMS_TO_TICKS(ms)) : HAL_Delay(ms))
 
-#define glorious_printf(str) ((xTaskGetSchedulerState() == taskSCHEDULER_RUNNING) ? printf(str) : 0) 
+// checks to make sure scheduler is started before printint
+#define safe_printf(str) ((xTaskGetSchedulerState() == taskSCHEDULER_RUNNING) ? printf(str) : 0) 
 
 // for software errors
 void Error_Handler() {
@@ -18,10 +19,10 @@ void Error_Handler() {
     LED_set(FAULT_LED, LED_ON);
     while (true) {
         LED_set(DEBUG_LED, LED_ON);
-        universal_delay(1000);
+        safe_delay(1000);
         LED_set(DEBUG_LED, LED_OFF);
-        universal_delay(1000);
-        glorious_printf("Faulted\n\r");
+        safe_delay(1000);
+        safe_printf("Faulted\n\r");
     }
 }
 

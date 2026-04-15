@@ -42,6 +42,17 @@ static StaticTimer_t temp_timer_buffer;
 bps_temperature_aggregate_arr_t temp_can_data[NUM_TEMPERATURE_SENSORS] = {0};
 bps_temp_rawv_aggregate_arr_t temp_can_data2[NUM_TEMPERATURE_SENSORS] = {0};
 
+static const uint32_t temperature_can_ids[NUM_VOLTTEMP_BOARDS] = {
+    CAN_ID_BPS_VT0_TEMPERATURE_ARR,
+    CAN_ID_BPS_VT1_TEMPERATURE_ARR,
+    CAN_ID_BPS_VT2_TEMPERATURE_ARR,
+    CAN_ID_BPS_VT3_TEMPERATURE_ARR,
+    CAN_ID_BPS_VT4_TEMPERATURE_ARR,
+    CAN_ID_BPS_VT5_TEMPERATURE_ARR,
+    CAN_ID_BPS_VT6_TEMPERATURE_ARR,
+    CAN_ID_BPS_VT7_TEMPERATURE_ARR
+};
+
 
 // pass in pointer to raw data, packs struct into arr
 static uint8_t temp_can_unpack(uint8_t *raw_temp_can_data, bps_temperature_aggregate_arr_t *temp_can_data, bps_temp_rawv_aggregate_arr_t *temp_can_data2)
@@ -129,12 +140,6 @@ static void temp_can_pack(bps_temperature_aggregate_arr_t temp_can_data, uint8_t
     msgArr[7] = temp_can_data.FrameID_BPS_Temperature;
 }
 
-// typedef struct {
-//     uint8_t BPS_Tap_idx;
-//     uint16_t BPS_Temperature_Tap_RawV;
-//     uint8_t FrameID_BPS_Temperature;
-// } bps_temp_rawv_aggregate_arr_t;
-
 // If temp_can_pack was so good, why don't they make another?
 static void temp_can_pack2(bps_temp_rawv_aggregate_arr_t temp_can_data, uint8_t *msgArr)
 {
@@ -155,14 +160,14 @@ static void temp_can_pack2(bps_temp_rawv_aggregate_arr_t temp_can_data, uint8_t 
 }
 
 // gets all can data from each tap from a passed in volttemp board, unpacks it and puts it into array
-static void can_recv_all_taps(uint32_t can_msg_ID, bps_temperature_aggregate_arr_t temp_can_data[], bps_temp_rawv_aggregate_arr_t temp_can_data2[])
+static void can_recv_all_taps(uint32_t can_id_index, bps_temperature_aggregate_arr_t temp_can_data[], bps_temp_rawv_aggregate_arr_t temp_can_data2[])
 {
     // can recieve for all 4 temperature taps for each temptemp board
     for (uint8_t i = 0; i < TEMP_TAPS_PER_BOARD; i++)
     {
         uint8_t raw_databuffer[CAN_DLC_BPS_VT0_TEMPERATURE_ARR] = {0};
         // if can fails then message will not be unpacked and the watchdog will trip
-        if (bps_can_recv(can_msg_ID, raw_databuffer, CAN_DLC_BPS_VT0_TEMPERATURE_ARR, TEMPERATURE_CAN_DELAY_MS) == CAN_OK)
+        if (bps_can_recv(temperature_can_ids[can_id_index], raw_databuffer, CAN_DLC_BPS_VT0_TEMPERATURE_ARR, TEMPERATURE_CAN_DELAY_MS) == CAN_OK)
         {
             // Unpacking temp CAN messages in aggregate temp array
             temp_can_unpack(raw_databuffer, temp_can_data, temp_can_data2);
@@ -180,6 +185,38 @@ static void vTemperatureWatchdogCallback(TimerHandle_t temp_timer)
     }
     temp_sensor_bitmap = 0;
 }
+
+uint32_t get_avg_temp()
+{
+
+    int32_t temp_sum = 0;
+
+    for (uint8_t module_num = 0; module_num < NUM_BATTERY_MODULES; module_num++)
+    {
+        temp_sum += (temp_can_data[module_num].BPS_Temperature_Tap_Data / 10);
+    }
+
+    return (temp_sum / NUM_BATTERY_MODULES);
+}
+
+bool get_temp_segment_status(uint8_t segment_num) {
+
+    // confirm temperature readings are coming in
+    if (((exposed_temp_sensor_bitmap >> (segment_num * MODULES_PER_SEGMENT)) & 0xF) != 0xF) {
+        return false;
+    }
+
+    // make sure no faults 
+    for (uint8_t tap_num = segment_num * MODULES_PER_SEGMENT; tap_num < (segment_num + 1) * MODULES_PER_SEGMENT; tap_num++)
+    {
+
+        if (temp_can_data[tap_num].BPS_Temperature_Tap_Fault != BPS_TEMPERATURE_AGGREGATE_ARR_BPS_TEMPERATURE_TAP_FAULT_OK) {
+            return false;
+        }  
+    }      
+    return true;
+}
+
 
 void Task_Temperature_Monitor()
 {
@@ -207,27 +244,39 @@ void Task_Temperature_Monitor()
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(TEMP_MONITOR_TASK_DELAY_MS));
 
         // loops through each can ID
-        for (uint8_t can_id = CAN_ID_BPS_VT0_TEMPERATURE_ARR; can_id <= CAN_ID_BPS_VT7_TEMPERATURE_ARR; can_id++)
+        for (uint8_t can_id_index = 0; can_id_index < NUM_VOLTTEMP_BOARDS; can_id_index++)
         {
 
             // recieve data from all taps from each id
-            can_recv_all_taps(can_id, temp_can_data, temp_can_data2);
+            can_recv_all_taps(can_id_index, temp_can_data, temp_can_data2);
         }
 
         uint8_t msgBuff[CAN_DLC_BPS_TEMPERATURE_AGGREGATE_ARR] = {0};
         uint8_t msgBuff2[CAN_DLC_BPS_TEMP_RAWV_AGGREGATE_ARR] = {0};
 
-        // gets the threshold for this iteration of the loop, (since threshold changes depending if the battery is charging or discharging)
-        uint32_t temp_threshold = get_temp_threshold();
+        uint32_t max_temp = 0;
 
         bool all_temp_good = true;
 
         for (uint8_t i = 0; i < NUM_TEMPERATURE_SENSORS; i++)
         {
-            if (temp_can_data[i].BPS_Temperature_Tap_Data > temp_threshold)
+            if (temp_can_data[i].BPS_Temperature_Tap_Data > max_temp)
             {
+                max_temp = temp_can_data[i].BPS_Temperature_Tap_Data;
+            }
+
+            // check if max temp is greater than threshold (changes depending on if battery is charging or discharging)
+            if (max_temp > get_temp_threshold()) {
                 set_faultBit(CELL_OVERTEMP_FAULT);
                 all_temp_good = false;
+            }
+
+            // if temp is below charging threshold, and the state bit isn't already set, set state bit
+            if ((max_temp < CHARGING_TEMP_THRESHOLD_MC) && (get_state_bit(TEMP_OK_FOR_CHARGING) != STATE_BIT_SET)) {
+                set_state_bit(TEMP_OK_FOR_CHARGING, STATE_BIT_SET);
+            }
+            else if ((max_temp >= CHARGING_TEMP_THRESHOLD_MC) && (get_state_bit(TEMP_OK_FOR_CHARGING) != STATE_BIT_RESET)) {
+                set_state_bit(TEMP_OK_FOR_CHARGING, STATE_BIT_RESET);
             }
 
             // Print temps at lower rate
@@ -249,7 +298,7 @@ void Task_Temperature_Monitor()
             temp_printf_debug_counter = 0;
         }
 
-        if (all_temp_good)
+        if (all_temp_good && (get_state_bit(TEMPERATURE_MONITOR_GOOD) != STATE_BIT_SET))
         {
             set_state_bit(TEMPERATURE_MONITOR_GOOD, STATE_BIT_SET);
         }
