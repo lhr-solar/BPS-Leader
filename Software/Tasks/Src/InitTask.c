@@ -52,16 +52,15 @@ void Task_Init()
         Error_Handler();
     }
 
+    xStateBits = xEventGroupCreateStatic(&xStateBits_buffer);
+
+    if (xStateBits == NULL) {
+        Error_Handler();
+    }
+
     LEDs_init();
 
     debugPrintf_init();
-
-    xStateBits = xEventGroupCreateStatic(&xStateBits_buffer);
-
-    if (xStateBits == NULL)
-    {
-        Error_Handler();
-    }
 
     CAN_Init();
 
@@ -178,11 +177,10 @@ void Task_Init()
     // IGNITION LOGIC GOES HERE
 
     // All tasks have checked in, ensure nothing faulted on startup before closing contactors
-    if (faultBit_wait(NUM_FAULTS, 0) == 0)
+    if (is_fault_set(NUM_FAULTS) == false)
     {
         contactor_set(HV_PLUS_CONTACTOR, CONTACTOR_CLOSED, 10, NORMAL);
         contactor_set(HV_MINUS_CONTACTOR, CONTACTOR_CLOSED, 10, NORMAL);
-
     }
 
     // Task deletes itself after all other taks are init'd

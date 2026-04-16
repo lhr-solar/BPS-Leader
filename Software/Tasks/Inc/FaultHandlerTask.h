@@ -4,6 +4,7 @@
 #include "faultHandler.h"
 #include "StatusLEDs.h"
 #include "Contactors.h"
+#include "BPS_Tasks.h"
 
 /** * @brief Maximum number of characters allowed in a fault description string.
  */

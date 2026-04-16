@@ -97,9 +97,7 @@ uint32_t faultBit_wait(fault_bit_t bit, TickType_t xTicksToWait)
     }
 
     // EventBits_t uxBitsToWaitFor = bit == NUM_FAULTS ?     ALL_FAULT_BITS : (FAULT_BIT(bit));
-    if (xSemaphoreTake(faultSemaphore, xTicksToWait) == pdTRUE)
-    {
-    }
+    if (xSemaphoreTake(faultSemaphore, xTicksToWait) == pdTRUE) {}
 
     return first_fault_id;
 }
@@ -165,10 +163,10 @@ bool is_fault_set(uint32_t bit_index)
     {
         for (uint16_t i = 0; i < FAULT_BIT_ARR_SIZE; i++) {
             if (xEventGroupGetBits(faultBits[i]) != 0) {
-                return 1;
+                return true;
             }
         }
-        return 0;
+        return false;
     }
     else
     {

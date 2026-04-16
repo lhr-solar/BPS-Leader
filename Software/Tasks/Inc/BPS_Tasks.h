@@ -90,8 +90,6 @@ uint32_t get_avg_temp();
 // returns sum of all voltage tap measurements of pack, which is pack voltage
 uint32_t get_pack_voltage();
 
-// 
-
 // takes a segment number, returns TRUE if segment is OK (sending temperature information, no errors) else returns FALSE
 bool get_temp_segment_status(uint8_t segment_num);
 
@@ -112,10 +110,6 @@ extern EventGroupHandle_t xWDogEventGroup_handle;
 #define PRECHARGE_MONITOR_DONE (1 << 5)
 
 #define ALL_TASKS_DONE (TEMP_MONITOR_DONE | VOLT_MONITOR_DONE | WINDOW_TIMER_DONE | AMPERES_MONITOR_DONE | CONTACTOR_MONITOR_DONE | PRECHARGE_MONITOR_DONE)
-
-// State bit event group to keep track of BPS states
-extern EventGroupHandle_t xStateBits;
-extern StaticEventGroup_t xStateBits_buffer;
 
 // latching intereger to keep track of which module faulted. bit 5 is used to latch
 extern uint8_t mod_fault_num;
@@ -141,6 +135,11 @@ static inline void latch_mod_fault(uint8_t mod_fault_num_) {
     taskEXIT_CRITICAL(); 
 }
 
+
+// State bit event group to keep track of BPS states
+extern EventGroupHandle_t xStateBits;
+extern StaticEventGroup_t xStateBits_buffer;
+
 #define get_state_bit(bit) ((xEventGroupGetBits(xStateBits) & (1U << bit)) >> bit)
 
 #define clear_state_bit(bit) (xEventGroupClearBits(xStateBits, (1U << bit)))
@@ -150,17 +149,29 @@ static inline void latch_mod_fault(uint8_t mod_fault_num_) {
 #define STATE_BIT_SET (1)
 #define STATE_BIT_RESET (0)
 
+#define MAX_STATE_BITS (24)
+
 typedef enum {
+
+    // tracks if battery is charging or discharging
     DISCHARGING_BATT_STATE,
     CHARGING_BATT_STATE,
+
+    // tracks if each task has completed at least one cycle at startup
     AMPERES_MONITOR_GOOD,
     VOLTAGE_MONITOR_GOOD,
     TEMPERATURE_MONITOR_GOOD,
     CONTACTOR_MONITOR_GOOD,
+
+    // tracks if we have temp/voltage within charging thresholds
     TEMP_OK_FOR_CHARGING,
     VOLT_OK_FOR_CHARGING,
+
     NUM_STATE_BITS
 } state_bits_t;
+
+static_assert(NUM_STATE_BITS <= MAX_STATE_BITS, "Too many state bits!!");
+
 
 
 
