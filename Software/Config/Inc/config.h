@@ -37,10 +37,10 @@
 #define OVERTEMP_THRESHOLD_DISCHARGING_MC 70000 // 70 C
 
 // Charging Thresholds
-#define PACK_CHARGING_VOLTAGE_THRESHOLD_MV 135000   // 135 V
-#define CHARGING_TEMP_THRESHOLD_MC 50000 // 50 C
+#define CELL_CHARGING_VOLTAGE_THRESHOLD_MV 4150   // 4.15 V
+#define CELL_CHARGING_TEMP_THRESHOLD_MC 50000 // 50 C
 
-// current threshold to determine if battery is charging (negative number is charing, positive is discharging)
+// current threshold to determine if battery is charging (negative number is charging, positive is discharging)
 #define CHARGING_THRESHOLD (-50) // -50 mA
 
 

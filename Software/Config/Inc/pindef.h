@@ -61,7 +61,7 @@ typedef struct {
 //------------------------------------------
 
 
-// Status LED Shift-Reg PINDEF
+// Status LED (Shift-Reg PINDEF & strobe PINDEX)
 //------------------------------------------
 #define LED_SER_PIN GPIO_PIN_13  
 #define LED_SER_PORT GPIOB
@@ -71,6 +71,9 @@ typedef struct {
 
 #define LED_SRCLK_PIN GPIO_PIN_14
 #define LED_SRCLK_PORT GPIOB
+
+#define LED_STROBE_PIN GPIO_PIN_12
+#define LED_STROBE_PORT GPIOC
 //------------------------------------------
 
 

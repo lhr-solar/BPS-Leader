@@ -7,7 +7,8 @@
 
 #define FAULT_PRINTF_COUNTER (FAULT_LOOP_PRINTF_DELAY_MS / FAULT_LOOP_PERIOD_MS)
 
-void Fault_Loop(uint32_t fault_bit_index) {
+void Fault_Loop(uint32_t fault_bit_index)
+{
 
     uint32_t fault_printf_debug_counter = 0;
     while (1)
@@ -25,25 +26,23 @@ void Fault_Loop(uint32_t fault_bit_index) {
     }
 }
 
-void Task_FaultHandler(void* pvParameters) {
+void Task_FaultHandler(void *pvParameters)
+{
 
     while (true)
     {
         // Wait indefintiely for any fault bit to be set
         uint32_t fault_bit_index = faultBit_wait(NUM_FAULTS, portMAX_DELAY);
 
+        LEDs_clear();
+        LED_set(FAULT_LED, LED_ON);
+        LED_setStrobe(LED_ON);
 
+        emergency_open_contactors();
+        set_fans_MAX();
 
-            LEDs_clear();
-            LED_set(FAULT_LED, LED_ON);
+        handle_fault(fault_bit_index);
 
-            emergency_open_contactors();
-            set_fans_MAX();
-
-            handle_fault(fault_bit_index);
-
-            Fault_Loop(fault_bit_index); // WILL NEVER RETURN - while(true)
-        
-
+        Fault_Loop(fault_bit_index); // WILL NEVER RETURN - while(true)
     }
 }

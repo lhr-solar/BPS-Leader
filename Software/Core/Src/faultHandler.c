@@ -12,6 +12,8 @@ static StaticSemaphore_t xFaultSemaphoreBuffer;
 // Event group array handles to store fault state bits (split into fault bit buffers)
 EventGroupHandle_t faultBits[FAULT_BIT_ARR_SIZE];
 
+uint8_t mod_fault_num = 0;
+
 // Static buffer arrary to store the event handle
 static StaticEventGroup_t faultBitsBuffer[FAULT_BIT_ARR_SIZE];
 
@@ -58,6 +60,7 @@ const char *const fault_bit_strings[] = {
 
     [CONTACTOR_CALLBACK_FAULT] = "CONTACTOR_CALLBACK_FAULT",
     [AMPERES_WATCHDOG_FAULT] = "AMPERES_WATCHDOG_FAULT",
+    [VOLTTEMP_WATCHDOG_FAULT] = "VOLTTEMP_WATCHDOG_FAULT",
     [BPS_ESTOP1_FAULT] = "BPS_ESTOP1_FAULT",
     [BPS_ESTOP2_FAULT] = "BPS_ESTOP2_FAULT",
     [BPS_ESTOP3_FAULT] = "BPS_ESTOP3_FAULT",
@@ -78,7 +81,9 @@ const char *const fault_bit_strings[] = {
     [ELCON_FAULT] = "ELCON_FAULT",
     [REGEN_FAULT] = "REGEN_FAULT",
     [ADC_ERROR] = "ADC_ERROR",
-    [I2C_ERROR] = "I2C_ERROR"};
+    [SHT45_ERROR] = "SHT45_ERROR",
+    [I2C_ERROR] = "I2C_ERROR"
+};
 
 static_assert((sizeof(fault_bit_strings) / sizeof(fault_bit_strings[0])) == NUM_FAULTS, "String array elements do not match fault enum!");
 
@@ -107,6 +112,11 @@ void handle_fault(uint32_t fault_bit_index)
     printf("FAULT: %s\r\n", fault_bit_strings[fault_bit_index]);
     printf("================================\r\n");
 
+
+    // check if a module has faulted, if so, set relevant LED
+    if (mod_fault_num & MOD_FAULT_BITMAP_LATCH) {
+        LEDsModFaultBitmap_set(mod_fault_num);
+    }
     // fault handling
     switch (fault_bit_index)
     {

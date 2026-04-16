@@ -90,11 +90,16 @@ uint32_t get_avg_temp();
 // returns sum of all voltage tap measurements of pack, which is pack voltage
 uint32_t get_pack_voltage();
 
+// 
+
 // takes a segment number, returns TRUE if segment is OK (sending temperature information, no errors) else returns FALSE
 bool get_temp_segment_status(uint8_t segment_num);
 
 // takes a segment number, returns TRUE if segment is OK (sending voltage information, no errors) else returns FALSE
 bool get_volt_segment_status(uint8_t segment_num);
+
+// macros to find which module faulted (checks to see what bit in bitmap isn't set, returns its index. if all is good then it returns -1 ) 
+#define get_mod_fault_num(mod_bitmap) (((~(mod_bitmap)) != 0) ? __builtin_ctz(~(mod_bitmap)) : -1)
 
 /* ---- Watchdog Event Group ---- */
 void Init_WDogTask();
@@ -108,10 +113,33 @@ extern EventGroupHandle_t xWDogEventGroup_handle;
 
 #define ALL_TASKS_DONE (TEMP_MONITOR_DONE | VOLT_MONITOR_DONE | WINDOW_TIMER_DONE | AMPERES_MONITOR_DONE | CONTACTOR_MONITOR_DONE | PRECHARGE_MONITOR_DONE)
 
-// Task Checkin init stuff.
+// State bit event group to keep track of BPS states
 extern EventGroupHandle_t xStateBits;
-
 extern StaticEventGroup_t xStateBits_buffer;
+
+// latching intereger to keep track of which module faulted. bit 5 is used to latch
+extern uint8_t mod_fault_num;
+
+// bit that is set in mod fault bitmap to indicate a module has faulted
+#define MOD_FAULT_BITMAP_LATCH (1 << 5)
+
+// that sets mod fault only if it hasn't been previously set
+static inline void latch_mod_fault(uint8_t mod_fault_num_) {
+    // Sanity check: ensure the module number doesn't overflow into the latch bit
+    if (mod_fault_num_ > 31) return; 
+
+    // Suspend interrupts/scheduler to ensure atomicity
+    taskENTER_CRITICAL(); 
+    
+    // Check if the latch bit is NOT set
+    if ((mod_fault_num & MOD_FAULT_BITMAP_LATCH) == 0) {
+        // Use Bitwise OR (|) to combine the latch bit and the module number
+         mod_fault_num = mod_fault_num_ | MOD_FAULT_BITMAP_LATCH;
+    }
+    
+    // Resume interrupts/scheduler
+    taskEXIT_CRITICAL(); 
+}
 
 #define get_state_bit(bit) ((xEventGroupGetBits(xStateBits) & (1U << bit)) >> bit)
 
@@ -130,8 +158,11 @@ typedef enum {
     TEMPERATURE_MONITOR_GOOD,
     CONTACTOR_MONITOR_GOOD,
     TEMP_OK_FOR_CHARGING,
+    VOLT_OK_FOR_CHARGING,
     NUM_STATE_BITS
 } state_bits_t;
+
+
 
 
 

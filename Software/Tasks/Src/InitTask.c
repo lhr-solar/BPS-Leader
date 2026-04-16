@@ -175,7 +175,7 @@ void Task_Init()
         portMAX_DELAY  // wait forever
     );
 
-    // IGNITION LOGIC GOES HERE (like can recieve messages n shi)
+    // IGNITION LOGIC GOES HERE
 
     // All tasks have checked in, ensure nothing faulted on startup before closing contactors
     if (faultBit_wait(NUM_FAULTS, 0) == 0)

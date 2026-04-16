@@ -4,6 +4,7 @@
 #include <event_groups.h>
 #include <stdint.h>
 #include <assert.h>
+#include "BPS_Tasks.h"
 
 
 #define ALL_FAULT_BITS ((1UL << NUM_FAULTS) - 1UL)
@@ -35,6 +36,7 @@ typedef enum
 
     CONTACTOR_CALLBACK_FAULT, // Callback failed (RIP Driver)
     AMPERES_WATCHDOG_FAULT,   // Amperes board not responding
+    VOLTTEMP_WATCHDOG_FAULT,  // Volt-temp board not responding
     BPS_ESTOP1_FAULT,         // ESTOP1 pressed, or you forgot the jumpers
     BPS_ESTOP2_FAULT,         // ESTOP2 pressed, or you forgot the jumpers
     BPS_ESTOP3_FAULT,         // ESTOP3 pressed, or you forgot the jumpers
@@ -52,8 +54,9 @@ typedef enum
     BPS_CAN_ERROR,       // BPS CAN failed a send or receive after configured retries
     CAR_CAN_ERROR,       // CAR CAN failed a send or receive after configured retries
     FAN_CHIP_ERROR,      // Fan chip not responding or not responding properly
+    SHT45_ERROR,         // Humidity sensor chip not responding or not responding properly
     ADC_ERROR,           // Error with ADC  
-    ELCON_FAULT,         // ELCON faulted while chargin
+    ELCON_FAULT,         // ELCON faulted while charging    
     REGEN_FAULT,         // Regen braking active when BPS says it's unsafe
     I2C_ERROR,           // I2C erring
 

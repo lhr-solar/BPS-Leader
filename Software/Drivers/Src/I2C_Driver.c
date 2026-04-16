@@ -97,4 +97,8 @@ void HAL_I2C_ErrorCallback(I2C_HandleTypeDef *hi2c) {
     if (error_counter_emc2305 > I2C_ERROR_THRESHOLD) {
         set_faultBitFromISR(FAN_CHIP_ERROR, &xHigherPriorityTaskWoken);
     }   
+    if (error_counter_sht45 > I2C_ERROR_THRESHOLD) {
+        set_faultBitFromISR(SHT45_ERROR, &xHigherPriorityTaskWoken);
+    }   
+
 }

@@ -11,32 +11,34 @@
 
 #define VOLTAGE_CAN_DELAY_MS 10u
 
+// a mask of all 1's to compare against the volt sensor watchdog bitmap to ensure every bit is set (all info received)
 #define VOLT_TAPS_ALL_DATA 0xFFFFFFFF
 
 #define VOLT_TAPS_PER_BOARD (NUM_VOLTAGE_SENSORS / NUM_VOLTTEMP_BOARDS)
 
 #define VOLT_WATCHDOG_TIMEOUT_MS 1000
 
-// get first four bits of volt can message, which is id
+// get first five bits of volt can message, which is id
 #define VOLT_ID_MASK 0x1F
 
 // Printf period macros
 #define VOLT_LOOP_PRINTF_DELAY_MS 2000
 #define VOLT_PRINTF_COUNTER (VOLT_LOOP_PRINTF_DELAY_MS / VOLT_MONITOR_TASK_DELAY_MS)
 
-// watchdog bitmap
-uint32_t volt_sensor_bitmap;
-
-// start in good condition
-uint32_t exposed_volt_sensor_bitmap = 0xFFFFFFFF;
-
-static TimerHandle_t voltage_watchdog_timer;
-static StaticTimer_t volt_timer_buffer;
-
 // array to hold struct packed can data
 bps_voltage_aggregate_arr_t volt_can_data[NUM_VOLTAGE_SENSORS] = {0};
 
+// watchdog bitmap
+uint32_t volt_watchdog_bitmap;
 
+// bitmap to hold volt sensor watchdog, starts all bits set (good), corresponding bits are cleared if taps don't check in
+uint32_t exposed_volt_watchdog_bitmap = VOLT_TAPS_ALL_DATA;
+
+// watchdog timer
+static TimerHandle_t voltage_watchdog_timer;
+static StaticTimer_t volt_timer_buffer;
+
+// array that is indexed to get the CAN id for each volltemp
 static const uint32_t voltage_can_ids[NUM_VOLTTEMP_BOARDS] = {
     CAN_ID_BPS_VT0_VOLTAGE_ARR,
     CAN_ID_BPS_VT1_VOLTAGE_ARR,
@@ -98,7 +100,7 @@ static uint8_t volt_can_unpack(uint8_t *raw_volt_can_data, bps_voltage_aggregate
     // set the volt sensor watchdog bitmap
     portENTER_CRITICAL();
     // set corresponding bit in recv bitmap
-    volt_sensor_bitmap |= (1U << tap_index);
+    volt_watchdog_bitmap |= (1U << tap_index);
     portEXIT_CRITICAL();
 
     return 1;
@@ -146,15 +148,20 @@ static void can_recv_all_taps(uint32_t can_id_index, bps_voltage_aggregate_arr_t
     }
 }
 
+// watchdog function that runs when the timer times out
 static void vVoltageWatchdogCallback(TimerHandle_t volt_timer)
 {
-
-    if (volt_sensor_bitmap != VOLT_TAPS_ALL_DATA)
+    taskENTER_CRITICAL();
+    // check if every tap has sent temp information since last timer timeout.
+    if (volt_watchdog_bitmap != VOLT_TAPS_ALL_DATA)
     {
-        exposed_volt_sensor_bitmap = volt_sensor_bitmap;
-        set_faultBit(BPS_CAN_ERROR);
+        // if one hasn't sent, save bitmap to know which one(s) didn't check in, then set fault bit
+        exposed_volt_watchdog_bitmap = volt_watchdog_bitmap;
+        latch_mod_fault(get_mod_fault_num(exposed_volt_watchdog_bitmap));
+        set_faultBit(VOLTTEMP_WATCHDOG_FAULT);
     }
-    volt_sensor_bitmap = 0;
+    volt_watchdog_bitmap = 0;
+    taskEXIT_CRITICAL();
 }
 
 uint32_t get_pack_voltage()
@@ -170,26 +177,32 @@ uint32_t get_pack_voltage()
     return voltage_sum;
 }
 
-bool get_volt_segment_status(uint8_t segment_num) {
+bool get_volt_segment_status(uint8_t segment_num)
+{
 
     // confirm voltage readings are coming in
-    if (((exposed_volt_sensor_bitmap >> (segment_num * MODULES_PER_SEGMENT)) & 0xF) != 0xF) {
+    if (((exposed_volt_watchdog_bitmap >> (segment_num * MODULES_PER_SEGMENT)) & 0xF) != 0xF)
+    {
         return false;
     }
 
-    // make sure no faults 
+    // make sure no faults
     for (uint8_t tap_num = segment_num * MODULES_PER_SEGMENT; tap_num < (segment_num + 1) * MODULES_PER_SEGMENT; tap_num++)
     {
 
-        if (volt_can_data[tap_num].BPS_Voltage_Tap_Fault != BPS_VOLTAGE_AGGREGATE_ARR_BPS_VOLTAGE_TAP_FAULT_OK) {
+        if (volt_can_data[tap_num].BPS_Voltage_Tap_Fault != BPS_VOLTAGE_AGGREGATE_ARR_BPS_VOLTAGE_TAP_FAULT_OK)
+        {
             return false;
-        }  
-    }      
+        }
+    }
     return true;
 }
 
 void Task_Voltage_Monitor()
 {
+
+    // counter to slow printf messages
+    uint32_t volt_printf_debug_counter = 0;
 
     // Make timer for watchdog
     voltage_watchdog_timer = xTimerCreateStatic(
@@ -205,13 +218,11 @@ void Task_Voltage_Monitor()
 
     TickType_t xLastWakeTime = xTaskGetTickCount();
 
-    uint32_t volt_printf_debug_counter = 0;
-
     while (1)
     {
         volt_printf_debug_counter++;
 
-        // Delays
+        // Delay
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(VOLT_MONITOR_TASK_DELAY_MS));
 
         // loops through each can ID
@@ -222,15 +233,29 @@ void Task_Voltage_Monitor()
             can_recv_all_taps(can_id_index, volt_can_data);
         }
 
+        // message buffer to hold forward voltage aggregate array can msg
         uint8_t msgBuff[CAN_DLC_BPS_VOLTAGE_AGGREGATE_ARR] = {0};
+
+        // flag to determine if voltage is OK (to set state bit)
         bool all_voltage_good = true;
 
+        // max voltage counter used for bounds checking
+        uint32_t max_voltage = 0;
+
+        // Loop through every received value
         for (uint8_t i = 0; i < NUM_VOLTAGE_SENSORS; i++)
         {
+            // update max voltage
+            if (volt_can_data[i].BPS_Voltage_Tap_Data > max_voltage)
+            {
+                max_voltage = volt_can_data[i].BPS_Voltage_Tap_Data;
+            }
+
+            // if voltage is too high or too low, set relevant fault and set fault bit
             if (volt_can_data[i].BPS_Voltage_Tap_Data > CELL_OVERVOLTAGE_THRESHOLD_MV)
             {
                 volt_can_data[i].BPS_Voltage_Tap_Fault = BPS_VOLTAGE_AGGREGATE_ARR_BPS_VOLTAGE_TAP_FAULT_OVER_VOLTAGE;
-
+                latch_mod_fault(volt_can_data[i].BPS_Tap_idx);
                 set_faultBit(CELL_OVERVOLTAGE_FAULT);
                 all_voltage_good = false;
             }
@@ -245,12 +270,22 @@ void Task_Voltage_Monitor()
             // Print volts at lower rate
             if (volt_printf_debug_counter >= VOLT_PRINTF_COUNTER)
             {
-                printf("Tap %d Voltage: %u.%u V\r\n", volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data / 1000, volt_can_data[i].BPS_Voltage_Tap_Data % 1000);
+                printf("Tap %u Voltage: %u.%03u V\r\n", volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data / 1000, volt_can_data[i].BPS_Voltage_Tap_Data % 1000);
             }
 
             // pack data for the  msg
             volt_can_pack(volt_can_data[i], msgBuff);
             car_can_send(CAN_ID_BPS_VOLTAGE_AGGREGATE_ARR, msgBuff, CAN_DLC_BPS_VOLTAGE_AGGREGATE_ARR, pdMS_TO_TICKS(VOLTAGE_CAN_DELAY_MS));
+        }
+
+        // check if voltage is OK for charging
+        if ((max_voltage < CELL_CHARGING_VOLTAGE_THRESHOLD_MV) && (get_state_bit(VOLT_OK_FOR_CHARGING) != STATE_BIT_SET))
+        {
+            set_state_bit(VOLT_OK_FOR_CHARGING, STATE_BIT_SET);
+        }
+        else if (((max_voltage >= CELL_CHARGING_VOLTAGE_THRESHOLD_MV) && (get_state_bit(VOLT_OK_FOR_CHARGING) != STATE_BIT_RESET)))
+        {
+            set_state_bit(VOLT_OK_FOR_CHARGING, STATE_BIT_RESET);
         }
 
         // Reset printf counter (outside loop so all taps print)
@@ -259,7 +294,7 @@ void Task_Voltage_Monitor()
             volt_printf_debug_counter = 0;
         }
 
-        if (all_voltage_good)
+        if (all_voltage_good && (get_state_bit(VOLTAGE_MONITOR_GOOD) != STATE_BIT_SET))
         {
             set_state_bit(VOLTAGE_MONITOR_GOOD, STATE_BIT_SET);
         }

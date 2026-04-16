@@ -8,6 +8,9 @@ uint8_t modFaultBitmap;
 static StaticSemaphore_t xLEDMutexBuffer;
 static SemaphoreHandle_t xLEDMutex = NULL;
 
+// Ensures the input to set mod fault is within range
+#define MOD_FAULT_MASK 0x1F
+
 static const uint32_t LED_TIMEOUT_MS = 20;
 
 static bool LEDs_initialized = false;
@@ -54,10 +57,8 @@ static void updateStatusLEDs() {
 
 led_state_t LEDsModFaultBitmap_set(uint8_t bitmap) {
 
-    // make sure bitmap is in range, if not return
-    if (bitmap >= (1 << MOD_FAULT_BITS)) {
-        return LED_ERR;
-    }
+    // make sure bitmap is in range
+    bitmap &= MOD_FAULT_MASK;
 
     if (xLEDMutex != NULL && xSemaphoreTake(xLEDMutex, LED_TIMEOUT_MS) == pdTRUE) {
         modFaultBitmap = bitmap;
@@ -100,9 +101,14 @@ void LEDs_clear() {
     if (xLEDMutex != NULL && xSemaphoreTake(xLEDMutex, LED_TIMEOUT_MS) == pdTRUE) {
         LEDbitmap = 0;
         modFaultBitmap = 0;
+        HAL_GPIO_WritePin(STROBE_PORT, STROBE_PIN, GPIO_PIN_RESET);
         updateStatusLEDs();
         xSemaphoreGive(xLEDMutex);
     }
+}
+
+void LED_setStrobe(led_state_t state) {
+    HAL_GPIO_WritePin(STROBE_PORT, STROBE_PIN, (state == LED_ON) ? GPIO_PIN_SET : GPIO_PIN_RESET);
 }
 
 void LEDs_init() {
@@ -146,6 +152,12 @@ void LEDs_init() {
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
     HAL_GPIO_Init(HEARTBEAT_LED_PORT, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = STROBE_PIN;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+    HAL_GPIO_Init(STROBE_PORT, &GPIO_InitStruct);
 
     LEDs_clear();
     
