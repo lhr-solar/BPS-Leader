@@ -6,8 +6,7 @@
 #include "DebugPrintf.h"
 #include "Contactors.h"
 
-#define ELCON_TASK_PERIOD_MS 100u
-#define ELCON_CHARGER_TIMEOUT_MS 500u
+#define ELCON_CHARGER_TIMEOUT_MS 1500u
 
 // Charger Interface Status bit positions (little-endian, 5-byte message)
 // Bit 32 = byte[4] bit 0: Comm_ok  (1 = yes, 0 = no)
@@ -15,9 +14,8 @@
 #define CHARGER_COMM_OK_MASK (1u << 0)
 #define CHARGER_FAULT_PRESENT_MASK (1u << 1)
 
-system
 
-    static volatile bool charger_timeout_fault = false;
+static volatile bool charger_timeout_fault = false;
 static TimerHandle_t xChargerTimeoutTimer;
 static StaticTimer_t xChargerTimeoutBuffer;
 
@@ -56,10 +54,10 @@ void Task_Elcon_Charging()
         toggleHeartbeat();
 
         // Try to receive Charger Interface Status from car CAN
-        uint8_t charger_buf[CAN_DLC_CHARGER_INTERFACE_STATUS] = {0};
-        bool got_charger_msg = (car_can_recv(CAN_ID_CHARGER_INTERFACE_STATUS,
+        uint8_t charger_buf[CAN_DLC_CHARGERINTERFACE_STATUS] = {0};
+        bool got_charger_msg = (car_can_recv(CAN_ID_CHARGERINTERFACE_STATUS,
                                              charger_buf,
-                                             CAN_DLC_CHARGER_INTERFACE_STATUS,
+                                             CAN_DLC_CHARGERINTERFACE_STATUS,
                                              ELCON_TASK_PERIOD_MS) == CAN_OK);
 
 
@@ -75,29 +73,34 @@ void Task_Elcon_Charging()
             }
 
             // Toggle CHARGING_LED to show charger messages are arriving
-            static bool charging_led_state = false;
-            charging_led_state = !charging_led_state;
+            printf("Received charger message: Comm_ok=%d, Fault_present=%d\n",
+                   (charger_buf[4] & CHARGER_COMM_OK_MASK) != 0,
+                   (charger_buf[4] & CHARGER_FAULT_PRESENT_MASK) != 0);
             // LED_set(CHARGING_LED, charging_led_state);
         }
 
-        // Extract status bits from byte 4 (bits 32 and 33)
-        bool comm_ok = (charger_buf[4] & CHARGER_COMM_OK_MASK) != 0;
-        bool fault_present = (charger_buf[4] & CHARGER_FAULT_PRESENT_MASK) != 0;
+        // Update status bits only when a fresh message arrives; stale values persist
+        static bool comm_ok = false;
+        static bool fault_present = false;
+        if (got_charger_msg)
+        {
+            comm_ok = (charger_buf[4] & CHARGER_COMM_OK_MASK) != 0;
+            fault_present = (charger_buf[4] & CHARGER_FAULT_PRESENT_MASK) != 0;
+        }
 
         // Send BPS_CHARGE_OK every cycle; NOT_OK if timeout fault or any bad condition
         uint8_t status_buf[CAN_DLC_BPS_STATUS] = {0};
 
-        
-
-        //make sure system is ok
+        //make sure system is ok — fault after 500 ms of no charger message
         if (get_state_bit(VOLT_OK_FOR_CHARGING) == STATE_BIT_SET && get_state_bit(TEMP_OK_FOR_CHARGING) == STATE_BIT_SET &&
-            !charger_timeout_fault || got_charger_msg || comm_ok || !fault_present)
+            !charger_timeout_fault && comm_ok && !fault_present)
         {
             status_buf[1] = BPS_STATUS_BPS_CHARGE_OK_OK;
             if (get_state_bit(ELCON_OK_FOR_CHARGING) == STATE_BIT_RESET)
             {
                 set_state_bit(ELCON_OK_FOR_CHARGING, STATE_BIT_SET);
             }
+            printf("ELCON OK for charging conditions met. Sending OK status.\n");
         }
         else
         {
@@ -107,6 +110,8 @@ void Task_Elcon_Charging()
             {
                 set_state_bit(ELCON_OK_FOR_CHARGING, STATE_BIT_RESET);
             }
+            printf("ELCON NOT OK for charging conditions. Sending NOT_OK status. Faults - Charger Timeout: %d, Comm_ok: %d, Fault_present: %d\n",
+                   charger_timeout_fault, comm_ok, fault_present);
         }
 
         
