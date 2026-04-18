@@ -57,6 +57,8 @@ void Task_Amperes_Monitor() {
         &amperes_timer_buffer                       /* Buffer to hold timer data */
     );
 
+    xTimerStart(amperes_watchdog_timer, 0);
+
     while (1)
     {
         amps_printf_debug_counter++;
@@ -110,7 +112,7 @@ void Task_Amperes_Monitor() {
             }
         }
 
-        if (AmperesData.Main_Battery_Current > CHARGING_THRESHOLD)
+        if (AmperesData.Main_Battery_Current > CHARGING_THRESHOLD)  
         {
             if (is_charging) {
                 set_state_bit(DISCHARGING_BATT_STATE, STATE_BIT_SET);

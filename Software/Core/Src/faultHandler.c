@@ -6,7 +6,7 @@
 bool fault_bits_initialized = false;
 
 bool system_has_faulted = false;
-volatile uint32_t first_fault_id;
+volatile uint32_t first_fault_id = 0;
 static StaticSemaphore_t xFaultSemaphoreBuffer;
 
 // Event group array handles to store fault state bits (split into fault bit buffers)
@@ -156,7 +156,7 @@ void handle_fault(uint32_t fault_bit_index)
 }
 
 bool is_fault_set(uint32_t bit_index)
-{
+{   
 
     // check for all faultts if bit_index == NUM_FAULTS
     if (bit_index == NUM_FAULTS)

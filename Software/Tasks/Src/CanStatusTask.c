@@ -6,7 +6,6 @@
 #include "StatusLEDs.h"
 #include <string.h>
 
-
 // Converts the temp in mC to the centi-celcius used in the status
 #define CONVERT_TEMP_FOR_STATUS(temp) ((temp) / 10)
 
@@ -16,14 +15,16 @@
 static uint8_t get_segment_status(uint8_t segment_num)
 {
 
-    if (get_temp_segment_status(segment_num) == false) {
+    if (get_temp_segment_status(segment_num) == false)
+    {
         return 1;
     }
 
-    if (get_volt_segment_status(segment_num) == false) {
+    if (get_volt_segment_status(segment_num) == false)
+    {
         return 1;
     }
-        
+
     return 0;
 }
 
@@ -64,81 +65,124 @@ static void pack_bps_status_message(const bps_status_t *status, uint8_t *can_dat
     can_data[7] |= status->BPS_Segment7_Status << 7;
 }
 
-static void get_bps_status_information(bps_status_t* bps_status_message) {
+static void get_bps_status_information(bps_status_t *bps_status_message)
+{
 
-    if (is_fault_set(CELL_OVERVOLTAGE_FAULT))
+    if (system_has_faulted)
+    {
+        switch (first_fault_id)
+        {
+        case CELL_OVERVOLTAGE_FAULT:
             bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_OVERVOLTAGE;
-        else if (is_fault_set(CELL_UNDERVOLTAGE_FAULT))
-            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_UNDERVOLTAGE;
-        // PLACEHOLDER
-        else if (is_fault_set(REGEN_FAULT))
-            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_REGEN;
-        else if (is_fault_set(CELL_OVERTEMP_FAULT))
-            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_OVERTEMPERATURE;
-        else if (is_fault_set(ELCON_FAULT))
-            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_ELCON;
-        else if (is_fault_set(PRECHARGE_TIMEOUT_FAULT))
-            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_ARRAY_PRECHARGE_TIMEOUT;
-        else if (is_fault_set(RTOS_WATCHDOG_ERROR))
-            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_INTERNAL_WATCHDOG;
-        else if (is_fault_set(BQ_CHIP_FAULT))
-            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_SEGMENT_WATCHDOG;
-        else if (is_fault_set(CONTACTOR_HV_PLUS_FAULT))
-            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_HV_PLUS_CONTACTOR_SENSE;
-        else if (is_fault_set(CONTACTOR_HV_MINUS_FAULT))
-            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_HV_MINUS_CONTACTOR_SENSE;
-        else if (is_fault_set(CONTACTOR_ARRAY_FAULT))
-            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_ARRAY_CONTACTOR_SENSE;
-        else if (is_fault_set(CONTACTOR_ARRAY_PRE_FAULT))
-            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_ARRAY_PCHG_CONTACTOR_SENSE;
-        else if (is_fault_set(BPS_ESTOP1_FAULT))
-            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_ESTOP_1;
-        else if (is_fault_set(BPS_ESTOP2_FAULT))
-            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_ESTOP_2;
-        else if (is_fault_set(BPS_ESTOP3_FAULT))
-            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_ESTOP_3;
-        else if (is_fault_set(PACK_OVERCURRENT_CHARGING_FAULT))
-            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_CHARGING_OVERCURRENT;
-        else if (is_fault_set(PACK_OVERCURRENT_DISCHARGING_FAULT))
-            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_DISCHARGING_OVERCURRENT;
-        else if (is_fault_set(AMPERES_WATCHDOG_FAULT))
-            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_AMPERES_WATCHDOG;
+            break;
 
+        case CELL_UNDERVOLTAGE_FAULT:
+            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_UNDERVOLTAGE;
+            break;
+
+        case REGEN_FAULT:
+            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_REGEN;
+            break;
+
+        case CELL_OVERTEMP_FAULT:
+            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_OVERTEMPERATURE;
+            break;
+
+        case ELCON_FAULT:
+            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_ELCON;
+            break;
+
+        case PRECHARGE_TIMEOUT_FAULT:
+            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_ARRAY_PRECHARGE_TIMEOUT;
+            break;
+
+        case RTOS_WATCHDOG_ERROR:
+            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_INTERNAL_WATCHDOG;
+            break;
+
+        case BQ_CHIP_FAULT:
+        case VOLTTEMP_WATCHDOG_FAULT:
+            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_SEGMENT_WATCHDOG;
+            break;
+
+        case CONTACTOR_HV_PLUS_FAULT:
+            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_HV_PLUS_CONTACTOR_SENSE;
+            break;
+
+        case CONTACTOR_HV_MINUS_FAULT:
+            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_HV_MINUS_CONTACTOR_SENSE;
+            break;
+
+        case CONTACTOR_ARRAY_FAULT:
+            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_ARRAY_CONTACTOR_SENSE;
+            break;
+
+        case CONTACTOR_ARRAY_PRE_FAULT:
+            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_ARRAY_PCHG_CONTACTOR_SENSE;
+            break;
+
+        case BPS_ESTOP1_FAULT:
+            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_ESTOP_1;
+            break;
+
+        case BPS_ESTOP2_FAULT:
+            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_ESTOP_2;
+            break;
+
+        case BPS_ESTOP3_FAULT:
+            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_ESTOP_3;
+            break;
+
+        case PACK_OVERCURRENT_CHARGING_FAULT:
+            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_CHARGING_OVERCURRENT;
+            break;
+
+        case PACK_OVERCURRENT_DISCHARGING_FAULT:
+            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_DISCHARGING_OVERCURRENT;
+            break;
+
+        case AMPERES_WATCHDOG_FAULT:
+            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_AMPERES_WATCHDOG;
+            break;
+
+        default:
+            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_INTERNAL_WATCHDOG;
+            break;
+        }
+    }
+
+    else
+    {
+        if (is_fault_set(NUM_FAULTS) == 0)
+        {
+            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_OK;
+        }
         else
         {
-            if (is_fault_set(NUM_FAULTS) == 0)
-            {
-                bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_OK;
-            }
-            else
-            {
-                bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_INTERNAL_WATCHDOG;
-            }
+            bps_status_message->BPS_Fault = BPS_STATUS_BPS_FAULT_INTERNAL_WATCHDOG;
         }
+    }
 
+    bps_status_message->Main_Battery_Voltage = get_pack_voltage();
+    bps_status_message->Main_Battery_Avg_Temperature = (CONVERT_TEMP_FOR_STATUS(get_avg_temp()));
 
-        bps_status_message->Main_Battery_Voltage = get_pack_voltage();
-        bps_status_message->Main_Battery_Avg_Temperature = (CONVERT_TEMP_FOR_STATUS(get_avg_temp()));
-        
-        bps_status_message->BPS_Charge_OK = ((bps_status_message->BPS_Fault == BPS_STATUS_BPS_FAULT_OK) 
-                                            && (get_state_bit(VOLT_OK_FOR_CHARGING) == STATE_BIT_SET) 
-                                            && (get_state_bit(TEMP_OK_FOR_CHARGING) == STATE_BIT_SET)) ? 1 : 0;
+    bps_status_message->BPS_Charge_OK = ((bps_status_message->BPS_Fault == BPS_STATUS_BPS_FAULT_OK) && (get_state_bit(VOLT_OK_FOR_CHARGING) == STATE_BIT_SET) && (get_state_bit(TEMP_OK_FOR_CHARGING) == STATE_BIT_SET)) ? 1 : 0;
 
-        bps_status_message->BPS_Regen_OK = (bps_status_message->BPS_Fault == BPS_STATUS_BPS_FAULT_OK) ? 1 : 0;
+    bps_status_message->BPS_Regen_OK = (bps_status_message->BPS_Fault == BPS_STATUS_BPS_FAULT_OK) ? 1 : 0;
 
-        bps_status_message->HV_Plus_Contactor_State = (contactor_get(HV_PLUS_CONTACTOR) == CONTACTOR_CLOSED) ? 1 : 0;
-        bps_status_message->HV_Minus_Contactor_State = (contactor_get(HV_MINUS_CONTACTOR) == CONTACTOR_CLOSED) ? 1 : 0;
-        bps_status_message->Array_Contactor_State = (contactor_get(ARRAY_CONTACTOR) == CONTACTOR_CLOSED) ? 1 : 0;
-        bps_status_message->Array_Precharge_Contactor_State = (contactor_get(ARRAY_PRE_CONTACTOR) == CONTACTOR_CLOSED) ? 1 : 0;        
+    bps_status_message->HV_Plus_Contactor_State = (contactor_get(HV_PLUS_CONTACTOR) == CONTACTOR_CLOSED) ? 1 : 0;
+    bps_status_message->HV_Minus_Contactor_State = (contactor_get(HV_MINUS_CONTACTOR) == CONTACTOR_CLOSED) ? 1 : 0;
+    bps_status_message->Array_Contactor_State = (contactor_get(ARRAY_CONTACTOR) == CONTACTOR_CLOSED) ? 1 : 0;
+    bps_status_message->Array_Precharge_Contactor_State = (contactor_get(ARRAY_PRE_CONTACTOR) == CONTACTOR_CLOSED) ? 1 : 0;
 
-        bps_status_message->BPS_Segment0_Status = get_segment_status(0);
-        bps_status_message->BPS_Segment1_Status = get_segment_status(1);
-        bps_status_message->BPS_Segment2_Status = get_segment_status(2);
-        bps_status_message->BPS_Segment3_Status = get_segment_status(3);
-        bps_status_message->BPS_Segment4_Status = get_segment_status(4);
-        bps_status_message->BPS_Segment5_Status = get_segment_status(5);
-        bps_status_message->BPS_Segment6_Status = get_segment_status(6);
-        bps_status_message->BPS_Segment7_Status = get_segment_status(7);
+    bps_status_message->BPS_Segment0_Status = get_segment_status(0);
+    bps_status_message->BPS_Segment1_Status = get_segment_status(1);
+    bps_status_message->BPS_Segment2_Status = get_segment_status(2);
+    bps_status_message->BPS_Segment3_Status = get_segment_status(3);
+    bps_status_message->BPS_Segment4_Status = get_segment_status(4);
+    bps_status_message->BPS_Segment5_Status = get_segment_status(5);
+    bps_status_message->BPS_Segment6_Status = get_segment_status(6);
+    bps_status_message->BPS_Segment7_Status = get_segment_status(7);
 }
 
 void Task_Can_Status(void *pvParameters)
