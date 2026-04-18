@@ -17,6 +17,7 @@
 #define TASK_CONTACTOR_MONITOR_PRIO     tskIDLE_PRIORITY + 4
 #define TASK_FAN_CONTROLLER_PRIO        tskIDLE_PRIORITY + 3
 #define TASK_CAN_STATUS_PRIO            tskIDLE_PRIORITY + 4
+#define TASK_ELCON_CHARGING_PRIO        tskIDLE_PRIORITY + 3
 
 #define TEST_TASK_PRIORITY              tskIDLE_PRIORITY + 3
 
@@ -32,7 +33,7 @@
 #define TASK_CONTACTOR_MONITORING_STACK_SIZE     (configMINIMAL_STACK_SIZE*2)
 #define TASK_FAN_CONTROLLER_STACK_SIZE           (configMINIMAL_STACK_SIZE*2)
 #define TASK_CAN_STATUS_STACK_SIZE               (configMINIMAL_STACK_SIZE*2)
-
+#define TASK_ELCON_CHARGING_STACK_SIZE           (configMINIMAL_STACK_SIZE*2)
 #define TEST_TASK_STACK_SIZE                     (configMINIMAL_STACK_SIZE*2)
 
 // (exposed so that tests can init tasks)
@@ -48,6 +49,7 @@ extern StackType_t Task_Contactor_Monitoring_Stack[ TASK_CONTACTOR_MONITORING_ST
 extern StackType_t Init_Task_Stack[ TASK_INIT_STACK_SIZE ];
 extern StackType_t Task_Fan_Controller_Stack[ TASK_FAN_CONTROLLER_STACK_SIZE ];
 extern StackType_t Task_Can_Status_Stack[ TASK_CAN_STATUS_STACK_SIZE ];
+extern StackType_t Task_Elcon_Charging_Stack[ TASK_ELCON_CHARGING_STACK_SIZE ];
 
 // Task Buffers
 extern StaticTask_t Task_Temperature_Buffer;
@@ -61,7 +63,7 @@ extern StaticTask_t Task_Contactor_Monitoring_Buffer;
 extern StaticTask_t Init_Task_Buffer;
 extern StaticTask_t Task_Fan_Controller_Buffer;
 extern StaticTask_t Task_Can_Status_Buffer;
-
+extern StaticTask_t Task_Elcon_Charging_Buffer;
 // Task Delays
 #define TEMP_MONITOR_TASK_DELAY_MS      290
 #define VOLT_MONITOR_TASK_DELAY_MS      290
@@ -70,6 +72,7 @@ extern StaticTask_t Task_Can_Status_Buffer;
 #define AMPERES_MONITOR_TASK_DELAY_MS   90
 #define FAN_CONTROLLER_TASK_DELAY_MS    300
 #define CAN_STATUS_TASK_DELAY_MS        500
+#define ELCON_TASK_PERIOD_MS            240
 
 // Task Inits
 void Task_Init();
@@ -82,6 +85,7 @@ void Task_PetWatchdog();
 void Task_CanRxForward();
 void Task_Contactor_Monitor();
 void Task_Can_Status();
+void Task_Elcon_Charging();
 
 // access functions for 
 // returns the average temperature of all cells in the battery in mC
@@ -166,6 +170,8 @@ typedef enum {
     // tracks if we have temp/voltage within charging thresholds
     TEMP_OK_FOR_CHARGING,
     VOLT_OK_FOR_CHARGING,
+
+    ELCON_OK_FOR_CHARGING,
 
     NUM_STATE_BITS
 } state_bits_t;
