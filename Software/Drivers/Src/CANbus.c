@@ -234,6 +234,14 @@ static can_status_t CAR_CAN_Init(void)
     
 }
 
+void HAL_FDCAN_ErrorStatusCallback(FDCAN_HandleTypeDef *hfdcan, uint32_t ErrorStatusITs)
+{
+    if ((ErrorStatusITs & FDCAN_IT_BUS_OFF) != 0)  // If Bus-Off error occurred
+    {
+        hfdcan->Instance->CCCR &= ~FDCAN_CCCR_INIT;  // Clear INIT bit to recover from Bus-Off
+    }
+}
+
 can_status_t CAN_Init() {
     if (BPS_CAN_Init() != CAN_OK) return CAN_ERR;
     if (CAR_CAN_Init() != CAN_OK) return CAN_ERR;

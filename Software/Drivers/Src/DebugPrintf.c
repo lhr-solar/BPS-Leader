@@ -1,6 +1,5 @@
 
 #include "DebugPrintf.h"
-#include <stdio.h>
 
 void HAL_UART_MspGPIOInit(UART_HandleTypeDef *huart) {
 
@@ -38,8 +37,6 @@ void debugPrintf_init(){
     husart3->Init.Mode = UART_MODE_TX_RX;
     husart3->Init.HwFlowCtl = UART_HWCONTROL_NONE;
     husart3->Init.OverSampling = UART_OVERSAMPLING_16;
-
-    setvbuf(stdout, NULL, _IONBF, 0);
 
     printf_init(husart3);
 }

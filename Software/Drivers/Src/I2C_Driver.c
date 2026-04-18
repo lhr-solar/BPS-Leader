@@ -3,8 +3,13 @@
 #include "SHT45.h"
 #include "pindef.h"
 
+#define I2C_ERROR_THRESHOLD (5)
+
 extern I2C_HandleTypeDef hi2c3;
 extern I2C_HandleTypeDef hi2c4;
+
+volatile uint16_t error_counter_sht45 = 0;
+volatile uint16_t error_counter_emc2305 = 0;
 
 /**
  * @brief  Tx Transfer completed callback.
@@ -16,9 +21,11 @@ extern I2C_HandleTypeDef hi2c4;
 void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef *hi2c) {
     if (hi2c->Instance == SHT45_I2C_CHANNEL) {
         SHT45_I2C_MasterTxRxCpltCallback();
+        error_counter_sht45 = 0;
     }
     else if (hi2c->Instance == FAN_I2C_CHANNEL) {
         EMC2305_I2C_MasterTxCpltCallback(hi2c);
+        error_counter_emc2305 = 0;
     }
 }
 
@@ -32,9 +39,11 @@ void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef *hi2c) {
 void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef *hi2c) {
     if (hi2c->Instance == SHT45_I2C_CHANNEL) {
         SHT45_I2C_MasterTxRxCpltCallback();
+        error_counter_sht45 = 0;
     }
     else if (hi2c->Instance == FAN_I2C_CHANNEL) {
         EMC2305_I2C_MasterRxCpltCallback(hi2c);
+        error_counter_emc2305 = 0;
     }
 }
 
@@ -79,5 +88,17 @@ void I2C4_ER_IRQHandler(void) {
  */
 void HAL_I2C_ErrorCallback(I2C_HandleTypeDef *hi2c) {
     BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-    set_faultBitFromISR(I2C_ERROR, &xHigherPriorityTaskWoken);
+    if (hi2c->Instance == SHT45_I2C_CHANNEL) {
+        error_counter_sht45++;
+    }
+    else if (hi2c->Instance == FAN_I2C_CHANNEL) {
+        error_counter_emc2305++;
+    }
+    if (error_counter_emc2305 > I2C_ERROR_THRESHOLD) {
+        set_faultBitFromISR(FAN_CHIP_ERROR, &xHigherPriorityTaskWoken);
+    }   
+    if (error_counter_sht45 > I2C_ERROR_THRESHOLD) {
+        set_faultBitFromISR(SHT45_ERROR, &xHigherPriorityTaskWoken);
+    }   
+
 }

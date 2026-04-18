@@ -48,6 +48,11 @@ led_state_t LEDsModFaultBitmap_set(uint8_t bitmap);
  */
 void LEDs_clear(void);
 
+/** * @brief Sets the strobe light
+ * * @param state The desired state for the strobe light (LED_ON or LED_OFF)
+ */
+void LED_setStrobe(led_state_t state);
+
 /** * @brief Configures GPIO pins and hardware registers for all diagnostic LEDs. 
  */
 void LEDs_init(void);
