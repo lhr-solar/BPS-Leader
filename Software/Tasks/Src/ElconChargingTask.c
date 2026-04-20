@@ -34,7 +34,7 @@ void Task_Elcon_Charging()
 {
 
 
-    // One-shot 500 ms timeout timer — reset every time a charger message arrives
+    // One-shot 1500 ms timeout timer — reset every time a charger message arrives
     xChargerTimeoutTimer = xTimerCreateStatic(
         "ChargerTimeout",
         pdMS_TO_TICKS(ELCON_CHARGER_TIMEOUT_MS),
@@ -73,10 +73,10 @@ void Task_Elcon_Charging()
             }
 
             // Toggle CHARGING_LED to show charger messages are arriving
+            //craig said no to touching LEDs
             printf("Received charger message: Comm_ok=%d, Fault_present=%d\n",
                    (charger_buf[4] & CHARGER_COMM_OK_MASK) != 0,
                    (charger_buf[4] & CHARGER_FAULT_PRESENT_MASK) != 0);
-            // LED_set(CHARGING_LED, charging_led_state);
         }
 
         // Update status bits only when a fresh message arrives; stale values persist
@@ -91,7 +91,7 @@ void Task_Elcon_Charging()
         // Send BPS_CHARGE_OK every cycle; NOT_OK if timeout fault or any bad condition
         uint8_t status_buf[CAN_DLC_BPS_STATUS] = {0};
 
-        //make sure system is ok — fault after 500 ms of no charger message
+        //make sure system is ok — fault after 1500 ms of no charger message
         if (get_state_bit(VOLT_OK_FOR_CHARGING) == STATE_BIT_SET && get_state_bit(TEMP_OK_FOR_CHARGING) == STATE_BIT_SET &&
             !charger_timeout_fault && comm_ok && !fault_present)
         {
@@ -116,10 +116,7 @@ void Task_Elcon_Charging()
 
         
 
-        // Flash VTEMP_IN_LED to indicate each BPS send
-        static bool BPS_led_state = false;
-        BPS_led_state = !BPS_led_state;
-        LED_set(VTEMP_IN_LED, BPS_led_state);
+
         car_can_send(CAN_ID_BPS_STATUS, status_buf, CAN_DLC_BPS_STATUS, ELCON_TASK_PERIOD_MS);
     }
 }
