@@ -2553,7 +2553,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8c01b900-54f7-45bd-b519-2606e84b2442")
-		(property "Reference" "Array1"
+		(property "Reference" "D34"
 			(at 81.28 95.5674 90)
 			(effects
 				(font
@@ -2562,7 +2562,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "LED"
+		(property "Value" "Array"
 			(at 81.28 98.1074 90)
 			(effects
 				(font
@@ -2643,7 +2643,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/013fafe9-9f8f-4070-b42f-299f0280561e"
-					(reference "Array1")
+					(reference "D34")
 					(unit 1)
 				)
 			)
@@ -3518,7 +3518,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-247-2_Vertical"
+		(property "Footprint" "CustomKiCad-Library:SODFL5226X100N"
 			(at 88.265 95.25 0)
 			(effects
 				(font

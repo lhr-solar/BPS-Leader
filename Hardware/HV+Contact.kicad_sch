@@ -1800,7 +1800,7 @@
 	)
 	(wire
 		(pts
-			(xy 246.38 97.79) (xy 250.19 97.79)
+			(xy 247.65 97.79) (xy 250.19 97.79)
 		)
 		(stroke
 			(width 0)
@@ -1837,16 +1837,6 @@
 			(type default)
 		)
 		(uuid "59c52674-0dd3-497a-bd03-3232c3a25d64")
-	)
-	(wire
-		(pts
-			(xy 246.38 92.71) (xy 246.38 97.79)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5c2ec683-5143-4906-9823-40e8184144dd")
 	)
 	(wire
 		(pts
@@ -2090,14 +2080,14 @@
 	)
 	(hierarchical_label "ESTOP_OUT"
 		(shape input)
-		(at 105.41 86.36 90)
+		(at 247.65 97.79 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify right)
 		)
-		(uuid "2214b9b1-76b1-4a86-bfad-50d1c5e159ad")
+		(uuid "3e727329-5ef3-495d-ae08-27d76e29f184")
 	)
 	(hierarchical_label "HV+_CONTROL"
 		(shape input)
@@ -2703,6 +2693,72 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+24V")
+		(at 105.41 86.36 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "27e6f1c6-c519-4ddf-848d-88327c0d699c")
+		(property "Reference" "#PWR057"
+			(at 105.41 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+24V"
+			(at 105.41 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 105.41 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 105.41 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+24V\""
+			(at 105.41 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6f0f3272-e952-4e49-a9ba-b48a41531cef")
+		)
+		(instances
+			(project "BPS-Leader"
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/74963854-952a-4575-ade4-c65bd9c86e44"
+					(reference "#PWR057")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R_US")
 		(at 242.57 105.41 90)
 		(mirror x)
@@ -2951,72 +3007,6 @@
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/74963854-952a-4575-ade4-c65bd9c86e44"
 					(reference "J6")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+24V")
-		(at 246.38 92.71 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "59c1d231-b74d-431b-b238-57569cb3f015")
-		(property "Reference" "#PWR057"
-			(at 246.38 96.52 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+24V"
-			(at 246.38 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 246.38 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 246.38 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+24V\""
-			(at 246.38 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "1931fd96-fd5d-472a-962e-ddaf913a9a91")
-		)
-		(instances
-			(project "BPS-Leader"
-				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/74963854-952a-4575-ade4-c65bd9c86e44"
-					(reference "#PWR057")
 					(unit 1)
 				)
 			)

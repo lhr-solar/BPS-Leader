@@ -3577,7 +3577,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "cf76dcf8-2edd-4820-8b12-3607a4d1ded7")
-		(property "Reference" "ArrayPre1"
+		(property "Reference" "D33"
 			(at 81.28 91.7574 90)
 			(effects
 				(font
@@ -3586,7 +3586,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "LED"
+		(property "Value" "ArrayPre"
 			(at 81.28 94.2974 90)
 			(effects
 				(font
@@ -3667,7 +3667,7 @@
 		(instances
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/3dd44f8f-72d2-4c34-a907-2c0b2702aa52"
-					(reference "ArrayPre1")
+					(reference "D33")
 					(unit 1)
 				)
 			)
