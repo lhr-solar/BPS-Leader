@@ -2917,7 +2917,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "1k"
 			(at 91.186 113.284 90)
 			(effects
 				(font
@@ -3269,10 +3269,9 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "54609be9-4a47-4f51-9d9b-7fb9985dee13")
 		(property "Reference" "Q8"
-			(at 95.25 77.4699 0)
+			(at 95.504 74.422 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3281,7 +3280,7 @@
 			)
 		)
 		(property "Value" "SQ2315CES-T1_GE3"
-			(at 95.25 80.0099 0)
+			(at 95.504 76.962 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3414,7 +3413,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "1k"
 			(at 89.916 142.494 90)
 			(effects
 				(font
@@ -3963,7 +3962,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "1k"
 			(at 91.186 81.534 90)
 			(effects
 				(font
