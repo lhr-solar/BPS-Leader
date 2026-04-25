@@ -1311,7 +1311,7 @@
 		)
 	)
 	(rectangle
-		(start 52.832 52.324)
+		(start 35.56 52.324)
 		(end 167.64 166.37)
 		(stroke
 			(width 0)
@@ -1323,8 +1323,8 @@
 		(uuid d2654703-52b1-4dc5-8bb4-ee18ebbf0917)
 	)
 	(rectangle
-		(start 52.832 52.324)
-		(end 80.772 57.404)
+		(start 36.068 53.086)
+		(end 64.008 58.166)
 		(stroke
 			(width 0)
 			(type default)
@@ -1346,7 +1346,7 @@
 	)
 	(text "Estop Driver"
 		(exclude_from_sim no)
-		(at 66.294 55.118 0)
+		(at 49.53 55.88 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1421,16 +1421,34 @@
 		(uuid "87610a45-23db-4bac-8e87-098959ac6317")
 	)
 	(junction
+		(at 63.5 118.11)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a0edee7c-7924-4898-9687-d4d2b522ec46")
+	)
+	(junction
 		(at 99.06 86.36)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "abff91af-f916-41f0-ae84-dcfc79bb790b")
 	)
 	(junction
+		(at 63.5 86.36)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d4878c5f-3fc1-4df0-a9af-abdc3ed9d79c")
+	)
+	(junction
 		(at 139.7 137.16)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "df6906c2-c13c-4727-9fb6-8ee62273ebad")
+	)
+	(junction
+		(at 63.5 147.32)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "dff8ee52-6ef7-498b-9084-0ac52004afbc")
 	)
 	(junction
 		(at 139.7 63.5)
@@ -1463,6 +1481,16 @@
 			(type default)
 		)
 		(uuid "0caeacb2-45ee-4d65-a5fd-6fd09bd57c3c")
+	)
+	(wire
+		(pts
+			(xy 63.5 127) (xy 63.5 128.27)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0d22d8ac-f332-48d5-8393-1ecfe5fe6b60")
 	)
 	(wire
 		(pts
@@ -1546,6 +1574,16 @@
 	)
 	(wire
 		(pts
+			(xy 63.5 147.32) (xy 83.82 147.32)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "33b25198-0362-4051-8663-479518fb70c8")
+	)
+	(wire
+		(pts
 			(xy 106.68 76.2) (xy 111.76 76.2)
 		)
 		(stroke
@@ -1556,6 +1594,16 @@
 	)
 	(wire
 		(pts
+			(xy 63.5 156.21) (xy 63.5 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3bb70e8c-28c2-40aa-bd10-d7fcb6f0f672")
+	)
+	(wire
+		(pts
 			(xy 139.7 92.71) (xy 139.7 96.52)
 		)
 		(stroke
@@ -1563,6 +1611,16 @@
 			(type default)
 		)
 		(uuid "3e89c8c9-69d3-4fb4-9099-78f595c07401")
+	)
+	(wire
+		(pts
+			(xy 63.5 86.36) (xy 85.09 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3f53289b-5e15-4ade-b0ac-c7e4bea21d19")
 	)
 	(wire
 		(pts
@@ -1706,6 +1764,16 @@
 	)
 	(wire
 		(pts
+			(xy 63.5 118.11) (xy 63.5 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5e5476b0-9709-416a-84dd-f6b39560aeb7")
+	)
+	(wire
+		(pts
 			(xy 133.35 137.16) (xy 139.7 137.16)
 		)
 		(stroke
@@ -1773,6 +1841,16 @@
 			(type default)
 		)
 		(uuid "73721e8e-50d8-4b87-95b5-ccfe5174e7d0")
+	)
+	(wire
+		(pts
+			(xy 63.5 118.11) (xy 85.09 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "76c2246a-75fa-4312-a7ed-b817674c6815")
 	)
 	(wire
 		(pts
@@ -1866,6 +1944,26 @@
 	)
 	(wire
 		(pts
+			(xy 63.5 95.25) (xy 63.5 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a84f9159-72c3-4f1f-8b3d-01729c55f7a7")
+	)
+	(wire
+		(pts
+			(xy 63.5 86.36) (xy 63.5 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a97159a2-6068-4feb-92bb-0db138d19def")
+	)
+	(wire
+		(pts
 			(xy 118.11 107.95) (xy 120.65 107.95)
 		)
 		(stroke
@@ -1936,7 +2034,7 @@
 	)
 	(wire
 		(pts
-			(xy 81.28 86.36) (xy 85.09 86.36)
+			(xy 58.42 86.36) (xy 63.5 86.36)
 		)
 		(stroke
 			(width 0)
@@ -2026,7 +2124,7 @@
 	)
 	(wire
 		(pts
-			(xy 80.01 147.32) (xy 83.82 147.32)
+			(xy 58.42 147.32) (xy 63.5 147.32)
 		)
 		(stroke
 			(width 0)
@@ -2056,6 +2154,16 @@
 	)
 	(wire
 		(pts
+			(xy 63.5 147.32) (xy 63.5 148.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f9f94967-dcc0-40ca-9b76-648d50855267")
+	)
+	(wire
+		(pts
 			(xy 123.19 147.32) (xy 123.19 148.59)
 		)
 		(stroke
@@ -2066,7 +2174,7 @@
 	)
 	(wire
 		(pts
-			(xy 80.01 118.11) (xy 85.09 118.11)
+			(xy 58.42 118.11) (xy 63.5 118.11)
 		)
 		(stroke
 			(width 0)
@@ -2097,7 +2205,7 @@
 	)
 	(hierarchical_label "ESTOP_3_SENSE"
 		(shape output)
-		(at 80.01 147.32 180)
+		(at 58.42 147.32 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2108,7 +2216,7 @@
 	)
 	(hierarchical_label "ESTOP_1_SENSE"
 		(shape output)
-		(at 81.28 86.36 180)
+		(at 58.42 86.36 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2163,7 +2271,7 @@
 	)
 	(hierarchical_label "ESTOP_2_SENSE"
 		(shape output)
-		(at 80.01 118.11 180)
+		(at 58.42 118.11 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2171,6 +2279,72 @@
 			(justify right)
 		)
 		(uuid "e4686885-43da-4d28-b6d0-a091c85c7ec2")
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 63.5 96.52 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "03d9b82d-b9cf-4460-949c-d4451195f3ae")
+		(property "Reference" "#PWR0145"
+			(at 63.5 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 63.5 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 63.5 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 63.5 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 63.5 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9dcfb541-4042-402d-b218-dfbafe2d1ff9")
+		)
+		(instances
+			(project "BPS-Leader"
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/e6694587-41e7-41a3-a5ae-2d9c9c2fe77f"
+					(reference "#PWR0145")
+					(unit 1)
+				)
+			)
+		)
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -2232,6 +2406,72 @@
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/e6694587-41e7-41a3-a5ae-2d9c9c2fe77f"
 					(reference "#PWR0173")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 63.5 157.48 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "05d33402-8e90-4825-823e-2db8799184ae")
+		(property "Reference" "#PWR0139"
+			(at 63.5 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 63.5 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 63.5 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 63.5 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 63.5 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "149921db-f25e-460f-91aa-aeb7c17ca568")
+		)
+		(instances
+			(project "BPS-Leader"
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/e6694587-41e7-41a3-a5ae-2d9c9c2fe77f"
+					(reference "#PWR0139")
 					(unit 1)
 				)
 			)
@@ -2326,6 +2566,168 @@
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/e6694587-41e7-41a3-a5ae-2d9c9c2fe77f"
 					(reference "R69")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_US")
+		(at 63.5 123.19 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "17ece306-3459-45b5-8f49-ae777e53390f")
+		(property "Reference" "R81"
+			(at 58.166 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "10k"
+			(at 58.166 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 62.484 122.936 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+			(at 63.5 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, US symbol"
+			(at 63.5 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" "Vishay "
+			(at 63.5 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW060310K0FKEI "
+			(at 63.5 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C25804"
+			(at 66.04 121.9199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "a25dc43a-b12e-4a21-9466-6e843cc0773c")
+		)
+		(pin "1"
+			(uuid "a2ed2687-bf2c-4722-9929-b0617e2feec7")
+		)
+		(instances
+			(project "BPS-Leader"
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/e6694587-41e7-41a3-a5ae-2d9c9c2fe77f"
+					(reference "R81")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 63.5 128.27 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "1b1291cd-439f-48d9-b9d5-432295db0e00")
+		(property "Reference" "#PWR0144"
+			(at 63.5 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 63.5 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 63.5 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 63.5 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 63.5 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4899e969-62d1-4ef2-84bf-2f98165a9f8f")
+		)
+		(instances
+			(project "BPS-Leader"
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/e6694587-41e7-41a3-a5ae-2d9c9c2fe77f"
+					(reference "#PWR0144")
 					(unit 1)
 				)
 			)
@@ -3640,6 +4042,102 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R_US")
+		(at 63.5 91.44 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6357f80e-10c3-48a1-8fa2-effd8c9f8757")
+		(property "Reference" "R82"
+			(at 58.166 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "10k"
+			(at 58.166 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 62.484 91.186 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+			(at 63.5 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, US symbol"
+			(at 63.5 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" "Vishay "
+			(at 63.5 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW060310K0FKEI "
+			(at 63.5 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C25804"
+			(at 66.04 90.1699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "2e2744ed-c838-4e50-8a6d-aa38930ac2b9")
+		)
+		(pin "1"
+			(uuid "540cc229-70c7-4894-b8eb-891148f48dfa")
+		)
+		(instances
+			(project "BPS-Leader"
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/e6694587-41e7-41a3-a5ae-2d9c9c2fe77f"
+					(reference "R82")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+3.3V")
 		(at 97.79 101.6 0)
 		(mirror y)
@@ -4136,6 +4634,102 @@
 			(project "BPS-Leader"
 				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/e6694587-41e7-41a3-a5ae-2d9c9c2fe77f"
 					(reference "#PWR079")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_US")
+		(at 63.5 152.4 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a1f38305-b9f8-414c-b84d-53c35b541723")
+		(property "Reference" "R74"
+			(at 58.166 151.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "10k"
+			(at 58.166 153.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 62.484 152.146 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+			(at 63.5 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, US symbol"
+			(at 63.5 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufactuerer" "Vishay "
+			(at 63.5 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW060310K0FKEI "
+			(at 63.5 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C25804"
+			(at 66.04 151.1299 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "84d7db18-12f9-42cc-9e6f-a3204c6329d2")
+		)
+		(pin "1"
+			(uuid "9d7eef96-6c91-42dc-9ca7-6d2e480bf8da")
+		)
+		(instances
+			(project "BPS-Leader"
+				(path "/fb37da34-e420-4994-8cc1-079e8c0fa48e/e6694587-41e7-41a3-a5ae-2d9c9c2fe77f"
+					(reference "R74")
 					(unit 1)
 				)
 			)
