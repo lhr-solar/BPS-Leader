@@ -22,6 +22,8 @@ StackType_t Init_Task_Stack[TASK_INIT_STACK_SIZE];
 StackType_t Task_Can_Forward_Stack[TASK_CAN_FORWARD_STACK_SIZE];
 StackType_t Task_Fan_Controller_Stack[TASK_FAN_CONTROLLER_STACK_SIZE];
 StackType_t Task_Can_Status_Stack[TASK_CAN_STATUS_STACK_SIZE];
+StackType_t Task_Elcon_Charging_Stack[TASK_ELCON_CHARGING_STACK_SIZE];
+
 
 // Task Buffer
 StaticTask_t Init_Task_Buffer;
@@ -35,6 +37,7 @@ StaticTask_t Task_Contactor_Monitor_Buffer;
 StaticTask_t Task_Can_Forward_Buffer;
 StaticTask_t Task_Fan_Controller_Buffer;
 StaticTask_t Task_Can_Status_Buffer;
+StaticTask_t Task_Elcon_Charging_Buffer;
 
 // Event Group
 EventGroupHandle_t xWDogEventGroup_handle;
@@ -153,6 +156,15 @@ void Task_Init()
         TASK_CAN_STATUS_PRIO,       /* Task Prioriy. */
         Task_Can_Status_Stack,   /* Stack array. */
         &Task_Can_Status_Buffer        /* Buffer for static allocation. */
+    );
+    xTaskCreateStatic(
+        Task_Elcon_Charging,            /* The function that implements the task. */
+        "Elcon Charging Task",  /* Text name for the task. */
+        TASK_ELCON_CHARGING_STACK_SIZE, /* The size (in words) of the stack that should be created for the task. */
+        (void *)NULL,               /* Paramter passed into the task. */
+        TASK_ELCON_CHARGING_PRIO,       /* Task Prioriy. */
+        Task_Elcon_Charging_Stack,   /* Stack array. */
+        &Task_Elcon_Charging_Buffer        /* Buffer for static allocation. */
     );
 
     // xTaskCreateStatic(
