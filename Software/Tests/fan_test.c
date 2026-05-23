@@ -28,28 +28,28 @@ void vFanChipTestTask(void *pvParameters) {
     EMC2305_Driver_init();
 
     printf("EMC2305 init successfull\r\n");
-    printf("Fan ramping to min RPM\r\n");
+    printf("Fan ramping to min PWM\r\n");
 
     while (true) {
 
-        if (EMC2305_SetFanRPM(&chip, EMC2305_FAN1, FAN_MIN_RPM) != EMC2305_OK) {
-            printf("Error while ramping to min RPM\r\n");
+        if (EMC2305_SetFanPWM(&chip, EMC2305_FAN1, 0) != EMC2305_OK) {
+            printf("Error while ramping to min PWM\r\n");
             Error_Handler();
         }; 
         for (uint16_t i = 0; i < 30; i++) {
-            printf("Fan RPM: %d\r\n", EMC2305_GetFanRPM(&chip, EMC2305_FAN1));
+            printf("Fan PWM: %d\r\n", EMC2305_GetFanPWM(&chip, EMC2305_FAN1));
             vTaskDelay(pdMS_TO_TICKS(500));
         }   
 
         vTaskDelay(pdMS_TO_TICKS(2000));
-        printf("\n\r\nNow Ramping to: FAN MAX RPM\n\r\n");
-
-        if (EMC2305_SetFanRPM(&chip, EMC2305_FAN1, FAN_MAX_RPM) != EMC2305_OK) {
-            printf("Error while ramping to MAX RPM\r\n");
+        printf("\n\r\nNow Ramping to: FAN MAX PWM\n\r\n");
+        
+        if (EMC2305_SetFanPWM(&chip, EMC2305_FAN1, FAN_MAX_PWM) != EMC2305_OK) {
+            printf("Error while ramping to MAX PWM\r\n");
             Error_Handler();
         }; 
         for (uint16_t i = 0; i < 30; i++) {
-            printf("Fan RPM: %d\r\n", EMC2305_GetFanRPM(&chip, EMC2305_FAN1));
+            printf("Fan PWM: %d\r\n", EMC2305_GetFanPWM(&chip, EMC2305_FAN1));
             vTaskDelay(pdMS_TO_TICKS(500));
         }   
         

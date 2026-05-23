@@ -112,7 +112,7 @@ void Task_Amperes_Monitor() {
             }
         }
 
-        if (AmperesData.Main_Battery_Current > CHARGING_THRESHOLD)  
+        if (AmperesData.Main_Battery_Current > CHARGING_THRESHOLD_MA)  
         {
             if (is_charging) {
                 set_state_bit(DISCHARGING_BATT_STATE, STATE_BIT_SET);

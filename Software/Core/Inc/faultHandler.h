@@ -16,7 +16,7 @@
 #define MAX_FAULT_BITS 8U
 #endif
 
-#define FAULT_BIT_ARR_SIZE (1 + ((NUM_FAULTS - 1) / MAX_FAULT_BITS))
+extern const uint8_t fault_bit_arr_size; 
 
 // NOTE: FAULTS USED IN CAN STATUS TASK ((MUST))
 typedef enum
@@ -65,7 +65,7 @@ typedef enum
 
 extern const char *const fault_bit_strings[];
 
-extern EventGroupHandle_t faultBits[FAULT_BIT_ARR_SIZE];
+extern EventGroupHandle_t faultBits[fault_bit_arr_size];
 
 
 /* Convert enum to bitmask */
@@ -111,6 +111,17 @@ bool is_fault_set(uint32_t bit_index);
 void handle_fault(uint32_t fault_bit_index);
 
 /**
+ * @brief Gets the EventGroup in the fault_bit eventgroup array corresponding to bit_index parameter
+ *
+ * @param bit_index index of fault bit
+ * @return EventGroup that contains that fault bit
+ */
+static inline EventGroupHandle_t get_target_group(uint32_t bit_index)
+{
+    return faultBits[bit_index / MAX_FAULT_BITS];
+}
+
+/**
  * @brief Set a fault in the fault bitmap and gives semaphore to wake fault handler task
  *
  * @param bit which fault is being set
@@ -130,7 +141,7 @@ static inline void set_faultBit(uint32_t bit_index)
         }
         taskEXIT_CRITICAL();
 
-        EventGroupHandle_t target_group = faultBits[bit_index / MAX_FAULT_BITS];
+        EventGroupHandle_t target_group = get_target_group(bit_index);
 
         // determine if bit is already set. If its not, set it
         if ((target_group != NULL) && ((xEventGroupGetBits(target_group) & FAULT_BIT(bit_index % MAX_FAULT_BITS)) == 0)) {
@@ -165,7 +176,7 @@ static inline void set_faultBitFromISR(uint32_t bit_index, BaseType_t *pxHigherP
         }
         taskEXIT_CRITICAL_FROM_ISR(uxSavedInterruptStatus);
 
-        EventGroupHandle_t target_group = faultBits[bit_index / MAX_FAULT_BITS];
+        EventGroupHandle_t target_group = get_target_group(bit_index);
 
         /// Set the event group bit if it isnt already set
         if ((target_group != NULL) && ((xEventGroupGetBitsFromISR(target_group) & FAULT_BIT(bit_index % MAX_FAULT_BITS)) == 0)) {

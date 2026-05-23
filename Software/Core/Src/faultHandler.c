@@ -9,13 +9,15 @@ bool system_has_faulted = false;
 volatile uint32_t first_fault_id = 0;
 static StaticSemaphore_t xFaultSemaphoreBuffer;
 
+const uint8_t fault_bit_arr_size = (1 + ((NUM_FAULTS - 1) / MAX_FAULT_BITS));
+
 // Event group array handles to store fault state bits (split into fault bit buffers)
-EventGroupHandle_t faultBits[FAULT_BIT_ARR_SIZE];
+EventGroupHandle_t faultBits[fault_bit_arr_size];
 
 uint8_t mod_fault_num = 0;
 
 // Static buffer arrary to store the event handle
-static StaticEventGroup_t faultBitsBuffer[FAULT_BIT_ARR_SIZE];
+static StaticEventGroup_t faultBitsBuffer[fault_bit_arr_size];
 
 SemaphoreHandle_t faultSemaphore = NULL;
 
@@ -25,7 +27,7 @@ uint8_t faultHandler_init(void)
     if (fault_bits_initialized)
         return 1;
 
-    for (uint16_t i = 0; i < FAULT_BIT_ARR_SIZE; i++)
+    for (uint16_t i = 0; i < fault_bit_arr_size; i++)
     {
         faultBits[i] = xEventGroupCreateStatic(&faultBitsBuffer[i]);
 
@@ -161,7 +163,7 @@ bool is_fault_set(uint32_t bit_index)
     // check for all faultts if bit_index == NUM_FAULTS
     if (bit_index == NUM_FAULTS)
     {
-        for (uint16_t i = 0; i < FAULT_BIT_ARR_SIZE; i++) {
+        for (uint16_t i = 0; i < fault_bit_arr_size; i++) {
             if (xEventGroupGetBits(faultBits[i]) != 0) {
                 return true;
             }
@@ -171,7 +173,7 @@ bool is_fault_set(uint32_t bit_index)
     else
     {
         // Select the correct group
-        EventGroupHandle_t target_group = faultBits[bit_index / MAX_FAULT_BITS];
+        EventGroupHandle_t target_group = get_target_group(bit_index);
 
         // Get all bits from that group
         EventBits_t all_bits = xEventGroupGetBits(target_group);
@@ -181,3 +183,4 @@ bool is_fault_set(uint32_t bit_index)
         return (all_bits & FAULT_BIT(bit_index % MAX_FAULT_BITS)) != 0;
     }
 }
+

@@ -1,6 +1,8 @@
 #include "EMC2305_Driver.h"
 #include "config.h"
 
+#define EMC2305_I2C_ADDRESS (0x4D)
+
 EMC2305_HandleTypeDef chip;
 
 I2C_HandleTypeDef hi2c3;
@@ -140,7 +142,7 @@ EMC2305_Status EMC2305_Driver_init()
 
     vTaskDelay(pdMS_TO_TICKS(EMC2305_STARTUP_WAIT_MS));
 
-    if (EMC2305_Init(&chip, &hi2c3, 0x4D) == EMC2305_ERR)
+    if (EMC2305_Init(&chip, &hi2c3, EMC2305_I2C_ADDRESS) == EMC2305_ERR)
     {
         return EMC2305_ERR;
     }

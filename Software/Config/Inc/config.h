@@ -19,18 +19,17 @@
 #define NUM_VOLTAGE_SENSORS             32      // Number of voltage sensors
 #endif
 
-#define MODULES_PER_SEGMENT (NUM_BATTERY_MODULES / NUM_SEGMENTS)
+#define MODULES_PER_SEGMENT (NUM_BATTERY_MODULES / NUM_VOLTTEMP_BOARDS)
 
 #define NUM_VOLTTEMP_BOARDS              8       // Number of volt temp boards
-#define NUM_SEGMENTS                    8
-
-// precharge macros
-#define PACK_OVERVOLTAGE_THRESHOLD_MV 140000 // 140 V
-#define PACK_UNDERVOLTAGE_THRESHOLD_MV 80000 // 80.0 V
 
 // volttemp segment voltage 
 #define CELL_OVERVOLTAGE_THRESHOLD_MV 4200 // 4.2 V
 #define CELL_UNDERVOLTAGE_THRESHOLD_MV 2600 // 2.6 V
+
+// precharge macros
+#define PACK_OVERVOLTAGE_THRESHOLD_MV (CELL_OVERVOLTAGE_THRESHOLD_MV*NUM_VOLTAGE_SENSORS) // 134.4 V
+#define PACK_UNDERVOLTAGE_THRESHOLD_MV (CELL_UNDERVOLTAGE_THRESHOLD_MV*NUM_VOLTAGE_SENSORS) //  83.2 V
 
 // battery segment temp voltage
 #define OVERTEMP_THRESHOLD_CHARGING_MC 55000 // 55 C
@@ -41,8 +40,7 @@
 #define CELL_CHARGING_TEMP_THRESHOLD_MC 50000 // 50 C
 
 // current threshold to determine if battery is charging (negative number is charging, positive is discharging)
-#define CHARGING_THRESHOLD (-50) // -50 mA
-
+#define CHARGING_THRESHOLD_MA (-50) // -50 mA
 
 
 // How many bad voltage reads are tolerable when switching states and closing contactors 
