@@ -12,12 +12,12 @@ static StaticSemaphore_t xFaultSemaphoreBuffer;
 const uint8_t fault_bit_arr_size = (1 + ((NUM_FAULTS - 1) / MAX_FAULT_BITS));
 
 // Event group array handles to store fault state bits (split into fault bit buffers)
-EventGroupHandle_t faultBits[fault_bit_arr_size];
+EventGroupHandle_t faultBits[FAULT_BIT_ARR_SIZE_MACRO];
 
 uint8_t mod_fault_num = 0;
 
 // Static buffer arrary to store the event handle
-static StaticEventGroup_t faultBitsBuffer[fault_bit_arr_size];
+static StaticEventGroup_t faultBitsBuffer[FAULT_BIT_ARR_SIZE_MACRO];
 
 SemaphoreHandle_t faultSemaphore = NULL;
 

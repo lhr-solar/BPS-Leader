@@ -18,6 +18,9 @@
 
 extern const uint8_t fault_bit_arr_size; 
 
+// need this to define array size at compile time (to make faultBits size known at CT), using const variable version at all other times to avoid unnessary calcs
+#define FAULT_BIT_ARR_SIZE_MACRO (1 + ((NUM_FAULTS - 1) / MAX_FAULT_BITS))
+
 // NOTE: FAULTS USED IN CAN STATUS TASK ((MUST))
 typedef enum
 {
@@ -65,7 +68,7 @@ typedef enum
 
 extern const char *const fault_bit_strings[];
 
-extern EventGroupHandle_t faultBits[fault_bit_arr_size];
+extern EventGroupHandle_t faultBits[FAULT_BIT_ARR_SIZE_MACRO];
 
 
 /* Convert enum to bitmask */
