@@ -153,10 +153,10 @@ static void vVoltageWatchdogCallback(TimerHandle_t volt_timer)
 {
     taskENTER_CRITICAL();
     // check if every tap has sent temp information since last timer timeout.
-    if (volt_watchdog_bitmap != VOLT_TAPS_ALL_DATA)
+    if ((volt_watchdog_bitmap | 0XF) != VOLT_TAPS_ALL_DATA)
     {
         // if one hasn't sent, save bitmap to know which one(s) didn't check in, then set fault bit
-        exposed_volt_watchdog_bitmap = volt_watchdog_bitmap;
+        exposed_volt_watchdog_bitmap = (volt_watchdog_bitmap | 0XF);
         latch_mod_fault(get_mod_fault_num(exposed_volt_watchdog_bitmap));
         set_faultBit(VOLTTEMP_WATCHDOG_FAULT);
     }
@@ -228,10 +228,27 @@ void Task_Voltage_Monitor()
         // loops through each can ID
         for (uint8_t can_id_index = 0; can_id_index < NUM_VOLTTEMP_BOARDS; can_id_index++)
         {
+            // skip volttemp #1 
+            if (can_id_index == 0) {
+                continue;
+            }
 
             // recieve data from all taps from each id
             can_recv_all_taps(can_id_index, volt_can_data);
         }
+
+        // assign placeholder values for volltemp 1 (mirror volttemp 2)
+        volt_can_data[0] = volt_can_data[4];
+        volt_can_data[0].BPS_Tap_idx = 0;
+
+        volt_can_data[1] = volt_can_data[5];
+        volt_can_data[1].BPS_Tap_idx = 1;
+
+        volt_can_data[2] = volt_can_data[6];
+        volt_can_data[2].BPS_Tap_idx = 2;
+
+        volt_can_data[3] = volt_can_data[7];
+        volt_can_data[3].BPS_Tap_idx = 3;
 
         // message buffer to hold forward voltage aggregate array can msg
         uint8_t msgBuff[CAN_DLC_BPS_VOLTAGE_AGGREGATE_ARR] = {0};
