@@ -153,10 +153,10 @@ static void vVoltageWatchdogCallback(TimerHandle_t volt_timer)
 {
     taskENTER_CRITICAL();
     // check if every tap has sent temp information since last timer timeout.
-    if ((volt_watchdog_bitmap | 0XF) != VOLT_TAPS_ALL_DATA)
+    if ((volt_watchdog_bitmap) != VOLT_TAPS_ALL_DATA)
     {
         // if one hasn't sent, save bitmap to know which one(s) didn't check in, then set fault bit
-        exposed_volt_watchdog_bitmap = (volt_watchdog_bitmap | 0XF);
+        exposed_volt_watchdog_bitmap = (volt_watchdog_bitmap);
         latch_mod_fault(get_mod_fault_num(exposed_volt_watchdog_bitmap));
         set_faultBit(VOLTTEMP_WATCHDOG_FAULT);
     }
@@ -228,10 +228,10 @@ void Task_Voltage_Monitor()
         // loops through each can ID
         for (uint8_t can_id_index = 0; can_id_index < NUM_VOLTTEMP_BOARDS; can_id_index++)
         {
-            // skip volttemp #1 
-            if (can_id_index == 0) {
-                continue;
-            }
+            // // skip volttemp #1 
+            // if (can_id_index == 0) {
+            //     continue;
+            // }
 
             // recieve data from all taps from each id
             can_recv_all_taps(can_id_index, volt_can_data);
