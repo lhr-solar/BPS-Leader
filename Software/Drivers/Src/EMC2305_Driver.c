@@ -158,7 +158,7 @@ EMC2305_Status EMC2305_Driver_init()
     EMC2305_SetGlobalConfig(&chip, &cfg);
 
     EMC2305_Fan_Config1 cfg1 = {
-        .enable_closed_loop = false,
+        .enable_closed_loop = true,
         .range = EMC2305_RNG_2000,
         .edges = EMC2305_EDG_5,
         .update_time = EMC2305_UDT_100,

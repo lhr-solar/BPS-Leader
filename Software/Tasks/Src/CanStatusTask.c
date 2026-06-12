@@ -195,12 +195,15 @@ void Task_Can_Status(void *pvParameters)
 
     while (1)
     {
+
+        toggleHeartbeat();
+
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(CAN_STATUS_TASK_DELAY_MS));
 
         get_bps_status_information(&bps_status_message);
 
         pack_bps_status_message(&bps_status_message, bps_status_raw_can);
 
-        car_can_send(CAN_ID_BPS_STATUS, bps_status_raw_can, CAN_DLC_BPS_STATUS, BPS_STATUS_CAN_DELAY_MS);
+        car_can_send(CAN_ID_BPS_STATUS, bps_status_raw_can, CAN_DLC_BPS_STATUS, BPS_STATUS_CAN_DELAY_MS);        
     }
 }
