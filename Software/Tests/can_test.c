@@ -10,6 +10,8 @@
 StaticTask_t task_buffer;
 StackType_t task_stack[TEST_TASK_STACK_SIZE];
 
+
+
 #define can_delay_ms 10
 
 static bool verifyData(uint8_t tx[], uint8_t rx[]) {

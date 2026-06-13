@@ -36,6 +36,10 @@ can_status_t bps_can_send(uint32_t ID, uint8_t data[], uint32_t data_length, Tic
 
     if ((bps_can == NULL) || (!is_initialized)) return CAN_ERR;
 
+    // if (ID == CAN_ID_BPS_STATUS && data[0] == 0) {
+    //     printf("CAN STATUS PRINTED, CALLING TASK: %s\r\n", pcTaskGetName(NULL));
+    // }
+
     FDCAN_TxHeaderTypeDef tx_header;
     FDCAN_Init_TXHeader(&tx_header, ID, data_length);
 
@@ -232,6 +236,14 @@ static can_status_t CAR_CAN_Init(void)
 
     return CAN_OK;
     
+}
+
+void HAL_FDCAN_ErrorStatusCallback(FDCAN_HandleTypeDef *hfdcan, uint32_t ErrorStatusITs)
+{
+    if ((ErrorStatusITs & FDCAN_IT_BUS_OFF) != 0)  // If Bus-Off error occurred
+    {
+        hfdcan->Instance->CCCR &= ~FDCAN_CCCR_INIT;  // Clear INIT bit to recover from Bus-Off
+    }
 }
 
 can_status_t CAN_Init() {

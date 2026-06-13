@@ -1,59 +1,90 @@
 #include "common.h"
-#include "StatusLEDs.h"
-#include "EMC2305_Driver.h"
-#include "DebugPrintf.h"
-#include "FaultHandlerTask.h"
 #include "BPS_Tasks.h"
-extern EMC2305_HandleTypeDef chip;
+#include "EMC2305_Driver.h"
+#include "CANbus.h"
+#include "StatusLEDs.h"
+#include "Contactors.h"
+#include "DebugPrintf.h"
+#include "SHT45.h"
 
+#define STARTUP_DELAY_MS (500)
+
+extern EMC2305_HandleTypeDef chip;
 
 // Static task buffers
 static StaticTask_t xTestTaskBuffer;
 static StackType_t xTestStack[TEST_TASK_STACK_SIZE];
 
-
 void vFanChipTestTask(void *pvParameters) {
 
-    debugPrintf_init();
+    vTaskDelay(pdMS_TO_TICKS(STARTUP_DELAY_MS));
+
+    if (faultHandler_init() == 0)
+    {
+        Error_Handler();
+    }
+
+    xStateBits = xEventGroupCreateStatic(&xStateBits_buffer);
+
+    if (xStateBits == NULL) {
+        Error_Handler();
+    }
 
     LEDs_init();
 
-    printf("printf init successfull\r\n");
-    vTaskDelay(250);
+    debugPrintf_init();
+
+    CAN_Init();
+
+    contactor_init();
+
+    SHT45_init();
 
     EMC2305_I2C_init();
+    if (EMC2305_Driver_init() != EMC2305_OK) printf("Fan Chip init error!");
 
-    printf("i2c init successfull\r\n");
+    Init_WDogTask();
 
-    EMC2305_Driver_init();
+    printf("Initialized...\n\r");
 
-    printf("EMC2305 init successfull\r\n");
-    printf("Fan ramping to min RPM\r\n");
+    xTaskCreateStatic(
+        Task_FaultHandler,             // Task function
+        "FaultHandler",                // Name of the task (for debugging)
+        FAULT_HANDLER_TASK_STACK_SIZE, // Stack size in words
+        (void *)NULL,                  // Task input parameter
+        TASK_FAULT_HANDLER_PRIO,       // Task priority
+        FaultHandler_Task_Stack,       // Task handle
+        &FaultHandler_Task_Buffer      // Static task buffer (optional)
+    );
 
     while (true) {
 
-        if (EMC2305_SetFanRPM(&chip, EMC2305_FAN1, FAN_MIN_RPM) != EMC2305_OK) {
+        printf("\n\r\nNow Ramping to: FAN MIN RPM\n\r\n");
+
+        if (set_fan_rpm(EMC2305_FAN2, EMC2305_MIN_RPM) != EMC2305_OK) {
+            set_faultBit(FAN_CHIP_ERROR);
             printf("Error while ramping to min RPM\r\n");
-            Error_Handler();
+            vTaskDelete(NULL);
         }; 
         for (uint16_t i = 0; i < 30; i++) {
-            printf("Fan RPM: %d\r\n", EMC2305_GetFanRPM(&chip, EMC2305_FAN1));
+            printf("Fan RPM: %u\r\n", EMC2305_GetFanRPM(&chip, EMC2305_FAN2));
             vTaskDelay(pdMS_TO_TICKS(500));
         }   
 
-        vTaskDelay(pdMS_TO_TICKS(2000));
-        printf("\n\r\nNow Ramping to: FAN MAX RPM\n\r\n");
+        // vTaskDelay(pdMS_TO_TICKS(2000));
+        // printf("\n\r\nNow Ramping to: FAN MAX RPM\n\r\n");
 
-        if (EMC2305_SetFanRPM(&chip, EMC2305_FAN1, FAN_MAX_RPM) != EMC2305_OK) {
-            printf("Error while ramping to MAX RPM\r\n");
-            Error_Handler();
-        }; 
-        for (uint16_t i = 0; i < 30; i++) {
-            printf("Fan RPM: %d\r\n", EMC2305_GetFanRPM(&chip, EMC2305_FAN1));
-            vTaskDelay(pdMS_TO_TICKS(500));
-        }   
+        // if (EMC2305_SetFanRPM(&chip, EMC2305_FAN2, EMC2305_MAX_RPM) != EMC2305_OK) {
+        //     printf("Error while ramping to MAX RPM\r\n");
+        //     set_faultBit(FAN_CHIP_ERROR);
+        // }; 
+        // for (uint16_t i = 0; i < 30; i++) {
+        //     printf("Fan RPM: %d\r\n", EMC2305_GetFanRPM(&chip, EMC2305_FAN2));
+        //     vTaskDelay(pdMS_TO_TICKS(500));
+        // }   
         
         printf("successfully ramped :)\r\n");
+        vTaskDelay(pdMS_TO_TICKS(2000));
         
     }
 }
@@ -71,16 +102,6 @@ int main (void) {
         TEST_TASK_PRIORITY,
         xTestStack,
         &xTestTaskBuffer
-    );
-
-    xTaskCreateStatic(
-        Task_FaultHandler,             // Task function
-        "FaultHandler",                // Name of the task (for debugging)
-        configMINIMAL_STACK_SIZE,   // Stack size in words
-        NULL,                       // Task input parameter
-        tskIDLE_PRIORITY + 3,       // Task priority
-        FaultHandler_Task_Stack,       // Task handle
-        &FaultHandler_Task_Buffer      // Static task buffer (optional)
     );
 
     vTaskStartScheduler();

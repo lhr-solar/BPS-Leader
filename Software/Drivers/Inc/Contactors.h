@@ -22,6 +22,16 @@ typedef enum {
 } contactor_state_t;
 
 /**
+ * @brief Represents the possible states of the ESTOP buttons.
+ */
+typedef enum {
+    ESTOP_OK = 0,
+    ESTOP1_FAULT,
+    ESTOP2_FAULT,
+    ESTOP3_FAULT
+} estop_status_t;
+
+/**
  * @brief Identification for specific contactors within the HV system.
  */
 typedef enum {
@@ -55,11 +65,12 @@ void contactor_init(void);
  */
 contactor_state_t contactor_get(contactor_num_t contactor_num);
 
-/** * @brief Reads the internally commanded (expected) state for a specific contactor.
- * * @param contactor_num The specific contactor to check.
- * @return contactor_state_t Returns CONTACTOR_CLOSED if it was commanded to close, CONTACTOR_OPEN if commanded to open.
+/**
+ * @brief Verifies if the physical state of a specific contactor matches its expected software state. 
+ * * @param contactor_num The specific contactor to check (e.g., Array, Motor, Precharge).
+ * * @return contactor_state_t Returns CONTACTOR_OK if they match, CONTACTOR_ERR if they don't
  */
-contactor_state_t contactor_get_command_state(contactor_num_t contactor_num);
+contactor_state_t contactor_verify(contactor_num_t contactor_num);
 
 /** * @brief Commands a contactor state change with safety verification.
  * * @param contactor_num The specific contactor to switch.
@@ -69,6 +80,11 @@ contactor_state_t contactor_get_command_state(contactor_num_t contactor_num);
  * @return contactor_state_t  Returns CONTACTOR_OK if command was accepted, CONTACTOR_ERR on hardware or RTOS failure.
  */
 contactor_state_t contactor_set(contactor_num_t contactor_num, contactor_state_t state, TickType_t wait_ms, fault_state_t emergency);
+
+/** * @brief Determines if any ESTOPs are tripped
+ * @return estop_status_t Returns ESTOP_OK if no estops are tripped, else it returns a code for each estop
+ */
+estop_status_t contactor_estop_checker();
 
 /** * @brief RTOS Timer callback for contactor state verification.
  * @note This function is called when the sense timer for the contactor times out. 
