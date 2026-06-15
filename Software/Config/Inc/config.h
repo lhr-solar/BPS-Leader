@@ -12,11 +12,11 @@
 #endif
 
 #ifndef NUM_TEMPERATURE_SENSORS
-#define NUM_TEMPERATURE_SENSORS         32      // Number of temperature sensors
+#define NUM_TEMPERATURE_SENSORS         NUM_BATTERY_MODULES      // Number of temperature sensors
 #endif
 
 #ifndef NUM_VOLTAGE_SENSORS
-#define NUM_VOLTAGE_SENSORS             32      // Number of voltage sensors
+#define NUM_VOLTAGE_SENSORS             NUM_BATTERY_MODULES      // Number of voltage sensors
 #endif
 
 #define MODULES_PER_SEGMENT (NUM_BATTERY_MODULES / NUM_VOLTTEMP_BOARDS)
