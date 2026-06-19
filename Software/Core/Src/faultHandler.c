@@ -158,7 +158,7 @@ void handle_fault(uint32_t fault_bit_index)
 }
 
 bool is_fault_set(uint32_t bit_index)
-{   
+{
 
     // check for all faultts if bit_index == NUM_FAULTS
     if (bit_index == NUM_FAULTS)
@@ -183,4 +183,3 @@ bool is_fault_set(uint32_t bit_index)
         return (all_bits & FAULT_BIT(bit_index % MAX_FAULT_BITS)) != 0;
     }
 }
-

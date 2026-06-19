@@ -16,10 +16,11 @@
 #define MAX_FAULT_BITS 8U
 #endif
 
-extern const uint8_t fault_bit_arr_size; 
+extern const uint8_t fault_bit_arr_size;
 
 // need this to define array size at compile time (to make faultBits size known at CT), using const variable version at all other times to avoid unnessary calcs
 #define FAULT_BIT_ARR_SIZE_MACRO (1 + ((NUM_FAULTS - 1) / MAX_FAULT_BITS))
+
 
 // NOTE: FAULTS USED IN CAN STATUS TASK ((MUST))
 typedef enum

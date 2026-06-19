@@ -238,7 +238,6 @@ static can_status_t CAR_CAN_Init(void)
     
 }
 
-
 can_status_t CAN_Init() {
     if (BPS_CAN_Init() != CAN_OK) return CAN_ERR;
     if (CAR_CAN_Init() != CAN_OK) return CAN_ERR;

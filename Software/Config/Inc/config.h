@@ -31,6 +31,7 @@
 #define PACK_OVERVOLTAGE_THRESHOLD_MV (CELL_OVERVOLTAGE_THRESHOLD_MV*NUM_VOLTAGE_SENSORS) // 134.4 V
 #define PACK_UNDERVOLTAGE_THRESHOLD_MV (CELL_UNDERVOLTAGE_THRESHOLD_MV*NUM_VOLTAGE_SENSORS) //  83.2 V
 
+
 // battery segment temp voltage
 #define OVERTEMP_THRESHOLD_CHARGING_MC 55000 // 55 C
 #define OVERTEMP_THRESHOLD_DISCHARGING_MC 70000 // 70 C
@@ -41,6 +42,7 @@
 
 // current threshold to determine if battery is charging (negative number is charging, positive is discharging)
 #define CHARGING_THRESHOLD_MA (-50) // -50 mA
+
 
 
 // How many bad voltage reads are tolerable when switching states and closing contactors 

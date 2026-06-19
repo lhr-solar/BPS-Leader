@@ -38,6 +38,7 @@
 #define OTEMP_FAULT_THRESHOLD 3 // number of consecutive otemp faults before latching module fault
 _Static_assert(OTEMP_FAULT_THRESHOLD < 255, "OTEMP_FAULT_THRESHOLD must be less than 255 since the histogram is an array of uint8_t");
 
+
 // array to hold struct packed can data
 bps_temperature_aggregate_arr_t temp_can_data[NUM_TEMPERATURE_SENSORS] = {0};
 bps_temp_rawv_aggregate_arr_t temp_can_data2[NUM_TEMPERATURE_SENSORS] = {0};
@@ -51,6 +52,7 @@ uint32_t exposed_temp_watchdog_bitmap = TEMP_TAPS_ALL_DATA;
 
 // array to store how often a module has consecutively otemp'd, indexed by module number
 uint8_t temp_module_fault_histogram[NUM_TEMPERATURE_SENSORS] = {0};
+
 
 // watchdog timer
 static TimerHandle_t temperature_watchdog_timer;
@@ -311,7 +313,6 @@ void Task_Temperature_Monitor()
 
                 // if this module is otemp'd increment that module's fault count
                 temp_module_fault_histogram[temp_can_data[i].BPS_Tap_idx]++;
-
 
                 // only fault the BPS if a singular module has consecutively otemp'd a certain number of times to filter single abnormal readings from actual faults
                 if(temp_module_fault_histogram[temp_can_data[i].BPS_Tap_idx] >= OTEMP_FAULT_THRESHOLD)

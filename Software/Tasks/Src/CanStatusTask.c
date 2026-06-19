@@ -166,7 +166,7 @@ static void get_bps_status_information(bps_status_t *bps_status_message)
     bps_status_message->Main_Battery_Voltage = get_pack_voltage();
     bps_status_message->Main_Battery_Avg_Temperature = (CONVERT_TEMP_FOR_STATUS(get_avg_temp()));
 
-    bps_status_message->BPS_Charge_OK = ((bps_status_message->BPS_Fault == BPS_STATUS_BPS_FAULT_OK) && (get_state_bit(VOLT_OK_FOR_CHARGING) == STATE_BIT_SET) && (get_state_bit(TEMP_OK_FOR_CHARGING) == STATE_BIT_SET)) ? 1 : 0;
+    bps_status_message->BPS_Charge_OK = ((bps_status_message->BPS_Fault == BPS_STATUS_BPS_FAULT_OK) && (get_state_bit(VOLT_OK_FOR_CHARGING) == STATE_BIT_SET) && (get_state_bit(TEMP_OK_FOR_CHARGING) == STATE_BIT_SET) && get_state_bit(ELCON_OK_FOR_CHARGING) == STATE_BIT_SET) ? 1 : 0;
 
     bps_status_message->BPS_Regen_OK = (bps_status_message->BPS_Fault == BPS_STATUS_BPS_FAULT_OK) ? 1 : 0;
 
@@ -204,6 +204,6 @@ void Task_Can_Status(void *pvParameters)
 
         pack_bps_status_message(&bps_status_message, bps_status_raw_can);
 
-        car_can_send(CAN_ID_BPS_STATUS, bps_status_raw_can, CAN_DLC_BPS_STATUS, BPS_STATUS_CAN_DELAY_MS);        
+        car_can_send(CAN_ID_BPS_STATUS, bps_status_raw_can, CAN_DLC_BPS_STATUS, BPS_STATUS_CAN_DELAY_MS);
     }
 }
