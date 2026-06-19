@@ -195,6 +195,9 @@ void Task_Can_Status(void *pvParameters)
 
     while (1)
     {
+
+        toggleHeartbeat();
+
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(CAN_STATUS_TASK_DELAY_MS));
 
         get_bps_status_information(&bps_status_message);

@@ -35,6 +35,10 @@
 #define TEMP_LOOP_PRINTF_DELAY_MS 2000
 #define TEMP_PRINTF_COUNTER (TEMP_LOOP_PRINTF_DELAY_MS / TEMP_MONITOR_TASK_DELAY_MS)
 
+#define OTEMP_FAULT_THRESHOLD 3 // number of consecutive otemp faults before latching module fault
+_Static_assert(OTEMP_FAULT_THRESHOLD < 255, "OTEMP_FAULT_THRESHOLD must be less than 255 since the histogram is an array of uint8_t");
+
+
 // array to hold struct packed can data
 bps_temperature_aggregate_arr_t temp_can_data[NUM_TEMPERATURE_SENSORS] = {0};
 bps_temp_rawv_aggregate_arr_t temp_can_data2[NUM_TEMPERATURE_SENSORS] = {0};
@@ -44,6 +48,11 @@ uint32_t temp_watchdog_bitmap = 0;
 
 // bitmap to hold temp sensor watchdog, starts all bits set (good), corresponding bits are cleared if taps don't check in
 uint32_t exposed_temp_watchdog_bitmap = TEMP_TAPS_ALL_DATA;
+
+
+// array to store how often a module has consecutively otemp'd, indexed by module number
+uint8_t temp_module_fault_histogram[NUM_TEMPERATURE_SENSORS] = {0};
+
 
 // watchdog timer
 static TimerHandle_t temperature_watchdog_timer;
@@ -302,10 +311,22 @@ void Task_Temperature_Monitor()
                     temp_can_data[i].BPS_Temperature_Tap_Fault = BPS_TEMPERATURE_AGGREGATE_ARR_BPS_TEMPERATURE_TAP_FAULT_OVER_TEMPERATURE;
                 }
 
-                // latch this module as one who faulted, set fault bit, and set flag indicating we are not good to close contactors
-                latch_mod_fault(temp_can_data[i].BPS_Tap_idx);
-                set_faultBit(CELL_OVERTEMP_FAULT);
-                all_temp_good = false;
+                // if this module is otemp'd increment that module's fault count
+                temp_module_fault_histogram[temp_can_data[i].BPS_Tap_idx]++;
+
+                // only fault the BPS if a singular module has consecutively otemp'd a certain number of times to filter single abnormal readings from actual faults
+                if(temp_module_fault_histogram[temp_can_data[i].BPS_Tap_idx] >= OTEMP_FAULT_THRESHOLD)
+                {
+                    // latch this module as one who faulted, set fault bit, and set flag indicating we are not good to close contactors
+                    latch_mod_fault(temp_can_data[i].BPS_Tap_idx);
+                    set_faultBit(CELL_OVERTEMP_FAULT);
+                    all_temp_good = false;
+                }
+            }
+            else
+            {
+                // if temp is good, reset fault histogram for this module
+                temp_module_fault_histogram[temp_can_data[i].BPS_Tap_idx] = 0;
             }
 
             // pack temp aggregate array and rawV debug message

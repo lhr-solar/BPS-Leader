@@ -12,7 +12,7 @@
 #define TASK_VOLTAGE_MONITOR_PRIO       tskIDLE_PRIORITY + 3
 #define TASK_AMPERES_MONITOR_PRIO       tskIDLE_PRIORITY + 3
 #define TASK_PETWDOG_PRIO               tskIDLE_PRIORITY + 1
-#define TASK_CAN_FORWARD_PRIO           tskIDLE_PRIORITY + 1
+#define TASK_CAN_FORWARD_PRIO           tskIDLE_PRIORITY + 2
 #define TASK_FAULT_HANDLER_PRIO         tskIDLE_PRIORITY + 5
 #define TASK_CONTACTOR_MONITOR_PRIO     tskIDLE_PRIORITY + 4
 #define TASK_FAN_CONTROLLER_PRIO        tskIDLE_PRIORITY + 3
@@ -34,6 +34,7 @@
 #define TASK_FAN_CONTROLLER_STACK_SIZE           (configMINIMAL_STACK_SIZE*2)
 #define TASK_CAN_STATUS_STACK_SIZE               (configMINIMAL_STACK_SIZE*2)
 #define TASK_ELCON_CHARGING_STACK_SIZE           (configMINIMAL_STACK_SIZE*2)
+
 #define TEST_TASK_STACK_SIZE                     (configMINIMAL_STACK_SIZE*2)
 
 // (exposed so that tests can init tasks)
@@ -64,6 +65,7 @@ extern StaticTask_t Init_Task_Buffer;
 extern StaticTask_t Task_Fan_Controller_Buffer;
 extern StaticTask_t Task_Can_Status_Buffer;
 extern StaticTask_t Task_Elcon_Charging_Buffer;
+
 // Task Delays
 #define TEMP_MONITOR_TASK_DELAY_MS      290
 #define VOLT_MONITOR_TASK_DELAY_MS      290
@@ -72,7 +74,6 @@ extern StaticTask_t Task_Elcon_Charging_Buffer;
 #define AMPERES_MONITOR_TASK_DELAY_MS   90
 #define FAN_CONTROLLER_TASK_DELAY_MS    300
 #define CAN_STATUS_TASK_DELAY_MS        500
-#define ELCON_TASK_PERIOD_MS            240
 
 // Task Inits
 void Task_Init();

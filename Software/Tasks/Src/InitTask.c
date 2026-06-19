@@ -158,13 +158,13 @@ void Task_Init()
         &Task_Can_Status_Buffer        /* Buffer for static allocation. */
     );
     xTaskCreateStatic(
-        Task_Elcon_Charging,            /* The function that implements the task. */
-        "Elcon Charging Task",  /* Text name for the task. */
-        TASK_ELCON_CHARGING_STACK_SIZE, /* The size (in words) of the stack that should be created for the task. */
-        (void *)NULL,               /* Paramter passed into the task. */
-        TASK_ELCON_CHARGING_PRIO,       /* Task Prioriy. */
-        Task_Elcon_Charging_Stack,   /* Stack array. */
-        &Task_Elcon_Charging_Buffer        /* Buffer for static allocation. */
+        Task_Elcon_Charging,
+        "Elcon Charging Task",
+        TASK_ELCON_CHARGING_STACK_SIZE,
+        (void *)NULL,
+        TASK_ELCON_CHARGING_PRIO,
+        Task_Elcon_Charging_Stack,
+        &Task_Elcon_Charging_Buffer
     );
 
     // xTaskCreateStatic(
