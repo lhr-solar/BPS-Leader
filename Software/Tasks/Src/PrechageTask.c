@@ -155,9 +155,8 @@ static can_status_t CarCAN_Send_Precharge_Voltages(uint32_t battery_voltage, uin
 void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
 {
     Init_PrechargeTask();
-    printf("Precharge Task Initialized\r\n");
 
-    static Precharge_State_t State = PRECHARGE_STATE_IDLE;   
+    static Precharge_State_t current_precharge_state = PRECHARGE_STATE_IDLE;   
     uint32_t printDebugCounter = 0;
 
     TickType_t xLastWakeTime = xTaskGetTickCount();
@@ -177,18 +176,18 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
         if (driver_can_status != CAN_OK) {
 
             // only print it out once to prevent spamming
-            if(State != PRECHARGE_STATE_IDLE){
+            if(current_precharge_state != PRECHARGE_STATE_IDLE){
                 printf("Precharge Back To Idle due to CAN timeout\r\n");
             }
-            State = PRECHARGE_STATE_IDLE;
+            current_precharge_state = PRECHARGE_STATE_IDLE;
         }
         // driver status messaged recieve and moved the ignition switch to off
         else if(driver_input_status.Ignition_Array == 0){
 
-            if(State != PRECHARGE_STATE_IDLE){
+            if(current_precharge_state != PRECHARGE_STATE_IDLE){
                 printf("Precharge Back To Idle due to Ignition Switch Off\r\n");
             }
-            State = PRECHARGE_STATE_IDLE;
+            current_precharge_state = PRECHARGE_STATE_IDLE;
         }
         // else the State can remain as is
         ADC_Sense_Result ADC_Result = {0};
@@ -206,13 +205,13 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
 
         // if any fault is set move precharge to fault state
         if (is_fault_set(NUM_FAULTS)){ 
-            State = PRECHARGE_STATE_FAULT;
+            current_precharge_state = PRECHARGE_STATE_FAULT;
         }
 
         // used to store previous precharge state to see if the state has changed and print it out
-        Precharge_State_t previousState = State;
+        Precharge_State_t previousState = current_precharge_state;
 
-        switch (State)
+        switch (current_precharge_state)
         {
             case PRECHARGE_STATE_IDLE:
 
@@ -233,13 +232,13 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
                     // if Contactors are on then BPS has been safety checked
                     if(contactor_get(HV_PLUS_CONTACTOR) == CONTACTOR_CLOSED && contactor_get(HV_MINUS_CONTACTOR) == CONTACTOR_CLOSED)
                     {
-                        State = PRECHARGE_STATE_INITIAL;
+                        current_precharge_state = PRECHARGE_STATE_INITIAL;
                     }
                 }
                 else
                 {
                     // if the ignition is not at array, then keep the system in idle
-                    State = PRECHARGE_STATE_IDLE;
+                    current_precharge_state = PRECHARGE_STATE_IDLE;
                 }
                 break;
 
@@ -250,12 +249,12 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
                     set_faultBit(CONTACTOR_ARRAY_FAULT);
                 }
 
-                State = PRECHARGE_STATE_PRECHARGING;
+                current_precharge_state = PRECHARGE_STATE_PRECHARGING;
                 xTimerStart(xPrechargeTimer, 0); // Start the timer
                 break;
 
             case PRECHARGE_STATE_PRECHARGING:
-                Fault_Checker(Array_Voltage, Battery_Voltage, State);
+                Fault_Checker(Array_Voltage, Battery_Voltage, current_precharge_state);
 
                 // 1. Evaluate success FIRST
                 if ((Array_Voltage * RATIO_SCALE) >= (Battery_Voltage * PRECHARGE_THRESHOLD_90))
@@ -268,18 +267,18 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
                         set_faultBit(CONTACTOR_ARRAY_PRE_FAULT);
                     }
 
-                    State = PRECHARGE_STATE_RUN;
+                    current_precharge_state = PRECHARGE_STATE_RUN;
                 }
                 // 2. If not successful yet, check if we ran out of time
                 else if (precharge_timeout_expired)
                 {
                     set_faultBit(PRECHARGE_TIMEOUT_FAULT);
-                    State = PRECHARGE_STATE_FAULT; // Park in idle after faulting
+                    current_precharge_state = PRECHARGE_STATE_FAULT; // Park in idle after faulting
                 }
                 break;
 
             case PRECHARGE_STATE_RUN:
-                Fault_Checker(Array_Voltage, Battery_Voltage, State);
+                Fault_Checker(Array_Voltage, Battery_Voltage, current_precharge_state);
 
                 // Use 80% threshold for hysteresis
                 if ((Array_Voltage * RATIO_SCALE) < (Battery_Voltage * PRECHARGE_THRESHOLD_80))
@@ -299,7 +298,7 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
                 }
 
                 xTimerStop(xPrechargeTimer, 0);
-                Fault_Checker(Array_Voltage, Battery_Voltage, State);
+                Fault_Checker(Array_Voltage, Battery_Voltage, current_precharge_state);
 
                 break;
 
@@ -307,16 +306,16 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
                 break;
         }
 
-        if(State != previousState){
+        if(current_precharge_state != previousState){
             printf("Precharge State Changed to: ");
-            print_Precharge_State(State);
+            print_Precharge_State(current_precharge_state);
         }
 
         // print voltages and state every PRECHARGE_PRINTF_DEBUG_PERIOD_MS ms for debugging
         if (printDebugCounter >= PRECHARGE_PRINTF_DEBUG_COUNTER)
         {
             printf("Array: %lu mV | Battery: %lu mV\r\n", Array_Voltage, Battery_Voltage);
-            print_Precharge_State(State);
+            print_Precharge_State(current_precharge_state);
             printDebugCounter = 0;
         }
 
