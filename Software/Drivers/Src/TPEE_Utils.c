@@ -12,6 +12,7 @@ typedef enum{
 can_status_t disableAllMPPTs(TickType_t delay_ms){
 
     uint8_t msg[MPPT_SETMODE_DLC] = {0}; 
+    msg[0] = 0; // set mode to disabled
 
     can_status_t status = CAN_OK;
     if(car_can_send(CAN_ID_MPPT_A_SETMODE, msg, MPPT_SETMODE_DLC, delay_ms) != CAN_OK){
@@ -29,6 +30,7 @@ can_status_t disableAllMPPTs(TickType_t delay_ms){
 can_status_t enableAllMPPTs(TickType_t delay_ms){
 
     uint8_t msg[MPPT_SETMODE_DLC] = {0}; 
+    msg[0] = 1; // set mode to enabled
 
     can_status_t status = CAN_OK;
     if(car_can_send(CAN_ID_MPPT_A_SETMODE, msg, MPPT_SETMODE_DLC, delay_ms) != CAN_OK){
