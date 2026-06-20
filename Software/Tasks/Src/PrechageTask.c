@@ -105,7 +105,7 @@ static void print_Precharge_State(Precharge_State_t State)
     }
 }
 
-can_status_t CarCAN_Recv_Driver_Input(driver_input_status_t *out, TickType_t delay) {
+static can_status_t CarCAN_Recv_Driver_Input(driver_input_status_t *out, TickType_t delay) {
     if (out == NULL) return CAN_EMPTY;
 
     FDCAN_RxHeaderTypeDef header = {0};
@@ -135,6 +135,21 @@ can_status_t CarCAN_Recv_Driver_Input(driver_input_status_t *out, TickType_t del
     return result;
 }
 
+static can_status_t CarCAN_Send_Precharge_Voltages(uint32_t battery_voltage, uint32_t array_voltage, TickType_t delay_ms){
+
+    uint8_t msgData[CAN_DLC_BPS_PRECHARGE_VOLTAGES] = {0};
+    // Pack battery voltage (bits 0-23)
+    msgData[0] = battery_voltage & 0xFF; // bits 0-7
+    msgData[1] = (battery_voltage >> 8) & 0xFF; // bits 8-15
+    msgData[2] = (battery_voltage >> 16) & 0xFF; // bits 16-23  
+    // Pack array voltage (bits 24-47)
+    msgData[3] = array_voltage & 0xFF; // bits 24-31
+    msgData[4] = (array_voltage >> 8) & 0xFF; // bits 32-39
+    msgData[5] = (array_voltage >> 16) & 0xFF; // bits 40-47
+
+    return car_can_send(CAN_ID_BPS_PRECHARGE_VOLTAGES, msgData, CAN_DLC_BPS_PRECHARGE_VOLTAGES, delay_ms);
+}
+
 
 void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
 {
@@ -159,10 +174,19 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
        
         // if we don't recieve the driver status in time then turn of all the array contactors and go back to idle
         if (driver_can_status != CAN_OK) {
-           State = PRECHARGE_STATE_IDLE;
+
+            // only print it out once to prevent spamming
+            if(State != PRECHARGE_STATE_IDLE){
+                printf("Precharge Back To Idle due to CAN timeout\r\n");
+            }
+            State = PRECHARGE_STATE_IDLE;
         }
         // driver status messaged recieve and moved the ignition switch to off
         else if(driver_input_status.Ignition_Array == 0){
+
+            if(State != PRECHARGE_STATE_IDLE){
+                printf("Precharge Back To Idle due to Ignition Switch Off\r\n");
+            }
             State = PRECHARGE_STATE_IDLE;
         }
         // else the State can remain as is
@@ -184,6 +208,9 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
             State = PRECHARGE_STATE_FAULT;
         }
 
+        // used to store previous precharge state to see if the state has changed and print it out
+        Precharge_State_t previousState = State;
+
         switch (State)
         {
             case PRECHARGE_STATE_IDLE:
@@ -199,7 +226,7 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
                 if (driver_input_status.Ignition_Array) 
                 {
                     // if Contactors are on then BPS has been safety checked
-                    if(contactor_get(HV_PLUS_CONTACTOR == CONTACTOR_CLOSED && contactor_get(HV_MINUS_CONTACTOR == CONTACTOR_CLOSED)))
+                    if(contactor_get(HV_PLUS_CONTACTOR) == CONTACTOR_CLOSED && contactor_get(HV_MINUS_CONTACTOR) == CONTACTOR_CLOSED)
                     {
                         State = PRECHARGE_STATE_INITIAL;
                     }
@@ -271,6 +298,11 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
                 break;
         }
 
+        if(State != previousState){
+            printf("Precharge State Changed to: ");
+            print_Precharge_State(State);
+        }
+
         // print voltages and state every PRECHARGE_PRINTF_DEBUG_PERIOD_MS ms for debugging
         if (printDebugCounter >= PRECHARGE_PRINTF_DEBUG_COUNTER)
         {
@@ -278,5 +310,7 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
             print_Precharge_State(State);
             printDebugCounter = 0;
         }
+
+        CarCAN_Send_Precharge_Voltages(Battery_Voltage, Array_Voltage, pdMS_TO_TICKS(PRECHARGE_TASK_DELAY_MS/2));
     }
 }
