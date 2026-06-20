@@ -8,6 +8,7 @@
 #include "BPS_Tasks.h"
 #include "CarCAN_can_msgs.h"
 #include "CANbus.h"
+#include "TPEE_Utils.h"
 
 
 // Fixed-point scaling for mV to V conversion

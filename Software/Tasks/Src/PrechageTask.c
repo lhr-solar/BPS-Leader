@@ -312,5 +312,13 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
         }
 
         CarCAN_Send_Precharge_Voltages(Battery_Voltage, Array_Voltage, pdMS_TO_TICKS(PRECHARGE_TASK_DELAY_MS/2));
+
+        // if array precharge is complete, then enble the MPPTs
+        if(contactor_get(ARRAY_CONTACTOR) == CONTACTOR_CLOSED && contactor_get(ARRAY_PRE_CONTACTOR) == CONTACTOR_CLOSED){
+            enableAllMPPTs(pdMS_TO_TICKS(PRECHARGE_TASK_DELAY_MS/2));
+        }
+        else{
+            disableAllMPPTs(pdMS_TO_TICKS(PRECHARGE_TASK_DELAY_MS/2));
+        }
     }
 }

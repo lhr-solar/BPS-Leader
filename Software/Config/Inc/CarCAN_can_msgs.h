@@ -36,8 +36,7 @@
 #define CAN_ID_MPPT_C_SETOUTPUTVOLTAGELIMIT 0x251
 #define CAN_ID_MPPT_C_SETOUTPUTCURRENTLIMIT 0x252
 #define CAN_ID_SUPP_BATTERY_STATUS 0x300
-#define CAN_ID_SUPP_CHARGER_STATUS 0x301
-#define CAN_ID_SUPP_VICOR_STATS 0x302
+#define CAN_ID_SUPP_CHARGING_STATUS 0x301
 #define CAN_ID_PDU_STATUS_ARR 0x350
 #define CAN_ID_PDU_SET_SWITCH_ARR 0x351
 #define CAN_ID_PDU_SET_CURRENT_LIMIT_ARR 0x352
@@ -49,11 +48,11 @@
 #define CAN_ID_BRAKE_PRESSURE_2 0x651
 #define CAN_ID_DISPLAY_STATUS 0x680
 #define CAN_ID_TELEMETRY_STATUS 0x700
-#define CAN_ID_BPS_TEMP_ADC_AGGREGATE_ARR 0x750
-#define CAN_ID_SUPP_MEASUREMENTS_ADC 0x751
-#define CAN_ID_SUPP_VICOR_MEASUREMENTS_ADC 0x752
-#define CAN_ID_PEDAL_BRAKE_ADC 0x753
-#define CAN_ID_PEDAL_ACCEL_ADC 0x754
+#define CAN_ID_BPS_TEMP_RAWV_AGGREGATE_ARR 0x750
+#define CAN_ID_SUPP_MEASUREMENTS_RAWV 0x751
+#define CAN_ID_SUPP_VICOR_MEASUREMENTS_RAWV 0x752
+#define CAN_ID_PEDAL_BRAKE_RAWV 0x753
+#define CAN_ID_PEDAL_ACCEL_RAWV 0x754
 
 /* ================= CAN Length Macros ================= */
 
@@ -61,7 +60,7 @@
 #define CAN_DLC_BPS_VOLTAGE_AGGREGATE_ARR 6
 #define CAN_DLC_BPS_TEMPERATURE_AGGREGATE_ARR 8
 #define CAN_DLC_CHARGERINTERFACE_STATUS 5
-#define CAN_DLC_VCU_STATUS 6
+#define CAN_DLC_VCU_STATUS 4
 #define CAN_DLC_CONTROLS_STATUS 6
 #define CAN_DLC_BPS_PRECHARGE_VOLTAGES 6
 #define CAN_DLC_VCU_PRECHARGE_VOLTAGES 6
@@ -89,8 +88,7 @@
 #define CAN_DLC_MPPT_C_SETOUTPUTVOLTAGELIMIT 2
 #define CAN_DLC_MPPT_C_SETOUTPUTCURRENTLIMIT 2
 #define CAN_DLC_SUPP_BATTERY_STATUS 6
-#define CAN_DLC_SUPP_CHARGER_STATUS 6
-#define CAN_DLC_SUPP_VICOR_STATS 5
+#define CAN_DLC_SUPP_CHARGING_STATUS 6
 #define CAN_DLC_PDU_STATUS_ARR 5
 #define CAN_DLC_PDU_SET_SWITCH_ARR 1
 #define CAN_DLC_PDU_SET_CURRENT_LIMIT_ARR 3
@@ -102,11 +100,11 @@
 #define CAN_DLC_BRAKE_PRESSURE_2 5
 #define CAN_DLC_DISPLAY_STATUS 2
 #define CAN_DLC_TELEMETRY_STATUS 8
-#define CAN_DLC_BPS_TEMP_ADC_AGGREGATE_ARR 4
-#define CAN_DLC_SUPP_MEASUREMENTS_ADC 5
-#define CAN_DLC_SUPP_VICOR_MEASUREMENTS_ADC 5
-#define CAN_DLC_PEDAL_BRAKE_ADC 5
-#define CAN_DLC_PEDAL_ACCEL_ADC 5
+#define CAN_DLC_BPS_TEMP_RAWV_AGGREGATE_ARR 4
+#define CAN_DLC_SUPP_MEASUREMENTS_RAWV 5
+#define CAN_DLC_SUPP_VICOR_MEASUREMENTS_RAWV 5
+#define CAN_DLC_PEDAL_BRAKE_RAWV 5
+#define CAN_DLC_PEDAL_ACCEL_RAWV 5
 
 
 /* ================= Value Table Enums ================= */
@@ -255,6 +253,61 @@ typedef enum {
 } chargerinterface_status_elcon_hw_fault_e;
 
 typedef enum {
+    VCU_STATUS_VCU_FAULT_NO_FAULT = 0,
+    VCU_STATUS_VCU_FAULT_MOTOR_CONTACTOR_SENSE = 1,
+    VCU_STATUS_VCU_FAULT_MOTOR_PCHG_CONTACTOR_SENSE = 2,
+    VCU_STATUS_VCU_FAULT_MOTOR_PRECHARGE_TIMEOUT = 3,
+    VCU_STATUS_VCU_FAULT_MOTOR_CONTROLLER_FAULT = 4,
+    VCU_STATUS_VCU_FAULT_MOTOR_HV_OVERVOLTAGE = 5,
+    VCU_STATUS_VCU_FAULT_MOTOR_HV_UNDERVOLTAGE = 6,
+} vcu_status_vcu_fault_e;
+
+typedef enum {
+    VCU_STATUS_MOTOR_CONTACTOR_STATE_OPEN = 0,
+    VCU_STATUS_MOTOR_CONTACTOR_STATE_CLOSED = 1,
+} vcu_status_motor_contactor_state_e;
+
+typedef enum {
+    VCU_STATUS_MOTOR_PRECHARGE_CONTACTOR_STATE_OPEN = 0,
+    VCU_STATUS_MOTOR_PRECHARGE_CONTACTOR_STATE_CLOSED = 1,
+} vcu_status_motor_precharge_contactor_state_e;
+
+typedef enum {
+    VCU_STATUS_MOTOR_READY_NOT_OK = 0,
+    VCU_STATUS_MOTOR_READY_OK = 1,
+} vcu_status_motor_ready_e;
+
+typedef enum {
+    VCU_STATUS_VCU_DRIVER_INPUT_OK_NOT_OK = 0,
+    VCU_STATUS_VCU_DRIVER_INPUT_OK_OK = 1,
+} vcu_status_vcu_driver_input_ok_e;
+
+typedef enum {
+    VCU_STATUS_VCU_PEDALS_OK_NOT_OK = 0,
+    VCU_STATUS_VCU_PEDALS_OK_OK = 1,
+} vcu_status_vcu_pedals_ok_e;
+
+typedef enum {
+    VCU_STATUS_VCU_REGEN_OK_NOT_OK = 0,
+    VCU_STATUS_VCU_REGEN_OK_OK = 1,
+} vcu_status_vcu_regen_ok_e;
+
+typedef enum {
+    VCU_STATUS_VCU_REGEN_ACTIVE_INACTIVE = 0,
+    VCU_STATUS_VCU_REGEN_ACTIVE_ACTIVE = 1,
+} vcu_status_vcu_regen_active_e;
+
+typedef enum {
+    VCU_STATUS_VCU_STEERING_ANGLE_OK_NOT_OK = 0,
+    VCU_STATUS_VCU_STEERING_ANGLE_OK_OK = 1,
+} vcu_status_vcu_steering_angle_ok_e;
+
+typedef enum {
+    VCU_STATUS_VCU_MOTORCOMMANDSOURCE_VCU = 0,
+    VCU_STATUS_VCU_MOTORCOMMANDSOURCE_TRITIUM_EXTERNAL = 1,
+} vcu_status_vcu_motorcommandsource_e;
+
+typedef enum {
     VCU_STATUS_VCU_FSM_STATE_INIT = 0,
     VCU_STATUS_VCU_FSM_STATE_FORWARD_DRIVE = 1,
     VCU_STATUS_VCU_FSM_STATE_NEUTRAL_DRIVE = 2,
@@ -266,194 +319,49 @@ typedef enum {
 } vcu_status_vcu_fsm_state_e;
 
 typedef enum {
-    VCU_STATUS_MOTOR_READY_NOT_OK = 0,
-    VCU_STATUS_MOTOR_READY_OK = 1,
-} vcu_status_motor_ready_e;
+    VCU_STATUS_VCU_FSM_IN_PCHG_OK_FALSE = 0,
+    VCU_STATUS_VCU_FSM_IN_PCHG_OK_TRUE = 1,
+} vcu_status_vcu_fsm_in_pchg_ok_e;
 
 typedef enum {
-    VCU_STATUS_MOTOR_PRECHARGE_CONTACTOR_STATE_OPEN = 0,
-    VCU_STATUS_MOTOR_PRECHARGE_CONTACTOR_STATE_CLOSED = 1,
-} vcu_status_motor_precharge_contactor_state_e;
+    VCU_STATUS_VCU_FSM_IN_BRAKE_FALSE = 0,
+    VCU_STATUS_VCU_FSM_IN_BRAKE_TRUE = 1,
+} vcu_status_vcu_fsm_in_brake_e;
 
 typedef enum {
-    VCU_STATUS_MOTOR_CONTACTOR_STATE_OPEN = 0,
-    VCU_STATUS_MOTOR_CONTACTOR_STATE_CLOSED = 1,
-} vcu_status_motor_contactor_state_e;
+    VCU_STATUS_VCU_FSM_IN_FORWARD_FALSE = 0,
+    VCU_STATUS_VCU_FSM_IN_FORWARD_TRUE = 1,
+} vcu_status_vcu_fsm_in_forward_e;
 
 typedef enum {
-    VCU_STATUS_VCU_DRIVER_INPUT_WATCHDOG_NOT_OK = 0,
-    VCU_STATUS_VCU_DRIVER_INPUT_WATCHDOG_OK = 1,
-} vcu_status_vcu_driver_input_watchdog_e;
+    VCU_STATUS_VCU_FSM_IN_NEUTRAL_FALSE = 0,
+    VCU_STATUS_VCU_FSM_IN_NEUTRAL_TRUE = 1,
+} vcu_status_vcu_fsm_in_neutral_e;
 
 typedef enum {
-    VCU_STATUS_VCU_PEDALS_WATCHDOG_NOT_OK = 0,
-    VCU_STATUS_VCU_PEDALS_WATCHDOG_OK = 1,
-} vcu_status_vcu_pedals_watchdog_e;
+    VCU_STATUS_VCU_FSM_IN_REVERSE_FALSE = 0,
+    VCU_STATUS_VCU_FSM_IN_REVERSE_TRUE = 1,
+} vcu_status_vcu_fsm_in_reverse_e;
 
 typedef enum {
-    VCU_STATUS_VCU_BPS_WATCHDOG_NOT_OK = 0,
-    VCU_STATUS_VCU_BPS_WATCHDOG_OK = 1,
-} vcu_status_vcu_bps_watchdog_e;
+    VCU_STATUS_VCU_FSM_IN_REGEN_RDY_FALSE = 0,
+    VCU_STATUS_VCU_FSM_IN_REGEN_RDY_TRUE = 1,
+} vcu_status_vcu_fsm_in_regen_rdy_e;
 
 typedef enum {
-    VCU_STATUS_VCU_STEERING_ANGLE_WATCHDOG_NOT_OK = 0,
-    VCU_STATUS_VCU_STEERING_ANGLE_WATCHDOG_OK = 1,
-} vcu_status_vcu_steering_angle_watchdog_e;
+    VCU_STATUS_VCU_FSM_IN_REGEN_ENABLE_FALSE = 0,
+    VCU_STATUS_VCU_FSM_IN_REGEN_ENABLE_TRUE = 1,
+} vcu_status_vcu_fsm_in_regen_enable_e;
 
 typedef enum {
-    VCU_STATUS_VCU_BPS_FAULT_DETECTED_OK = 0,
-    VCU_STATUS_VCU_BPS_FAULT_DETECTED_FAULT = 1,
-} vcu_status_vcu_bps_fault_detected_e;
+    VCU_STATUS_VCU_FSM_IN_CRUISE_REQ_FALSE = 0,
+    VCU_STATUS_VCU_FSM_IN_CRUISE_REQ_TRUE = 1,
+} vcu_status_vcu_fsm_in_cruise_req_e;
 
 typedef enum {
-    VCU_STATUS_VCU_CONTROLS_FAULT_DETECTED_OK = 0,
-    VCU_STATUS_VCU_CONTROLS_FAULT_DETECTED_FAULT = 1,
-} vcu_status_vcu_controls_fault_detected_e;
-
-typedef enum {
-    VCU_STATUS_VCU_MTR_FAULT_DETECTED_OK = 0,
-    VCU_STATUS_VCU_MTR_FAULT_DETECTED_FAULT = 1,
-} vcu_status_vcu_mtr_fault_detected_e;
-
-typedef enum {
-    VCU_STATUS_VCU_PEDALS_FAULT_DETECTED_OK = 0,
-    VCU_STATUS_VCU_PEDALS_FAULT_DETECTED_FAULT = 1,
-} vcu_status_vcu_pedals_fault_detected_e;
-
-typedef enum {
-    VCU_STATUS_VCU_STEERING_FAULT_DETECTED_OK = 0,
-    VCU_STATUS_VCU_STEERING_FAULT_DETECTED_FAULT = 1,
-} vcu_status_vcu_steering_fault_detected_e;
-
-typedef enum {
-    VCU_STATUS_VCU_MOTORCOMMANDSOURCE_VCU = 0,
-    VCU_STATUS_VCU_MOTORCOMMANDSOURCE_TRITIUM_EXTERNAL = 1,
-} vcu_status_vcu_motorcommandsource_e;
-
-typedef enum {
-    VCU_STATUS_VCU_REGEN_ACTIVE_INACTIVE = 0,
-    VCU_STATUS_VCU_REGEN_ACTIVE_ACTIVE = 1,
-} vcu_status_vcu_regen_active_e;
-
-typedef enum {
-    VCU_STATUS_VCU_REGEN_OK_NOT_OK = 0,
-    VCU_STATUS_VCU_REGEN_OK_OK = 1,
-} vcu_status_vcu_regen_ok_e;
-
-typedef enum {
-    VCU_STATUS_VCU_MTR_PCHG_TIMEOUT_OK = 0,
-    VCU_STATUS_VCU_MTR_PCHG_TIMEOUT_FAULT = 1,
-} vcu_status_vcu_mtr_pchg_timeout_e;
-
-typedef enum {
-    VCU_STATUS_VCU_MTR_PCHG_CONT_TIMEOUT_OK = 0,
-    VCU_STATUS_VCU_MTR_PCHG_CONT_TIMEOUT_FAULT = 1,
-} vcu_status_vcu_mtr_pchg_cont_timeout_e;
-
-typedef enum {
-    VCU_STATUS_VCU_MTR_PCHG_CONT_MISMATCH_OK = 0,
-    VCU_STATUS_VCU_MTR_PCHG_CONT_MISMATCH_FAULT = 1,
-} vcu_status_vcu_mtr_pchg_cont_mismatch_e;
-
-typedef enum {
-    VCU_STATUS_VCU_MTR_CONT_MISMATCH_OK = 0,
-    VCU_STATUS_VCU_MTR_CONT_MISMATCH_FAULT = 1,
-} vcu_status_vcu_mtr_cont_mismatch_e;
-
-typedef enum {
-    VCU_STATUS_VCU_MTR_CONT_TIMEOUT_OK = 0,
-    VCU_STATUS_VCU_MTR_CONT_TIMEOUT_FAULT = 1,
-} vcu_status_vcu_mtr_cont_timeout_e;
-
-typedef enum {
-    VCU_STATUS_VCU_PCHG_OV_OK = 0,
-    VCU_STATUS_VCU_PCHG_OV_FAULT = 1,
-} vcu_status_vcu_pchg_ov_e;
-
-typedef enum {
-    VCU_STATUS_VCU_PCHG_UV_OK = 0,
-    VCU_STATUS_VCU_PCHG_UV_FAULT = 1,
-} vcu_status_vcu_pchg_uv_e;
-
-typedef enum {
-    VCU_STATUS_VCU_MTR_OV_OK = 0,
-    VCU_STATUS_VCU_MTR_OV_FAULT = 1,
-} vcu_status_vcu_mtr_ov_e;
-
-typedef enum {
-    VCU_STATUS_VCU_MTR_UV_OK = 0,
-    VCU_STATUS_VCU_MTR_UV_FAULT = 1,
-} vcu_status_vcu_mtr_uv_e;
-
-typedef enum {
-    VCU_STATUS_VCU_OTHER_FAULT_OK = 0,
-    VCU_STATUS_VCU_OTHER_FAULT_FAULT = 1,
-} vcu_status_vcu_other_fault_e;
-
-typedef enum {
-    VCU_STATUS_VCU_MTR_DIR_CHANGE_LOCKOUT_INACTIVE = 0,
-    VCU_STATUS_VCU_MTR_DIR_CHANGE_LOCKOUT_ACTIVE = 1,
-} vcu_status_vcu_mtr_dir_change_lockout_e;
-
-typedef enum {
-    VCU_STATUS_VCU_TIPPING_WARNING_INACTIVE = 0,
-    VCU_STATUS_VCU_TIPPING_WARNING_ACTIVE = 1,
-} vcu_status_vcu_tipping_warning_e;
-
-typedef enum {
-    VCU_STATUS_VCU_WARN_REGEN_NOT_ALLOW_INACTIVE = 0,
-    VCU_STATUS_VCU_WARN_REGEN_NOT_ALLOW_ACTIVE = 1,
-} vcu_status_vcu_warn_regen_not_allow_e;
-
-typedef enum {
-    VCU_STATUS_VCU_WARN_REGEN_NOT_EN_INACTIVE = 0,
-    VCU_STATUS_VCU_WARN_REGEN_NOT_EN_ACTIVE = 1,
-} vcu_status_vcu_warn_regen_not_en_e;
-
-typedef enum {
-    VCU_STATUS_VCU_FSM_INP_BRAKE_FALSE = 0,
-    VCU_STATUS_VCU_FSM_INP_BRAKE_TRUE = 1,
-} vcu_status_vcu_fsm_inp_brake_e;
-
-typedef enum {
-    VCU_STATUS_VCU_FSM_INP_PCHG_OK_FALSE = 0,
-    VCU_STATUS_VCU_FSM_INP_PCHG_OK_TRUE = 1,
-} vcu_status_vcu_fsm_inp_pchg_ok_e;
-
-typedef enum {
-    VCU_STATUS_VCU_FSM_INP_CRUISE_REQ_FALSE = 0,
-    VCU_STATUS_VCU_FSM_INP_CRUISE_REQ_TRUE = 1,
-} vcu_status_vcu_fsm_inp_cruise_req_e;
-
-typedef enum {
-    VCU_STATUS_VCU_FSM_INP_REGEN_REQ_FALSE = 0,
-    VCU_STATUS_VCU_FSM_INP_REGEN_REQ_TRUE = 1,
-} vcu_status_vcu_fsm_inp_regen_req_e;
-
-typedef enum {
-    VCU_STATUS_VCU_FSM_INP_REGEN_ENABLE_FALSE = 0,
-    VCU_STATUS_VCU_FSM_INP_REGEN_ENABLE_TRUE = 1,
-} vcu_status_vcu_fsm_inp_regen_enable_e;
-
-typedef enum {
-    VCU_STATUS_VCU_FSM_INP_REGEN_RDY_FALSE = 0,
-    VCU_STATUS_VCU_FSM_INP_REGEN_RDY_TRUE = 1,
-} vcu_status_vcu_fsm_inp_regen_rdy_e;
-
-typedef enum {
-    VCU_STATUS_VCU_FSM_INP_FORWARD_FALSE = 0,
-    VCU_STATUS_VCU_FSM_INP_FORWARD_TRUE = 1,
-} vcu_status_vcu_fsm_inp_forward_e;
-
-typedef enum {
-    VCU_STATUS_VCU_FSM_INP_NEUTRAL_FALSE = 0,
-    VCU_STATUS_VCU_FSM_INP_NEUTRAL_TRUE = 1,
-} vcu_status_vcu_fsm_inp_neutral_e;
-
-typedef enum {
-    VCU_STATUS_VCU_FSM_INP_REVERSE_FALSE = 0,
-    VCU_STATUS_VCU_FSM_INP_REVERSE_TRUE = 1,
-} vcu_status_vcu_fsm_inp_reverse_e;
+    VCU_STATUS_VCU_FSM_IN_REGEN_REQ_FALSE = 0,
+    VCU_STATUS_VCU_FSM_IN_REGEN_REQ_TRUE = 1,
+} vcu_status_vcu_fsm_in_regen_req_e;
 
 typedef enum {
     CONTROLS_STATUS_CONTROLS_LEADER_FAULT_OK = 0,
@@ -741,30 +649,11 @@ typedef enum {
 } supp_battery_status_supplemental_battery_fault_e;
 
 typedef enum {
-    SUPP_CHARGER_STATUS_SUPPLEMENTAL_CHARGER_STATUS_CHARGE_DISABLED = 0,
-    SUPP_CHARGER_STATUS_SUPPLEMENTAL_CHARGER_STATUS_TRICKLE_CHARGING = 1,
-    SUPP_CHARGER_STATUS_SUPPLEMENTAL_CHARGER_STATUS_PRECHARGE = 2,
-    SUPP_CHARGER_STATUS_SUPPLEMENTAL_CHARGER_STATUS_FAST_CHARGING = 3,
-    SUPP_CHARGER_STATUS_SUPPLEMENTAL_CHARGER_STATUS_TAPER = 4,
-    SUPP_CHARGER_STATUS_SUPPLEMENTAL_CHARGER_STATUS_ERROR = 5,
-    SUPP_CHARGER_STATUS_SUPPLEMENTAL_CHARGER_STATUS_TOPPING_OFF = 6,
-    SUPP_CHARGER_STATUS_SUPPLEMENTAL_CHARGER_STATUS_DONE = 7,
-} supp_charger_status_supplemental_charger_status_e;
-
-typedef enum {
-    SUPP_CHARGER_STATUS_BQ25756E_ERROR_OK = 0,
-    SUPP_CHARGER_STATUS_BQ25756E_ERROR_I2C_ERROR = 1,
-    SUPP_CHARGER_STATUS_BQ25756E_ERROR_INPUT_UV = 2,
-    SUPP_CHARGER_STATUS_BQ25756E_ERROR_INPUT_OV = 3,
-    SUPP_CHARGER_STATUS_BQ25756E_ERROR_BATTERY_OC = 4,
-    SUPP_CHARGER_STATUS_BQ25756E_ERROR_BATTERY_OV = 5,
-    SUPP_CHARGER_STATUS_BQ25756E_ERROR_OVER_TEMPERATURE = 6,
-} supp_charger_status_bq25756e_error_e;
-
-typedef enum {
-    SUPP_CHARGER_STATUS_BQ25756E_WATCHDOG_NOT_OK = 0,
-    SUPP_CHARGER_STATUS_BQ25756E_WATCHDOG_OK = 1,
-} supp_charger_status_bq25756e_watchdog_e;
+    SUPP_CHARGING_STATUS_SUPPLEMENTAL_CHARGING_STATUS_CHARGE_DISABLED = 0,
+    SUPP_CHARGING_STATUS_SUPPLEMENTAL_CHARGING_STATUS_CHARGE_COMPLETE = 1,
+    SUPP_CHARGING_STATUS_SUPPLEMENTAL_CHARGING_STATUS_CHARGING_ = 2,
+    SUPP_CHARGING_STATUS_SUPPLEMENTAL_CHARGING_STATUS_FAULT = 3,
+} supp_charging_status_supplemental_charging_status_e;
 
 typedef enum {
     PDU_STATUS_ARR_HSS_CHANNEL_IDX_VCU = 0,
@@ -948,45 +837,26 @@ typedef struct {
 } chargerinterface_status_t;
 
 typedef struct {
-    uint8_t VCU_FSM_State;
-    uint8_t Motor_Ready;
-    uint8_t Motor_Precharge_Contactor_State;
+    uint8_t VCU_Fault;
     uint8_t Motor_Contactor_State;
-    uint8_t VCU_Driver_Input_Watchdog;
-    uint8_t VCU_Pedals_Watchdog;
-    uint8_t VCU_BPS_Watchdog;
-    uint8_t VCU_Steering_Angle_Watchdog;
-    uint8_t VCU_BPS_FAULT_DETECTED;
-    uint8_t VCU_CONTROLS_FAULT_DETECTED;
-    uint8_t VCU_MTR_FAULT_DETECTED;
-    uint8_t VCU_PEDALS_FAULT_DETECTED;
-    uint8_t VCU_STEERING_FAULT_DETECTED;
-    uint8_t VCU_MotorCommandSource;
-    uint8_t VCU_Regen_Active;
+    uint8_t Motor_Precharge_Contactor_State;
+    uint8_t Motor_Ready;
+    uint8_t VCU_Driver_Input_OK;
+    uint8_t VCU_Pedals_OK;
     uint8_t VCU_Regen_OK;
-    uint8_t VCU_MTR_PCHG_TIMEOUT;
-    uint8_t VCU_MTR_PCHG_CONT_TIMEOUT;
-    uint8_t VCU_MTR_PCHG_CONT_MISMATCH;
-    uint8_t VCU_MTR_CONT_MISMATCH;
-    uint8_t VCU_MTR_CONT_TIMEOUT;
-    uint8_t VCU_PCHG_OV;
-    uint8_t VCU_PCHG_UV;
-    uint8_t VCU_MTR_OV;
-    uint8_t VCU_MTR_UV;
-    uint8_t VCU_OTHER_FAULT;
-    uint8_t VCU_MTR_DIR_CHANGE_LOCKOUT;
-    uint8_t VCU_TIPPING_WARNING;
-    uint8_t VCU_WARN_REGEN_NOT_ALLOW;
-    uint8_t VCU_WARN_REGEN_NOT_EN;
-    uint8_t VCU_FSM_INP_BRAKE;
-    uint8_t VCU_FSM_INP_PCHG_OK;
-    uint8_t VCU_FSM_INP_CRUISE_REQ;
-    uint8_t VCU_FSM_INP_REGEN_REQ;
-    uint8_t VCU_FSM_INP_REGEN_ENABLE;
-    uint8_t VCU_FSM_INP_REGEN_RDY;
-    uint8_t VCU_FSM_INP_FORWARD;
-    uint8_t VCU_FSM_INP_NEUTRAL;
-    uint8_t VCU_FSM_INP_REVERSE;
+    uint8_t VCU_Regen_Active;
+    uint8_t VCU_Steering_Angle_OK;
+    uint8_t VCU_MotorCommandSource;
+    uint8_t VCU_FSM_State;
+    uint8_t VCU_FSM_IN_PCHG_OK;
+    uint8_t VCU_FSM_IN_BRAKE;
+    uint8_t VCU_FSM_IN_FORWARD;
+    uint8_t VCU_FSM_IN_NEUTRAL;
+    uint8_t VCU_FSM_IN_REVERSE;
+    uint8_t VCU_FSM_IN_REGEN_RDY;
+    uint8_t VCU_FSM_IN_REGEN_ENABLE;
+    uint8_t VCU_FSM_IN_CRUISE_REQ;
+    uint8_t VCU_FSM_IN_REGEN_REQ;
 } vcu_status_t;
 
 typedef struct {
@@ -1165,19 +1035,11 @@ typedef struct {
 } supp_battery_status_t;
 
 typedef struct {
-    uint8_t Supplemental_Charger_Status;
-    uint8_t BQ25756E_Error;
-    uint8_t BQ25756E_Watchdog;
-    int16_t Supplemental_Charge_Current;
-    uint16_t Supp_Charge_Current_Limit;
-    uint8_t FrameID_Supp_Charger;
-} supp_charger_status_t;
-
-typedef struct {
+    uint8_t Supplemental_Charging_Status;
     uint16_t Supplemental_Vicor_Voltage;
     int16_t Supplemental_Vicor_Current;
-    uint8_t FrameID_Supp_Charger;
-} supp_vicor_stats_t;
+    uint8_t FrameID_Supp_Vicor;
+} supp_charging_status_t;
 
 typedef struct {
     uint8_t HSS_Channel_idx;
@@ -1229,13 +1091,13 @@ typedef struct {
 
 typedef struct {
     uint16_t Brake_Pressure;
-    uint16_t Brake_Pressure_ADC;
+    uint16_t Brake_Pressure_RawV;
     uint8_t FrameID_Pedals;
 } brake_pressure_1_t;
 
 typedef struct {
     uint16_t Brake_Pressure;
-    uint16_t Brake_Pressure_ADC;
+    uint16_t Brake_Pressure_RawV;
     uint8_t FrameID_Pedals;
 } brake_pressure_2_t;
 
@@ -1251,31 +1113,30 @@ typedef struct {
 
 typedef struct {
     uint8_t BPS_Tap_idx;
-    uint16_t BPS_Temperature_Tap_ADC;
+    uint16_t BPS_Temperature_Tap_RawV;
     uint8_t FrameID_BPS_Temperature;
-} bps_temp_adc_aggregate_arr_t;
+} bps_temp_rawv_aggregate_arr_t;
 
 typedef struct {
-    uint16_t Supp_Battery_Voltage_ADC;
-    int16_t Supp_Battery_Current_ADC;
+    uint16_t Supp_Battery_Voltage_RawV;
+    int16_t Supp_Battery_Current_RawV;
     uint8_t FrameID_Supp;
-} supp_measurements_adc_t;
+} supp_measurements_rawv_t;
 
 typedef struct {
-    uint16_t Supp_Vicor_Voltage_ADC;
-    uint16_t Supp_Vicor_Current_ADC;
-    uint8_t FrameID_Supp_Charger;
-} supp_vicor_measurements_adc_t;
+    uint16_t Supp_Vicor_Voltage_RawV;
+    int16_t Supp_Vicor_Current_RawV;
+    uint8_t FrameID_Supp_Vicor;
+} supp_vicor_measurements_rawv_t;
 
 typedef struct {
-    uint16_t BrakePedal_Main_ADC;
-    uint16_t BrakePedal_Redundant_ADC;
+    uint16_t BrakePedal_Main_RawV;
+    uint16_t BrakePedal_Redundant_RawV;
     uint8_t FrameID_Pedals;
-} pedal_brake_adc_t;
+} pedal_brake_rawv_t;
 
 typedef struct {
-    uint16_t AccelPedal_Main_ADC;
-    uint16_t AccelPedal_Redundant_ADC;
+    uint16_t AccelPedal_Main_RawV;
+    uint16_t AccelPedal_Redundant_RawV;
     uint8_t FrameID_Pedals;
-} pedal_accel_adc_t;
-
+} pedal_accel_rawv_t;
