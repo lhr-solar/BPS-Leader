@@ -65,7 +65,7 @@ extern StaticTask_t Task_Can_Status_Buffer;
 // Task Delays
 #define TEMP_MONITOR_TASK_DELAY_MS      290
 #define VOLT_MONITOR_TASK_DELAY_MS      290
-#define PRECHARGE_TASK_DELAY_MS         100
+#define PRECHARGE_TASK_DELAY_MS         200
 #define CONTACTOR_MONITOR_TASK_DELAY_MS 200
 #define AMPERES_MONITOR_TASK_DELAY_MS   90
 #define FAN_CONTROLLER_TASK_DELAY_MS    300

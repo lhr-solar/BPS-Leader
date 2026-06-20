@@ -6,7 +6,8 @@
 #define PRECHARGE_PRINTF_DEBUG_PERIOD_MS 10000
 #define PRECHARGE_PRINTF_DEBUG_COUNTER (PRECHARGE_PRINTF_DEBUG_PERIOD_MS / PRECHARGE_TASK_DELAY_MS)
 
-#define IGNITION_STATUS_TIMEOUT_MS 100
+// Dash sends this message every 300 mS, so wait for double that
+#define IGNITION_STATUS_TIMEOUT_MS 600
 
 TaskHandle_t hprecharge_task = NULL;
 
@@ -217,9 +218,13 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
 
                 // idle runs theoretically with no contactors closed, so cannot check for voltage faults
 
-                // disable both array Contactors
-                contactor_set(ARRAY_PRE_CONTACTOR, CONTACTOR_OPEN, CALLBACK_BLOCKING_TIME_MS, NORMAL);
-                contactor_set(ARRAY_CONTACTOR, CONTACTOR_OPEN, CALLBACK_BLOCKING_TIME_MS, NORMAL);
+                // disable the array and array precharge contactors if they are not already open
+                if (contactor_get(ARRAY_PRE_CONTACTOR) != CONTACTOR_OPEN) {
+                    contactor_set(ARRAY_PRE_CONTACTOR, CONTACTOR_OPEN, CALLBACK_BLOCKING_TIME_MS, NORMAL);
+                }
+                if (contactor_get(ARRAY_CONTACTOR) != CONTACTOR_OPEN) { 
+                    contactor_set(ARRAY_CONTACTOR, CONTACTOR_OPEN, CALLBACK_BLOCKING_TIME_MS, NORMAL);
+                }
 
                 // if the ignition is at array, then we can enable the array contactor in the next iteration
                 // only do this if it's currently in idle otherwise you will override if in a different state
@@ -285,9 +290,13 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
 
             case PRECHARGE_STATE_FAULT:
                 
-                // disable the array and array precharge contactors
-                contactor_set(ARRAY_PRE_CONTACTOR, CONTACTOR_OPEN, CALLBACK_BLOCKING_TIME_MS, NORMAL);
-                contactor_set(ARRAY_CONTACTOR, CONTACTOR_OPEN, CALLBACK_BLOCKING_TIME_MS, NORMAL);
+                // disable the array and array precharge contactors if they are not already open
+                if (contactor_get(ARRAY_PRE_CONTACTOR) != CONTACTOR_OPEN) {
+                    contactor_set(ARRAY_PRE_CONTACTOR, CONTACTOR_OPEN, CALLBACK_BLOCKING_TIME_MS, NORMAL);
+                }
+                if (contactor_get(ARRAY_CONTACTOR) != CONTACTOR_OPEN) { 
+                    contactor_set(ARRAY_CONTACTOR, CONTACTOR_OPEN, CALLBACK_BLOCKING_TIME_MS, NORMAL);
+                }
 
                 xTimerStop(xPrechargeTimer, 0);
                 Fault_Checker(Array_Voltage, Battery_Voltage, State);
@@ -311,7 +320,7 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
             printDebugCounter = 0;
         }
 
-        CarCAN_Send_Precharge_Voltages(Battery_Voltage, Array_Voltage, pdMS_TO_TICKS(PRECHARGE_TASK_DELAY_MS/2));
+        CarCAN_Send_Precharge_Voltages(Battery_Voltage, Array_Voltage, PRECHARGE_TASK_DELAY_MS / 2);
 
         // if array precharge is complete, then enble the MPPTs
         if(contactor_get(ARRAY_CONTACTOR) == CONTACTOR_CLOSED && contactor_get(ARRAY_PRE_CONTACTOR) == CONTACTOR_CLOSED){
