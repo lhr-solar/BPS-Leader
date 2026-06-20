@@ -167,14 +167,6 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
             State = PRECHARGE_STATE_IDLE;
         }
         // else the State can remain as is
-
-
-        // TODO: this sucks, pls fix
-        // check this bool from fault handler
-        if (system_has_faulted){ 
-            State = PRECHARGE_STATE_FAULT;
-        }
-
         ADC_Sense_Result ADC_Result = {0};
 
         // to let your fault handler safely open contactors.
@@ -187,6 +179,13 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
         uint32_t Array_Voltage = ADC_Result.Array_Voltage;
 
         printDebugCounter++;
+
+        uint32_t fault_bit_index = faultBit_wait(NUM_FAULTS, 0);
+
+        // TODO: this sucks, pls fix
+        if (system_has_faulted){ 
+            State = PRECHARGE_STATE_FAULT;
+        }
 
         switch (State)
         {
