@@ -152,7 +152,6 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
     while (1)
     {
 
-        
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(PRECHARGE_TASK_DELAY_MS));
 
         //get the latest driver input status from CAN to check the ignition switch positon
@@ -180,10 +179,8 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
 
         printDebugCounter++;
 
-        uint32_t fault_bit_index = faultBit_wait(NUM_FAULTS, 0);
-
-        // TODO: this sucks, pls fix
-        if (system_has_faulted){ 
+        // if any fault is set move precharge to fault state
+        if (is_fault_set(NUM_FAULTS)){ 
             State = PRECHARGE_STATE_FAULT;
         }
 
@@ -198,10 +195,14 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
                 contactor_set(ARRAY_CONTACTOR, CONTACTOR_OPEN, CALLBACK_BLOCKING_TIME_MS, NORMAL);
 
                 // if the ignition is at array, then we can enable the array contactor in the next iteration
+                // only do this if it's currently in idle otherwise you will override if in a different state
                 if (driver_input_status.Ignition_Array) 
                 {
-                    // TODO: add a check to make sure BPS has been safety checked 
-                    State = PRECHARGE_STATE_INITIAL;
+                    // if Contactors are on then BPS has been safety checked
+                    if(contactor_get(HV_PLUS_CONTACTOR == CONTACTOR_CLOSED && contactor_get(HV_MINUS_CONTACTOR == CONTACTOR_CLOSED)))
+                    {
+                        State = PRECHARGE_STATE_INITIAL;
+                    }
                 }
                 else
                 {
@@ -256,15 +257,21 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
                 break;
 
             case PRECHARGE_STATE_FAULT:
+                
+                // disable the array and array precharge contactors
+                contactor_set(ARRAY_PRE_CONTACTOR, CONTACTOR_OPEN, CALLBACK_BLOCKING_TIME_MS, NORMAL);
+                contactor_set(ARRAY_CONTACTOR, CONTACTOR_OPEN, CALLBACK_BLOCKING_TIME_MS, NORMAL);
+
                 xTimerStop(xPrechargeTimer, 0);
                 Fault_Checker(Array_Voltage, Battery_Voltage, State);
+
                 break;
 
             default:
                 break;
         }
 
-        // Use the macro instead of a magic number
+        // print voltages and state every PRECHARGE_PRINTF_DEBUG_PERIOD_MS ms for debugging
         if (printDebugCounter >= PRECHARGE_PRINTF_DEBUG_COUNTER)
         {
             printf("Array: %lu mV | Battery: %lu mV\r\n", Array_Voltage, Battery_Voltage);

@@ -155,16 +155,6 @@ void Task_Init()
         &Task_Can_Status_Buffer        /* Buffer for static allocation. */
     );
 
-    // xTaskCreateStatic(
-    //     Task_PetWatchdog,                   /* The function that implements the task. */
-    //     "PetWatchdog",                      /* Text name for the task. */
-    //     TASK_PETWDOG_STACK_SIZE,            /* The size (in words) of the stack that should be created for the task. */
-    //     (void*)NULL,                        /* Paramter passed into the task. */
-    //     TASK_PETWDOG_PRIO,                  /* Task Prioriy. */
-    //     Task_Petwdog_Stack_Array,           /* Stack array. */
-    //     &Task_Petwdog_Buffer                /* Buffer for static allocation. */
-    // );
-
     // Wait till all tasks check in
     xEventGroupWaitBits(
         xStateBits,    // The event group handle
@@ -174,7 +164,6 @@ void Task_Init()
         portMAX_DELAY  // wait forever
     );
 
-    // IGNITION LOGIC GOES HERE
 
     // All tasks have checked in, ensure nothing faulted on startup before closing contactors
     if (is_fault_set(NUM_FAULTS) == false)
