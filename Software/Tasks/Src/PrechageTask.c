@@ -152,7 +152,7 @@ static can_status_t CarCAN_Send_Precharge_Voltages(uint32_t battery_voltage, uin
 }
 
 
-void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
+void Task_Precharge(void *pvParameters)
 {
     Init_PrechargeTask();
 
@@ -163,6 +163,10 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
 
     // contains the state of the ignition switch
     driver_input_status_t driver_input_status = {0};
+
+    /** Precharge sequence
+    // TODO: add info about the precharge sequence here
+     */
 
     while (1)
     {
@@ -181,7 +185,7 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
             }
             current_precharge_state = PRECHARGE_STATE_IDLE;
         }
-        // driver status messaged recieve and moved the ignition switch to off
+        // driver status message recieved and ignition switch is off
         else if(driver_input_status.Ignition_Array == 0){
 
             if(current_precharge_state != PRECHARGE_STATE_IDLE){
@@ -203,8 +207,8 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
 
         printDebugCounter++;
 
-        // if any fault is set move precharge to fault state
-        if (is_fault_set(NUM_FAULTS)){ 
+        // if any fault is set, or we are alreadt in fault state, stay in fault state until reset
+        if (is_fault_set(NUM_FAULTS) || current_precharge_state == PRECHARGE_STATE_FAULT){ 
             current_precharge_state = PRECHARGE_STATE_FAULT;
         }
 
@@ -233,6 +237,10 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
                     if(contactor_get(HV_PLUS_CONTACTOR) == CONTACTOR_CLOSED && contactor_get(HV_MINUS_CONTACTOR) == CONTACTOR_CLOSED)
                     {
                         current_precharge_state = PRECHARGE_STATE_INITIAL;
+                    }
+                    else
+                    {
+                        current_precharge_state = PRECHARGE_STATE_IDLE;
                     }
                 }
                 else
@@ -321,7 +329,7 @@ void Task_Precharge(void *pvParameters) // Added standard FreeRTOS signature
 
         CarCAN_Send_Precharge_Voltages(Battery_Voltage, Array_Voltage, PRECHARGE_TASK_DELAY_MS / 2);
 
-        // if array precharge is complete, then enble the MPPTs
+        // if array precharge is complete, then enable the MPPTs
         if(contactor_get(ARRAY_CONTACTOR) == CONTACTOR_CLOSED && contactor_get(ARRAY_PRE_CONTACTOR) == CONTACTOR_CLOSED){
             enableAllMPPTs(pdMS_TO_TICKS(PRECHARGE_TASK_DELAY_MS/2));
         }

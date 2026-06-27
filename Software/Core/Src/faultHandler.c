@@ -120,40 +120,43 @@ void handle_fault(uint32_t fault_bit_index)
     // fault handling
     switch (fault_bit_index)
     {
-    case CELL_OVERVOLTAGE_FAULT:
-        LED_set(OVER_V_LED, LED_ON);
-        break;
+        case CELL_OVERVOLTAGE_FAULT:
+            // todo: printout cell number and voltage
+            LED_set(OVER_V_LED, LED_ON);
+            break;
 
-    case PACK_OVERVOLTAGE_FAULT:
-        LED_set(OVER_V_LED, LED_ON);
-        break;
+        case PACK_OVERVOLTAGE_FAULT:
+            LED_set(OVER_V_LED, LED_ON);
+            break;
 
-    case PACK_UNDERVOLTAGE_FAULT:
-        LED_set(LOW_V_LED, LED_ON);
-        break;
+        case PACK_UNDERVOLTAGE_FAULT:
+            LED_set(LOW_V_LED, LED_ON);
+            break;
 
-    case CELL_UNDERVOLTAGE_FAULT:
-        LED_set(LOW_V_LED, LED_ON);
-        break;
+        case CELL_UNDERVOLTAGE_FAULT:
+            // todo: printout cell number and voltage
+            LED_set(LOW_V_LED, LED_ON);
+            break;
 
-    case PACK_OVERCURRENT_CHARGING_FAULT:
-        LED_set(OVER_AMP_LED, LED_ON);
-        break;
+        case PACK_OVERCURRENT_CHARGING_FAULT:
+            LED_set(OVER_AMP_LED, LED_ON);
+            break;
 
-    case PACK_OVERCURRENT_DISCHARGING_FAULT:
-        LED_set(OVER_AMP_LED, LED_ON);
-        break;
+        case PACK_OVERCURRENT_DISCHARGING_FAULT:
+            LED_set(OVER_AMP_LED, LED_ON);
+            break;
 
-    case CELL_OVERTEMP_FAULT:
-        LED_set(OVER_TEMP_LED, LED_ON);
-        break;
+        case CELL_OVERTEMP_FAULT:
+            // todo: printout cell number and voltage
+            LED_set(OVER_TEMP_LED, LED_ON);
+            break;
 
-    case RTOS_WATCHDOG_ERROR:
-        LED_set(WATCHDOG_ERR_LED, LED_ON);
-        break;
+        case RTOS_WATCHDOG_ERROR:
+            LED_set(WATCHDOG_ERR_LED, LED_ON);
+            break;
 
-    default:
-        break;
+        default:
+            break;
     }
 }
 

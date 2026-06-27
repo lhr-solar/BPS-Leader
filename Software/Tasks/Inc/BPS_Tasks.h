@@ -119,8 +119,11 @@ extern uint8_t mod_fault_num;
 
 // that sets mod fault only if it hasn't been previously set
 static inline void latch_mod_fault(uint8_t mod_fault_num_) {
+    // todo: add something to latch the value of the faulted module (temperature or voltage)
     // Sanity check: ensure the module number doesn't overflow into the latch bit
-    if (mod_fault_num_ > 31) return; 
+    if (mod_fault_num_ > (NUM_BATTERY_MODULES -1)){
+         return; 
+    }
 
     // Suspend interrupts/scheduler to ensure atomicity
     taskENTER_CRITICAL(); 

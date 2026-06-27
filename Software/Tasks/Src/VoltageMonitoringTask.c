@@ -255,6 +255,7 @@ void Task_Voltage_Monitor()
             if (volt_can_data[i].BPS_Voltage_Tap_Data > CELL_OVERVOLTAGE_THRESHOLD_MV)
             {
                 volt_can_data[i].BPS_Voltage_Tap_Fault = BPS_VOLTAGE_AGGREGATE_ARR_BPS_VOLTAGE_TAP_FAULT_OVER_VOLTAGE;
+                printf("Entering Cell Over Voltage Fault for Tap %d: %dmV\r\n", volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data);
                 latch_mod_fault(volt_can_data[i].BPS_Tap_idx);
                 set_faultBit(CELL_OVERVOLTAGE_FAULT);
                 all_voltage_good = false;
@@ -263,11 +264,11 @@ void Task_Voltage_Monitor()
             {
 
                 volt_can_data[i].BPS_Voltage_Tap_Fault = BPS_VOLTAGE_AGGREGATE_ARR_BPS_VOLTAGE_TAP_FAULT_UNDER_VOLTAGE;
+                printf("Entering Cell Under Voltage Fault for Tap %d: %dmV\r\n", volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data);
                 set_faultBit(CELL_UNDERVOLTAGE_FAULT);
                 all_voltage_good = false;
             }
 
-            // Print volts at lower rate
             if (volt_printf_debug_counter >= VOLT_PRINTF_COUNTER)
             {
                 printf("Tap %u Voltage: %u.%03u V\r\n", volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data / 1000, volt_can_data[i].BPS_Voltage_Tap_Data % 1000);
@@ -281,10 +282,16 @@ void Task_Voltage_Monitor()
         // check if voltage is OK for charging
         if ((max_voltage < CELL_CHARGING_VOLTAGE_THRESHOLD_MV) && (get_state_bit(VOLT_OK_FOR_CHARGING) != STATE_BIT_SET))
         {
+            if(get_state_bit(VOLT_OK_FOR_CHARGING) == STATE_BIT_RESET){
+                printf("Cell Voltages are OK for charging\r\n");
+            }
             set_state_bit(VOLT_OK_FOR_CHARGING, STATE_BIT_SET);
         }
         else if (((max_voltage >= CELL_CHARGING_VOLTAGE_THRESHOLD_MV) && (get_state_bit(VOLT_OK_FOR_CHARGING) != STATE_BIT_RESET)))
         {
+            if(get_state_bit(VOLT_OK_FOR_CHARGING) == STATE_BIT_SET){
+                printf("Cell Voltages are NOT ok for charging\r\n");
+            }
             set_state_bit(VOLT_OK_FOR_CHARGING, STATE_BIT_RESET);
         }
 
@@ -296,6 +303,9 @@ void Task_Voltage_Monitor()
 
         if (all_voltage_good && (get_state_bit(VOLTAGE_MONITOR_GOOD) != STATE_BIT_SET))
         {
+            if(get_state_bit(VOLT_OK_FOR_CHARGING) == STATE_BIT_SET){
+                printf("All module voltages checked and safe\r\n");
+            }
             set_state_bit(VOLTAGE_MONITOR_GOOD, STATE_BIT_SET);
         }
 
