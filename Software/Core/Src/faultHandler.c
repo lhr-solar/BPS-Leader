@@ -15,6 +15,7 @@ const uint8_t fault_bit_arr_size = (1 + ((NUM_FAULTS - 1) / MAX_FAULT_BITS));
 EventGroupHandle_t faultBits[FAULT_BIT_ARR_SIZE_MACRO];
 
 uint8_t mod_fault_num = 0;
+uint32_t mod_fault_value = 0;
 
 // Static buffer arrary to store the event handle
 static StaticEventGroup_t faultBitsBuffer[FAULT_BIT_ARR_SIZE_MACRO];
@@ -121,32 +122,37 @@ void handle_fault(uint32_t fault_bit_index)
     switch (fault_bit_index)
     {
         case CELL_OVERVOLTAGE_FAULT:
-            // todo: printout cell number and voltage
+            printf("Cell OV Module: %d, Faulted Voltage: %ldmV, Current Voltage: %ldmV\r\n", mod_fault_num & ~MOD_FAULT_BITMAP_LATCH, mod_fault_value, get_module_voltage(mod_fault_num & ~MOD_FAULT_BITMAP_LATCH));
             LED_set(OVER_V_LED, LED_ON);
             break;
 
         case PACK_OVERVOLTAGE_FAULT:
+            printf("Pack OV Fault: %ldmV\r\n", get_pack_voltage());
             LED_set(OVER_V_LED, LED_ON);
             break;
 
         case PACK_UNDERVOLTAGE_FAULT:
+            printf("Pack UV Fault: %ldmV\r\n", get_pack_voltage());
             LED_set(LOW_V_LED, LED_ON);
             break;
 
         case CELL_UNDERVOLTAGE_FAULT:
-            // todo: printout cell number and voltage
+            printf("Cell UV Module: %d, Faulted Voltage: %ldmV, Current Voltage: %ldmV\r\n", mod_fault_num & ~MOD_FAULT_BITMAP_LATCH, mod_fault_value, get_module_voltage(mod_fault_num & ~MOD_FAULT_BITMAP_LATCH));
             LED_set(LOW_V_LED, LED_ON);
             break;
 
         case PACK_OVERCURRENT_CHARGING_FAULT:
+            printf("Pack Overcurrent Charging Fault: %ldmA\r\n", get_pack_current());
             LED_set(OVER_AMP_LED, LED_ON);
             break;
 
         case PACK_OVERCURRENT_DISCHARGING_FAULT:
+            printf("Pack Overcurrent Discharging Fault: %ldmA\r\n", get_pack_current());
             LED_set(OVER_AMP_LED, LED_ON);
             break;
 
         case CELL_OVERTEMP_FAULT:
+            printf("Cell OT Module: %d, Faulted Temperature: %ldmC, Current Temperature: %ldmC\r\n", mod_fault_num & ~MOD_FAULT_BITMAP_LATCH, mod_fault_value, get_module_temperature(mod_fault_num & ~MOD_FAULT_BITMAP_LATCH));
             // todo: printout cell number and voltage
             LED_set(OVER_TEMP_LED, LED_ON);
             break;
