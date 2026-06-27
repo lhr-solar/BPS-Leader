@@ -161,6 +161,10 @@ void handle_fault(uint32_t fault_bit_index)
             LED_set(WATCHDOG_ERR_LED, LED_ON);
             break;
 
+        case BPS_ESTOP3_FAULT:
+            printf("Battery ESTOP Pressed\r\n");
+            break;
+
         default:
             break;
     }

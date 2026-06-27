@@ -38,6 +38,8 @@
 #define OTEMP_FAULT_THRESHOLD 3 // number of consecutive otemp faults before latching module fault
 _Static_assert(OTEMP_FAULT_THRESHOLD < 255, "OTEMP_FAULT_THRESHOLD must be less than 255 since the histogram is an array of uint8_t");
 
+uint32_t exposed_temperature_watchdog_bitmap = TEMP_TAPS_ALL_DATA;
+
 // array to hold struct packed can data
 bps_temperature_aggregate_arr_t temp_can_data[NUM_TEMPERATURE_SENSORS] = {0};
 bps_temp_rawv_aggregate_arr_t temp_can_data2[NUM_TEMPERATURE_SENSORS] = {0};
@@ -205,9 +207,9 @@ static void vTemperatureWatchdogCallback(TimerHandle_t temp_timer)
     if (temp_watchdog_bitmap != TEMP_TAPS_ALL_DATA)
     {
         // if one hasn't setn, save bitmap to know which one(s) didn't check in, then set fault bit
-        exposed_temp_watchdog_bitmap = temp_watchdog_bitmap;
-        latch_mod_fault(get_mod_fault_num(exposed_temp_watchdog_bitmap), 0); // Store 0 as the faulted module value since temperature isn't being stored here
-        set_faultBit(VOLTTEMP_WATCHDOG_FAULT);
+        exposed_temperature_watchdog_bitmap = temp_watchdog_bitmap;
+        latch_mod_fault(get_mod_fault_num(exposed_temperature_watchdog_bitmap), 0); // Store 0 as the faulted module value since temperature isn't being stored here
+        // set_faultBit(VOLTTEMP_WATCHDOG_FAULT);
     }
     // reset bitmap
     temp_watchdog_bitmap = 0;
@@ -344,12 +346,20 @@ void Task_Temperature_Monitor()
             // forward these two messages to carcan
             car_can_send(CAN_ID_BPS_TEMPERATURE_AGGREGATE_ARR, msgBuff, CAN_DLC_BPS_TEMPERATURE_AGGREGATE_ARR, pdMS_TO_TICKS(TEMPERATURE_CAN_DELAY_MS));
             car_can_send(CAN_ID_BPS_TEMP_RAWV_AGGREGATE_ARR, msgBuff2, CAN_DLC_BPS_TEMP_RAWV_AGGREGATE_ARR, pdMS_TO_TICKS(TEMPERATURE_CAN_DELAY_MS));
+        }
 
-            // Print temps at lower rate
-            if (temp_printf_debug_counter >= TEMP_PRINTF_COUNTER)
+        if (temp_printf_debug_counter >= TEMP_PRINTF_COUNTER)
+        {
+            printf("================================\r\n");
+            printf("Temperature values: {");
+            for (int j = 0; j < NUM_BATTERY_MODULES; j++)
             {
-                printf("Tap %u Temperature: %lu.%03lu C\r\n", temp_can_data[i].BPS_Tap_idx, temp_can_data[i].BPS_Temperature_Tap_Data / 1000, temp_can_data[i].BPS_Temperature_Tap_Data % 1000);
+                printf("%d: %lu.%03lu C, ", j, temp_can_data[j].BPS_Temperature_Tap_Data / 1000, temp_can_data[j].BPS_Temperature_Tap_Data % 1000);
             }
+            printf("}\r\n");
+            printf("================================\r\n");
+
+            temp_printf_debug_counter = 0;
         }
 
         // if max temp is below charging threshold, and the state bit isn't already set, set state bit
@@ -361,12 +371,6 @@ void Task_Temperature_Monitor()
         else if ((max_temp >= CELL_CHARGING_TEMP_THRESHOLD_MC) && (get_state_bit(TEMP_OK_FOR_CHARGING) != STATE_BIT_RESET))
         {
             set_state_bit(TEMP_OK_FOR_CHARGING, STATE_BIT_RESET);
-        }
-
-        // Reset printf counter (outside loop so all taps print)
-        if (temp_printf_debug_counter >= TEMP_PRINTF_COUNTER)
-        {
-            temp_printf_debug_counter = 0;
         }
 
         // if all temperature values are within range, and the state bit isn't already set, set state bit indicating we're good to close contactors

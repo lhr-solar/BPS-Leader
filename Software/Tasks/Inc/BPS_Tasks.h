@@ -131,6 +131,9 @@ extern EventGroupHandle_t xWDogEventGroup_handle;
 // latching intereger to keep track of which module faulted. bit 5 is used to latch
 extern uint8_t mod_fault_num;
 
+extern uint32_t exposed_temperature_watchdog_bitmap;
+extern uint32_t exposed_volt_watchdog_bitmap;
+
 // bit that is set in mod fault bitmap to indicate a module has faulted
 #define MOD_FAULT_BITMAP_LATCH (1 << 5)
 

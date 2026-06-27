@@ -28,10 +28,9 @@
 // array to hold struct packed can data
 bps_voltage_aggregate_arr_t volt_can_data[NUM_VOLTAGE_SENSORS] = {0};
 
-// watchdog bitmap
-uint32_t volt_watchdog_bitmap;
-
 // bitmap to hold volt sensor watchdog, starts all bits set (good), corresponding bits are cleared if taps don't check in
+uint32_t volt_watchdog_bitmap = 0;
+
 uint32_t exposed_volt_watchdog_bitmap = VOLT_TAPS_ALL_DATA;
 
 // watchdog timer
@@ -161,7 +160,7 @@ static void can_recv_all_taps(uint32_t can_id_index, bps_voltage_aggregate_arr_t
 static void vVoltageWatchdogCallback(TimerHandle_t volt_timer)
 {
     taskENTER_CRITICAL();
-    // check if every tap has sent temp information since last timer timeout.
+    // check if every tap has sent voltage information since last timer timeout.
     if (volt_watchdog_bitmap != VOLT_TAPS_ALL_DATA)
     {
         // if one hasn't sent, save bitmap to know which one(s) didn't check in, then set fault bit
@@ -278,15 +277,24 @@ void Task_Voltage_Monitor()
                 set_faultBit(CELL_UNDERVOLTAGE_FAULT);
                 all_voltage_good = false;
             }
-
-            if (volt_printf_debug_counter >= VOLT_PRINTF_COUNTER)
-            {
-                printf("Tap %u Voltage: %u.%03u V\r\n", volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data / 1000, volt_can_data[i].BPS_Voltage_Tap_Data % 1000);
-            }
-
             // pack data for the  msg
             volt_can_pack(volt_can_data[i], msgBuff);
             car_can_send(CAN_ID_BPS_VOLTAGE_AGGREGATE_ARR, msgBuff, CAN_DLC_BPS_VOLTAGE_AGGREGATE_ARR, pdMS_TO_TICKS(VOLTAGE_CAN_DELAY_MS));
+        }
+
+        if (volt_printf_debug_counter >= VOLT_PRINTF_COUNTER)
+        {
+            printf("================================\r\n");
+            printf("Voltage values: {");
+            for (int j = 0; j < NUM_BATTERY_MODULES; j++)
+            {
+                printf("%d: %u.%03u V, ", j, volt_can_data[j].BPS_Voltage_Tap_Data / 1000, volt_can_data[j].BPS_Voltage_Tap_Data % 1000);
+            }
+            printf("\r\n}");
+            printf("================================\r\n");
+
+
+            volt_printf_debug_counter = 0;
         }
 
         // check if voltage is OK for charging
@@ -303,12 +311,6 @@ void Task_Voltage_Monitor()
                 printf("Cell Voltages are NOT ok for charging\r\n");
             }
             set_state_bit(VOLT_OK_FOR_CHARGING, STATE_BIT_RESET);
-        }
-
-        // Reset printf counter (outside loop so all taps print)
-        if (volt_printf_debug_counter >= VOLT_PRINTF_COUNTER)
-        {
-            volt_printf_debug_counter = 0;
         }
 
         if (all_voltage_good && (get_state_bit(VOLTAGE_MONITOR_GOOD) != STATE_BIT_SET))
