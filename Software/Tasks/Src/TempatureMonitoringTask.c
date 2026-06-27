@@ -67,6 +67,14 @@ static const uint32_t temperature_can_ids[NUM_VOLTTEMP_BOARDS] = {
     CAN_ID_BPS_VT6_TEMPERATURE_ARR,
     CAN_ID_BPS_VT7_TEMPERATURE_ARR};
 
+uint32_t get_module_temperature(uint8_t module_num) {
+
+    // invalid module number, return 69420 to indicate error
+    if (module_num >= NUM_TEMPERATURE_SENSORS) {
+        return 69420;
+    }
+    return temp_can_data[module_num].BPS_Temperature_Tap_Data;
+}  
 // pass in pointer to raw data, packs struct into arr
 static uint8_t temp_can_unpack(uint8_t *raw_temp_can_data, bps_temperature_aggregate_arr_t *temp_can_data, bps_temp_rawv_aggregate_arr_t *temp_can_data2)
 {
@@ -198,7 +206,7 @@ static void vTemperatureWatchdogCallback(TimerHandle_t temp_timer)
     {
         // if one hasn't setn, save bitmap to know which one(s) didn't check in, then set fault bit
         exposed_temp_watchdog_bitmap = temp_watchdog_bitmap;
-        latch_mod_fault(get_mod_fault_num(exposed_temp_watchdog_bitmap));
+        latch_mod_fault(get_mod_fault_num(exposed_temp_watchdog_bitmap), 0); // Store 0 as the faulted module value since temperature isn't being stored here
         set_faultBit(VOLTTEMP_WATCHDOG_FAULT);
     }
     // reset bitmap
@@ -316,8 +324,9 @@ void Task_Temperature_Monitor()
                 // only fault the BPS if a singular module has consecutively otemp'd a certain number of times to filter single abnormal readings from actual faults
                 if(temp_module_fault_histogram[temp_can_data[i].BPS_Tap_idx] >= OTEMP_FAULT_THRESHOLD)
                 {
+                    printf("Entering Cell Over Temperature Fault for Tap %d: %ldmC\r\n", temp_can_data[i].BPS_Tap_idx, temp_can_data[i].BPS_Temperature_Tap_Data);
                     // latch this module as one who faulted, set fault bit, and set flag indicating we are not good to close contactors
-                    latch_mod_fault(temp_can_data[i].BPS_Tap_idx);
+                    latch_mod_fault(temp_can_data[i].BPS_Tap_idx, temp_can_data[i].BPS_Temperature_Tap_Data);
                     set_faultBit(CELL_OVERTEMP_FAULT);
                     all_temp_good = false;
                 }

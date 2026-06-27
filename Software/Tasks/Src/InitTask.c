@@ -174,7 +174,6 @@ void Task_Init()
         portMAX_DELAY  // wait forever
     );
 
-    // IGNITION LOGIC GOES HERE
 
     // All tasks have checked in, ensure nothing faulted on startup before closing contactors
     if (is_fault_set(NUM_FAULTS) == false)
