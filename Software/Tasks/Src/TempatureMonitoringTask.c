@@ -209,7 +209,7 @@ static void vTemperatureWatchdogCallback(TimerHandle_t temp_timer)
         // if one hasn't setn, save bitmap to know which one(s) didn't check in, then set fault bit
         exposed_temperature_watchdog_bitmap = temp_watchdog_bitmap;
         latch_mod_fault(get_mod_fault_num(exposed_temperature_watchdog_bitmap), 0); // Store 0 as the faulted module value since temperature isn't being stored here
-        // set_faultBit(VOLTTEMP_WATCHDOG_FAULT);
+        set_faultBit(VOLTTEMP_WATCHDOG_FAULT);
     }
     // reset bitmap
     temp_watchdog_bitmap = 0;
