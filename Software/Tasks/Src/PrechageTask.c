@@ -322,7 +322,7 @@ void Task_Precharge(void *pvParameters)
         // print voltages and state every PRECHARGE_PRINTF_DEBUG_PERIOD_MS ms for debugging
         if (printDebugCounter >= PRECHARGE_PRINTF_DEBUG_COUNTER)
         {
-            printf("Array: %lu mV | Battery: %lu mV\r\n", Array_Voltage, Battery_Voltage);
+            printf("Battery: %lu mV | Array: %lu mV\r\n", Battery_Voltage, Array_Voltage);
             print_Precharge_State(current_precharge_state);
             printDebugCounter = 0;
         }

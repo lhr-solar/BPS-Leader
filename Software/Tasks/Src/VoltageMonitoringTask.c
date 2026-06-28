@@ -290,7 +290,7 @@ void Task_Voltage_Monitor()
             {
                 printf("%d: %u.%03u V, ", j, volt_can_data[j].BPS_Voltage_Tap_Data / 1000, volt_can_data[j].BPS_Voltage_Tap_Data % 1000);
             }
-            printf("\r\n}");
+            printf("}\r\n");
             printf("================================\r\n");
 
 
