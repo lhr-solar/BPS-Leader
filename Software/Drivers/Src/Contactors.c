@@ -85,7 +85,7 @@ estop_status_t contactor_estop_checker()
 
 bool contactor_get_faulted_status(contactor_num_t contactor_num)
 {
-    if (contactor_is_initialized)
+    if (!contactor_is_initialized)
         return false;
     // check that contactor exists
     if ((contactor_num < 0) || (contactor_num >= NUM_CONTACTORS))

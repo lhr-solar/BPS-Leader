@@ -162,7 +162,7 @@ void handle_fault(uint32_t fault_bit_index)
             break;
         
         case CONTACTOR_CALLBACK_FAULT:
-            printf("Faulted Contactors:");
+            printf("Contactors With Sense Faults: ");
             for(uint8_t i = 0; i < NUM_CONTACTORS; i++){
                 if(contactor_get_faulted_status(i)){
                     printf("%s, ", CONTACTOR_NAMES[i]);
