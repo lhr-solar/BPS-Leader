@@ -2,6 +2,7 @@
 #include "Contactors.h"
 #include "EMC2305_Driver.h"
 #include "StatusLEDs.h"
+#include "Contactors.h"
 
 bool fault_bits_initialized = false;
 
@@ -153,12 +154,21 @@ void handle_fault(uint32_t fault_bit_index)
 
         case CELL_OVERTEMP_FAULT:
             printf("Cell OT Module: %d, Faulted Temperature: %ldmC, Current Temperature: %ldmC\r\n", mod_fault_num & ~MOD_FAULT_BITMAP_LATCH, mod_fault_value, get_module_temperature(mod_fault_num & ~MOD_FAULT_BITMAP_LATCH));
-            // todo: printout cell number and voltage
             LED_set(OVER_TEMP_LED, LED_ON);
             break;
 
         case RTOS_WATCHDOG_ERROR:
             LED_set(WATCHDOG_ERR_LED, LED_ON);
+            break;
+        
+        case CONTACTOR_CALLBACK_FAULT:
+            printf("Faulted Contactors:");
+            for(uint8_t i = 0; i < NUM_CONTACTORS; i++){
+                if(contactor_get_faulted_status(i)){
+                    printf("%s, ", CONTACTOR_NAMES[i]);
+                }
+            }
+            printf("\r\n");
             break;
 
         case BPS_ESTOP3_FAULT:
