@@ -57,6 +57,11 @@ static const uint32_t {array_name}[{2 ** bits}] = {{
 
     header_content += "};\n"
 
+    # Make output_dir relative to the script file location, not cwd
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    if output_dir and not os.path.isabs(output_dir):
+        output_dir = os.path.join(script_dir, output_dir)
+
     # Ensure the target directory exists before writing
     if output_dir and output_dir != ".":
         os.makedirs(output_dir, exist_ok=True)
