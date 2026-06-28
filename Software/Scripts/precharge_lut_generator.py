@@ -1,6 +1,6 @@
 import os
 
-def generate_adc_lut_header(output_dir=".", filename="ADC_Array_LUT.h", bits=12, vref=3.3, r_top=100_000.0, r_bottom=2490.0, amp_gain=0.4):
+def generate_adc_lut_header(output_dir=".", filename="ADC_Array_LUT.h", bits=12, vref=3.3, r_top=100_000.0, r_bottom=2490.0, amp_gain=0.4, array_name="Array_LUT"):
     """
     Generates a C/C++ header file containing a lookup table that maps raw ADC 
     counts directly to millivolts (mV), factoring in attenuation and amplification.
@@ -8,6 +8,7 @@ def generate_adc_lut_header(output_dir=".", filename="ADC_Array_LUT.h", bits=12,
     Parameters:
     - output_dir (str): The directory where the header file should be saved.
     - filename (str): The name of the output header file.
+    - array_name (str): The name of the LUT array in the generated header.
     """
     max_counts = (2 ** bits) - 1
     divider_ratio = r_bottom / (r_top + r_bottom)
@@ -39,7 +40,7 @@ def generate_adc_lut_header(output_dir=".", filename="ADC_Array_LUT.h", bits=12,
 // Output Units: millivolts (mV)
 // Range: 0 mV to {max_voltage_mv} mV
 
-static const uint32_t Array_LUT[{2 ** bits}] = {{
+static const uint32_t {array_name}[{2 ** bits}] = {{
 """
 
     # Format the data cleanly with 8 entries per row
@@ -70,7 +71,6 @@ static const uint32_t Array_LUT[{2 ** bits}] = {{
     print(f"LUT Range: 0 mV to {max_voltage_mv} mV")
 
 
-# --- Execute Generation ---
 if __name__ == "__main__":
     # Specify your desired output folder path here (e.g., your project's include directory)
     TARGET_DIR = "../Drivers/Inc" 
@@ -79,8 +79,20 @@ if __name__ == "__main__":
         output_dir=TARGET_DIR,
         filename="ADC_Array_LUT.h",
         bits=12,
-        vref=3.3,
+        vref=3.029,
         r_top=100000.0,   
         r_bottom=2490.0,  
-        amp_gain=0.4
+        amp_gain=0.4,
+        array_name="Array_LUT"
+    )
+
+    generate_adc_lut_header(
+        output_dir=TARGET_DIR,
+        filename="ADC_Battery_LUT.h",
+        bits=12,
+        vref=3.029,
+        r_top=100000.0,   
+        r_bottom=2490.0,  
+        amp_gain=0.4,
+        array_name="Battery_LUT"
     )

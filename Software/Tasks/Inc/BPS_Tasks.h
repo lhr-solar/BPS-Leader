@@ -17,6 +17,7 @@
 #define TASK_CONTACTOR_MONITOR_PRIO     tskIDLE_PRIORITY + 4
 #define TASK_FAN_CONTROLLER_PRIO        tskIDLE_PRIORITY + 3
 #define TASK_CAN_STATUS_PRIO            tskIDLE_PRIORITY + 4
+#define TASK_PRECHARGE_PRIO             tskIDLE_PRIORITY + 3
 
 #define TEST_TASK_PRIORITY              tskIDLE_PRIORITY + 3
 
@@ -82,6 +83,7 @@ void Task_PetWatchdog();
 void Task_CanRxForward();
 void Task_Contactor_Monitor();
 void Task_Can_Status();
+void Task_Precharge();
 
 // access functions for 
 // returns the average temperature of all cells in the battery in mC

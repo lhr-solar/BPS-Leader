@@ -3,7 +3,7 @@
 #include "config.h"
 
 // Defined macro is now actually used below
-#define PRECHARGE_PRINTF_DEBUG_PERIOD_MS 10000
+#define PRECHARGE_PRINTF_DEBUG_PERIOD_MS 1000
 #define PRECHARGE_PRINTF_DEBUG_COUNTER (PRECHARGE_PRINTF_DEBUG_PERIOD_MS / PRECHARGE_TASK_DELAY_MS)
 
 // Dash sends this message every 300 mS, so wait for double that
@@ -328,12 +328,21 @@ void Task_Precharge(void *pvParameters)
         }
 
         CarCAN_Send_Precharge_Voltages(Battery_Voltage, Array_Voltage, PRECHARGE_TASK_DELAY_MS / 2);
-
+        
+        bool mppts_enabled = false;
         // if array precharge is complete, then enable the MPPTs
         if(contactor_get(ARRAY_CONTACTOR) == CONTACTOR_CLOSED && contactor_get(ARRAY_PRE_CONTACTOR) == CONTACTOR_CLOSED){
+            if(!mppts_enabled){
+                printf("Sending Set Mode Command to enable all MPPTs\r\n");
+            }
+            mppts_enabled = true;
             enableAllMPPTs(pdMS_TO_TICKS(PRECHARGE_TASK_DELAY_MS/2));
         }
         else{
+            if(mppts_enabled){
+                printf("Sending Set Mode Command to disable all MPPTs\r\n");
+            }
+            mppts_enabled = false;
             disableAllMPPTs(pdMS_TO_TICKS(PRECHARGE_TASK_DELAY_MS/2));
         }
     }
