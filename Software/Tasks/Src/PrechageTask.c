@@ -251,7 +251,6 @@ void Task_Precharge(void *pvParameters)
                 break;
 
             case PRECHARGE_STATE_INITIAL:
-                // Double check hardware: Ensure this isn't closing the main positive before precharging!
                 if (contactor_set(ARRAY_CONTACTOR, CONTACTOR_CLOSED, CALLBACK_BLOCKING_TIME_MS, NORMAL) != CONTACTOR_OK)
                 {
                     set_faultBit(CONTACTOR_ARRAY_FAULT);
@@ -264,12 +263,13 @@ void Task_Precharge(void *pvParameters)
             case PRECHARGE_STATE_PRECHARGING:
                 Fault_Checker(Array_Voltage, Battery_Voltage, current_precharge_state);
 
-                // 1. Evaluate success FIRST
-                if ((Array_Voltage * RATIO_SCALE) >= (Battery_Voltage * PRECHARGE_THRESHOLD_90))
+                // Check if array votage is close to battery voltage
+                if ((Array_Voltage * mV_TO_V_SCALER) >= (Battery_Voltage * PRECHARGE_THRESHOLD_90))
                 {
                     // stop timer since we did it we precharged
                     xTimerStop(xPrechargeTimer, 0);
 
+                    // precharge is complete
                     if (contactor_set(ARRAY_PRE_CONTACTOR, CONTACTOR_CLOSED, CALLBACK_BLOCKING_TIME_MS, NORMAL) != CONTACTOR_OK)
                     {
                         set_faultBit(CONTACTOR_ARRAY_PRE_FAULT);
@@ -277,7 +277,8 @@ void Task_Precharge(void *pvParameters)
 
                     current_precharge_state = PRECHARGE_STATE_RUN;
                 }
-                // 2. If not successful yet, check if we ran out of time
+
+                // Precharge is not complete, so we check to see if it's taken too long
                 else if (precharge_timeout_expired)
                 {
                     set_faultBit(PRECHARGE_TIMEOUT_FAULT);
@@ -289,7 +290,7 @@ void Task_Precharge(void *pvParameters)
                 Fault_Checker(Array_Voltage, Battery_Voltage, current_precharge_state);
 
                 // Use 80% threshold for hysteresis
-                if ((Array_Voltage * RATIO_SCALE) < (Battery_Voltage * PRECHARGE_THRESHOLD_80))
+                if ((Array_Voltage * mV_TO_V_SCALER) < (Battery_Voltage * PRECHARGE_THRESHOLD_80))
                 {
                     set_faultBit(PRECHARGE_OUT_OF_BOUNDS_FAULT);
                 }
@@ -329,7 +330,7 @@ void Task_Precharge(void *pvParameters)
 
         CarCAN_Send_Precharge_Voltages(Battery_Voltage, Array_Voltage, PRECHARGE_TASK_DELAY_MS / 2);
         
-        bool mppts_enabled = false;
+        static bool mppts_enabled = false;
         // if array precharge is complete, then enable the MPPTs
         if(contactor_get(ARRAY_CONTACTOR) == CONTACTOR_CLOSED && contactor_get(ARRAY_PRE_CONTACTOR) == CONTACTOR_CLOSED){
             if(!mppts_enabled){

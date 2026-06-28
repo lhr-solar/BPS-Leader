@@ -2,7 +2,6 @@
 #include "Contactors.h"
 #include "EMC2305_Driver.h"
 #include "StatusLEDs.h"
-#include "Contactors.h"
 
 bool fault_bits_initialized = false;
 
