@@ -73,6 +73,22 @@
 // so a module-override message (0x69) has time to arrive before we latch the fault.
 #define STARTUP_FAULT_DELAY_MS              1000
 
+// Sequenced "soft" shutdown on fault (limits inductive overvoltage / contactor arcing).
+// Order: broadcast fault status -> MPPT Boost Disable -> wait MPPT_DELAY (MPPTs wind down)
+// -> open array + array precharge -> wait the remainder so HV+ opens ~HV_DELAY after the
+// status TX (motor side has zeroed torque & opened its contactors, bus current fallen) ->
+// open HV+ then HV-.
+#define FAULT_SHUTDOWN_INTERCONTACTOR_MS   50   // "shortly after" gap within each contactor pair
+#define FAULT_SHUTDOWN_MPPT_DELAY_MS       150  // wait after MPPT Boost Disable before opening array
+#define FAULT_SHUTDOWN_HV_DELAY_MS         500  // delay from fault-status TX to opening HV+
+
+// When the sequenced soft shutdown above is used (vs opening all contactors immediately):
+#define FAULT_SHUTDOWN_MODE_NEVER          0    // always hard shutdown (open everything now)
+#define FAULT_SHUTDOWN_MODE_ALWAYS         1    // always soft shutdown
+#define FAULT_SHUTDOWN_MODE_OVERRIDE       2    // soft shutdown only while drive override active
+
+#define FAULT_SHUTDOWN_MODE                FAULT_SHUTDOWN_MODE_ALWAYS
+
 
 #define PRE(s)  "\r    "s"  "   // \r removes the filepath and 'note: '#pragma message:...' parts
 #define STR(x)  #x

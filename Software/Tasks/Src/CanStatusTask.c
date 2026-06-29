@@ -213,13 +213,20 @@ static void process_overrides(void)
     car_can_send(CAN_ID_BPS_MODULE_OVERRIDE_ACK, buf, CAN_DLC_BPS_MODULE_OVERRIDE_ACK, BPS_STATUS_CAN_DELAY_MS);
 }
 
+void send_bps_status_now(void)
+{
+    bps_status_t bps_status_message = {0};
+    uint8_t bps_status_raw_can[CAN_DLC_BPS_STATUS] = {0};
+
+    get_bps_status_information(&bps_status_message);
+    pack_bps_status_message(&bps_status_message, bps_status_raw_can);
+    car_can_send(CAN_ID_BPS_STATUS, bps_status_raw_can, CAN_DLC_BPS_STATUS, BPS_STATUS_CAN_DELAY_MS);
+}
+
 void Task_Can_Status(void *pvParameters)
 {
 
     TickType_t xLastWakeTime = xTaskGetTickCount();
-
-    bps_status_t bps_status_message = {0};
-    uint8_t bps_status_raw_can[CAN_DLC_BPS_STATUS] = {0};
 
     while (1)
     {
@@ -228,11 +235,7 @@ void Task_Can_Status(void *pvParameters)
 
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(CAN_STATUS_TASK_DELAY_MS));
 
-        get_bps_status_information(&bps_status_message);
-
-        pack_bps_status_message(&bps_status_message, bps_status_raw_can);
-
-        car_can_send(CAN_ID_BPS_STATUS, bps_status_raw_can, CAN_DLC_BPS_STATUS, BPS_STATUS_CAN_DELAY_MS);
+        send_bps_status_now();
 
         process_overrides();
     }

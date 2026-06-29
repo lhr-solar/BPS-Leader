@@ -70,7 +70,9 @@ extern StaticTask_t Task_Can_Status_Buffer;
 #define CONTACTOR_MONITOR_TASK_DELAY_MS 200
 #define AMPERES_MONITOR_TASK_DELAY_MS   90
 #define FAN_CONTROLLER_TASK_DELAY_MS    300
-#define CAN_STATUS_TASK_DELAY_MS        500
+// Periodic BPS status heartbeat. Faults are broadcast immediately by the fault
+// handler (preempts this task), so this only sets the steady-state refresh rate.
+#define CAN_STATUS_TASK_DELAY_MS        300
 
 // Task Inits
 void Task_Init();
@@ -84,6 +86,10 @@ void Task_CanRxForward();
 void Task_Contactor_Monitor();
 void Task_Can_Status();
 void Task_Precharge();
+
+// Builds and immediately sends the BPS status frame (0x1). Used by the fault handler
+// to broadcast a fault the instant it occurs, instead of waiting for the 500ms tick.
+void send_bps_status_now(void);
 
 // access functions for 
 // returns the average temperature of all cells in the battery in mC

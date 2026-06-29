@@ -2,6 +2,7 @@
 #include "PrechargeTask.h" // for hprecharge_task handle
 #include "EMC2305_Driver.h"
 #include "CANbus.h"
+#include "overrides.h"
 
 #define FAULT_LOOP_PRINTF_DELAY_MS 1000
 #define FAULT_LOOP_PERIOD_MS 500
@@ -45,6 +46,64 @@ static void send_fault_val_snapshot(void)
     }
 }
 
+// Whether to use the sequenced soft shutdown for this fault (vs an immediate open of
+// every contactor). Configured via FAULT_SHUTDOWN_MODE in config.h.
+static bool soft_shutdown_enabled(void)
+{
+#if (FAULT_SHUTDOWN_MODE == FAULT_SHUTDOWN_MODE_ALWAYS)
+    return true;
+#elif (FAULT_SHUTDOWN_MODE == FAULT_SHUTDOWN_MODE_OVERRIDE)
+    return overrides_get_drive() != 0; // only soft-shutdown while the drive override (0x67) is active
+#else
+    return false;
+#endif
+}
+
+// On fault: always broadcast the fault immediately + set indication/cooling, then either
+// open every contactor at once (hard) or perform the sequenced soft shutdown. The soft
+// path broadcasts first so the VCU can command zero torque and open the motor contactors
+// before we open the main battery contactors, so bus current has fallen and we avoid
+// inductive overvoltage / contactor arcing.
+static void fault_shutdown_sequence(void)
+{
+    // Tell the rest of the car immediately (VCU acts on the BPS_Status fault field; this
+    // send is the t=0 reference for the VCU's motor shutdown timeline).
+    send_bps_status_now();
+
+    // TODO: send "Boost Disable" to the array MPPT(s) here (CarCAN) so they stop boosting
+    // before the array contactors open. (MPPT shutdown message not implemented yet.)
+
+    // Fault indication + max cooling (both shutdown modes).
+    LEDs_clear();
+    LED_set(FAULT_LED, LED_ON);
+    LED_setStrobe(LED_ON);
+    set_fans_MAX();
+
+    if (!soft_shutdown_enabled())
+    {
+        // Hard shutdown: open every contactor immediately.
+        emergency_open_contactors();
+        return;
+    }
+
+    // 1) Give the MPPTs time to wind down (after Boost Disable) before dropping the array.
+    vTaskDelay(pdMS_TO_TICKS(FAULT_SHUTDOWN_MPPT_DELAY_MS));
+
+    // 2) Disconnect the solar array (current source): array main first, precharge second.
+    contactor_set(ARRAY_CONTACTOR, CONTACTOR_OPEN, 0, EMERGENCY);
+    vTaskDelay(pdMS_TO_TICKS(FAULT_SHUTDOWN_INTERCONTACTOR_MS));
+    contactor_set(ARRAY_PRE_CONTACTOR, CONTACTOR_OPEN, 0, EMERGENCY);
+
+    // 3) Wait out the rest of the window so HV+ opens ~FAULT_SHUTDOWN_HV_DELAY_MS after the
+    //    status TX (motor side has zeroed torque + opened its contactors, bus current fallen).
+    vTaskDelay(pdMS_TO_TICKS(FAULT_SHUTDOWN_HV_DELAY_MS - FAULT_SHUTDOWN_MPPT_DELAY_MS - FAULT_SHUTDOWN_INTERCONTACTOR_MS));
+
+    // 4) Open the main battery contactors: high side (HV+) first, low side (HV-) last.
+    contactor_set(HV_PLUS_CONTACTOR, CONTACTOR_OPEN, 0, EMERGENCY);
+    vTaskDelay(pdMS_TO_TICKS(FAULT_SHUTDOWN_INTERCONTACTOR_MS));
+    contactor_set(HV_MINUS_CONTACTOR, CONTACTOR_OPEN, 0, EMERGENCY);
+}
+
 void Fault_Loop(uint32_t fault_bit_index)
 {
 
@@ -78,12 +137,9 @@ void Task_FaultHandler(void *pvParameters)
         // Capture the battery state right when the fault occurs (for 0xF broadcast)
         capture_fault_val_snapshot();
 
-        LEDs_clear();
-        LED_set(FAULT_LED, LED_ON);
-        LED_setStrobe(LED_ON);
-
-        emergency_open_contactors();
-        set_fans_MAX();
+        // Sequenced soft shutdown: broadcast fault -> drop array -> wait for motor side
+        // to zero torque / open its contactors -> open HV+ then HV-.
+        fault_shutdown_sequence();
 
         handle_fault(fault_bit_index);
 
