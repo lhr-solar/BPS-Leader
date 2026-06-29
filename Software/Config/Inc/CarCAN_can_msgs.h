@@ -54,6 +54,13 @@
 #define CAN_ID_PEDAL_BRAKE_RAWV 0x753
 #define CAN_ID_PEDAL_ACCEL_RAWV 0x754
 
+/* ===== Hand-added (lean) for BPS override + fault-val feature (from CarCAN.dbc) ===== */
+#define CAN_ID_BPS_FAULT_VAL_ARR 0xF
+#define CAN_ID_BPS_OVERRIDE 0x67
+#define CAN_ID_BPS_MODULE_OVERRIDE 0x69
+#define CAN_ID_BPS_OVERRIDE_ACK 0x667
+#define CAN_ID_BPS_MODULE_OVERRIDE_ACK 0x669
+
 /* ================= CAN Length Macros ================= */
 
 #define CAN_DLC_BPS_STATUS 8
@@ -105,6 +112,13 @@
 #define CAN_DLC_SUPP_VICOR_MEASUREMENTS_RAWV 5
 #define CAN_DLC_PEDAL_BRAKE_RAWV 5
 #define CAN_DLC_PEDAL_ACCEL_RAWV 5
+
+/* ===== Hand-added (lean) for BPS override + fault-val feature (from CarCAN.dbc) ===== */
+#define CAN_DLC_BPS_FAULT_VAL_ARR 6
+#define CAN_DLC_BPS_OVERRIDE 8
+#define CAN_DLC_BPS_MODULE_OVERRIDE 8
+#define CAN_DLC_BPS_OVERRIDE_ACK 8
+#define CAN_DLC_BPS_MODULE_OVERRIDE_ACK 8
 
 
 /* ================= Value Table Enums ================= */
@@ -1140,3 +1154,15 @@ typedef struct {
     uint16_t AccelPedal_Redundant_RawV;
     uint8_t FrameID_Pedals;
 } pedal_accel_rawv_t;
+
+/* ===== Hand-added (lean) for BPS override + fault-val feature (from CarCAN.dbc) =====
+ * BPS_Override (0x67) / _Ack (0x667): byte0 bit0 = BPS_Drive_Override (0 off, 1 on).
+ * BPS_Module_Override (0x69) / _Ack (0x669): 32 modules x 2 bits, little-endian
+ *   (module m -> byte m/4, bits (m%4)*2); code 0=Normal,1=Voltage,2=Temp,3=All.
+ * Override (un)packing + the module_override_t enum live in overrides.h/.c. */
+
+typedef struct {
+    uint8_t BPS_Tap_idx;
+    uint16_t BPS_Voltage_Tap_Data;
+    int32_t BPS_Temperature_Tap_Data;
+} bps_fault_val_arr_t;

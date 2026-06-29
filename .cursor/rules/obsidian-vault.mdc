@@ -1,0 +1,14 @@
+---
+description: Obsidian agent vault for solar car modeling memory and theory
+alwaysApply: true
+---
+
+This project uses an Obsidian vault at `solar-car-modeling/` — **research-only** (theory + agent memory, no work/HR folders).
+
+- **Operating manual:** `solar-car-modeling/CLAUDE.md` (read before vault operations)
+- **Goals:** `solar-car-modeling/brain/North Star.md` at session start
+- **Search:** QMD (`qmd --index solar-car-modeling query "..."`) before reading vault files
+- **Graph:** Maintain wikilinks between notes; folders group by purpose, links group by meaning
+- **Skill:** `.cursor/skills/solar-car-modeling-vault/SKILL.md`
+
+When conversation produces decisions, lessons, or validated parameters, save to the vault following `CLAUDE.md` conventions.

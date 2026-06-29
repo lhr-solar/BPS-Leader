@@ -4,12 +4,16 @@
 #include "Contactors.h"
 #include "CANbus.h"
 #include "StatusLEDs.h"
+#include "overrides.h"
 #include <string.h>
 
 // Converts the temp in mC to the centi-celcius used in the status
 #define CONVERT_TEMP_FOR_STATUS(temp) ((temp) / 10)
 
 #define BPS_STATUS_CAN_DELAY_MS 10u
+
+// All override / override-ack messages (0x67/0x69/0x667/0x669) are 8 bytes
+#define OVERRIDE_PAYLOAD_DLC 8u
 
 // returns 0 if segemet is OK else it returns 1
 static uint8_t get_segment_status(uint8_t segment_num)
@@ -185,6 +189,30 @@ static void get_bps_status_information(bps_status_t *bps_status_message)
     bps_status_message->BPS_Segment7_Status = get_segment_status(7);
 }
 
+// Non-blocking poll of the override inputs (0x67/0x69) and broadcast of the
+// current override state (0x667/0x669). State only changes on a received message;
+// acks are always sent so the sender sees we're alive and what we believe.
+static void process_overrides(void)
+{
+    uint8_t buf[OVERRIDE_PAYLOAD_DLC] = {0};
+
+    if (car_can_recv(CAN_ID_BPS_OVERRIDE, buf, CAN_DLC_BPS_OVERRIDE, 0) == CAN_OK)
+    {
+        overrides_set_drive(buf[0] & 0x1u);
+    }
+
+    if (car_can_recv(CAN_ID_BPS_MODULE_OVERRIDE, buf, CAN_DLC_BPS_MODULE_OVERRIDE, 0) == CAN_OK)
+    {
+        overrides_set_module_raw(buf);
+    }
+
+    overrides_pack_drive_ack(buf);
+    car_can_send(CAN_ID_BPS_OVERRIDE_ACK, buf, CAN_DLC_BPS_OVERRIDE_ACK, BPS_STATUS_CAN_DELAY_MS);
+
+    overrides_pack_module_ack(buf);
+    car_can_send(CAN_ID_BPS_MODULE_OVERRIDE_ACK, buf, CAN_DLC_BPS_MODULE_OVERRIDE_ACK, BPS_STATUS_CAN_DELAY_MS);
+}
+
 void Task_Can_Status(void *pvParameters)
 {
 
@@ -204,6 +232,8 @@ void Task_Can_Status(void *pvParameters)
 
         pack_bps_status_message(&bps_status_message, bps_status_raw_can);
 
-        car_can_send(CAN_ID_BPS_STATUS, bps_status_raw_can, CAN_DLC_BPS_STATUS, BPS_STATUS_CAN_DELAY_MS);        
+        car_can_send(CAN_ID_BPS_STATUS, bps_status_raw_can, CAN_DLC_BPS_STATUS, BPS_STATUS_CAN_DELAY_MS);
+
+        process_overrides();
     }
 }

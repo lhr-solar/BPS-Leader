@@ -7,6 +7,7 @@
 #include "StatusLEDs.h"
 #include "BPSCAN_can_msgs.h"
 #include "CarCAN_can_msgs.h"
+#include "overrides.h"
 #include "string.h"
 
 #define TEMPERATURE_CAN_DELAY_MS 10u
@@ -326,11 +327,20 @@ void Task_Temperature_Monitor()
                 // only fault the BPS if a singular module has consecutively otemp'd a certain number of times to filter single abnormal readings from actual faults
                 if(temp_module_fault_histogram[temp_can_data[i].BPS_Tap_idx] >= OTEMP_FAULT_THRESHOLD)
                 {
-                    printf("Entering Cell Over Temperature Fault for Tap %d: %ldmC\r\n", temp_can_data[i].BPS_Tap_idx, temp_can_data[i].BPS_Temperature_Tap_Data);
-                    // latch this module as one who faulted, set fault bit, and set flag indicating we are not good to close contactors
-                    latch_mod_fault(temp_can_data[i].BPS_Tap_idx, temp_can_data[i].BPS_Temperature_Tap_Data);
-                    set_faultBit(CELL_OVERTEMP_FAULT);
-                    all_temp_good = false;
+                    // A matching override (module temp/all override, or drive override disabling
+                    // overtemp) suppresses the fault; during startup grace we defer latching
+                    // (but still block contactors) so an override message has time to arrive.
+                    if (!override_suppress_overtemp(temp_can_data[i].BPS_Tap_idx))
+                    {
+                        all_temp_good = false;
+                        if (!startup_fault_grace_active())
+                        {
+                            printf("Entering Cell Over Temperature Fault for Tap %d: %ldmC\r\n", temp_can_data[i].BPS_Tap_idx, temp_can_data[i].BPS_Temperature_Tap_Data);
+                            // latch this module as one who faulted, set fault bit, and set flag indicating we are not good to close contactors
+                            latch_mod_fault(temp_can_data[i].BPS_Tap_idx, temp_can_data[i].BPS_Temperature_Tap_Data);
+                            set_faultBit(CELL_OVERTEMP_FAULT);
+                        }
+                    }
                 }
             }
             else

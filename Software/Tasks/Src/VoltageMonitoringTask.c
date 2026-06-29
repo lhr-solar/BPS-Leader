@@ -7,6 +7,7 @@
 #include "StatusLEDs.h"
 #include "BPSCAN_can_msgs.h"
 #include "CarCAN_can_msgs.h"
+#include "overrides.h"
 #include "string.h"
 
 #define VOLTAGE_CAN_DELAY_MS 10u
@@ -250,6 +251,10 @@ void Task_Voltage_Monitor()
         // max voltage counter used for bounds checking
         uint32_t max_voltage = 0;
 
+        // Undervoltage limit, optionally lowered by voltage-sag compensation while
+        // the drive override is active and discharging (see overrides.c).
+        int32_t uv_limit_mV = overrides_adjusted_uv_limit_mV(get_pack_current());
+
         // Loop through every received value
         for (uint8_t i = 0; i < NUM_VOLTAGE_SENSORS; i++)
         {
@@ -259,23 +264,38 @@ void Task_Voltage_Monitor()
                 max_voltage = volt_can_data[i].BPS_Voltage_Tap_Data;
             }
 
-            // if voltage is too high or too low, set relevant fault and set fault bit
+            // if voltage is too high or too low, set relevant fault and set fault bit.
+            // A matching module override suppresses the fault entirely; during the startup
+            // grace window we defer latching (but still block contactors) so an override
+            // message has time to arrive.
             if (volt_can_data[i].BPS_Voltage_Tap_Data > CELL_OVERVOLTAGE_THRESHOLD_MV)
             {
                 volt_can_data[i].BPS_Voltage_Tap_Fault = BPS_VOLTAGE_AGGREGATE_ARR_BPS_VOLTAGE_TAP_FAULT_OVER_VOLTAGE;
-                printf("Entering Cell Over Voltage Fault for Tap %d: %dmV\r\n", volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data);
-                latch_mod_fault(volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data); // Store the faulted module value (voltage)
-                set_faultBit(CELL_OVERVOLTAGE_FAULT);
-                all_voltage_good = false;
+                if (!override_suppress_overvoltage(volt_can_data[i].BPS_Tap_idx))
+                {
+                    all_voltage_good = false;
+                    if (!startup_fault_grace_active())
+                    {
+                        printf("Entering Cell Over Voltage Fault for Tap %d: %dmV\r\n", volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data);
+                        latch_mod_fault(volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data); // Store the faulted module value (voltage)
+                        set_faultBit(CELL_OVERVOLTAGE_FAULT);
+                    }
+                }
             }
-            else if (volt_can_data[i].BPS_Voltage_Tap_Data < CELL_UNDERVOLTAGE_THRESHOLD_MV)
+            else if ((int32_t)volt_can_data[i].BPS_Voltage_Tap_Data < uv_limit_mV)
             {
 
                 volt_can_data[i].BPS_Voltage_Tap_Fault = BPS_VOLTAGE_AGGREGATE_ARR_BPS_VOLTAGE_TAP_FAULT_UNDER_VOLTAGE;
-                printf("Entering Cell Under Voltage Fault for Tap %d: %dmV\r\n", volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data);
-                latch_mod_fault(volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data); // Store the faulted module value (voltage)
-                set_faultBit(CELL_UNDERVOLTAGE_FAULT);
-                all_voltage_good = false;
+                if (!override_suppress_undervoltage(volt_can_data[i].BPS_Tap_idx))
+                {
+                    all_voltage_good = false;
+                    if (!startup_fault_grace_active())
+                    {
+                        printf("Entering Cell Under Voltage Fault for Tap %d: %dmV\r\n", volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data);
+                        latch_mod_fault(volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data); // Store the faulted module value (voltage)
+                        set_faultBit(CELL_UNDERVOLTAGE_FAULT);
+                    }
+                }
             }
             // pack data for the  msg
             volt_can_pack(volt_can_data[i], msgBuff);

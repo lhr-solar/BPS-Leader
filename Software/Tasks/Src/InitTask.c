@@ -6,6 +6,7 @@
 #include "Contactors.h"
 #include "DebugPrintf.h"
 #include "SHT45.h"
+#include "overrides.h"
 
 #define ALL_TASK_BITS ((1 << AMPERES_MONITOR_GOOD) | (1 << CONTACTOR_MONITOR_GOOD) | (1 << VOLTAGE_MONITOR_GOOD) | (1 << TEMPERATURE_MONITOR_GOOD))
 #define STARTUP_DELAY_MS (1000)
@@ -63,6 +64,10 @@ void Task_Init()
     debugPrintf_init();
 
     CAN_Init();
+
+    // Start the startup fault grace window now that CAN is up: overridable module
+    // faults are deferred briefly so an override message (0x69) can arrive first.
+    overrides_arm_startup_grace();
 
     contactor_init();
 
