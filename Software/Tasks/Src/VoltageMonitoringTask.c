@@ -28,10 +28,9 @@
 // array to hold struct packed can data
 bps_voltage_aggregate_arr_t volt_can_data[NUM_VOLTAGE_SENSORS] = {0};
 
-// watchdog bitmap
-uint32_t volt_watchdog_bitmap;
-
 // bitmap to hold volt sensor watchdog, starts all bits set (good), corresponding bits are cleared if taps don't check in
+uint32_t volt_watchdog_bitmap = 0;
+
 uint32_t exposed_volt_watchdog_bitmap = VOLT_TAPS_ALL_DATA;
 
 // watchdog timer
@@ -106,6 +105,15 @@ static uint8_t volt_can_unpack(uint8_t *raw_volt_can_data, bps_voltage_aggregate
     return 1;
 }
 
+uint32_t get_module_voltage(uint8_t module_num){
+
+    // module number is 0 indexed
+    if(module_num >= NUM_BATTERY_MODULES){
+        return 69420; // Invalid module number
+    }
+    return volt_can_data[module_num].BPS_Voltage_Tap_Data;
+}
+
 static void volt_can_pack(bps_voltage_aggregate_arr_t volt_can_data, uint8_t *msgArr)
 {
     if (msgArr == NULL)
@@ -152,12 +160,12 @@ static void can_recv_all_taps(uint32_t can_id_index, bps_voltage_aggregate_arr_t
 static void vVoltageWatchdogCallback(TimerHandle_t volt_timer)
 {
     taskENTER_CRITICAL();
-    // check if every tap has sent temp information since last timer timeout.
+    // check if every tap has sent voltage information since last timer timeout.
     if (volt_watchdog_bitmap != VOLT_TAPS_ALL_DATA)
     {
         // if one hasn't sent, save bitmap to know which one(s) didn't check in, then set fault bit
         exposed_volt_watchdog_bitmap = volt_watchdog_bitmap;
-        latch_mod_fault(get_mod_fault_num(exposed_volt_watchdog_bitmap));
+        latch_mod_fault(get_mod_fault_num(exposed_volt_watchdog_bitmap), 0); // Store 0 as the faulted module value since voltage isn't being stored here
         set_faultBit(VOLTTEMP_WATCHDOG_FAULT);
     }
     volt_watchdog_bitmap = 0;
@@ -255,7 +263,8 @@ void Task_Voltage_Monitor()
             if (volt_can_data[i].BPS_Voltage_Tap_Data > CELL_OVERVOLTAGE_THRESHOLD_MV)
             {
                 volt_can_data[i].BPS_Voltage_Tap_Fault = BPS_VOLTAGE_AGGREGATE_ARR_BPS_VOLTAGE_TAP_FAULT_OVER_VOLTAGE;
-                latch_mod_fault(volt_can_data[i].BPS_Tap_idx);
+                printf("Entering Cell Over Voltage Fault for Tap %d: %dmV\r\n", volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data);
+                latch_mod_fault(volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data); // Store the faulted module value (voltage)
                 set_faultBit(CELL_OVERVOLTAGE_FAULT);
                 all_voltage_good = false;
             }
@@ -263,39 +272,52 @@ void Task_Voltage_Monitor()
             {
 
                 volt_can_data[i].BPS_Voltage_Tap_Fault = BPS_VOLTAGE_AGGREGATE_ARR_BPS_VOLTAGE_TAP_FAULT_UNDER_VOLTAGE;
+                printf("Entering Cell Under Voltage Fault for Tap %d: %dmV\r\n", volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data);
+                latch_mod_fault(volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data); // Store the faulted module value (voltage)
                 set_faultBit(CELL_UNDERVOLTAGE_FAULT);
                 all_voltage_good = false;
             }
-
-            // Print volts at lower rate
-            if (volt_printf_debug_counter >= VOLT_PRINTF_COUNTER)
-            {
-                printf("Tap %u Voltage: %u.%03u V\r\n", volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data / 1000, volt_can_data[i].BPS_Voltage_Tap_Data % 1000);
-            }
-
             // pack data for the  msg
             volt_can_pack(volt_can_data[i], msgBuff);
             car_can_send(CAN_ID_BPS_VOLTAGE_AGGREGATE_ARR, msgBuff, CAN_DLC_BPS_VOLTAGE_AGGREGATE_ARR, pdMS_TO_TICKS(VOLTAGE_CAN_DELAY_MS));
         }
 
+        if (volt_printf_debug_counter >= VOLT_PRINTF_COUNTER)
+        {
+            printf("================================\r\n");
+            printf("Voltage values: {");
+            for (int j = 0; j < NUM_BATTERY_MODULES; j++)
+            {
+                printf("%d: %u.%03u V, ", j, volt_can_data[j].BPS_Voltage_Tap_Data / 1000, volt_can_data[j].BPS_Voltage_Tap_Data % 1000);
+            }
+            printf("}\r\n");
+            printf("================================\r\n");
+
+
+            volt_printf_debug_counter = 0;
+        }
+
         // check if voltage is OK for charging
         if ((max_voltage < CELL_CHARGING_VOLTAGE_THRESHOLD_MV) && (get_state_bit(VOLT_OK_FOR_CHARGING) != STATE_BIT_SET))
         {
+            if(get_state_bit(VOLT_OK_FOR_CHARGING) == STATE_BIT_RESET){
+                printf("Cell Voltages are OK for charging\r\n");
+            }
             set_state_bit(VOLT_OK_FOR_CHARGING, STATE_BIT_SET);
         }
         else if (((max_voltage >= CELL_CHARGING_VOLTAGE_THRESHOLD_MV) && (get_state_bit(VOLT_OK_FOR_CHARGING) != STATE_BIT_RESET)))
         {
+            if(get_state_bit(VOLT_OK_FOR_CHARGING) == STATE_BIT_SET){
+                printf("Cell Voltages are NOT ok for charging\r\n");
+            }
             set_state_bit(VOLT_OK_FOR_CHARGING, STATE_BIT_RESET);
-        }
-
-        // Reset printf counter (outside loop so all taps print)
-        if (volt_printf_debug_counter >= VOLT_PRINTF_COUNTER)
-        {
-            volt_printf_debug_counter = 0;
         }
 
         if (all_voltage_good && (get_state_bit(VOLTAGE_MONITOR_GOOD) != STATE_BIT_SET))
         {
+            if(get_state_bit(VOLT_OK_FOR_CHARGING) == STATE_BIT_SET){
+                printf("All module voltages checked and safe\r\n");
+            }
             set_state_bit(VOLTAGE_MONITOR_GOOD, STATE_BIT_SET);
         }
 
