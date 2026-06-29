@@ -6,8 +6,8 @@
 #define PRECHARGE_PRINTF_DEBUG_PERIOD_MS 1000
 #define PRECHARGE_PRINTF_DEBUG_COUNTER (PRECHARGE_PRINTF_DEBUG_PERIOD_MS / PRECHARGE_TASK_DELAY_MS)
 
-// Dash sends this message every 300 mS, so wait for double that
-#define IGNITION_STATUS_TIMEOUT_MS 600
+// Dash sends this message every 100 mS, so wait for double that
+#define IGNITION_STATUS_TIMEOUT_MS 200
 
 TaskHandle_t hprecharge_task = NULL;
 
@@ -207,7 +207,7 @@ void Task_Precharge(void *pvParameters)
 
         printDebugCounter++;
 
-        // if any fault is set, or we are alreadt in fault state, stay in fault state until reset
+        // if any fault is set, or we are already in fault state, stay in fault state until reset
         if (is_fault_set(NUM_FAULTS) || current_precharge_state == PRECHARGE_STATE_FAULT){ 
             current_precharge_state = PRECHARGE_STATE_FAULT;
         }
@@ -264,7 +264,7 @@ void Task_Precharge(void *pvParameters)
                 Fault_Checker(Array_Voltage, Battery_Voltage, current_precharge_state);
 
                 // Check if array votage is close to battery voltage
-                if ((Array_Voltage * mV_TO_V_SCALER) >= (Battery_Voltage * PRECHARGE_THRESHOLD_90))
+                if ((Array_Voltage * mV_TO_V_SCALAR) >= (Battery_Voltage * PRECHARGE_THRESHOLD_90))
                 {
                     // stop timer since we did it we precharged
                     xTimerStop(xPrechargeTimer, 0);
@@ -290,7 +290,7 @@ void Task_Precharge(void *pvParameters)
                 Fault_Checker(Array_Voltage, Battery_Voltage, current_precharge_state);
 
                 // Use 80% threshold for hysteresis
-                if ((Array_Voltage * mV_TO_V_SCALER) < (Battery_Voltage * PRECHARGE_THRESHOLD_80))
+                if ((Array_Voltage * mV_TO_V_SCALAR) < (Battery_Voltage * PRECHARGE_THRESHOLD_80))
                 {
                     set_faultBit(PRECHARGE_OUT_OF_BOUNDS_FAULT);
                 }

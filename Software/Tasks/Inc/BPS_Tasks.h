@@ -142,7 +142,7 @@ extern uint32_t exposed_volt_watchdog_bitmap;
 // that sets mod fault only if it hasn't been previously set
 static inline void latch_mod_fault(uint8_t mod_fault_num_, uint32_t faulted_module_value) {
     // Sanity check: ensure the module number doesn't overflow into the latch bit
-    if (mod_fault_num_ > (NUM_BATTERY_MODULES -1)){
+    if (mod_fault_num_ >= (NUM_BATTERY_MODULES)){
          return; 
     }
 

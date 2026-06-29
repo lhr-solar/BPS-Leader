@@ -7,8 +7,8 @@ static StaticSemaphore_t contactorsMutexBuffer;
 bool contactor_is_initialized = false;
 
 const char* CONTACTOR_NAMES[NUM_CONTACTORS] = {
-    "HV Positive Contactor",
-    "HV Negative Contactor",
+    "HV Plus Contactor",
+    "HV Minus Contactor",
     "Array Contactor",
     "Array Precharge Contactor"
 };
