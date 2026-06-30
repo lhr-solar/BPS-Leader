@@ -36,7 +36,7 @@
 #define OVERTEMP_THRESHOLD_DISCHARGING_MC 70000 // 70 C
 
 // Charging Thresholds
-#define CELL_CHARGING_VOLTAGE_THRESHOLD_MV 4190   // 4.19 V
+#define CELL_CHARGING_VOLTAGE_THRESHOLD_MV 4150   // 4.15 V
 #define CELL_CHARGING_TEMP_THRESHOLD_MC 50000 // 50 C
 
 // current threshold to determine if battery is charging (negative number is charging, positive is discharging)
@@ -73,21 +73,29 @@
 // so a module-override message (0x69) has time to arrive before we latch the fault.
 #define STARTUP_FAULT_DELAY_MS              1000
 
-// Sequenced "soft" shutdown on fault (limits inductive overvoltage / contactor arcing).
-// Order: broadcast fault status -> MPPT Boost Disable -> wait MPPT_DELAY (MPPTs wind down)
-// -> open array + array precharge -> wait the remainder so HV+ opens ~HV_DELAY after the
-// status TX (motor side has zeroed torque & opened its contactors, bus current fallen) ->
-// open HV+ then HV-.
+// Sequenced "soft" shutdown timing (limits inductive overvoltage / contactor arcing).
+// Emergency order: broadcast fault status -> boost disable -> wait MPPT_DELAY (MPPTs wind
+// down) -> open array + array precharge -> wait the remainder so HV+ opens ~HV_DELAY after
+// the status TX (motor side has zeroed torque & opened its contactors) -> open HV+ then HV-.
 #define FAULT_SHUTDOWN_INTERCONTACTOR_MS   50   // "shortly after" gap within each contactor pair
-#define FAULT_SHUTDOWN_MPPT_DELAY_MS       150  // wait after MPPT Boost Disable before opening array
+#define FAULT_SHUTDOWN_MPPT_DELAY_MS       150  // wait after boost disable before opening array
 #define FAULT_SHUTDOWN_HV_DELAY_MS         500  // delay from fault-status TX to opening HV+
 
-// When the sequenced soft shutdown above is used (vs opening all contactors immediately):
-#define FAULT_SHUTDOWN_MODE_NEVER          0    // always hard shutdown (open everything now)
-#define FAULT_SHUTDOWN_MODE_ALWAYS         1    // always soft shutdown
-#define FAULT_SHUTDOWN_MODE_OVERRIDE       2    // soft shutdown only while drive override active
+// 3-state shutdown modes (shared by the two configs below).
+#define SHUTDOWN_MODE_NEVER                0    // hard: open contactors immediately
+#define SHUTDOWN_MODE_ALWAYS               1    // soft: sequenced open
+#define SHUTDOWN_MODE_OVERRIDE             2    // soft only while drive override (0x67) active
 
-#define FAULT_SHUTDOWN_MODE                FAULT_SHUTDOWN_MODE_ALWAYS
+// Emergency (hard fault) shutdown. In a soft emergency shutdown the array is ALWAYS
+// soft-shut as part of the sequence (this does not depend on ARRAY_SOFT_SHUTDOWN_MODE).
+#define EMERGENCY_SOFT_SHUTDOWN_MODE       SHUTDOWN_MODE_ALWAYS
+
+// Array shutdown used when CHARGING is disabled (cell over charge-voltage / over-temp).
+// Governs ONLY the charge-disable case, not emergency shutdowns.
+#define ARRAY_SOFT_SHUTDOWN_MODE           SHUTDOWN_MODE_ALWAYS
+
+// If charging current is still present this long after charge is disabled, hard fault.
+#define CHARGE_CURRENT_DETECTION_DELAY_MS  500
 
 
 #define PRE(s)  "\r    "s"  "   // \r removes the filepath and 'note: '#pragma message:...' parts

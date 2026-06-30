@@ -8,6 +8,7 @@
 #include "BPSCAN_can_msgs.h"
 #include "CarCAN_can_msgs.h"
 #include "overrides.h"
+#include "charge.h"
 #include "string.h"
 
 #define VOLTAGE_CAN_DELAY_MS 10u
@@ -331,6 +332,7 @@ void Task_Voltage_Monitor()
                 printf("Cell Voltages are NOT ok for charging\r\n");
             }
             set_state_bit(VOLT_OK_FOR_CHARGING, STATE_BIT_RESET);
+            charge_force_disable(); // immediate boost off when a cell reaches the charge-voltage limit
         }
 
         if (all_voltage_good && (get_state_bit(VOLTAGE_MONITOR_GOOD) != STATE_BIT_SET))

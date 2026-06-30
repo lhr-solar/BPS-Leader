@@ -1,6 +1,17 @@
 #include "PrechargeTask.h"
 #include "FaultHandlerTask.h"
 #include "config.h"
+#include "charge.h"
+#include "overrides.h"
+
+// Charging is allowed when cell voltage and temperature are within the charge limits
+// (VOLT/TEMP_OK_FOR_CHARGING state bits) and there is no active fault.
+static inline bool charge_conditions_ok(void)
+{
+    return (get_state_bit(VOLT_OK_FOR_CHARGING) == STATE_BIT_SET) &&
+           (get_state_bit(TEMP_OK_FOR_CHARGING) == STATE_BIT_SET) &&
+           (is_fault_set(NUM_FAULTS) == false);
+}
 
 // Defined macro is now actually used below
 #define PRECHARGE_PRINTF_DEBUG_PERIOD_MS 1000
@@ -96,6 +107,9 @@ static void print_Precharge_State(Precharge_State_t State)
         break;
     case PRECHARGE_STATE_RUN:
         printf("Precharge State: Run\r\n");
+        break;
+    case PRECHARGE_STATE_CHARGE_DISABLED:
+        printf("Precharge State: Charge Disabled\r\n");
         break;
     case PRECHARGE_STATE_FAULT:
         printf("Precharge State: FAULT\r\n");
@@ -221,6 +235,10 @@ void Task_Precharge(void *pvParameters)
 
                 // idle runs theoretically with no contactors closed, so cannot check for voltage faults
 
+                // not charging while idle
+                charge_set_enabled(false);
+                charge_disarm_escalation();
+
                 // disable the array and array precharge contactors if they are not already open
                 if (contactor_get(ARRAY_PRE_CONTACTOR) != CONTACTOR_OPEN) {
                     contactor_set(ARRAY_PRE_CONTACTOR, CONTACTOR_OPEN, CALLBACK_BLOCKING_TIME_MS, NORMAL);
@@ -229,23 +247,17 @@ void Task_Precharge(void *pvParameters)
                     contactor_set(ARRAY_CONTACTOR, CONTACTOR_OPEN, CALLBACK_BLOCKING_TIME_MS, NORMAL);
                 }
 
-                // if the ignition is at array, then we can enable the array contactor in the next iteration
-                // only do this if it's currently in idle otherwise you will override if in a different state
-                if (driver_input_status.Ignition_Array) 
+                // Begin precharge only if ignition is at array, the BPS is safety-checked
+                // (HV closed), and the pack is within the charge limits.
+                if (driver_input_status.Ignition_Array
+                    && (contactor_get(HV_PLUS_CONTACTOR) == CONTACTOR_CLOSED)
+                    && (contactor_get(HV_MINUS_CONTACTOR) == CONTACTOR_CLOSED)
+                    && charge_conditions_ok())
                 {
-                    // if Contactors are on then BPS has been safety checked
-                    if(contactor_get(HV_PLUS_CONTACTOR) == CONTACTOR_CLOSED && contactor_get(HV_MINUS_CONTACTOR) == CONTACTOR_CLOSED)
-                    {
-                        current_precharge_state = PRECHARGE_STATE_INITIAL;
-                    }
-                    else
-                    {
-                        current_precharge_state = PRECHARGE_STATE_IDLE;
-                    }
+                    current_precharge_state = PRECHARGE_STATE_INITIAL;
                 }
                 else
                 {
-                    // if the ignition is not at array, then keep the system in idle
                     current_precharge_state = PRECHARGE_STATE_IDLE;
                 }
                 break;
@@ -294,18 +306,48 @@ void Task_Precharge(void *pvParameters)
                 {
                     set_faultBit(PRECHARGE_OUT_OF_BOUNDS_FAULT);
                 }
+
+                if (charge_conditions_ok())
+                {
+                    // array precharged and pack in range -> charging allowed (CAN status task drives boost)
+                    charge_set_enabled(true);
+                    charge_disarm_escalation();
+                }
+                else
+                {
+                    // cell over charge-voltage / over-temp -> disable charge, soft-shut the array,
+                    // and arm the "charge should have stopped" current escalation.
+                    printf("Charge disabled: soft array shutdown\r\n");
+                    charge_set_enabled(false);
+                    charge_arm_escalation();
+                    array_shutdown(NORMAL, shutdown_soft_active(ARRAY_SOFT_SHUTDOWN_MODE));
+                    current_precharge_state = PRECHARGE_STATE_CHARGE_DISABLED;
+                }
+                break;
+
+            case PRECHARGE_STATE_CHARGE_DISABLED:
+
+                // array is soft-shut; charging stays disabled until the pack returns to range.
+                charge_set_enabled(false);
+
+                // Recover (re-precharge the array) once voltage and temp are back within the
+                // charge limits and charging is still commanded.
+                if (charge_conditions_ok()
+                    && driver_input_status.Ignition_Array
+                    && (contactor_get(HV_PLUS_CONTACTOR) == CONTACTOR_CLOSED)
+                    && (contactor_get(HV_MINUS_CONTACTOR) == CONTACTOR_CLOSED))
+                {
+                    charge_disarm_escalation();
+                    current_precharge_state = PRECHARGE_STATE_INITIAL;
+                }
                 break;
 
             case PRECHARGE_STATE_FAULT:
-                
-                // disable the array and array precharge contactors if they are not already open
-                if (contactor_get(ARRAY_PRE_CONTACTOR) != CONTACTOR_OPEN) {
-                    contactor_set(ARRAY_PRE_CONTACTOR, CONTACTOR_OPEN, CALLBACK_BLOCKING_TIME_MS, NORMAL);
-                }
-                if (contactor_get(ARRAY_CONTACTOR) != CONTACTOR_OPEN) { 
-                    contactor_set(ARRAY_CONTACTOR, CONTACTOR_OPEN, CALLBACK_BLOCKING_TIME_MS, NORMAL);
-                }
 
+                // Do NOT open contactors here: the fault handler owns the configured
+                // emergency shutdown sequence for all hard faults.
+                charge_set_enabled(false);
+                charge_disarm_escalation();
                 xTimerStop(xPrechargeTimer, 0);
                 Fault_Checker(Array_Voltage, Battery_Voltage, current_precharge_state);
 
@@ -329,22 +371,7 @@ void Task_Precharge(void *pvParameters)
         }
 
         CarCAN_Send_Precharge_Voltages(Battery_Voltage, Array_Voltage, PRECHARGE_TASK_DELAY_MS / 2);
-        
-        static bool mppts_enabled = false;
-        // if array precharge is complete, then enable the MPPTs
-        if(contactor_get(ARRAY_CONTACTOR) == CONTACTOR_CLOSED && contactor_get(ARRAY_PRE_CONTACTOR) == CONTACTOR_CLOSED){
-            if(!mppts_enabled){
-                printf("Sending Set Mode Command to enable all MPPTs\r\n");
-            }
-            mppts_enabled = true;
-            enableAllMPPTs(pdMS_TO_TICKS(PRECHARGE_TASK_DELAY_MS/2));
-        }
-        else{
-            if(mppts_enabled){
-                printf("Sending Set Mode Command to disable all MPPTs\r\n");
-            }
-            mppts_enabled = false;
-            disableAllMPPTs(pdMS_TO_TICKS(PRECHARGE_TASK_DELAY_MS/2));
-        }
+
+        // MPPT boost enable/disable is driven by charge_enabled in the CAN status task.
     }
 }

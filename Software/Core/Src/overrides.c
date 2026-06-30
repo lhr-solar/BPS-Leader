@@ -138,3 +138,17 @@ bool startup_fault_grace_active(void)
     }
     return Calculate_TimeDifference(xTaskGetTickCount(), g_grace_start) < pdMS_TO_TICKS(STARTUP_FAULT_DELAY_MS);
 }
+
+bool shutdown_soft_active(uint8_t mode)
+{
+    switch (mode)
+    {
+    case SHUTDOWN_MODE_ALWAYS:
+        return true;
+    case SHUTDOWN_MODE_OVERRIDE:
+        return overrides_get_drive() != 0;
+    case SHUTDOWN_MODE_NEVER:
+    default:
+        return false;
+    }
+}

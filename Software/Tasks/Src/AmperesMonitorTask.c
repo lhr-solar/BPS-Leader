@@ -6,6 +6,7 @@
 #include "BPSCAN_can_msgs.h"
 #include "StatusLEDs.h"
 #include "DebugPrintf.h"
+#include "charge.h"
 
 // CAN timeout
 #define AMPERES_CAN_TIMEOUT_MS AMPERES_MONITOR_TASK_DELAY_MS
@@ -134,6 +135,10 @@ void Task_Amperes_Monitor() {
                 is_charging = true;
             }
         }
+
+        // If charging was disabled but charge current is still present past the configured
+        // delay, escalate to a hard fault (the array failed to stop charging).
+        charge_check_current(AmperesData.Main_Battery_Current);
 
         // Set event group bit so watchdog knows we ran
         xEventGroupSetBits(xWDogEventGroup_handle, AMPERES_MONITOR_DONE);

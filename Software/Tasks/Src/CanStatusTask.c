@@ -5,6 +5,8 @@
 #include "CANbus.h"
 #include "StatusLEDs.h"
 #include "overrides.h"
+#include "charge.h"
+#include "TPEE_Utils.h"
 #include <string.h>
 
 // Converts the temp in mC to the centi-celcius used in the status
@@ -170,7 +172,7 @@ static void get_bps_status_information(bps_status_t *bps_status_message)
     bps_status_message->Main_Battery_Voltage = get_pack_voltage();
     bps_status_message->Main_Battery_Avg_Temperature = (CONVERT_TEMP_FOR_STATUS(get_avg_temp()));
 
-    bps_status_message->BPS_Charge_OK = ((bps_status_message->BPS_Fault == BPS_STATUS_BPS_FAULT_OK) && (get_state_bit(VOLT_OK_FOR_CHARGING) == STATE_BIT_SET) && (get_state_bit(TEMP_OK_FOR_CHARGING) == STATE_BIT_SET)) ? 1 : 0;
+    bps_status_message->BPS_Charge_OK = charge_is_enabled() ? 1 : 0;
 
     bps_status_message->BPS_Regen_OK = (bps_status_message->BPS_Fault == BPS_STATUS_BPS_FAULT_OK) ? 1 : 0;
 
@@ -238,5 +240,17 @@ void Task_Can_Status(void *pvParameters)
         send_bps_status_now();
 
         process_overrides();
+
+        // Drive the MPPT boost at the status cadence: enabled only while charging is enabled
+        // (array precharged + pack within charge limits + no fault). Charge-disable and the
+        // fault handler also send an immediate boost-disable; this just asserts the steady state.
+        if (charge_is_enabled())
+        {
+            enableAllMPPTs(BPS_STATUS_CAN_DELAY_MS);
+        }
+        else
+        {
+            disableAllMPPTs(BPS_STATUS_CAN_DELAY_MS);
+        }
     }
 }

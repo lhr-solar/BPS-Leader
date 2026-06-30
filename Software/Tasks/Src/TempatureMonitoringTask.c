@@ -8,6 +8,7 @@
 #include "BPSCAN_can_msgs.h"
 #include "CarCAN_can_msgs.h"
 #include "overrides.h"
+#include "charge.h"
 #include "string.h"
 
 #define TEMPERATURE_CAN_DELAY_MS 10u
@@ -381,6 +382,7 @@ void Task_Temperature_Monitor()
         else if ((max_temp >= CELL_CHARGING_TEMP_THRESHOLD_MC) && (get_state_bit(TEMP_OK_FOR_CHARGING) != STATE_BIT_RESET))
         {
             set_state_bit(TEMP_OK_FOR_CHARGING, STATE_BIT_RESET);
+            charge_force_disable(); // immediate boost off when a cell reaches the charge-temp limit (over temp)
         }
 
         // if all temperature values are within range, and the state bit isn't already set, set state bit indicating we're good to close contactors

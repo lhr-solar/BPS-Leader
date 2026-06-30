@@ -49,3 +49,8 @@ int32_t overrides_adjusted_uv_limit_mV(int32_t pack_current_mA);
 // ---- Startup fault grace ----
 void overrides_arm_startup_grace(void); // call once after CAN is up
 bool startup_fault_grace_active(void);  // true while overridable faults should be deferred
+
+// ---- Shutdown-mode resolver ----
+// Given a SHUTDOWN_MODE_* value, returns whether a soft (sequenced) shutdown should be
+// used now: ALWAYS -> true, NEVER -> false, OVERRIDE -> only while drive override active.
+bool shutdown_soft_active(uint8_t mode);
