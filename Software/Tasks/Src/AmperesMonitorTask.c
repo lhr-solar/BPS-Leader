@@ -62,11 +62,17 @@ void Task_Amperes_Monitor() {
         &amperes_timer_buffer                       /* Buffer to hold timer data */
     );
 
-    xTimerStart(amperes_watchdog_timer, 0);
+    // Do NOT start the watchdog here: arming it before the first message would false-trip
+    // AMPERES_WATCHDOG_FAULT while the amperes board is still booting (finding 1). It is armed on
+    // first contact below. Startup HV-close is separately gated on AMPERES_MONITOR_GOOD (which now
+    // also requires fresh data), so a board that never boots still cannot close contactors.
 
     while (1)
     {
         amps_printf_debug_counter++;
+
+        // whether a fresh amperes CAN message was decoded this cycle (startup coverage gate)
+        bool fresh_amp_data = false;
 
         // Delays 100 ms
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(AMPERES_MONITOR_TASK_DELAY_MS));
@@ -76,6 +82,14 @@ void Task_Amperes_Monitor() {
         if (bps_can_recv(CAN_ID_BPS_PACK_CURRENT, buffer, CAN_DLC_BPS_PACK_CURRENT, AMPERES_CAN_TIMEOUT_MS) == CAN_OK)
         {
             recv_amp_data = true;
+            fresh_amp_data = true;
+
+            // Arm the watchdog on first contact (auto-reload thereafter).
+            if (xTimerIsTimerActive(amperes_watchdog_timer) == pdFALSE)
+            {
+                xTimerStart(amperes_watchdog_timer, 0);
+            }
+
             AmperesData.Main_Battery_Current = AMPERES_UNPACK_CURRENT_mA(buffer);
             AmperesData.BPS_Amperes_Fault = AMPERES_UNPACK_FAULT(buffer);
 
@@ -89,7 +103,9 @@ void Task_Amperes_Monitor() {
             }
         }
 
-        // Set fault bits if needed. If good, set the event group bit
+        // Set fault bits if needed. If good, set the event group bit.
+        // Overcurrent is purely current-threshold based and must stay independent of the
+        // charge/regen-OK states: even if charge or regen is "not OK", excess current still faults.
         if (AmperesData.Main_Battery_Current < OVERCURRENT_CHARGE_THRESHOLD_mA) set_faultBit(PACK_OVERCURRENT_CHARGING_FAULT); 
 
         else if (AmperesData.Main_Battery_Current > OVERCURRENT_DISCHARGE_THRESHOLD_mA) set_faultBit(PACK_OVERCURRENT_DISCHARGING_FAULT);
@@ -112,7 +128,9 @@ void Task_Amperes_Monitor() {
         }
         else
         {
-            if (get_state_bit(AMPERES_MONITOR_GOOD) != STATE_BIT_SET) {
+            // Only declare the monitor "good" on FRESH data, so the startup HV-close gate can't be
+            // satisfied by stale/all-zero defaults before the amperes board has actually reported.
+            if (fresh_amp_data && get_state_bit(AMPERES_MONITOR_GOOD) != STATE_BIT_SET) {
                 set_state_bit(AMPERES_MONITOR_GOOD, STATE_BIT_SET);
             }
         }

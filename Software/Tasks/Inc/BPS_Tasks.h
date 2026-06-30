@@ -64,11 +64,11 @@ extern StaticTask_t Task_Fan_Controller_Buffer;
 extern StaticTask_t Task_Can_Status_Buffer;
 
 // Task Delays
-#define TEMP_MONITOR_TASK_DELAY_MS      290
-#define VOLT_MONITOR_TASK_DELAY_MS      290
+#define TEMP_MONITOR_TASK_DELAY_MS      100
+#define VOLT_MONITOR_TASK_DELAY_MS      100
 #define PRECHARGE_TASK_DELAY_MS         200
 #define CONTACTOR_MONITOR_TASK_DELAY_MS 200
-#define AMPERES_MONITOR_TASK_DELAY_MS   90
+#define AMPERES_MONITOR_TASK_DELAY_MS   25
 #define FAN_CONTROLLER_TASK_DELAY_MS    300
 // Periodic BPS status heartbeat. Faults are broadcast immediately by the fault
 // handler (preempts this task), so this only sets the steady-state refresh rate.
@@ -91,12 +91,20 @@ void Task_Precharge();
 // to broadcast a fault the instant it occurs, instead of waiting for the 500ms tick.
 void send_bps_status_now(void);
 
+// Polls the override inputs (0x67/0x69) and sends the override-state acks (0x667/0x669).
+// Run each CAN-status cycle, and repeatedly by Task_Init during the startup window.
+void process_overrides(void);
+
 // access functions for 
 // returns the average temperature of all cells in the battery in mC
 uint32_t get_avg_temp();
 
 // returns sum of all voltage tap measurements of pack, which is pack voltage
 uint32_t get_pack_voltage();
+
+// returns the highest / lowest single-cell voltage in the pack in mV (refreshed once per cycle)
+uint32_t get_max_cell_voltage();
+uint32_t get_min_cell_voltage();
 
 // returns a specific module's voltage in mV, module number is 0 indexed
 uint32_t get_module_voltage(uint8_t module_num);
@@ -122,6 +130,22 @@ extern uint32_t mod_fault_value;
 static inline uint32_t get_mod_fault_value(void)
 {
     return mod_fault_value;
+}
+
+// Apply a GOOD (in-range) read to a per-module consecutive-fault counter. Behaviour is set by
+// VOLT_TEMP_DEBOUNCE_MODE (config.h): CLEAR zeroes it, LEAKY_BUCKET decrements by 1 (saturating).
+// Leaky-bucket prevents a sensor oscillating across the threshold from resetting its counter on
+// every good read and thereby never reaching the fault threshold.
+static inline void debounce_good_read(uint8_t *counter)
+{
+#if (VOLT_TEMP_DEBOUNCE_MODE == DEBOUNCE_MODE_LEAKY_BUCKET)
+    if (*counter > 0)
+    {
+        (*counter)--;
+    }
+#else
+    *counter = 0;
+#endif
 }
 
 /* ---- Watchdog Event Group ---- */
@@ -197,6 +221,10 @@ typedef enum {
     // tracks if we have temp/voltage within charging thresholds
     TEMP_OK_FOR_CHARGING,
     VOLT_OK_FOR_CHARGING,
+
+    // tracks if we have temp/voltage within regen thresholds (reported via BPS_Regen_OK)
+    TEMP_OK_FOR_REGEN,
+    VOLT_OK_FOR_REGEN,
 
     NUM_STATE_BITS
 } state_bits_t;

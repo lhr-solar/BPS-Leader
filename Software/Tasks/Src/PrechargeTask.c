@@ -63,7 +63,9 @@ void Init_PrechargeTask(void)
 // could make another eventgroup to distinguish
 void Fault_Checker(uint32_t Array_Voltage, uint32_t Battery_Voltage, Precharge_State_t State)
 {
-    // Use uint64_t to prevent overflow during scaled multiplication of large mV values
+    // Scaled-tolerance compare (array may be at most ~10% above battery). Plain uint32 is enough:
+    // the largest product here is ~134 V pack in mV * 22 ~= 3.0e6, far below the uint32 max, so the
+    // multiply does not overflow (no 64-bit math is used despite the "large mV" values).
     if ((Array_Voltage * VOLTAGE_TOLERANCE_DENOMINATOR) > (Battery_Voltage * VOLTAGE_TOLERANCE_NUMERATOR))
     {
         set_faultBit(ARRAY_GREATER_THAN_BATTERY_FAULT);
@@ -75,17 +77,15 @@ void Fault_Checker(uint32_t Array_Voltage, uint32_t Battery_Voltage, Precharge_S
         set_faultBit(PACK_OVERVOLTAGE_FAULT);
     }
 
+    // Undervoltage is debounced in ALL active states (PRECHARGING and RUN, finding 11): a single
+    // noisy ADC sample below the threshold must not immediately latch a full HV shutdown. Only
+    // sustained undervoltage past PRECHARGE_UNDERVOLTAGE_DEBOUNCE_LIMIT consecutive checks faults.
     if ((Battery_Voltage < PACK_UNDERVOLTAGE_THRESHOLD_MV) && (State != PRECHARGE_STATE_IDLE) && (State != PRECHARGE_STATE_FAULT))
     {
-        if (State == PRECHARGE_STATE_PRECHARGING) {
-            under_voltage_error_count++;
-        }
-        else {
-            /* Battery voltage is too low or battery is disconnected, treat as fault */
-            set_faultBit(PACK_UNDERVOLTAGE_FAULT);
-        }
+        under_voltage_error_count++;
 
         if (under_voltage_error_count > PRECHARGE_UNDERVOLTAGE_DEBOUNCE_LIMIT) {
+            /* Battery voltage is sustained too low or battery is disconnected: treat as fault */
             set_faultBit(PACK_UNDERVOLTAGE_FAULT);
         }
     }
@@ -371,6 +371,9 @@ void Task_Precharge(void *pvParameters)
         }
 
         CarCAN_Send_Precharge_Voltages(Battery_Voltage, Array_Voltage, PRECHARGE_TASK_DELAY_MS / 2);
+
+        // Check in with the RTOS watchdog (one of the ALL_TASKS_DONE bits).
+        xEventGroupSetBits(xWDogEventGroup_handle, PRECHARGE_MONITOR_DONE);
 
         // MPPT boost enable/disable is driven by charge_enabled in the CAN status task.
     }

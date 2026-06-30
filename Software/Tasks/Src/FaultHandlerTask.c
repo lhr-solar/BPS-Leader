@@ -48,31 +48,48 @@ static void send_fault_val_snapshot(void)
     }
 }
 
-// On fault: always broadcast the fault immediately + set indication/cooling, then either
-// open every contactor at once (hard) or perform the sequenced soft shutdown. The soft
-// path broadcasts first so the VCU can command zero torque and open the motor contactors
-// before we open the main battery contactors, so bus current has fallen and we avoid
-// inductive overvoltage / contactor arcing. Every hard fault funnels through here, so the
-// configured EMERGENCY_SOFT_SHUTDOWN_MODE governs all emergency shutdowns.
-static void fault_shutdown_sequence(void)
+// E-stop faults always force an immediate HARD shutdown, regardless of EMERGENCY_SOFT_SHUTDOWN_MODE
+// or the drive override: someone hit the button, disconnect now.
+static inline bool fault_is_estop(uint32_t fault_bit_index)
 {
-    // Tell the rest of the car immediately (VCU acts on the BPS_Status fault field; this
-    // send is the t=0 reference for the VCU's motor shutdown timeline).
-    send_bps_status_now();
+    return (fault_bit_index == BPS_ESTOP1_FAULT) ||
+           (fault_bit_index == BPS_ESTOP2_FAULT) ||
+           (fault_bit_index == BPS_ESTOP3_FAULT);
+}
 
-    // Fault indication + max cooling (both shutdown modes).
+// On fault, either open every contactor at once (HARD) or perform the sequenced soft shutdown.
+//  - HARD: open contactors FIRST (fastest disconnect), then boost-disable + broadcast/indication.
+//          Used for E-stop and whenever a soft shutdown is not configured/active.
+//  - SOFT: broadcast the fault first so the VCU can command zero torque and open the motor
+//          contactors before we open the main battery contactors (bus current has fallen, avoiding
+//          inductive overvoltage / contactor arcing), then sequence the open.
+// Every hard fault funnels through here, so EMERGENCY_SOFT_SHUTDOWN_MODE (+ E-stop override) governs
+// all emergency shutdowns.
+static void fault_shutdown_sequence(uint32_t fault_bit_index)
+{
+    bool soft = (!fault_is_estop(fault_bit_index)) && shutdown_soft_active(EMERGENCY_SOFT_SHUTDOWN_MODE);
+
+    if (!soft)
+    {
+        // HARD shutdown: open every contactor immediately (highest-priority safety action), THEN
+        // disable boost and tell the rest of the car.
+        emergency_open_contactors();
+        disableAllMPPTs(FAULT_SHUTDOWN_INTERCONTACTOR_MS);
+        send_bps_status_now();
+        LEDs_clear();
+        LED_set(FAULT_LED, LED_ON);
+        LED_setStrobe(LED_ON);
+        set_fans_MAX();
+        return;
+    }
+
+    // SOFT shutdown. Tell the rest of the car first (VCU acts on the BPS_Status fault field; this
+    // send is the t=0 reference for the VCU's motor shutdown timeline), plus indication + cooling.
+    send_bps_status_now();
     LEDs_clear();
     LED_set(FAULT_LED, LED_ON);
     LED_setStrobe(LED_ON);
     set_fans_MAX();
-
-    if (!shutdown_soft_active(EMERGENCY_SOFT_SHUTDOWN_MODE))
-    {
-        // Hard shutdown: boost disable + open every contactor immediately.
-        disableAllMPPTs(FAULT_SHUTDOWN_INTERCONTACTOR_MS);
-        emergency_open_contactors();
-        return;
-    }
 
     // 1) Soft-drop the solar array: boost disable -> MPPT wind-down -> open array + pchg.
     array_shutdown(EMERGENCY, true);
@@ -120,9 +137,9 @@ void Task_FaultHandler(void *pvParameters)
         // Capture the battery state right when the fault occurs (for 0xF broadcast)
         capture_fault_val_snapshot();
 
-        // Sequenced soft shutdown: broadcast fault -> drop array -> wait for motor side
-        // to zero torque / open its contactors -> open HV+ then HV-.
-        fault_shutdown_sequence();
+        // Open contactors (hard, e.g. E-stop) or run the sequenced soft shutdown, per the
+        // fault type + EMERGENCY_SOFT_SHUTDOWN_MODE.
+        fault_shutdown_sequence(fault_bit_index);
 
         handle_fault(fault_bit_index);
 

@@ -5,6 +5,9 @@
 
 #pragma once
 
+// Drive-override feature config + relaxed "drive profile" setpoints live here.
+#include "drive_profile_config.h"
+
 //--------------------------------------------------------------------------------
 // Battery Pack layout
 #ifndef NUM_BATTERY_MODULES
@@ -46,6 +49,40 @@
 // How many bad voltage reads are tolerable when switching states and closing contactors 
 #define PRECHARGE_UNDERVOLTAGE_DEBOUNCE_LIMIT 2
 
+// How many consecutive bad reads on a single module before a fault is latched (filters single
+// abnormal readings from real faults). Separate voltage/temperature thresholds. Stored per-module
+// in a uint8_t histogram in the monitor tasks, so these must stay < 255.
+#define VOLT_CONSECUTIVE_FAULT_THRESHOLD 5
+#define TEMP_CONSECUTIVE_FAULT_THRESHOLD 5
+
+// Debounce counter behaviour on a GOOD read (see debounce_good_read() in common.h):
+//   CLEAR        - reset the counter to 0 on any good read (a sensor oscillating across the
+//                  threshold is reset every good read and can never reach the fault threshold).
+//   LEAKY_BUCKET - decrement the counter by 1 (saturating at 0) so a sensor that is bad more
+//                  often than good still accumulates to the fault threshold. Closes the
+//                  "oscillating sensor bypasses the fault" escape path.
+// ponytail: decrement is by 1; a perfectly 50/50 oscillation still nets ~0. Bias the
+// increment if a tighter guarantee is ever needed.
+#define DEBOUNCE_MODE_CLEAR        0
+#define DEBOUNCE_MODE_LEAKY_BUCKET 1
+#define VOLT_TEMP_DEBOUNCE_MODE    DEBOUNCE_MODE_LEAKY_BUCKET
+
+// Car-CAN telemetry forwarding mode for the VT aggregate arrays. The Leader samples/debounces at
+// the fast monitor rate but only forwards to the shared car bus once per VOLT/TEMP_CAN_FORWARD_PERIOD_MS.
+//   SNAPSHOT - forward the latest sample at each forward tick (freshest, simplest, zero state)
+//   AVERAGE  - forward the block-mean of the samples taken since the last forward tick (smoother
+//              telemetry; reuses the samples we already take for debounce). Fault/age/idx stay latest.
+// Telemetry-only: the Leader's own fault logic always uses every raw 100ms sample regardless.
+#define VT_FORWARD_SNAPSHOT 0
+#define VT_FORWARD_AVERAGE  1
+#define VT_CAN_FORWARD_MODE VT_FORWARD_AVERAGE
+
+// RTOS hardware watchdog (IWDG): 1 = enable (production), 0 = disable (debug only).
+// When enabled, Task_PetWatchdog starts the MCU IWDG and only refreshes it once every
+// monitored task has checked in, so a hung/deadlocked task forces an MCU reset. Disabling
+// it removes all missed-deadline/hang recovery -- leave enabled unless actively debugging.
+#define RTOS_WATCHDOG_ENABLE 1
+
 // interrupt priorites
 #define SHT45_IRQ_PRIO (configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY + 4)
 #define EMC2305_IRQ_PRIO (configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY + 2)
@@ -57,46 +94,8 @@
 #define OVERCURRENT_CHARGE_THRESHOLD_mA     (-38000)
 
 //--------------------------------------------------------------------------------
-// BPS override (CAN 0x67/0x69) + fault-val (0xF) feature
-
-// What the driver/drive override (0x67 BPS_Drive_Override) does when active (1 = enabled).
-// Add future override behaviors here as new macros.
-#define DRIVE_OVERRIDE_DISABLE_OVERTEMP     1   // suppress cell overtemp faults pack-wide
-#define DRIVE_OVERRIDE_VSAG_COMPENSATION    1   // apply voltage-sag compensation to UV limit
-
-// Voltage sag compensation (only while discharging and drive override active):
-//   adj_uv_limit_mV = CELL_UNDERVOLTAGE_THRESHOLD_MV - (I_mA * R_mOhm * FoS%) / 100000
-#define ESTIMATED_MODULE_RESISTANCE_MOHM    3  // estimated per-module resistance (milliohms)
-#define VSAG_COMPENSATION_FOS_PERCENT       80 // factor of safety (percent)
-
-// On startup, defer overridable module faults (cell over/under-voltage, overtemp) this long
-// so a module-override message (0x69) has time to arrive before we latch the fault.
-#define STARTUP_FAULT_DELAY_MS              1000
-
-// Sequenced "soft" shutdown timing (limits inductive overvoltage / contactor arcing).
-// Emergency order: broadcast fault status -> boost disable -> wait MPPT_DELAY (MPPTs wind
-// down) -> open array + array precharge -> wait the remainder so HV+ opens ~HV_DELAY after
-// the status TX (motor side has zeroed torque & opened its contactors) -> open HV+ then HV-.
-#define FAULT_SHUTDOWN_INTERCONTACTOR_MS   50   // "shortly after" gap within each contactor pair
-#define FAULT_SHUTDOWN_MPPT_DELAY_MS       150  // wait after boost disable before opening array
-#define FAULT_SHUTDOWN_HV_DELAY_MS         500  // delay from fault-status TX to opening HV+
-
-// 3-state shutdown modes (shared by the two configs below).
-#define SHUTDOWN_MODE_NEVER                0    // hard: open contactors immediately
-#define SHUTDOWN_MODE_ALWAYS               1    // soft: sequenced open
-#define SHUTDOWN_MODE_OVERRIDE             2    // soft only while drive override (0x67) active
-
-// Emergency (hard fault) shutdown. In a soft emergency shutdown the array is ALWAYS
-// soft-shut as part of the sequence (this does not depend on ARRAY_SOFT_SHUTDOWN_MODE).
-#define EMERGENCY_SOFT_SHUTDOWN_MODE       SHUTDOWN_MODE_ALWAYS
-
-// Array shutdown used when CHARGING is disabled (cell over charge-voltage / over-temp).
-// Governs ONLY the charge-disable case, not emergency shutdowns.
-#define ARRAY_SOFT_SHUTDOWN_MODE           SHUTDOWN_MODE_ALWAYS
-
-// If charging current is still present this long after charge is disabled, hard fault.
-#define CHARGE_CURRENT_DETECTION_DELAY_MS  500
-
+// NOTE: BPS override (CAN 0x67/0x69) config + drive-profile setpoints moved to
+// drive_profile_config.h (included above).
 
 #define PRE(s)  "\r    "s"  "   // \r removes the filepath and 'note: '#pragma message:...' parts
 #define STR(x)  #x

@@ -8,9 +8,6 @@
 static volatile uint8_t g_drive_override = 0;
 static volatile uint8_t g_module_override[NUM_BATTERY_MODULES] = {0};
 
-static volatile bool g_grace_armed = false;
-static volatile TickType_t g_grace_start = 0;
-
 void overrides_set_drive(uint8_t enabled)
 {
     g_drive_override = enabled ? 1u : 0u;
@@ -103,9 +100,34 @@ bool override_suppress_overtemp(uint8_t module_num)
     return drive_disables_overtemp() || (o == MODULE_OVERRIDE_TEMP) || (o == MODULE_OVERRIDE_ALL);
 }
 
+int32_t overrides_overtemp_limit_mC(bool charging)
+{
+    if (g_drive_override != 0)
+    {
+        return charging ? OVERRIDE_OVERTEMP_THRESHOLD_CHARGING_MC
+                        : OVERRIDE_OVERTEMP_THRESHOLD_DISCHARGING_MC;
+    }
+    return charging ? OVERTEMP_THRESHOLD_CHARGING_MC
+                    : OVERTEMP_THRESHOLD_DISCHARGING_MC;
+}
+
+int32_t overrides_overvoltage_limit_mV(void)
+{
+    return (g_drive_override != 0) ? OVERRIDE_CELL_OVERVOLTAGE_THRESHOLD_MV
+                                   : CELL_OVERVOLTAGE_THRESHOLD_MV;
+}
+
+int32_t overrides_charge_limit_voltage_mV(void)
+{
+    return (g_drive_override != 0) ? OVERRIDE_CELL_CHARGING_VOLTAGE_THRESHOLD_MV
+                                   : CELL_CHARGING_VOLTAGE_THRESHOLD_MV;
+}
+
 int32_t overrides_adjusted_uv_limit_mV(int32_t pack_current_mA)
 {
-    int32_t limit = CELL_UNDERVOLTAGE_THRESHOLD_MV;
+    // Base UV floor: relaxed override (discharge) setpoint while overriding, else normal.
+    int32_t limit = (g_drive_override != 0) ? OVERRIDE_CELL_UNDERVOLTAGE_THRESHOLD_MV
+                                            : CELL_UNDERVOLTAGE_THRESHOLD_MV;
 
     // Only sag-compensate while overriding and discharging (positive current).
     if ((DRIVE_OVERRIDE_VSAG_COMPENSATION != 0) && (g_drive_override != 0) && (pack_current_mA > 0))
@@ -122,21 +144,6 @@ int32_t overrides_adjusted_uv_limit_mV(int32_t pack_current_mA)
     }
 
     return limit;
-}
-
-void overrides_arm_startup_grace(void)
-{
-    g_grace_start = xTaskGetTickCount();
-    g_grace_armed = true;
-}
-
-bool startup_fault_grace_active(void)
-{
-    if (!g_grace_armed)
-    {
-        return false;
-    }
-    return Calculate_TimeDifference(xTaskGetTickCount(), g_grace_start) < pdMS_TO_TICKS(STARTUP_FAULT_DELAY_MS);
 }
 
 bool shutdown_soft_active(uint8_t mode)

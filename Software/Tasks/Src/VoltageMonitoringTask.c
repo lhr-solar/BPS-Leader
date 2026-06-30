@@ -11,7 +11,18 @@
 #include "charge.h"
 #include "string.h"
 
+// Car-CAN aggregate TX wait (telemetry forward).
 #define VOLTAGE_CAN_DELAY_MS 10u
+
+// Per-tap RX wait while draining the BPS bus each cycle. Kept small so a missing/late board can't
+// stretch the (now faster) monitor period: worst case = NUM_VOLTAGE_SENSORS * this.
+#define VOLTAGE_CAN_RECV_TIMEOUT_MS 2u
+
+// Aggregate telemetry to Car CAN is decoupled from the sample rate: we sample/debounce every
+// VOLT_MONITOR_TASK_DELAY_MS, but only forward the aggregate array every Nth cycle to keep the
+// shared car bus light (300ms / 100ms = every 3rd cycle).
+#define VOLT_CAN_FORWARD_PERIOD_MS 300u
+#define VOLT_CAN_FORWARD_DECIMATION (VOLT_CAN_FORWARD_PERIOD_MS / VOLT_MONITOR_TASK_DELAY_MS)
 
 // a mask of all 1's to compare against the volt sensor watchdog bitmap to ensure every bit is set (all info received)
 #define VOLT_TAPS_ALL_DATA 0xFFFFFFFF
@@ -29,6 +40,28 @@
 
 // array to hold struct packed can data
 bps_voltage_aggregate_arr_t volt_can_data[NUM_VOLTAGE_SENSORS] = {0};
+
+// number of consecutive voltage faults before latching module fault (shared voltage/temp counter)
+_Static_assert(VOLT_CONSECUTIVE_FAULT_THRESHOLD < 255, "VOLT_CONSECUTIVE_FAULT_THRESHOLD must be less than 255 since the histogram is an array of uint8_t");
+
+// array to store how often a module has consecutively voltage-faulted (over OR under), indexed by module number
+uint8_t volt_module_fault_histogram[NUM_VOLTAGE_SENSORS] = {0};
+
+// per-module consecutive count of board-reported BQ/blind-sensor diagnostics (BQ I2C read error,
+// tap out-of-bounds). Escalated to BQ_CHIP_FAULT once it reaches the consecutive threshold,
+// debounced the same way as the threshold faults so a single transient does not latch.
+uint8_t volt_bq_fault_histogram[NUM_VOLTAGE_SENSORS] = {0};
+
+// most-recent min/max single-cell voltage (mV), refreshed once per monitor cycle. Exposed via
+// get_max_cell_voltage()/get_min_cell_voltage() so other tasks read one word instead of rescanning
+// the shared array (a 32-bit aligned read is atomic on this MCU).
+static volatile uint32_t g_max_cell_mV = 0;
+static volatile uint32_t g_min_cell_mV = 0;
+
+// pack voltage (sum of all module taps, mV), recomputed once per monitor cycle and published as a
+// single 32-bit word. Other tasks (CAN status, fault handler) read this instead of summing the
+// shared volt_can_data array mid-update, avoiding torn cross-element reads.
+static volatile uint32_t g_pack_voltage_mV = 0;
 
 // bitmap to hold volt sensor watchdog, starts all bits set (good), corresponding bits are cleared if taps don't check in
 uint32_t volt_watchdog_bitmap = 0;
@@ -150,7 +183,7 @@ static void can_recv_all_taps(uint32_t can_id_index, bps_voltage_aggregate_arr_t
         uint8_t raw_databuffer[CAN_DLC_BPS_VT0_VOLTAGE_ARR] = {0};
 
         // if can recv fails, set the fault bit of the struct on to indicate that this sensor isnt working
-        if (bps_can_recv(voltage_can_ids[can_id_index], raw_databuffer, CAN_DLC_BPS_VT0_VOLTAGE_ARR, VOLTAGE_CAN_DELAY_MS) == CAN_OK)
+        if (bps_can_recv(voltage_can_ids[can_id_index], raw_databuffer, CAN_DLC_BPS_VT0_VOLTAGE_ARR, VOLTAGE_CAN_RECV_TIMEOUT_MS) == CAN_OK)
         {
             // unpack the BPS voltage message from BPS CAN to the BPS aggregate array message
             volt_can_unpack(raw_databuffer, volt_can_data);
@@ -161,30 +194,42 @@ static void can_recv_all_taps(uint32_t can_id_index, bps_voltage_aggregate_arr_t
 // watchdog function that runs when the timer times out
 static void vVoltageWatchdogCallback(TimerHandle_t volt_timer)
 {
+    // Snapshot + reset the shared bitmap inside a short critical section, but run the fault-setting
+    // kernel calls (latch_mod_fault / set_faultBit -> event group, semaphore, yield) OUTSIDE it:
+    // kernel APIs must not be called with the scheduler/interrupts suspended.
+    uint32_t bitmap_snapshot;
     taskENTER_CRITICAL();
-    // check if every tap has sent voltage information since last timer timeout.
-    if (volt_watchdog_bitmap != VOLT_TAPS_ALL_DATA)
-    {
-        // if one hasn't sent, save bitmap to know which one(s) didn't check in, then set fault bit
-        exposed_volt_watchdog_bitmap = volt_watchdog_bitmap;
-        latch_mod_fault(get_mod_fault_num(exposed_volt_watchdog_bitmap), 0); // Store 0 as the faulted module value since voltage isn't being stored here
-        set_faultBit(VOLTTEMP_WATCHDOG_FAULT);
-    }
+    bitmap_snapshot = volt_watchdog_bitmap;
     volt_watchdog_bitmap = 0;
     taskEXIT_CRITICAL();
+
+    // check if every tap has sent voltage information since last timer timeout.
+    if (bitmap_snapshot != VOLT_TAPS_ALL_DATA)
+    {
+        // if one hasn't sent, save bitmap to know which one(s) didn't check in, then set fault bit
+        exposed_volt_watchdog_bitmap = bitmap_snapshot;
+        latch_mod_fault(get_mod_fault_num(bitmap_snapshot), 0); // Store 0 as the faulted module value since voltage isn't being stored here
+        set_faultBit(VOLTTEMP_WATCHDOG_FAULT);
+    }
 }
 
 uint32_t get_pack_voltage()
 {
+    // Single-word read of the value published once per monitor cycle (see Task_Voltage_Monitor),
+    // not a live sum of the shared array -> no torn cross-element reads.
+    return g_pack_voltage_mV;
+}
 
-    uint32_t voltage_sum = 0;
+// highest / lowest single-cell voltage in the pack (mV). O(1): returns the value computed once
+// per monitor cycle (see the monitor loop), not a fresh array scan.
+uint32_t get_max_cell_voltage()
+{
+    return g_max_cell_mV;
+}
 
-    for (uint8_t module_num = 0; module_num < NUM_BATTERY_MODULES; module_num++)
-    {
-        voltage_sum += volt_can_data[module_num].BPS_Voltage_Tap_Data;
-    }
-
-    return voltage_sum;
+uint32_t get_min_cell_voltage()
+{
+    return g_min_cell_mV;
 }
 
 bool get_volt_segment_status(uint8_t segment_num)
@@ -213,6 +258,15 @@ void Task_Voltage_Monitor()
 
     // counter to slow printf messages
     uint32_t volt_printf_debug_counter = 0;
+
+    // decimates Car-CAN aggregate forwarding relative to the (faster) sample/debounce rate
+    uint32_t volt_fwd_counter = 0;
+
+#if (VT_CAN_FORWARD_MODE == VT_FORWARD_AVERAGE)
+    // per-tap accumulator + sample count for block-averaging forwarded telemetry over each window
+    uint32_t volt_fwd_accum[NUM_VOLTAGE_SENSORS] = {0};
+    uint16_t volt_fwd_samples = 0;
+#endif
 
     // Make timer for watchdog
     voltage_watchdog_timer = xTimerCreateStatic(
@@ -249,34 +303,80 @@ void Task_Voltage_Monitor()
         // flag to determine if voltage is OK (to set state bit)
         bool all_voltage_good = true;
 
-        // max voltage counter used for bounds checking
+        // min/max single-cell voltage this cycle (bounds checks + the exposed accessors)
         uint32_t max_voltage = 0;
+        uint32_t min_voltage = UINT32_MAX;
+
+        // pack-voltage sum published once per cycle (race-free reads), and startup-gate tracking:
+        // debounce_clear stays true only if no module is mid-debounce this cycle.
+        uint32_t voltage_sum = 0;
+        bool debounce_clear = true;
 
         // Undervoltage limit, optionally lowered by voltage-sag compensation while
         // the drive override is active and discharging (see overrides.c).
         int32_t uv_limit_mV = overrides_adjusted_uv_limit_mV(get_pack_current());
 
+        // Forward the aggregate array to Car CAN only every Nth cycle (telemetry decimation,
+        // decoupled from the faster sample/debounce rate so the shared car bus stays light).
+        bool forward_now = (volt_fwd_counter == 0);
+        volt_fwd_counter = (volt_fwd_counter + 1) % VOLT_CAN_FORWARD_DECIMATION;
+
+#if (VT_CAN_FORWARD_MODE == VT_FORWARD_AVERAGE)
+        volt_fwd_samples++;
+#endif
+
         // Loop through every received value
         for (uint8_t i = 0; i < NUM_VOLTAGE_SENSORS; i++)
         {
-            // update max voltage
+            // update min/max cell voltage
             if (volt_can_data[i].BPS_Voltage_Tap_Data > max_voltage)
             {
                 max_voltage = volt_can_data[i].BPS_Voltage_Tap_Data;
             }
-
-            // if voltage is too high or too low, set relevant fault and set fault bit.
-            // A matching module override suppresses the fault entirely; during the startup
-            // grace window we defer latching (but still block contactors) so an override
-            // message has time to arrive.
-            if (volt_can_data[i].BPS_Voltage_Tap_Data > CELL_OVERVOLTAGE_THRESHOLD_MV)
+            if (volt_can_data[i].BPS_Voltage_Tap_Data < min_voltage)
             {
-                volt_can_data[i].BPS_Voltage_Tap_Fault = BPS_VOLTAGE_AGGREGATE_ARR_BPS_VOLTAGE_TAP_FAULT_OVER_VOLTAGE;
-                if (!override_suppress_overvoltage(volt_can_data[i].BPS_Tap_idx))
+                min_voltage = volt_can_data[i].BPS_Voltage_Tap_Data;
+            }
+
+            // accumulate the pack-voltage sum published at the end of this cycle
+            voltage_sum += volt_can_data[i].BPS_Voltage_Tap_Data;
+
+            // Escalate the board's own BQ/blind-sensor diagnostic. Read it BEFORE the threshold
+            // logic below overwrites BPS_Voltage_Tap_Fault: a BQ I2C read error or tap
+            // out-of-bounds means this cell reading can't be trusted, so debounce it to BQ_CHIP_FAULT
+            // instead of operating blind. (Other board codes here are over/under-voltage, handled below.)
+            uint8_t volt_board_fault = volt_can_data[i].BPS_Voltage_Tap_Fault;
+            if ((volt_board_fault == BPS_VOLTAGE_AGGREGATE_ARR_BPS_VOLTAGE_TAP_FAULT_BQ_I2C_READ_ERROR) ||
+                (volt_board_fault == BPS_VOLTAGE_AGGREGATE_ARR_BPS_VOLTAGE_TAP_FAULT_OUT_OF_BOUNDS))
+            {
+                volt_bq_fault_histogram[volt_can_data[i].BPS_Tap_idx]++;
+                if (volt_bq_fault_histogram[volt_can_data[i].BPS_Tap_idx] >= VOLT_CONSECUTIVE_FAULT_THRESHOLD)
                 {
                     all_voltage_good = false;
-                    if (!startup_fault_grace_active())
+                    printf("Entering BQ Chip Fault (voltage) for Tap %d: board code %d\r\n", volt_can_data[i].BPS_Tap_idx, volt_board_fault);
+                    set_faultBit(BQ_CHIP_FAULT);
+                }
+            }
+            else
+            {
+                debounce_good_read(&volt_bq_fault_histogram[volt_can_data[i].BPS_Tap_idx]);
+            }
+
+            // if voltage is too high or too low, set relevant fault and set fault bit.
+            // The overvoltage ceiling is relaxed while the drive override is active. We only
+            // latch once a module has consecutively faulted VOLT_CONSECUTIVE_FAULT_THRESHOLD times
+            // (filters single abnormal reads). A matching module override suppresses the fault
+            // entirely. Overrides (0x67/0x69) are received during the Task_Init startup window,
+            // before this task starts, so they are already in effect on the first check.
+            if ((int32_t)volt_can_data[i].BPS_Voltage_Tap_Data > overrides_overvoltage_limit_mV())
+            {
+                volt_can_data[i].BPS_Voltage_Tap_Fault = BPS_VOLTAGE_AGGREGATE_ARR_BPS_VOLTAGE_TAP_FAULT_OVER_VOLTAGE;
+                volt_module_fault_histogram[volt_can_data[i].BPS_Tap_idx]++;
+                if (volt_module_fault_histogram[volt_can_data[i].BPS_Tap_idx] >= VOLT_CONSECUTIVE_FAULT_THRESHOLD)
+                {
+                    if (!override_suppress_overvoltage(volt_can_data[i].BPS_Tap_idx))
                     {
+                        all_voltage_good = false;
                         printf("Entering Cell Over Voltage Fault for Tap %d: %dmV\r\n", volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data);
                         latch_mod_fault(volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data); // Store the faulted module value (voltage)
                         set_faultBit(CELL_OVERVOLTAGE_FAULT);
@@ -287,21 +387,61 @@ void Task_Voltage_Monitor()
             {
 
                 volt_can_data[i].BPS_Voltage_Tap_Fault = BPS_VOLTAGE_AGGREGATE_ARR_BPS_VOLTAGE_TAP_FAULT_UNDER_VOLTAGE;
-                if (!override_suppress_undervoltage(volt_can_data[i].BPS_Tap_idx))
+                volt_module_fault_histogram[volt_can_data[i].BPS_Tap_idx]++;
+                if (volt_module_fault_histogram[volt_can_data[i].BPS_Tap_idx] >= VOLT_CONSECUTIVE_FAULT_THRESHOLD)
                 {
-                    all_voltage_good = false;
-                    if (!startup_fault_grace_active())
+                    if (!override_suppress_undervoltage(volt_can_data[i].BPS_Tap_idx))
                     {
+                        all_voltage_good = false;
                         printf("Entering Cell Under Voltage Fault for Tap %d: %dmV\r\n", volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data);
                         latch_mod_fault(volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data); // Store the faulted module value (voltage)
                         set_faultBit(CELL_UNDERVOLTAGE_FAULT);
                     }
                 }
             }
-            // pack data for the  msg
-            volt_can_pack(volt_can_data[i], msgBuff);
-            car_can_send(CAN_ID_BPS_VOLTAGE_AGGREGATE_ARR, msgBuff, CAN_DLC_BPS_VOLTAGE_AGGREGATE_ARR, pdMS_TO_TICKS(VOLTAGE_CAN_DELAY_MS));
+            else
+            {
+                // voltage in range: relax this module's consecutive-fault counter
+                // (leaky-bucket decrement or clear, per VOLT_TEMP_DEBOUNCE_MODE)
+                debounce_good_read(&volt_module_fault_histogram[volt_can_data[i].BPS_Tap_idx]);
+            }
+
+            // startup gate: this module is only "clear" if neither counter is mid-accumulation
+            if ((volt_module_fault_histogram[volt_can_data[i].BPS_Tap_idx] != 0) ||
+                (volt_bq_fault_histogram[volt_can_data[i].BPS_Tap_idx] != 0))
+            {
+                debounce_clear = false;
+            }
+
+            // forwarded telemetry value: latest snapshot, or block-average over the window
+            bps_voltage_aggregate_arr_t volt_fwd = volt_can_data[i];
+#if (VT_CAN_FORWARD_MODE == VT_FORWARD_AVERAGE)
+            volt_fwd_accum[i] += volt_can_data[i].BPS_Voltage_Tap_Data;
+            if (forward_now)
+            {
+                volt_fwd.BPS_Voltage_Tap_Data = (uint16_t)(volt_fwd_accum[i] / volt_fwd_samples);
+                volt_fwd_accum[i] = 0;
+            }
+#endif
+            volt_can_pack(volt_fwd, msgBuff);
+            if (forward_now)
+            {
+                car_can_send(CAN_ID_BPS_VOLTAGE_AGGREGATE_ARR, msgBuff, CAN_DLC_BPS_VOLTAGE_AGGREGATE_ARR, pdMS_TO_TICKS(VOLTAGE_CAN_DELAY_MS));
+            }
         }
+
+#if (VT_CAN_FORWARD_MODE == VT_FORWARD_AVERAGE)
+        // window complete: reset the block-average sample count for the next forward window
+        if (forward_now)
+        {
+            volt_fwd_samples = 0;
+        }
+#endif
+
+        // publish this cycle's min/max + pack voltage for cheap, thread-safe single-word reads by other tasks
+        g_max_cell_mV = max_voltage;
+        g_min_cell_mV = (min_voltage == UINT32_MAX) ? 0 : min_voltage;
+        g_pack_voltage_mV = voltage_sum;
 
         if (volt_printf_debug_counter >= VOLT_PRINTF_COUNTER)
         {
@@ -318,15 +458,16 @@ void Task_Voltage_Monitor()
             volt_printf_debug_counter = 0;
         }
 
-        // check if voltage is OK for charging
-        if ((max_voltage < CELL_CHARGING_VOLTAGE_THRESHOLD_MV) && (get_state_bit(VOLT_OK_FOR_CHARGING) != STATE_BIT_SET))
+        // check if voltage is OK for charging (cutoff relaxed while the drive override is active)
+        int32_t charge_voltage_limit_mV = overrides_charge_limit_voltage_mV();
+        if (((int32_t)max_voltage < charge_voltage_limit_mV) && (get_state_bit(VOLT_OK_FOR_CHARGING) != STATE_BIT_SET))
         {
             if(get_state_bit(VOLT_OK_FOR_CHARGING) == STATE_BIT_RESET){
                 printf("Cell Voltages are OK for charging\r\n");
             }
             set_state_bit(VOLT_OK_FOR_CHARGING, STATE_BIT_SET);
         }
-        else if (((max_voltage >= CELL_CHARGING_VOLTAGE_THRESHOLD_MV) && (get_state_bit(VOLT_OK_FOR_CHARGING) != STATE_BIT_RESET)))
+        else if ((((int32_t)max_voltage >= charge_voltage_limit_mV) && (get_state_bit(VOLT_OK_FOR_CHARGING) != STATE_BIT_RESET)))
         {
             if(get_state_bit(VOLT_OK_FOR_CHARGING) == STATE_BIT_SET){
                 printf("Cell Voltages are NOT ok for charging\r\n");
@@ -335,7 +476,15 @@ void Task_Voltage_Monitor()
             charge_force_disable(); // immediate boost off when a cell reaches the charge-voltage limit
         }
 
-        if (all_voltage_good && (get_state_bit(VOLTAGE_MONITOR_GOOD) != STATE_BIT_SET))
+        // Regen voltage gate (reported to the VCU via BPS_Regen_OK; BPS does not actuate regen)
+        set_state_bit(VOLT_OK_FOR_REGEN, ((int32_t)max_voltage < REGEN_VOLTAGE_THRESHOLD_MV) ? STATE_BIT_SET : STATE_BIT_RESET);
+
+        // Startup contactor-close gate: only mark the monitor "good" once every tap reported this
+        // watchdog window (full coverage) AND no module is mid-debounce, so HV can't close on
+        // incomplete tap data. This bit is a one-time startup latch (never cleared), so the extra
+        // conditions only delay the first close; they don't affect steady-state operation.
+        bool volt_full_coverage = (volt_watchdog_bitmap == VOLT_TAPS_ALL_DATA);
+        if (all_voltage_good && volt_full_coverage && debounce_clear && (get_state_bit(VOLTAGE_MONITOR_GOOD) != STATE_BIT_SET))
         {
             if(get_state_bit(VOLT_OK_FOR_CHARGING) == STATE_BIT_SET){
                 printf("All module voltages checked and safe\r\n");

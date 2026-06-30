@@ -43,6 +43,14 @@ void charge_disarm_escalation(void)
     g_escalation_armed = false;
 }
 
+// Charge limits have recovered: cell voltage AND temperature are both back within the charge
+// window (the same state bits the precharge task uses to decide charging is allowed again).
+static inline bool charge_limits_recovered(void)
+{
+    return (get_state_bit(VOLT_OK_FOR_CHARGING) == STATE_BIT_SET) &&
+           (get_state_bit(TEMP_OK_FOR_CHARGING) == STATE_BIT_SET);
+}
+
 void charge_check_current(int32_t pack_current_mA)
 {
     if (!g_escalation_armed)
@@ -53,11 +61,29 @@ void charge_check_current(int32_t pack_current_mA)
     // charging current present (negative current = charging)
     if (pack_current_mA < CHARGING_THRESHOLD_MA)
     {
+        // Still charging. Escalate only if the charging current persists CONTINUOUSLY for the
+        // full delay (the timer is restarted below whenever current returns to a safe level).
         if (Calculate_TimeDifference(xTaskGetTickCount(), g_escalation_since) >=
             pdMS_TO_TICKS(CHARGE_CURRENT_DETECTION_DELAY_MS))
         {
             // The array failed to stop charging after charge was disabled.
             set_faultBit(PACK_OVERCURRENT_CHARGING_FAULT);
+        }
+    }
+    else
+    {
+        // Charging current has dropped to a safe level. Disarm only once the underlying cause
+        // (cell over-voltage / over-temp) has ALSO cleared -- then the array complied and we have
+        // fully recovered. If the cause persists, keep the escalation armed but restart the timer
+        // so this safe interval doesn't leave a stale elapsed window that spuriously faults the
+        // moment current dips again.
+        if (charge_limits_recovered())
+        {
+            g_escalation_armed = false;
+        }
+        else
+        {
+            g_escalation_since = xTaskGetTickCount();
         }
     }
 }

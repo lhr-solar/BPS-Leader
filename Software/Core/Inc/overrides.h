@@ -42,13 +42,17 @@ bool override_suppress_overtemp(uint8_t module_num);
 
 // ---- Voltage sag compensation ----
 // Returns the (possibly lowered) per-cell undervoltage limit in mV for the given
-// pack current (mA, positive = discharging). Only compensates while the drive
-// override is active and the pack is discharging; otherwise returns the base limit.
+// pack current (mA, positive = discharging). The base limit is the relaxed override
+// (discharge) setpoint while the drive override is active, else the normal limit; sag
+// compensation is then applied only while overriding and discharging.
 int32_t overrides_adjusted_uv_limit_mV(int32_t pack_current_mA);
 
-// ---- Startup fault grace ----
-void overrides_arm_startup_grace(void); // call once after CAN is up
-bool startup_fault_grace_active(void);  // true while overridable faults should be deferred
+// ---- Drive-profile thresholds ----
+// Each returns the relaxed override setpoint while the drive override (0x67) is active,
+// otherwise the normal config.h limit.
+int32_t overrides_overtemp_limit_mC(bool charging);   // charging selects the charge vs discharge setpoint
+int32_t overrides_overvoltage_limit_mV(void);         // per-cell overvoltage ceiling (charge)
+int32_t overrides_charge_limit_voltage_mV(void);      // "OK for charging" cutoff voltage
 
 // ---- Shutdown-mode resolver ----
 // Given a SHUTDOWN_MODE_* value, returns whether a soft (sequenced) shutdown should be

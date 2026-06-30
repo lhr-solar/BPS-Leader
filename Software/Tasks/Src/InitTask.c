@@ -6,10 +6,14 @@
 #include "Contactors.h"
 #include "DebugPrintf.h"
 #include "SHT45.h"
-#include "overrides.h"
 
 #define ALL_TASK_BITS ((1 << AMPERES_MONITOR_GOOD) | (1 << CONTACTOR_MONITOR_GOOD) | (1 << VOLTAGE_MONITOR_GOOD) | (1 << TEMPERATURE_MONITOR_GOOD))
+
+// Startup window: how long we wait after hardware init before starting the monitors/watchdogs,
+// to give the volt-temp + amperes boards time to wake up and start broadcasting (their watchdogs
+// only start with the monitor tasks). We spend the window watching for override control messages.
 #define STARTUP_DELAY_MS (1000)
+#define STARTUP_OVERRIDE_POLL_MS (50)   // how often to poll 0x67/0x69 + send acks during the window
 
 // Task Stack Arrays
 StackType_t Task_Temperature_Stack_Array[TASK_TEMPERATURE_MONITOR_STACK_SIZE];
@@ -45,9 +49,8 @@ StaticEventGroup_t xStateBits_buffer;
 
 void Task_Init()
 {
-
-    vTaskDelay(pdMS_TO_TICKS(STARTUP_DELAY_MS));
-
+    // Hardware + driver init first (no blind pre-delay): bring CAN up so we can watch for
+    // control messages during the startup window below.
     if (faultHandler_init() == 0)
     {
         Error_Handler();
@@ -65,10 +68,6 @@ void Task_Init()
 
     CAN_Init();
 
-    // Start the startup fault grace window now that CAN is up: overridable module
-    // faults are deferred briefly so an override message (0x69) can arrive first.
-    overrides_arm_startup_grace();
-
     contactor_init();
 
     SHT45_init();
@@ -79,6 +78,19 @@ void Task_Init()
     Init_WDogTask();
 
     printf("Initialized...\n\r");
+
+    // Startup window: hold off on starting the monitors/watchdogs for STARTUP_DELAY_MS so the
+    // volt-temp and amperes boards have time to wake up and start broadcasting before their
+    // watchdogs come online (the watchdogs only start with the monitor tasks). CAN is already
+    // up, so we spend the window watching for control messages (drive + module overrides,
+    // 0x67/0x69) and sending their acks (0x667/0x669) -- an override (e.g. for a discharged
+    // pack) is therefore already in effect by the time the first checks run.
+    TickType_t startup_window_start = xTaskGetTickCount();
+    while (Calculate_TimeDifference(xTaskGetTickCount(), startup_window_start) < pdMS_TO_TICKS(STARTUP_DELAY_MS))
+    {
+        process_overrides();
+        vTaskDelay(pdMS_TO_TICKS(STARTUP_OVERRIDE_POLL_MS));
+    }
 
     xTaskCreateStatic(
         Task_FaultHandler,             // Task function
@@ -170,15 +182,17 @@ void Task_Init()
         &Precharge_Task_Buffer      /* Buffer for static allocation. */
     );
 
-    // xTaskCreateStatic(
-    //     Task_PetWatchdog,                   /* The function that implements the task. */
-    //     "PetWatchdog",                      /* Text name for the task. */
-    //     TASK_PETWDOG_STACK_SIZE,            /* The size (in words) of the stack that should be created for the task. */
-    //     (void*)NULL,                        /* Paramter passed into the task. */
-    //     TASK_PETWDOG_PRIO,                  /* Task Prioriy. */
-    //     Task_Petwdog_Stack_Array,           /* Stack array. */
-    //     &Task_Petwdog_Buffer                /* Buffer for static allocation. */
-    // );
+#if RTOS_WATCHDOG_ENABLE
+    xTaskCreateStatic(
+        Task_PetWatchdog,                   /* The function that implements the task. */
+        "PetWatchdog",                      /* Text name for the task. */
+        TASK_PETWDOG_STACK_SIZE,            /* The size (in words) of the stack that should be created for the task. */
+        (void*)NULL,                        /* Paramter passed into the task. */
+        TASK_PETWDOG_PRIO,                  /* Task Prioriy. */
+        Task_Petwdog_Stack_Array,           /* Stack array. */
+        &Task_Petwdog_Buffer                /* Buffer for static allocation. */
+    );
+#endif
 
     // Wait till all tasks check in
     xEventGroupWaitBits(
