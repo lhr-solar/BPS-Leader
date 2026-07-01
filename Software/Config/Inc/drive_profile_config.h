@@ -45,7 +45,7 @@
 //   discharge -> undervoltage floor   (normal: 2600 mV)
 //   charge    -> overvoltage ceiling  (normal: 4200 mV)
 #define OVERRIDE_CELL_UNDERVOLTAGE_THRESHOLD_MV      2550    // 2.55 V (discharge floor)
-#define OVERRIDE_CELL_OVERVOLTAGE_THRESHOLD_MV       4250    // 4.25 V (charge ceiling)
+#define OVERRIDE_CELL_OVERVOLTAGE_THRESHOLD_MV       4230    // 4.23 V (charge ceiling)
 
 // Master "OK for charging" cutoff while the drive profile is active. This is the BPS-level backstop
 // (disable charge + open the array) and is deliberately set ABOVE the advanced-MPPT CV target so it
@@ -55,7 +55,7 @@
 // OVERRIDE_CELL_OVERVOLTAGE_THRESHOLD_MV (4250, hard fault). The ordering is locked by _Static_asserts
 // in CanStatusTask.c. ponytail: 4225 = midpoint of CV target and hard fault; calibrate to the CV
 // loop's observed overshoot (tighten toward ~4215 if it holds tight, widen toward ~4235 if it rings).
-#define OVERRIDE_CELL_CHARGING_VOLTAGE_THRESHOLD_MV  4225    // 4.225 V (backstop above the CV target)
+#define OVERRIDE_CELL_CHARGING_VOLTAGE_THRESHOLD_MV  4205    // 4.205 V (backstop above the CV target)
 
 //--------------------------------------------------------------------------------
 // Regen-allowed gating. Reported to the VCU via BPS_Regen_OK in the status message:
@@ -81,7 +81,7 @@
 // Charging then ENDS ON CURRENT (see termination block below), not the instant a cell first reaches
 // target -- so imbalanced low cells keep filling while the high cell is pinned and balancing works.
 #define MPPT_TAPER_START_MV   4150     // enter closed-loop CV taper at/above this max-cell voltage
-#define MPPT_CV_TARGET_MV     4200     // max-cell setpoint the loop holds (never intentionally exceeded)
+#define MPPT_CV_TARGET_MV     4180     // max-cell setpoint the loop holds (never intentionally exceeded)
 #define MPPT_CV_DEADBAND_MV   10       // hold band [target-deadband, target]; no ceiling nudge inside it
 #define MPPT_CHARGE_RESTART_MV 4100    // after termination, resume harvesting once max cell relaxes <= this
 

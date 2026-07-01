@@ -123,4 +123,3 @@
 #define PRE(s)  "\r    "s"  "   // \r removes the filepath and 'note: '#pragma message:...' parts
 #define STR(x)  #x
 #define XSTR(x) STR(x)
-
