@@ -7,9 +7,22 @@
 #include "StatusLEDs.h"
 #include "BPSCAN_can_msgs.h"
 #include "CarCAN_can_msgs.h"
+#include "overrides.h"
+#include "charge.h"
 #include "string.h"
 
+// Car-CAN aggregate TX wait (telemetry forward).
 #define TEMPERATURE_CAN_DELAY_MS 10u
+
+// Per-tap RX wait while draining the BPS bus each cycle. Kept small so a missing/late board can't
+// stretch the (now faster) monitor period: worst case = NUM_TEMPERATURE_SENSORS * this.
+#define TEMPERATURE_CAN_RECV_TIMEOUT_MS 2u
+
+// Aggregate + ADC telemetry to Car CAN is decoupled from the sample rate: we sample/debounce every
+// TEMP_MONITOR_TASK_DELAY_MS, but only forward every Nth cycle to keep the shared car bus light
+// (300ms / 100ms = every 3rd cycle).
+#define TEMP_CAN_FORWARD_PERIOD_MS 300u
+#define TEMP_CAN_FORWARD_DECIMATION (TEMP_CAN_FORWARD_PERIOD_MS / TEMP_MONITOR_TASK_DELAY_MS)
 
 #define TEMP_TAPS_PER_BOARD (NUM_TEMPERATURE_SENSORS / NUM_VOLTTEMP_BOARDS)
 
@@ -19,8 +32,9 @@
 // timeout for receiving tap information from CAN
 #define TEMP_WATCHDOG_TIMEOUT_MS 1000
 
-// determines if we should use charging or discharging temp threshold depending if we're charging or discharging (state bit set in amperes task)
-#define get_temp_threshold() ((get_state_bit(CHARGING_BATT_STATE) == STATE_BIT_SET) ? OVERTEMP_THRESHOLD_CHARGING_MC : OVERTEMP_THRESHOLD_DISCHARGING_MC)
+// picks the charging vs discharging overtemp threshold (charging state bit set in amperes task);
+// returns the relaxed override setpoint while the drive override (0x67) is active
+#define get_temp_threshold() overrides_overtemp_limit_mC(get_state_bit(CHARGING_BATT_STATE) == STATE_BIT_SET)
 
 // get first five bits of temp can message, which is id
 #define TEMP_ID_MASK 0x1F
@@ -35,14 +49,14 @@
 #define TEMP_LOOP_PRINTF_DELAY_MS 2000
 #define TEMP_PRINTF_COUNTER (TEMP_LOOP_PRINTF_DELAY_MS / TEMP_MONITOR_TASK_DELAY_MS)
 
-#define OTEMP_FAULT_THRESHOLD 3 // number of consecutive otemp faults before latching module fault
-_Static_assert(OTEMP_FAULT_THRESHOLD < 255, "OTEMP_FAULT_THRESHOLD must be less than 255 since the histogram is an array of uint8_t");
+// number of consecutive otemp faults before latching module fault (shared voltage/temp counter)
+_Static_assert(TEMP_CONSECUTIVE_FAULT_THRESHOLD < 255, "TEMP_CONSECUTIVE_FAULT_THRESHOLD must be less than 255 since the histogram is an array of uint8_t");
 
 uint32_t exposed_temperature_watchdog_bitmap = TEMP_TAPS_ALL_DATA;
 
 // array to hold struct packed can data
 bps_temperature_aggregate_arr_t temp_can_data[NUM_TEMPERATURE_SENSORS] = {0};
-bps_temp_rawv_aggregate_arr_t temp_can_data2[NUM_TEMPERATURE_SENSORS] = {0};
+bps_temp_adc_aggregate_arr_t temp_can_data2[NUM_TEMPERATURE_SENSORS] = {0};
 
 // watchdog bitmap
 uint32_t temp_watchdog_bitmap = 0;
@@ -53,6 +67,15 @@ uint32_t exposed_temp_watchdog_bitmap = TEMP_TAPS_ALL_DATA;
 
 // array to store how often a module has consecutively otemp'd, indexed by module number
 uint8_t temp_module_fault_histogram[NUM_TEMPERATURE_SENSORS] = {0};
+
+// per-module consecutive count of board-reported blind-sensor diagnostics (thermistor disconnected,
+// shorted to GND or VCC). Escalated to BQ_CHIP_FAULT once it reaches the consecutive threshold so a
+// blind temperature sensor trips protection instead of the pack operating on unknown cell temps.
+uint8_t temp_sensor_fault_histogram[NUM_TEMPERATURE_SENSORS] = {0};
+
+// average pack temperature (mC), recomputed once per cycle and published as a single word so other
+// tasks (CAN status) read a consistent value instead of summing the shared array mid-update.
+static volatile int32_t g_avg_temp_mC = 0;
 
 // watchdog timer
 static TimerHandle_t temperature_watchdog_timer;
@@ -78,7 +101,7 @@ uint32_t get_module_temperature(uint8_t module_num) {
     return temp_can_data[module_num].BPS_Temperature_Tap_Data;
 }  
 // pass in pointer to raw data, packs struct into arr
-static uint8_t temp_can_unpack(uint8_t *raw_temp_can_data, bps_temperature_aggregate_arr_t *temp_can_data, bps_temp_rawv_aggregate_arr_t *temp_can_data2)
+static uint8_t temp_can_unpack(uint8_t *raw_temp_can_data, bps_temperature_aggregate_arr_t *temp_can_data, bps_temp_adc_aggregate_arr_t *temp_can_data2)
 {
 
     static uint8_t frame_id = 0;
@@ -98,17 +121,21 @@ static uint8_t temp_can_unpack(uint8_t *raw_temp_can_data, bps_temperature_aggre
     temp_can_data[tap_index].BPS_Tap_idx = tap_index;
 
     // bits [8:31]: Temp data (24 bits, Bytes 1-3)
-    temp_can_data[tap_index].BPS_Temperature_Tap_Data = raw_temp_can_data[1] << 0;
-    temp_can_data[tap_index].BPS_Temperature_Tap_Data |= raw_temp_can_data[2] << 8;
-    temp_can_data[tap_index].BPS_Temperature_Tap_Data |= raw_temp_can_data[3] << 16;
+    // Sign-extend the 24-bit two's-complement temperature (bytes 1-3) into the int32_t field: shift
+    // the 24-bit value up to the top of a uint32_t, cast to signed, then arithmetic-shift back down
+    // (same idiom as AMPERES_UNPACK_CURRENT_mA). Without this, sub-zero temps read as huge positives.
+    int32_t temp_raw = (int32_t)(((uint32_t)raw_temp_can_data[1] << 8) |
+                                 ((uint32_t)raw_temp_can_data[2] << 16) |
+                                 ((uint32_t)raw_temp_can_data[3] << 24));
+    temp_can_data[tap_index].BPS_Temperature_Tap_Data = temp_raw >> 8;
 
     // bits [32:39]: Fault data (8 bits, Byte 4)
     temp_can_data[tap_index].BPS_Temperature_Tap_Fault = raw_temp_can_data[4];
 
     // bits [40:55]: Raw Voltage data (16 bits, Bytes 5-6)
     temp_can_data2[tap_index].BPS_Tap_idx = tap_index;
-    temp_can_data2[tap_index].BPS_Temperature_Tap_RawV = raw_temp_can_data[5] << 0;
-    temp_can_data2[tap_index].BPS_Temperature_Tap_RawV |= raw_temp_can_data[6] << 8;
+    temp_can_data2[tap_index].BPS_Temperature_Tap_ADC = raw_temp_can_data[5] << 0;
+    temp_can_data2[tap_index].BPS_Temperature_Tap_ADC |= raw_temp_can_data[6] << 8;
 
     temp_can_data2[tap_index].FrameID_BPS_Temperature = frame_id;
     temp_can_data[tap_index].FrameID_BPS_Temperature = frame_id;
@@ -165,7 +192,7 @@ static void temp_can_pack(bps_temperature_aggregate_arr_t temp_can_data, uint8_t
 }
 
 // Pack rawV debug temp message
-static void temp_can_pack2(bps_temp_rawv_aggregate_arr_t temp_can_data, uint8_t *msgArr)
+static void temp_can_pack2(bps_temp_adc_aggregate_arr_t temp_can_data, uint8_t *msgArr)
 {
     if (msgArr == NULL)
     {
@@ -177,21 +204,21 @@ static void temp_can_pack2(bps_temp_rawv_aggregate_arr_t temp_can_data, uint8_t 
     msgArr[0] = (temp_can_data.BPS_Tap_idx & 0x1F);
 
     // bits [8:23]: Raw Voltage (length 16, bytes 1-2)
-    memcpy(&msgArr[1], &(temp_can_data.BPS_Temperature_Tap_RawV), sizeof(uint16_t));
+    memcpy(&msgArr[1], &(temp_can_data.BPS_Temperature_Tap_ADC), sizeof(uint16_t));
 
     // bits [24:31]: Frame ID (length 8, byte 3)
     msgArr[3] = temp_can_data.FrameID_BPS_Temperature;
 }
 
 // gets all can data from each tap from a passed in volttemp board, unpacks it and puts it into array
-static void can_recv_all_taps(uint32_t can_id_index, bps_temperature_aggregate_arr_t temp_can_data[], bps_temp_rawv_aggregate_arr_t temp_can_data2[])
+static void can_recv_all_taps(uint32_t can_id_index, bps_temperature_aggregate_arr_t temp_can_data[], bps_temp_adc_aggregate_arr_t temp_can_data2[])
 {
     // can recieve for all 4 temperature taps for each temptemp board
     for (uint8_t i = 0; i < TEMP_TAPS_PER_BOARD; i++)
     {
         uint8_t raw_databuffer[CAN_DLC_BPS_VT0_TEMPERATURE_ARR] = {0};
         // if can fails then message will not be unpacked and the watchdog will trip
-        if (bps_can_recv(temperature_can_ids[can_id_index], raw_databuffer, CAN_DLC_BPS_VT0_TEMPERATURE_ARR, TEMPERATURE_CAN_DELAY_MS) == CAN_OK)
+        if (bps_can_recv(temperature_can_ids[can_id_index], raw_databuffer, CAN_DLC_BPS_VT0_TEMPERATURE_ARR, TEMPERATURE_CAN_RECV_TIMEOUT_MS) == CAN_OK)
         {
             // Unpacking temp CAN messages in aggregate temp array
             temp_can_unpack(raw_databuffer, temp_can_data, temp_can_data2);
@@ -202,32 +229,31 @@ static void can_recv_all_taps(uint32_t can_id_index, bps_temperature_aggregate_a
 // watchdog function that runs when the timer times out
 static void vTemperatureWatchdogCallback(TimerHandle_t temp_timer)
 {
+    // Snapshot + reset the shared bitmap in a short critical section, but run the fault-setting
+    // kernel calls (latch_mod_fault / set_faultBit) OUTSIDE it -- kernel APIs must not be called
+    // with the scheduler/interrupts suspended.
+    uint32_t bitmap_snapshot;
     taskENTER_CRITICAL();
-    // check if every tap has sent temp information since last timer timeout.
-    if (temp_watchdog_bitmap != TEMP_TAPS_ALL_DATA)
-    {
-        // if one hasn't setn, save bitmap to know which one(s) didn't check in, then set fault bit
-        exposed_temperature_watchdog_bitmap = temp_watchdog_bitmap;
-        latch_mod_fault(get_mod_fault_num(exposed_temperature_watchdog_bitmap), 0); // Store 0 as the faulted module value since temperature isn't being stored here
-        set_faultBit(VOLTTEMP_WATCHDOG_FAULT);
-    }
-    // reset bitmap
+    bitmap_snapshot = temp_watchdog_bitmap;
     temp_watchdog_bitmap = 0;
     taskEXIT_CRITICAL();
+
+    // check if every tap has sent temp information since last timer timeout.
+    if (bitmap_snapshot != TEMP_TAPS_ALL_DATA)
+    {
+        // if one hasn't setn, save bitmap to know which one(s) didn't check in, then set fault bit
+        exposed_temperature_watchdog_bitmap = bitmap_snapshot;
+        latch_mod_fault(get_mod_fault_num(bitmap_snapshot), 0); // Store 0 as the faulted module value since temperature isn't being stored here
+        set_faultBit(VOLTTEMP_WATCHDOG_FAULT);
+    }
 }
 
 // returns the average temperature of all taps (used in can status)
 uint32_t get_avg_temp()
 {
-
-    int32_t temp_sum = 0;
-
-    for (uint8_t module_num = 0; module_num < NUM_BATTERY_MODULES; module_num++)
-    {
-        temp_sum += temp_can_data[module_num].BPS_Temperature_Tap_Data;
-    }
-
-    return (temp_sum / NUM_BATTERY_MODULES);
+    // Single-word read of the value published once per monitor cycle (see Task_Temperature_Monitor),
+    // not a live sum of the shared array -> no torn cross-element reads.
+    return (uint32_t)g_avg_temp_mC;
 }
 
 // checks status of a volttem segment
@@ -257,6 +283,25 @@ void Task_Temperature_Monitor()
 
     uint32_t temp_printf_debug_counter = 0;
 
+    // decimates Car-CAN aggregate forwarding relative to the (faster) sample/debounce rate
+    uint32_t temp_fwd_counter = 0;
+
+    // Monotonic union of every tap that has checked in since boot. Used (instead of the live
+    // temp_watchdog_bitmap) for the one-time startup coverage gate so it is immune to the 1000ms
+    // watchdog-timer clear -- see where it is OR-ed below.
+    uint32_t temp_startup_coverage = 0;
+
+    // Overtemp-while-charging escalation: tick when a cell's CHARGE overtemp was debounce-confirmed
+    // (0 = not confirmed). Faults if charge current is still flowing past the grace window.
+    TickType_t overtemp_charge_since = 0;
+
+#if (VT_CAN_FORWARD_MODE == VT_FORWARD_AVERAGE)
+    // per-tap accumulators + sample count for block-averaging forwarded telemetry over each window
+    int32_t  temp_fwd_accum[NUM_TEMPERATURE_SENSORS]  = {0}; // sum of temp data (mC)
+    uint32_t temp_fwd_accum2[NUM_TEMPERATURE_SENSORS] = {0}; // sum of raw ADC counts
+    uint16_t temp_fwd_samples = 0;
+#endif
+
     // Make timer for watchdog
     temperature_watchdog_timer = xTimerCreateStatic(
         "Temp Watchdog",                         /* Name of the timer */
@@ -269,6 +314,14 @@ void Task_Temperature_Monitor()
 
     // start watchdog timer
     xTimerStart(temperature_watchdog_timer, 0);
+
+    // Start "OK for charging" asserted (see the voltage task for rationale): the re-enable
+    // hysteresis only governs recovery after a charge-temp disable, so seed the in-range state.
+    set_state_bit(TEMP_OK_FOR_CHARGING, STATE_BIT_SET);
+
+    // Seed regen OK too, so the regen re-enable hysteresis doesn't leave a pack that boots inside the
+    // regen hysteresis band stuck NOK.
+    set_state_bit(TEMP_OK_FOR_REGEN, STATE_BIT_SET);
 
     TickType_t xLastWakeTime = xTaskGetTickCount();
 
@@ -289,13 +342,33 @@ void Task_Temperature_Monitor()
 
         // msg buff is packed with the temp aggregate message, msgBuff 2 is the packed with rawV debug message. Parity between is insured by frame id
         uint8_t msgBuff[CAN_DLC_BPS_TEMPERATURE_AGGREGATE_ARR] = {0};
-        uint8_t msgBuff2[CAN_DLC_BPS_TEMP_RAWV_AGGREGATE_ARR] = {0};
+        uint8_t msgBuff2[CAN_DLC_BPS_TEMP_ADC_AGGREGATE_ARR] = {0};
 
         // variable used to keep track of maximum temperature for this specific cycle
-        uint32_t max_temp = 0;
+        int32_t max_temp = INT32_MIN;
 
         // keeps track if all temps pass checks in order to close contactors
         bool all_temp_good = true;
+
+        // set true when a cell has CONSECUTIVELY (debounce histogram) exceeded the CHARGE overtemp
+        // limit while charging, in the band below the discharge limit. Gates the charge-overtemp soft
+        // stop + escalation below, so a charge overtemp is debounced like any hard fault instead of
+        // being acted on from a single reading.
+        bool charge_overtemp_confirmed = false;
+
+        // avg-temp sum published once per cycle (race-free reads), and startup-gate tracking:
+        // debounce_clear stays true only if no module is mid-debounce this cycle.
+        int32_t temp_sum = 0;
+        bool debounce_clear = true;
+
+        // Forward the aggregate + ADC arrays to Car CAN only every Nth cycle (telemetry decimation,
+        // decoupled from the faster sample/debounce rate so the shared car bus stays light).
+        bool forward_now = (temp_fwd_counter == 0);
+        temp_fwd_counter = (temp_fwd_counter + 1) % TEMP_CAN_FORWARD_DECIMATION;
+
+#if (VT_CAN_FORWARD_MODE == VT_FORWARD_AVERAGE)
+        temp_fwd_samples++;
+#endif
 
         // preforms all checks on temperature data, sets relevant flags
         for (uint8_t i = 0; i < NUM_TEMPERATURE_SENSORS; i++)
@@ -307,10 +380,40 @@ void Task_Temperature_Monitor()
                 max_temp = temp_can_data[i].BPS_Temperature_Tap_Data;
             }
 
+            // accumulate the avg-temp sum published at the end of this cycle
+            temp_sum += temp_can_data[i].BPS_Temperature_Tap_Data;
+
+            // Escalate the board's own blind-sensor diagnostic. Read it BEFORE the overtemp logic
+            // below overwrites BPS_Temperature_Tap_Fault: a disconnected/shorted thermistor means
+            // this cell's temperature is unknown, so debounce it to BQ_CHIP_FAULT instead of
+            // operating blind. (Other board codes here are over/under-temp, handled below.)
+            uint8_t temp_board_fault = temp_can_data[i].BPS_Temperature_Tap_Fault;
+            if ((temp_board_fault == BPS_TEMPERATURE_AGGREGATE_ARR_BPS_TEMPERATURE_TAP_FAULT_DISCONNECTED) ||
+                (temp_board_fault == BPS_TEMPERATURE_AGGREGATE_ARR_BPS_TEMPERATURE_TAP_FAULT_OUT_OF_BOUNDS_SHORT_TO_GND_) ||
+                (temp_board_fault == BPS_TEMPERATURE_AGGREGATE_ARR_BPS_TEMPERATURE_TAP_FAULT_OUT_OF_BOUNDS_SHORT_TO_VCC_))
+            {
+                temp_sensor_fault_histogram[temp_can_data[i].BPS_Tap_idx]++;
+                if (temp_sensor_fault_histogram[temp_can_data[i].BPS_Tap_idx] >= TEMP_CONSECUTIVE_FAULT_THRESHOLD)
+                {
+                    // A TEMP/ALL module override suppresses this HW fault too (not just the value fault).
+                    if (!override_suppress_temp(temp_can_data[i].BPS_Tap_idx))
+                    {
+                        all_temp_good = false;
+                        printf("Entering BQ Chip Fault (temp sensor) for Tap %d: board code %d\r\n", temp_can_data[i].BPS_Tap_idx, temp_board_fault);
+                        set_faultBit(BQ_CHIP_FAULT);
+                    }
+                }
+            }
+            else
+            {
+                debounce_good_read(&temp_sensor_fault_histogram[temp_can_data[i].BPS_Tap_idx]);
+            }
+
             // check if max temp is greater than threshold (changes depending on if battery is charging or discharging)
             if (temp_can_data[i].BPS_Temperature_Tap_Data > get_temp_threshold())
             {
-                if (get_state_bit(CHARGING_BATT_STATE) == STATE_BIT_SET)
+                bool module_charging = (get_state_bit(CHARGING_BATT_STATE) == STATE_BIT_SET);
+                if (module_charging)
                 {
                     temp_can_data[i].BPS_Temperature_Tap_Fault = BPS_TEMPERATURE_AGGREGATE_ARR_BPS_TEMPERATURE_TAP_FAULT_CHARGE_OVER_TEMPERATURE;
                 }
@@ -323,30 +426,83 @@ void Task_Temperature_Monitor()
                 temp_module_fault_histogram[temp_can_data[i].BPS_Tap_idx]++;
 
 
-                // only fault the BPS if a singular module has consecutively otemp'd a certain number of times to filter single abnormal readings from actual faults
-                if(temp_module_fault_histogram[temp_can_data[i].BPS_Tap_idx] >= OTEMP_FAULT_THRESHOLD)
+                // only escalate if a singular module has consecutively otemp'd a certain number of times to filter single abnormal readings from actual faults
+                if(temp_module_fault_histogram[temp_can_data[i].BPS_Tap_idx] >= TEMP_CONSECUTIVE_FAULT_THRESHOLD)
                 {
-                    printf("Entering Cell Over Temperature Fault for Tap %d: %ldmC\r\n", temp_can_data[i].BPS_Tap_idx, temp_can_data[i].BPS_Temperature_Tap_Data);
-                    // latch this module as one who faulted, set fault bit, and set flag indicating we are not good to close contactors
-                    latch_mod_fault(temp_can_data[i].BPS_Tap_idx, temp_can_data[i].BPS_Temperature_Tap_Data);
-                    set_faultBit(CELL_OVERTEMP_FAULT);
-                    all_temp_good = false;
+                    // A matching override (module temp/all override, or drive override disabling
+                    // overtemp) suppresses the fault. Overrides (0x67/0x69) are received during the
+                    // Task_Init startup window, before this task starts, so they are already in effect.
+                    if (!override_suppress_overtemp(temp_can_data[i].BPS_Tap_idx))
+                    {
+                        // A confirmed CHARGE overtemp (charging, still below the discharge limit) is NOT a
+                        // hard fault here: it hands off to the current-gated charge-overtemp escalation
+                        // below (stop charging -> grace -> fault only if the array fails to stop). A
+                        // discharge overtemp, or ANY cell above the discharge limit, hard-faults now.
+                        if (module_charging && ((int32_t)temp_can_data[i].BPS_Temperature_Tap_Data < overrides_overtemp_limit_mC(false)))
+                        {
+                            charge_overtemp_confirmed = true;
+                        }
+                        else
+                        {
+                            all_temp_good = false;
+                            printf("Entering Cell Over Temperature Fault for Tap %d: %ldmC\r\n", temp_can_data[i].BPS_Tap_idx, temp_can_data[i].BPS_Temperature_Tap_Data);
+                            // latch this module as one who faulted, set fault bit, and set flag indicating we are not good to close contactors
+                            latch_mod_fault(temp_can_data[i].BPS_Tap_idx, temp_can_data[i].BPS_Temperature_Tap_Data);
+                            set_faultBit(CELL_OVERTEMP_FAULT);
+                        }
+                    }
                 }
             }
             else
             {
-                // if temp is good, reset fault histogram for this module
-                temp_module_fault_histogram[temp_can_data[i].BPS_Tap_idx] = 0;
+                // if temp is good, relax this module's consecutive-fault counter
+                // (leaky-bucket decrement or clear, per VOLT_TEMP_DEBOUNCE_MODE)
+                debounce_good_read(&temp_module_fault_histogram[temp_can_data[i].BPS_Tap_idx]);
             }
 
-            // pack temp aggregate array and rawV debug message
-            temp_can_pack(temp_can_data[i], msgBuff);
-            temp_can_pack2(temp_can_data2[i], msgBuff2);
+            // startup gate: this module is only "clear" if neither counter is mid-accumulation
+            if ((temp_module_fault_histogram[temp_can_data[i].BPS_Tap_idx] != 0) ||
+                (temp_sensor_fault_histogram[temp_can_data[i].BPS_Tap_idx] != 0))
+            {
+                debounce_clear = false;
+            }
 
-            // forward these two messages to carcan
-            car_can_send(CAN_ID_BPS_TEMPERATURE_AGGREGATE_ARR, msgBuff, CAN_DLC_BPS_TEMPERATURE_AGGREGATE_ARR, pdMS_TO_TICKS(TEMPERATURE_CAN_DELAY_MS));
-            car_can_send(CAN_ID_BPS_TEMP_RAWV_AGGREGATE_ARR, msgBuff2, CAN_DLC_BPS_TEMP_RAWV_AGGREGATE_ARR, pdMS_TO_TICKS(TEMPERATURE_CAN_DELAY_MS));
+            // forwarded telemetry: latest snapshot, or block-average over the window (data + ADC only)
+            bps_temperature_aggregate_arr_t temp_fwd = temp_can_data[i];
+            bps_temp_adc_aggregate_arr_t   temp_fwd2 = temp_can_data2[i];
+#if (VT_CAN_FORWARD_MODE == VT_FORWARD_AVERAGE)
+            temp_fwd_accum[i]  += temp_can_data[i].BPS_Temperature_Tap_Data;
+            temp_fwd_accum2[i] += temp_can_data2[i].BPS_Temperature_Tap_ADC;
+            if (forward_now)
+            {
+                temp_fwd.BPS_Temperature_Tap_Data  = (int32_t)(temp_fwd_accum[i] / (int32_t)temp_fwd_samples);
+                temp_fwd2.BPS_Temperature_Tap_ADC = (uint16_t)(temp_fwd_accum2[i] / temp_fwd_samples);
+                temp_fwd_accum[i]  = 0;
+                temp_fwd_accum2[i] = 0;
+            }
+#endif
+            // pack temp aggregate array and rawV/ADC debug message
+            temp_can_pack(temp_fwd, msgBuff);
+            temp_can_pack2(temp_fwd2, msgBuff2);
+
+            // forward these two messages to carcan (decimated to TEMP_CAN_FORWARD_PERIOD_MS)
+            if (forward_now)
+            {
+                car_can_send(CAN_ID_BPS_TEMPERATURE_AGGREGATE_ARR, msgBuff, CAN_DLC_BPS_TEMPERATURE_AGGREGATE_ARR, pdMS_TO_TICKS(TEMPERATURE_CAN_DELAY_MS));
+                car_can_send(CAN_ID_BPS_TEMP_ADC_AGGREGATE_ARR, msgBuff2, CAN_DLC_BPS_TEMP_ADC_AGGREGATE_ARR, pdMS_TO_TICKS(TEMPERATURE_CAN_DELAY_MS));
+            }
         }
+
+#if (VT_CAN_FORWARD_MODE == VT_FORWARD_AVERAGE)
+        // window complete: reset the block-average sample count for the next forward window
+        if (forward_now)
+        {
+            temp_fwd_samples = 0;
+        }
+#endif
+
+        // publish this cycle's average temperature for race-free single-word reads by other tasks
+        g_avg_temp_mC = temp_sum / (int32_t)NUM_BATTERY_MODULES;
 
         if (temp_printf_debug_counter >= TEMP_PRINTF_COUNTER)
         {
@@ -362,19 +518,74 @@ void Task_Temperature_Monitor()
             temp_printf_debug_counter = 0;
         }
 
-        // if max temp is below charging threshold, and the state bit isn't already set, set state bit
-        if ((max_temp < CELL_CHARGING_TEMP_THRESHOLD_MC) && (get_state_bit(TEMP_OK_FOR_CHARGING) != STATE_BIT_SET))
+        // Charge-overtemp handling, gated on the per-module debounce histogram (charge_overtemp_confirmed,
+        // set above once a cell has CONSECUTIVELY exceeded the charging overtemp limit -- 55 C normal /
+        // 60 C override -- while charging, in the band below the discharge limit). Until confirmed,
+        // charging continues: the debounce window filters single abnormal readings, exactly like any
+        // hard fault. On confirmation the sequence is: stop charging (drop the TEMP_OK_FOR_CHARGING gate
+        // + immediate boost off; the precharge task then soft-opens the array), then a grace period for
+        // the array to actually stop, then a hard fault ONLY if charge current is still flowing into the
+        // (still) over-temp pack -- i.e. the array failed to stop. Re-enable (with hysteresis) once no
+        // cell is confirmed over-temp and the max cell has cooled below the limit.
+        int32_t charge_temp_limit_mC = overrides_overtemp_limit_mC(true);
+        if (charge_overtemp_confirmed)
         {
-            set_state_bit(TEMP_OK_FOR_CHARGING, STATE_BIT_SET);
+            // Soft stop on the confirm edge: drop the charge-OK gate + boost off now.
+            if (get_state_bit(TEMP_OK_FOR_CHARGING) != STATE_BIT_RESET)
+            {
+                set_state_bit(TEMP_OK_FOR_CHARGING, STATE_BIT_RESET);
+                charge_force_disable();
+            }
+
+            // Escalation: after the grace window, if charge current is still flowing the array failed
+            // to stop -> hard fault. Re-checked every cycle until the over-temp clears (disarmed below).
+            if (overtemp_charge_since == 0)
+            {
+                overtemp_charge_since = xTaskGetTickCount();
+            }
+            else if ((Calculate_TimeDifference(xTaskGetTickCount(), overtemp_charge_since) >= pdMS_TO_TICKS(POST_OVERTEMP_CHARGE_DELAY_MS)) &&
+                     (get_pack_current() < CHARGING_THRESHOLD_MA))
+            {
+                printf("Overtemp while charging: array failed to stop, faulting\r\n");
+                set_faultBit(CELL_OVERTEMP_FAULT);
+            }
         }
-        // else if max temp is at or above charging threshold, and the state bit isn't already cleared, clear state bit
-        else if ((max_temp >= CELL_CHARGING_TEMP_THRESHOLD_MC) && (get_state_bit(TEMP_OK_FOR_CHARGING) != STATE_BIT_RESET))
+        else
         {
-            set_state_bit(TEMP_OK_FOR_CHARGING, STATE_BIT_RESET);
+            // No cell confirmed over-temp: disarm the escalation, and re-enable charging once the max
+            // cell has cooled CHARGE_REENABLE_TEMP_HYSTERESIS_MC below the limit (anti-oscillation).
+            overtemp_charge_since = 0;
+            if (((int32_t)max_temp < (charge_temp_limit_mC - CHARGE_REENABLE_TEMP_HYSTERESIS_MC)) && (get_state_bit(TEMP_OK_FOR_CHARGING) != STATE_BIT_SET))
+            {
+                set_state_bit(TEMP_OK_FOR_CHARGING, STATE_BIT_SET);
+            }
         }
 
+        // Regen temp gate with hysteresis (mirror of the charge gate; reported via BPS_Regen_OK, BPS
+        // does not actuate regen). Disable at the threshold; re-enable only after cooling
+        // REGEN_REENABLE_TEMP_HYSTERESIS_MC below it, so a cell at the limit can't flap regen.
+        if (((int32_t)max_temp >= REGEN_TEMP_THRESHOLD_MC) && (get_state_bit(TEMP_OK_FOR_REGEN) != STATE_BIT_RESET))
+        {
+            set_state_bit(TEMP_OK_FOR_REGEN, STATE_BIT_RESET);
+        }
+        else if (((int32_t)max_temp < (REGEN_TEMP_THRESHOLD_MC - REGEN_REENABLE_TEMP_HYSTERESIS_MC)) && (get_state_bit(TEMP_OK_FOR_REGEN) != STATE_BIT_SET))
+        {
+            set_state_bit(TEMP_OK_FOR_REGEN, STATE_BIT_SET);
+        }
+
+        // Startup contactor-close gate: only mark the monitor "good" once every tap reported this
+        // watchdog window (full coverage) AND no module is mid-debounce, so HV can't close on
+        // incomplete tap data. One-time startup latch, so these conditions only delay the first close.
+        // Accumulate startup coverage monotonically so the one-time TEMPERATURE_MONITOR_GOOD latch is
+        // immune to the 1000ms watchdog-timer clear of temp_watchdog_bitmap. Reading the live bitmap
+        // directly raced that clear: an unlucky alignment left it transiently incomplete, so
+        // temp_full_coverage flickered false and stalled the startup contactor-close gate. OR-ing
+        // each cycle captures every tap seen since boot regardless of when the watchdog clears.
+        temp_startup_coverage |= temp_watchdog_bitmap;
+        bool temp_full_coverage = (temp_startup_coverage == TEMP_TAPS_ALL_DATA);
+
         // if all temperature values are within range, and the state bit isn't already set, set state bit indicating we're good to close contactors
-        if (all_temp_good && (get_state_bit(TEMPERATURE_MONITOR_GOOD) != STATE_BIT_SET))
+        if (all_temp_good && temp_full_coverage && debounce_clear && (get_state_bit(TEMPERATURE_MONITOR_GOOD) != STATE_BIT_SET))
         {
             set_state_bit(TEMPERATURE_MONITOR_GOOD, STATE_BIT_SET);
         }

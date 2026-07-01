@@ -13,20 +13,17 @@ IWDG_HandleTypeDef iwdg_h = {0};
 
 
 void IWDG_Init() {
-    // Set IWDG values
+    // Set IWDG values. Hardware windowing is disabled (window = max): we only care about the
+    // upper timeout (catching tasks that run too SLOW / hang), not refreshing too early.
     iwdg_h.Instance = IWDG;
     iwdg_h.Init.Prescaler = IWDG_PRESCALAR;
     iwdg_h.Init.Reload = IWDG_COUNTDOWN_TICKS;
-    iwdg_h.Init.Window = IWDG_WINDOW_TICKS;
+    iwdg_h.Init.Window = IWDG_WINDOW_DISABLE;
 }
 
 void IWDG_Start() {
-    // Check for previous reset
-    if (IWDG_CheckIfReset() == 1) {
-        set_faultBit(RTOS_WATCHDOG_ERROR);
-    }
-
-    // Initialize / start IWDG and check init status
+    // Initialize / start IWDG and check init status. (Post-reset detection happens earlier in
+    // Init_WDogTask so a watchdog reset is reported before contactors can close.)
     if (HAL_IWDG_Init(&iwdg_h) != HAL_OK) {
         Error_Handler();
     }

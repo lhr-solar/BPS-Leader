@@ -47,6 +47,16 @@ void Init_WDogTask()
 
     // Inits IWDG but does not start
     IWDG_Init();
+
+#if RTOS_WATCHDOG_ENABLE
+    // Detect + report a prior IWDG reset here (early, synchronous in Task_Init) so the fault is
+    // latched before the startup contactor-close gate runs. Checking/clearing the flag is cheap
+    // and idempotent; the actual watchdog is started later in Task_PetWatchdog.
+    if (IWDG_CheckIfReset() == 1)
+    {
+        set_faultBit(RTOS_WATCHDOG_ERROR);
+    }
+#endif
 }
 
 /*--------------------------------------------------------*/
