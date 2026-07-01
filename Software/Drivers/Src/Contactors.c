@@ -135,6 +135,7 @@ contactor_state_t contactor_set(contactor_num_t contactor_num, contactor_state_t
     // here: if the fault handler latched an emergency open after we took the mutex, we abort without
     // touching the GPIO, so we can never clobber an emergency open with a stale close.
     contactor_state_t result = CONTACTOR_OK;
+    bool state_changed = false;
     taskENTER_CRITICAL();
     if ((fault_state != EMERGENCY) && emergency_latched)
     {
@@ -146,17 +147,22 @@ contactor_state_t contactor_set(contactor_num_t contactor_num, contactor_state_t
         {
             emergency_latched = true; // latch BEFORE writing so any concurrent re-check sees it
         }
+        state_changed = (contactor->state != state); // capture before overwriting
         HAL_GPIO_WritePin(contactor->control_pin.port, contactor->control_pin.pin, ((state == CONTACTOR_CLOSED) ? GPIO_PIN_SET : GPIO_PIN_RESET));
         contactor->state = state;
     }
     taskEXIT_CRITICAL();
 
-    /* start the sense-verify timer (only for an accepted normal write) and release the mutex. Timer
-    resets when the contactor is set to another value, so no possible error with expected value
-    changing. The 0 param in xTimerStart starts the timer immediately, not waiting any ticks. */
+    /* Start the sense-verify timer (only for an accepted normal write) and release the mutex. Only
+    (re)start it when the commanded state actually CHANGED: re-commanding the same state (e.g. the
+    precharge task re-asserting the array open every cycle while charge is disabled / idle) must not
+    keep restarting the one-shot timer, or a welded contactor would never be verified within
+    CONTACTOR_CHECK_DELAY_MS. A drift after a completed verify is still caught by contactor_verify,
+    which compares command vs sense directly once the timer is inactive. The 0 param in xTimerStart
+    starts the timer immediately, not waiting any ticks. */
     if (fault_state != EMERGENCY)
     {
-        if (result == CONTACTOR_OK)
+        if (result == CONTACTOR_OK && state_changed)
         {
             xTimerStart(contactor->senseTimer, 0);
         }

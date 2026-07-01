@@ -8,7 +8,11 @@
 #include "DebugPrintf.h"
 #include "charge.h"
 
-// CAN timeout
+// CAN timeout. Equal to the task period (25 ms) by design: vTaskDelayUntil targets an ABSOLUTE wake
+// time, so when the amperes board is silent the blocking recv simply consumes the period instead of
+// stacking on top of it -- the loop still runs (and pets the watchdog via AMPERES_MONITOR_DONE) once
+// per ~25 ms, it does not halve to 50 ms. When data is present recv returns immediately and the
+// vTaskDelayUntil below provides the spacing. Either way the effective period stays one task delay.
 #define AMPERES_CAN_TIMEOUT_MS AMPERES_MONITOR_TASK_DELAY_MS
 #define AMPERES_WATCHDOG_TIMEOUT_MS 500
 
@@ -77,9 +81,16 @@ void Task_Amperes_Monitor() {
         // Delays 100 ms
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(AMPERES_MONITOR_TASK_DELAY_MS));
 
-        // Receive from CAN
+        // Receive from CAN. Block once for a frame, then drain any backlog non-blocking so we act on
+        // the FRESHEST current: bps_can_recv pulls oldest-first from a depth-5 circular queue, so a
+        // single read would hand us stale current on a backlog -- bad for overcurrent detection.
         uint8_t buffer[CAN_DLC_BPS_PACK_CURRENT] = { 0 };
-        if (bps_can_recv(CAN_ID_BPS_PACK_CURRENT, buffer, CAN_DLC_BPS_PACK_CURRENT, AMPERES_CAN_TIMEOUT_MS) == CAN_OK)
+        bool got_amp_frame = (bps_can_recv(CAN_ID_BPS_PACK_CURRENT, buffer, CAN_DLC_BPS_PACK_CURRENT, AMPERES_CAN_TIMEOUT_MS) == CAN_OK);
+        while (bps_can_recv(CAN_ID_BPS_PACK_CURRENT, buffer, CAN_DLC_BPS_PACK_CURRENT, 0) == CAN_OK)
+        {
+            got_amp_frame = true; // keep only the most recent frame (buffer overwritten each read)
+        }
+        if (got_amp_frame)
         {
             recv_amp_data = true;
             fresh_amp_data = true;

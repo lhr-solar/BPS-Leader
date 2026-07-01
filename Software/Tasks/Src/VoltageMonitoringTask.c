@@ -262,6 +262,11 @@ void Task_Voltage_Monitor()
     // decimates Car-CAN aggregate forwarding relative to the (faster) sample/debounce rate
     uint32_t volt_fwd_counter = 0;
 
+    // Monotonic union of every tap that has checked in since boot. Used (instead of the live
+    // volt_watchdog_bitmap) for the one-time startup coverage gate so it is immune to the 1000ms
+    // watchdog-timer clear -- see where it is OR-ed below.
+    uint32_t volt_startup_coverage = 0;
+
 #if (VT_CAN_FORWARD_MODE == VT_FORWARD_AVERAGE)
     // per-tap accumulator + sample count for block-averaging forwarded telemetry over each window
     uint32_t volt_fwd_accum[NUM_VOLTAGE_SENSORS] = {0};
@@ -279,6 +284,12 @@ void Task_Voltage_Monitor()
     );
 
     xTimerStart(voltage_watchdog_timer, 0);
+
+    // Start "OK for charging" asserted so a pack that boots within the charge limits behaves as
+    // before (charging allowed below the limit). The re-enable hysteresis above only governs
+    // recovery AFTER a charge-limit disable; without this seed a pack booting in the hysteresis
+    // band would never enable.
+    set_state_bit(VOLT_OK_FOR_CHARGING, STATE_BIT_SET);
 
     TickType_t xLastWakeTime = xTaskGetTickCount();
 
@@ -352,9 +363,13 @@ void Task_Voltage_Monitor()
                 volt_bq_fault_histogram[volt_can_data[i].BPS_Tap_idx]++;
                 if (volt_bq_fault_histogram[volt_can_data[i].BPS_Tap_idx] >= VOLT_CONSECUTIVE_FAULT_THRESHOLD)
                 {
-                    all_voltage_good = false;
-                    printf("Entering BQ Chip Fault (voltage) for Tap %d: board code %d\r\n", volt_can_data[i].BPS_Tap_idx, volt_board_fault);
-                    set_faultBit(BQ_CHIP_FAULT);
+                    // A VOLTAGE/ALL module override suppresses this HW fault too (not just the value faults).
+                    if (!override_suppress_voltage(volt_can_data[i].BPS_Tap_idx))
+                    {
+                        all_voltage_good = false;
+                        printf("Entering BQ Chip Fault (voltage) for Tap %d: board code %d\r\n", volt_can_data[i].BPS_Tap_idx, volt_board_fault);
+                        set_faultBit(BQ_CHIP_FAULT);
+                    }
                 }
             }
             else
@@ -458,22 +473,21 @@ void Task_Voltage_Monitor()
             volt_printf_debug_counter = 0;
         }
 
-        // check if voltage is OK for charging (cutoff relaxed while the drive override is active)
+        // Charge-enable voltage gate with hysteresis (cutoff relaxed while the drive override is
+        // active). Disable the instant any cell reaches the limit; re-enable ("charge complete ->
+        // resume") only once the max cell has dropped CHARGE_REENABLE_VOLTAGE_HYSTERESIS_MV below it,
+        // so a cell sitting at the limit can't oscillate charge on/off. State holds inside the band.
         int32_t charge_voltage_limit_mV = overrides_charge_limit_voltage_mV();
-        if (((int32_t)max_voltage < charge_voltage_limit_mV) && (get_state_bit(VOLT_OK_FOR_CHARGING) != STATE_BIT_SET))
+        if (((int32_t)max_voltage >= charge_voltage_limit_mV) && (get_state_bit(VOLT_OK_FOR_CHARGING) != STATE_BIT_RESET))
         {
-            if(get_state_bit(VOLT_OK_FOR_CHARGING) == STATE_BIT_RESET){
-                printf("Cell Voltages are OK for charging\r\n");
-            }
-            set_state_bit(VOLT_OK_FOR_CHARGING, STATE_BIT_SET);
-        }
-        else if ((((int32_t)max_voltage >= charge_voltage_limit_mV) && (get_state_bit(VOLT_OK_FOR_CHARGING) != STATE_BIT_RESET)))
-        {
-            if(get_state_bit(VOLT_OK_FOR_CHARGING) == STATE_BIT_SET){
-                printf("Cell Voltages are NOT ok for charging\r\n");
-            }
+            printf("Cell Voltages are NOT ok for charging\r\n");
             set_state_bit(VOLT_OK_FOR_CHARGING, STATE_BIT_RESET);
             charge_force_disable(); // immediate boost off when a cell reaches the charge-voltage limit
+        }
+        else if (((int32_t)max_voltage < (charge_voltage_limit_mV - CHARGE_REENABLE_VOLTAGE_HYSTERESIS_MV)) && (get_state_bit(VOLT_OK_FOR_CHARGING) != STATE_BIT_SET))
+        {
+            printf("Cell Voltages are OK for charging\r\n");
+            set_state_bit(VOLT_OK_FOR_CHARGING, STATE_BIT_SET);
         }
 
         // Regen voltage gate (reported to the VCU via BPS_Regen_OK; BPS does not actuate regen)
@@ -483,7 +497,13 @@ void Task_Voltage_Monitor()
         // watchdog window (full coverage) AND no module is mid-debounce, so HV can't close on
         // incomplete tap data. This bit is a one-time startup latch (never cleared), so the extra
         // conditions only delay the first close; they don't affect steady-state operation.
-        bool volt_full_coverage = (volt_watchdog_bitmap == VOLT_TAPS_ALL_DATA);
+        // Accumulate startup coverage monotonically so the one-time VOLTAGE_MONITOR_GOOD latch is
+        // immune to the 1000ms watchdog-timer clear of volt_watchdog_bitmap. Reading the live bitmap
+        // directly raced that clear: an unlucky alignment left it transiently incomplete, so
+        // volt_full_coverage flickered false and stalled the startup contactor-close gate. OR-ing
+        // each cycle captures every tap seen since boot regardless of when the watchdog clears.
+        volt_startup_coverage |= volt_watchdog_bitmap;
+        bool volt_full_coverage = (volt_startup_coverage == VOLT_TAPS_ALL_DATA);
         if (all_voltage_good && volt_full_coverage && debounce_clear && (get_state_bit(VOLTAGE_MONITOR_GOOD) != STATE_BIT_SET))
         {
             if(get_state_bit(VOLT_OK_FOR_CHARGING) == STATE_BIT_SET){

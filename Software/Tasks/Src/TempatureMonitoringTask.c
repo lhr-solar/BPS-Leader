@@ -56,7 +56,7 @@ uint32_t exposed_temperature_watchdog_bitmap = TEMP_TAPS_ALL_DATA;
 
 // array to hold struct packed can data
 bps_temperature_aggregate_arr_t temp_can_data[NUM_TEMPERATURE_SENSORS] = {0};
-bps_temp_rawv_aggregate_arr_t temp_can_data2[NUM_TEMPERATURE_SENSORS] = {0};
+bps_temp_adc_aggregate_arr_t temp_can_data2[NUM_TEMPERATURE_SENSORS] = {0};
 
 // watchdog bitmap
 uint32_t temp_watchdog_bitmap = 0;
@@ -101,7 +101,7 @@ uint32_t get_module_temperature(uint8_t module_num) {
     return temp_can_data[module_num].BPS_Temperature_Tap_Data;
 }  
 // pass in pointer to raw data, packs struct into arr
-static uint8_t temp_can_unpack(uint8_t *raw_temp_can_data, bps_temperature_aggregate_arr_t *temp_can_data, bps_temp_rawv_aggregate_arr_t *temp_can_data2)
+static uint8_t temp_can_unpack(uint8_t *raw_temp_can_data, bps_temperature_aggregate_arr_t *temp_can_data, bps_temp_adc_aggregate_arr_t *temp_can_data2)
 {
 
     static uint8_t frame_id = 0;
@@ -130,8 +130,8 @@ static uint8_t temp_can_unpack(uint8_t *raw_temp_can_data, bps_temperature_aggre
 
     // bits [40:55]: Raw Voltage data (16 bits, Bytes 5-6)
     temp_can_data2[tap_index].BPS_Tap_idx = tap_index;
-    temp_can_data2[tap_index].BPS_Temperature_Tap_RawV = raw_temp_can_data[5] << 0;
-    temp_can_data2[tap_index].BPS_Temperature_Tap_RawV |= raw_temp_can_data[6] << 8;
+    temp_can_data2[tap_index].BPS_Temperature_Tap_ADC = raw_temp_can_data[5] << 0;
+    temp_can_data2[tap_index].BPS_Temperature_Tap_ADC |= raw_temp_can_data[6] << 8;
 
     temp_can_data2[tap_index].FrameID_BPS_Temperature = frame_id;
     temp_can_data[tap_index].FrameID_BPS_Temperature = frame_id;
@@ -188,7 +188,7 @@ static void temp_can_pack(bps_temperature_aggregate_arr_t temp_can_data, uint8_t
 }
 
 // Pack rawV debug temp message
-static void temp_can_pack2(bps_temp_rawv_aggregate_arr_t temp_can_data, uint8_t *msgArr)
+static void temp_can_pack2(bps_temp_adc_aggregate_arr_t temp_can_data, uint8_t *msgArr)
 {
     if (msgArr == NULL)
     {
@@ -200,14 +200,14 @@ static void temp_can_pack2(bps_temp_rawv_aggregate_arr_t temp_can_data, uint8_t 
     msgArr[0] = (temp_can_data.BPS_Tap_idx & 0x1F);
 
     // bits [8:23]: Raw Voltage (length 16, bytes 1-2)
-    memcpy(&msgArr[1], &(temp_can_data.BPS_Temperature_Tap_RawV), sizeof(uint16_t));
+    memcpy(&msgArr[1], &(temp_can_data.BPS_Temperature_Tap_ADC), sizeof(uint16_t));
 
     // bits [24:31]: Frame ID (length 8, byte 3)
     msgArr[3] = temp_can_data.FrameID_BPS_Temperature;
 }
 
 // gets all can data from each tap from a passed in volttemp board, unpacks it and puts it into array
-static void can_recv_all_taps(uint32_t can_id_index, bps_temperature_aggregate_arr_t temp_can_data[], bps_temp_rawv_aggregate_arr_t temp_can_data2[])
+static void can_recv_all_taps(uint32_t can_id_index, bps_temperature_aggregate_arr_t temp_can_data[], bps_temp_adc_aggregate_arr_t temp_can_data2[])
 {
     // can recieve for all 4 temperature taps for each temptemp board
     for (uint8_t i = 0; i < TEMP_TAPS_PER_BOARD; i++)
@@ -282,6 +282,11 @@ void Task_Temperature_Monitor()
     // decimates Car-CAN aggregate forwarding relative to the (faster) sample/debounce rate
     uint32_t temp_fwd_counter = 0;
 
+    // Monotonic union of every tap that has checked in since boot. Used (instead of the live
+    // temp_watchdog_bitmap) for the one-time startup coverage gate so it is immune to the 1000ms
+    // watchdog-timer clear -- see where it is OR-ed below.
+    uint32_t temp_startup_coverage = 0;
+
 #if (VT_CAN_FORWARD_MODE == VT_FORWARD_AVERAGE)
     // per-tap accumulators + sample count for block-averaging forwarded telemetry over each window
     int32_t  temp_fwd_accum[NUM_TEMPERATURE_SENSORS]  = {0}; // sum of temp data (mC)
@@ -302,6 +307,10 @@ void Task_Temperature_Monitor()
     // start watchdog timer
     xTimerStart(temperature_watchdog_timer, 0);
 
+    // Start "OK for charging" asserted (see the voltage task for rationale): the re-enable
+    // hysteresis only governs recovery after a charge-temp disable, so seed the in-range state.
+    set_state_bit(TEMP_OK_FOR_CHARGING, STATE_BIT_SET);
+
     TickType_t xLastWakeTime = xTaskGetTickCount();
 
     while (1)
@@ -321,7 +330,7 @@ void Task_Temperature_Monitor()
 
         // msg buff is packed with the temp aggregate message, msgBuff 2 is the packed with rawV debug message. Parity between is insured by frame id
         uint8_t msgBuff[CAN_DLC_BPS_TEMPERATURE_AGGREGATE_ARR] = {0};
-        uint8_t msgBuff2[CAN_DLC_BPS_TEMP_RAWV_AGGREGATE_ARR] = {0};
+        uint8_t msgBuff2[CAN_DLC_BPS_TEMP_ADC_AGGREGATE_ARR] = {0};
 
         // variable used to keep track of maximum temperature for this specific cycle
         uint32_t max_temp = 0;
@@ -368,9 +377,13 @@ void Task_Temperature_Monitor()
                 temp_sensor_fault_histogram[temp_can_data[i].BPS_Tap_idx]++;
                 if (temp_sensor_fault_histogram[temp_can_data[i].BPS_Tap_idx] >= TEMP_CONSECUTIVE_FAULT_THRESHOLD)
                 {
-                    all_temp_good = false;
-                    printf("Entering BQ Chip Fault (temp sensor) for Tap %d: board code %d\r\n", temp_can_data[i].BPS_Tap_idx, temp_board_fault);
-                    set_faultBit(BQ_CHIP_FAULT);
+                    // A TEMP/ALL module override suppresses this HW fault too (not just the value fault).
+                    if (!override_suppress_temp(temp_can_data[i].BPS_Tap_idx))
+                    {
+                        all_temp_good = false;
+                        printf("Entering BQ Chip Fault (temp sensor) for Tap %d: board code %d\r\n", temp_can_data[i].BPS_Tap_idx, temp_board_fault);
+                        set_faultBit(BQ_CHIP_FAULT);
+                    }
                 }
             }
             else
@@ -426,14 +439,14 @@ void Task_Temperature_Monitor()
 
             // forwarded telemetry: latest snapshot, or block-average over the window (data + ADC only)
             bps_temperature_aggregate_arr_t temp_fwd = temp_can_data[i];
-            bps_temp_rawv_aggregate_arr_t   temp_fwd2 = temp_can_data2[i];
+            bps_temp_adc_aggregate_arr_t   temp_fwd2 = temp_can_data2[i];
 #if (VT_CAN_FORWARD_MODE == VT_FORWARD_AVERAGE)
             temp_fwd_accum[i]  += temp_can_data[i].BPS_Temperature_Tap_Data;
-            temp_fwd_accum2[i] += temp_can_data2[i].BPS_Temperature_Tap_RawV;
+            temp_fwd_accum2[i] += temp_can_data2[i].BPS_Temperature_Tap_ADC;
             if (forward_now)
             {
                 temp_fwd.BPS_Temperature_Tap_Data  = (int32_t)(temp_fwd_accum[i] / (int32_t)temp_fwd_samples);
-                temp_fwd2.BPS_Temperature_Tap_RawV = (uint16_t)(temp_fwd_accum2[i] / temp_fwd_samples);
+                temp_fwd2.BPS_Temperature_Tap_ADC = (uint16_t)(temp_fwd_accum2[i] / temp_fwd_samples);
                 temp_fwd_accum[i]  = 0;
                 temp_fwd_accum2[i] = 0;
             }
@@ -446,7 +459,7 @@ void Task_Temperature_Monitor()
             if (forward_now)
             {
                 car_can_send(CAN_ID_BPS_TEMPERATURE_AGGREGATE_ARR, msgBuff, CAN_DLC_BPS_TEMPERATURE_AGGREGATE_ARR, pdMS_TO_TICKS(TEMPERATURE_CAN_DELAY_MS));
-                car_can_send(CAN_ID_BPS_TEMP_RAWV_AGGREGATE_ARR, msgBuff2, CAN_DLC_BPS_TEMP_RAWV_AGGREGATE_ARR, pdMS_TO_TICKS(TEMPERATURE_CAN_DELAY_MS));
+                car_can_send(CAN_ID_BPS_TEMP_ADC_AGGREGATE_ARR, msgBuff2, CAN_DLC_BPS_TEMP_ADC_AGGREGATE_ARR, pdMS_TO_TICKS(TEMPERATURE_CAN_DELAY_MS));
             }
         }
 
@@ -475,16 +488,17 @@ void Task_Temperature_Monitor()
             temp_printf_debug_counter = 0;
         }
 
-        // if max temp is below charging threshold, and the state bit isn't already set, set state bit
-        if ((max_temp < CELL_CHARGING_TEMP_THRESHOLD_MC) && (get_state_bit(TEMP_OK_FOR_CHARGING) != STATE_BIT_SET))
-        {
-            set_state_bit(TEMP_OK_FOR_CHARGING, STATE_BIT_SET);
-        }
-        // else if max temp is at or above charging threshold, and the state bit isn't already cleared, clear state bit
-        else if ((max_temp >= CELL_CHARGING_TEMP_THRESHOLD_MC) && (get_state_bit(TEMP_OK_FOR_CHARGING) != STATE_BIT_RESET))
+        // Charge-enable temperature gate with hysteresis (mirror of the voltage gate): disable on
+        // reaching the charge-temp limit; re-enable only after cooling CHARGE_REENABLE_TEMP_HYSTERESIS_MC
+        // below it, so a cell hovering at the limit can't oscillate charge on/off. Holds in the band.
+        if ((max_temp >= CELL_CHARGING_TEMP_THRESHOLD_MC) && (get_state_bit(TEMP_OK_FOR_CHARGING) != STATE_BIT_RESET))
         {
             set_state_bit(TEMP_OK_FOR_CHARGING, STATE_BIT_RESET);
             charge_force_disable(); // immediate boost off when a cell reaches the charge-temp limit (over temp)
+        }
+        else if ((max_temp < (CELL_CHARGING_TEMP_THRESHOLD_MC - CHARGE_REENABLE_TEMP_HYSTERESIS_MC)) && (get_state_bit(TEMP_OK_FOR_CHARGING) != STATE_BIT_SET))
+        {
+            set_state_bit(TEMP_OK_FOR_CHARGING, STATE_BIT_SET);
         }
 
         // Regen temp gate (reported to the VCU via BPS_Regen_OK; BPS does not actuate regen)
@@ -493,7 +507,13 @@ void Task_Temperature_Monitor()
         // Startup contactor-close gate: only mark the monitor "good" once every tap reported this
         // watchdog window (full coverage) AND no module is mid-debounce, so HV can't close on
         // incomplete tap data. One-time startup latch, so these conditions only delay the first close.
-        bool temp_full_coverage = (temp_watchdog_bitmap == TEMP_TAPS_ALL_DATA);
+        // Accumulate startup coverage monotonically so the one-time TEMPERATURE_MONITOR_GOOD latch is
+        // immune to the 1000ms watchdog-timer clear of temp_watchdog_bitmap. Reading the live bitmap
+        // directly raced that clear: an unlucky alignment left it transiently incomplete, so
+        // temp_full_coverage flickered false and stalled the startup contactor-close gate. OR-ing
+        // each cycle captures every tap seen since boot regardless of when the watchdog clears.
+        temp_startup_coverage |= temp_watchdog_bitmap;
+        bool temp_full_coverage = (temp_startup_coverage == TEMP_TAPS_ALL_DATA);
 
         // if all temperature values are within range, and the state bit isn't already set, set state bit indicating we're good to close contactors
         if (all_temp_good && temp_full_coverage && debounce_clear && (get_state_bit(TEMPERATURE_MONITOR_GOOD) != STATE_BIT_SET))

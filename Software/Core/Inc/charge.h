@@ -7,8 +7,10 @@
  * immediately when a charge limit is crossed.
  *
  * When charge is disabled we soft-shut the array (boost disable -> delayed array open)
- * and arm an escalation: if charging current is still present after a configurable
- * delay, we hard fault (the array failed to stop charging).
+ * and arm an escalation: once a short grace window from the disable elapses, ANY remaining
+ * charging current hard faults (the array failed to stop charging). Re-enabling charge is
+ * rate-limited (charge_reenable_allowed) and gated by the monitor-task voltage/temp hysteresis
+ * so charge enable cannot oscillate.
  */
 
 #pragma once
@@ -25,10 +27,15 @@ void charge_set_enabled(bool enabled);
 // (used by the monitor tasks the instant a charge limit is crossed).
 void charge_force_disable(void);
 
+// Anti-oscillation: returns true once MIN_CHARGE_DISABLE_TIME_MS has elapsed since charging was last
+// disabled. The precharge task requires this before recovering charge so it can't rapidly flip.
+bool charge_reenable_allowed(void);
+
 // ---- "charge should have stopped" escalation ----
 void charge_arm_escalation(void);
 void charge_disarm_escalation(void);
-// Call from the amperes task with the latest pack current (mA, negative = charging).
+// Call from the amperes task with the latest pack current (mA, negative = charging). Once the grace
+// window from the disable edge elapses, any charging current immediately hard faults.
 void charge_check_current(int32_t pack_current_mA);
 
 // Soft/hard-open the array: boost disable, then open the array + array-precharge

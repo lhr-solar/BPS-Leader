@@ -45,9 +45,32 @@
 // current threshold to determine if battery is charging (negative number is charging, positive is discharging)
 #define CHARGING_THRESHOLD_MA (-50) // -50 mA
 
+// Charge-enable anti-oscillation. Charge disables the instant a cell reaches the charge voltage/temp
+// limit, but RE-enabling requires the max cell to first fall a hysteresis band BELOW the limit, so a
+// cell sitting at the limit can't flip charge on/off ("charge complete -> resume" / "cooled ->
+// resume"). The minimum-disable dwell is a belt-and-suspenders so charge enable can't rapidly flip
+// even if the hysteresis band is crossed quickly.
+#define CHARGE_REENABLE_VOLTAGE_HYSTERESIS_MV 100   // re-enable 0.1 V below the charge-voltage cutoff
+#define CHARGE_REENABLE_TEMP_HYSTERESIS_MC    2000  // re-enable 2 C below the charge-temp cutoff
+#define MIN_CHARGE_DISABLE_TIME_MS            5000  // min time charge stays disabled before re-enable. ponytail: calibrate
+
 
 // How many bad voltage reads are tolerable when switching states and closing contactors 
 #define PRECHARGE_UNDERVOLTAGE_DEBOUNCE_LIMIT 2
+
+// Time allowed for a contactor to physically reach a commanded state (and its auxiliary sense to
+// settle) before the contactor monitor faults on the command/sense mismatch. Used as the per-
+// contactor sense-verify timer period. A welded/stuck contactor (e.g. a shaded array masking a
+// welded array contactor with zero current) is caught here regardless of current.
+//
+// Budget from the contactor datasheet (operate 30ms / release 10ms max @ 23C):
+//   ~2x derating for coil-voltage/temperature/aging (~60ms) + aux-contact lag & bounce (~10ms) +
+//   RTOS jitter (1ms tick; timer daemon runs below the monitor tasks) (~10ms) ~= 80ms worst-case
+//   healthy settle. 150ms gives ~1.9x margin so a slow-but-healthy contactor never false-faults,
+//   while still flagging a stuck contactor within the 200ms monitor cadence / 2000ms IWDG.
+// NOTE: applies to ALL four contactors; if the HV contactors are a slower part than the array
+// contactor this datasheet describes, split into a per-contactor value.
+#define CONTACTOR_CHECK_DELAY_MS 150
 
 // How many consecutive bad reads on a single module before a fault is latched (filters single
 // abnormal readings from real faults). Separate voltage/temperature thresholds. Stored per-module

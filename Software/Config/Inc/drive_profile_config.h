@@ -9,12 +9,24 @@
 
 #pragma once
 
-// What the driver/drive override (0x67 BPS_Drive_Override) does when active (1 = enabled).
-// Add future override behaviors here as new macros.
-#define DRIVE_OVERRIDE_DISABLE_OVERTEMP     0   // 0: relax overtemp to the OVERRIDE_OVERTEMP_* setpoints below instead of blanket-suppressing
-#define DRIVE_OVERRIDE_VSAG_COMPENSATION    1   // apply voltage-sag compensation on top of the override UV setpoint
+// BPS Command (CAN 0x67 / ack 0x667) -- per-signal HARD config gates. The command is a 1-byte
+// bitfield from Controls (see CarCAN.dbc BPS_Command): bit0 BPS_Drive_Profile_Enable_Master,
+// bit1 BPS_Regen_Allow, bit2 BPS_Adv_MPPT_Control, bit3 BPS_Soft_Shdn, bit4 BPS_Vsag_Compensation.
+// For each signal the gate below decides whether the BPS listens to the CAN bit at all:
+//   0 = hard-disabled: the CAN bit is IGNORED and the behavior is forced off.
+//   1 = enabled: the behavior follows the received CAN bit.
+// BPS_CMD_CONFIG_DRIVE_PROFILE is the master: if 0, EVERY signal is forced off regardless of its own
+// gate or the CAN message (the drive profile, and thus all relaxed setpoints below, never engage).
+#define BPS_CMD_CONFIG_DRIVE_PROFILE      1
+#define BPS_CMD_CONFIG_REGEN_ALLOW        1
+#define BPS_CMD_CONFIG_ADV_MPPT_CONTROL   1
+#define BPS_CMD_CONFIG_SOFT_SHDN          1
+#define BPS_CMD_CONFIG_VSAG_COMPENSATION  1
 
-// Voltage sag compensation (only while discharging and drive override active):
+// Drive-profile sub-behavior (gated by the master): how cell overtemp is handled while active.
+#define DRIVE_OVERRIDE_DISABLE_OVERTEMP     0   // 0: relax overtemp to OVERRIDE_OVERTEMP_* below; 1: blanket-suppress
+
+// Voltage sag compensation tuning (applied only while BPS_Vsag_Compensation is active and discharging):
 //   adj_uv_limit_mV = OVERRIDE_CELL_UNDERVOLTAGE_THRESHOLD_MV - (I_mA * R_mOhm * FoS%) / 100000
 #define ESTIMATED_MODULE_RESISTANCE_MOHM    3  // estimated per-module resistance (milliohms)
 #define VSAG_COMPENSATION_FOS_PERCENT       80 // factor of safety (percent)
@@ -35,9 +47,15 @@
 #define OVERRIDE_CELL_UNDERVOLTAGE_THRESHOLD_MV      2550    // 2.55 V (discharge floor)
 #define OVERRIDE_CELL_OVERVOLTAGE_THRESHOLD_MV       4250    // 4.25 V (charge ceiling)
 
-// Distinct charge cutoff ("OK for charging") voltage while override active. Kept separate
-// from the overvoltage fault ceiling above (normal cutoff: 4150 mV).
-#define OVERRIDE_CELL_CHARGING_VOLTAGE_THRESHOLD_MV  4200    // 4.2 V
+// Master "OK for charging" cutoff while the drive profile is active. This is the BPS-level backstop
+// (disable charge + open the array) and is deliberately set ABOVE the advanced-MPPT CV target so it
+// does NOT preempt the CV hold/taper -- it only fires if the CV loop fails to hold. Drive-profile
+// voltage ladder: MPPT_TAPER_START_MV (4150, CC->CV) < MPPT_CV_TARGET_MV (4200, hold + current-
+// terminate) < OVERRIDE_CELL_CHARGING_VOLTAGE_THRESHOLD_MV (4225, master cutoff) <
+// OVERRIDE_CELL_OVERVOLTAGE_THRESHOLD_MV (4250, hard fault). The ordering is locked by _Static_asserts
+// in CanStatusTask.c. ponytail: 4225 = midpoint of CV target and hard fault; calibrate to the CV
+// loop's observed overshoot (tighten toward ~4215 if it holds tight, widen toward ~4235 if it rings).
+#define OVERRIDE_CELL_CHARGING_VOLTAGE_THRESHOLD_MV  4225    // 4.225 V (backstop above the CV target)
 
 //--------------------------------------------------------------------------------
 // Regen-allowed gating. Reported to the VCU via BPS_Regen_OK in the status message:
@@ -49,32 +67,49 @@
 #define REGEN_TEMP_THRESHOLD_MC      55000   // 55 C: regen allowed below
 
 //--------------------------------------------------------------------------------
-// Advanced MPPT control (drive-profile only). Default OFF -> the BPS always uses plain boost
-// enable/disable. When ADVANCED_MPPT_CONTROL is enabled AND the drive override (0x67) is active,
-// the BPS instead drives the MPPTs with a 3-region strategy. With the macro OFF the drive
-// override has no effect on MPPT behavior; the feature can only ever engage while overriding.
-#ifndef ADVANCED_MPPT_CONTROL
-#define ADVANCED_MPPT_CONTROL 1
-#endif
+// Advanced MPPT control. Built + active only when BPS_CMD_CONFIG_ADV_MPPT_CONTROL is 1 AND the
+// BPS_Adv_MPPT_Control command signal is active (which itself requires the drive-profile master).
+// Otherwise the BPS uses plain boost enable/disable. The control-law constants below are only used
+// while it is active.
 
-// Regions on the pack's MAX cell voltage (mV). Kept in step with the (override) charge cutoffs:
-// taper-start = normal charge cutoff, inhibit = override charge cutoff (OVERRIDE_CELL_CHARGING...).
-//   max cell <  MPPT_TAPER_START_MV          -> Region A: full MPPT power tracking (mode 1)
-//   MPPT_TAPER_START_MV .. MPPT_INHIBIT_MV   -> Region B: constant-voltage taper (mode 2)
-//   max cell >= MPPT_INHIBIT_MV              -> Region C: MPPTs off (mode 0)
-#define MPPT_TAPER_START_MV   4150
-#define MPPT_INHIBIT_MV       4200
+// Control law (keyed on the pack's MAX CELL, mV -- NOT pack/bus voltage, which says nothing about
+// the fullest cell once cells imbalance). Below the taper point we let the MPPTs do full power-point
+// tracking; above it we close a loop on the max cell, holding it near the CV target by steering the
+// MPPT output-voltage ceiling (the TPEE reduces its own current as the bus nears the lowered ceiling).
+//   max cell <  MPPT_TAPER_START_MV   -> full MPPT power tracking (mode 1); no overcharge risk this low
+//   max cell >= MPPT_TAPER_START_MV   -> CV taper: hold max cell at ~MPPT_CV_TARGET_MV (mode 2)
+// Charging then ENDS ON CURRENT (see termination block below), not the instant a cell first reaches
+// target -- so imbalanced low cells keep filling while the high cell is pinned and balancing works.
+#define MPPT_TAPER_START_MV   4150     // enter closed-loop CV taper at/above this max-cell voltage
+#define MPPT_CV_TARGET_MV     4200     // max-cell setpoint the loop holds (never intentionally exceeded)
+#define MPPT_CV_DEADBAND_MV   10       // hold band [target-deadband, target]; no ceiling nudge inside it
+#define MPPT_CHARGE_RESTART_MV 4100    // after termination, resume harvesting once max cell relaxes <= this
 
-// CV-region bus voltage ceiling the MPPTs hold (they taper current internally as the bus reaches
-// it). Pack/bus mV; converted to the MPPT's wire units via the scale below.
-// ponytail: 32S ~134.4 V full + headroom for noise / IR rise / cell imbalance.
-#define MPPT_MAX_BOOST_MV     136000   // 136.0 V (range ~135.5-136.5 V)
+// Closed-loop integrator on the MPPT output (bus) voltage ceiling. Pack/bus mV; converted to the
+// MPPT's wire units via MPPT_VOLTAGE_LIMIT_SCALE_MV_PER_LSB below. Each control cycle
+// (CAN_STATUS_TASK_DELAY_MS = 300 ms) the ceiling steps one notch toward holding the max cell at
+// target: cell over target -> lower ceiling (less current), cell below the band -> raise it.
+// ponytail: crude deadband-integral loop (fixed step, no gain term) -- enough to taper gracefully.
+#define MPPT_VLIMIT_STEP_MV   100      // ceiling change per control cycle
+#define MPPT_MAX_BOOST_MV     136000   // ceiling upper clamp. 32S ~134.4 V full + headroom (noise/IR/imbalance)
+#define MPPT_MIN_BOOST_MV     130000   // ceiling lower clamp (charge current ~0 here for a full top cell)
+
+// Current-based charge termination -- the correct way to end CC/CV (NOT "first cell hit target").
+// Once the max cell has held in the CV band with the charge current tapered below the cutoff for the
+// full dwell time, the top cell is full, balancing/polarization have settled, and remaining charge
+// acceptance is negligible: MPPTs go off (then restart via the hysteresis above when the cell sags).
+// NOTE: uses NET pack current (get_pack_current(), negative = charging) -- the only current the BPS
+// senses. While driving, motor draw can mask the array current, so this is an approximation; the
+// restart hysteresis makes it self-correcting. ponytail: add a dedicated array-current sense if exact
+// charge-current termination ever matters.
+#define MPPT_CHARGE_TERMINATE_CURRENT_MA 500    // charge current considered "tapered" below this (|mA|)
+#define MPPT_CHARGE_TERMINATE_TIME_MS    60000  // ...held continuously this long -> charge complete
 
 // Wire scaling of the SetOutputVoltageLimit int16 field, from the Open-SEC manual (Packet ID 11):
 // 0.01 V/LSB => 10 mV per LSB. So MPPT_MAX_BOOST_MV (136000) is sent as 136000/10 = 13600.
 // ponytail/VERIFY: confirm 0.01 V/LSB against the current Open-SEC datasheet before relying on the
-// CV ceiling. A wrong scale silently mis-sets the constant-voltage limit (only used while
-// ADVANCED_MPPT_CONTROL + the drive override are active). NOT verified here -- no datasheet in repo.
+// CV ceiling. A wrong scale silently mis-sets the constant-voltage limit (only used while the
+// advanced MPPT control signal is active). NOT verified here -- no datasheet in repo.
 #define MPPT_VOLTAGE_LIMIT_SCALE_MV_PER_LSB 10
 
 //--------------------------------------------------------------------------------
@@ -89,7 +124,7 @@
 // 3-state shutdown modes (shared by the two configs below).
 #define SHUTDOWN_MODE_NEVER                0    // hard: open contactors immediately
 #define SHUTDOWN_MODE_ALWAYS               1    // soft: sequenced open
-#define SHUTDOWN_MODE_OVERRIDE             2    // soft only while drive override (0x67) active
+#define SHUTDOWN_MODE_OVERRIDE             2    // soft only while the BPS_Soft_Shdn command signal is active
 
 // Emergency (hard fault) shutdown. In a soft emergency shutdown the array is ALWAYS
 // soft-shut as part of the sequence (this does not depend on ARRAY_SOFT_SHUTDOWN_MODE).

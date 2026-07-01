@@ -126,6 +126,10 @@ static can_status_t CarCAN_Recv_Driver_Input(driver_input_status_t *out, TickTyp
     FDCAN_RxHeaderTypeDef header = {0};
     uint8_t driver_input_rx_data[CAN_DLC_DRIVER_INPUT_STATUS] = {0};
 
+    // A single recv per cycle is correct here (no drain loop needed): CAN_ID_DRIVER_INPUT_STATUS is
+    // registered as a DEPTH-1 CIRCULAR queue (see can3_recv_entries.h), so the rx ISR overwrites the
+    // one slot with each new frame. The queue therefore holds only the FRESHEST driver input and can
+    // never accumulate stale frames or overflow, no matter how fast the dash sends.
     can_status_t result = can_fd_recv(car_can, CAN_ID_DRIVER_INPUT_STATUS, &header, driver_input_rx_data, delay);
 
     if (result == CAN_OK) {
@@ -239,12 +243,15 @@ void Task_Precharge(void *pvParameters)
                 charge_set_enabled(false);
                 charge_disarm_escalation();
 
-                // disable the array and array precharge contactors if they are not already open
-                if (contactor_get(ARRAY_PRE_CONTACTOR) != CONTACTOR_OPEN) {
-                    contactor_set(ARRAY_PRE_CONTACTOR, CONTACTOR_OPEN, CALLBACK_BLOCKING_TIME_MS, NORMAL);
-                }
-                if (contactor_get(ARRAY_CONTACTOR) != CONTACTOR_OPEN) { 
-                    contactor_set(ARRAY_CONTACTOR, CONTACTOR_OPEN, CALLBACK_BLOCKING_TIME_MS, NORMAL);
+                // If either array contactor is still closed we may have just dropped here from RUN
+                // because ignition/CAN was lost, with the array carrying full solar current. Spin the
+                // MPPTs down (boost disable -> wind-down) BEFORE breaking the contacts instead of
+                // opening them under load (which arcs and welds the contacts). array_shutdown sequences
+                // boost-disable then opens ARRAY then ARRAY_PRE; once both read open the guard skips it
+                // so we don't re-disable the MPPTs every idle cycle.
+                if ((contactor_get(ARRAY_CONTACTOR) != CONTACTOR_OPEN) ||
+                    (contactor_get(ARRAY_PRE_CONTACTOR) != CONTACTOR_OPEN)) {
+                    array_shutdown(NORMAL, shutdown_soft_active(ARRAY_SOFT_SHUTDOWN_MODE));
                 }
 
                 // Begin precharge only if ignition is at array, the BPS is safety-checked
@@ -330,9 +337,21 @@ void Task_Precharge(void *pvParameters)
                 // array is soft-shut; charging stays disabled until the pack returns to range.
                 charge_set_enabled(false);
 
-                // Recover (re-precharge the array) once voltage and temp are back within the
-                // charge limits and charging is still commanded.
+                // The array contactors MUST stay open the whole time charge is disabled. array_shutdown
+                // opened them on entry; re-assert here every cycle so a stray closure can't leave the
+                // array connected while charging is disabled.
+                if (contactor_get(ARRAY_PRE_CONTACTOR) != CONTACTOR_OPEN) {
+                    contactor_set(ARRAY_PRE_CONTACTOR, CONTACTOR_OPEN, CALLBACK_BLOCKING_TIME_MS, NORMAL);
+                }
+                if (contactor_get(ARRAY_CONTACTOR) != CONTACTOR_OPEN) {
+                    contactor_set(ARRAY_CONTACTOR, CONTACTOR_OPEN, CALLBACK_BLOCKING_TIME_MS, NORMAL);
+                }
+
+                // Recover (re-precharge the array) once voltage and temp are back within the charge
+                // limits (with the re-enable hysteresis applied in the monitor tasks), the minimum
+                // disable dwell has elapsed (anti-oscillation), and charging is still commanded.
                 if (charge_conditions_ok()
+                    && charge_reenable_allowed()
                     && driver_input_status.Ignition_Array
                     && (contactor_get(HV_PLUS_CONTACTOR) == CONTACTOR_CLOSED)
                     && (contactor_get(HV_MINUS_CONTACTOR) == CONTACTOR_CLOSED))
