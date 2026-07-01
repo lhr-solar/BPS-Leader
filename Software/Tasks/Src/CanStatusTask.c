@@ -173,7 +173,13 @@ static void get_bps_status_information(bps_status_t *bps_status_message)
     bps_status_message->Main_Battery_Voltage = get_pack_voltage();
     bps_status_message->Main_Battery_Avg_Temperature = (CONVERT_TEMP_FOR_STATUS(get_avg_temp()));
 
-    bps_status_message->BPS_Charge_OK = charge_is_enabled() ? 1 : 0;
+    // Charge OK = the pack can accept charge: max cell within the charge voltage AND temp limits
+    // (override-relaxed where applicable), with the monitor-task hysteresis already applied. This is
+    // purely a cell-limit readiness flag -- NOT the array/precharge/charging state (charge_is_enabled).
+    bps_status_message->BPS_Charge_OK = ((get_state_bit(VOLT_OK_FOR_CHARGING) == STATE_BIT_SET) &&
+                                         (get_state_bit(TEMP_OK_FOR_CHARGING) == STATE_BIT_SET))
+                                            ? 1
+                                            : 0;
 
     // Regen is opt-in: only allowed while the BPS_Regen_Allow command signal is active (drive-profile
     // master + regen bit + config gate), AND there is no fault, AND the pack's max cell voltage/temp

@@ -121,9 +121,13 @@ static uint8_t temp_can_unpack(uint8_t *raw_temp_can_data, bps_temperature_aggre
     temp_can_data[tap_index].BPS_Tap_idx = tap_index;
 
     // bits [8:31]: Temp data (24 bits, Bytes 1-3)
-    temp_can_data[tap_index].BPS_Temperature_Tap_Data = raw_temp_can_data[1] << 0;
-    temp_can_data[tap_index].BPS_Temperature_Tap_Data |= raw_temp_can_data[2] << 8;
-    temp_can_data[tap_index].BPS_Temperature_Tap_Data |= raw_temp_can_data[3] << 16;
+    // Sign-extend the 24-bit two's-complement temperature (bytes 1-3) into the int32_t field: shift
+    // the 24-bit value up to the top of a uint32_t, cast to signed, then arithmetic-shift back down
+    // (same idiom as AMPERES_UNPACK_CURRENT_mA). Without this, sub-zero temps read as huge positives.
+    int32_t temp_raw = (int32_t)(((uint32_t)raw_temp_can_data[1] << 8) |
+                                 ((uint32_t)raw_temp_can_data[2] << 16) |
+                                 ((uint32_t)raw_temp_can_data[3] << 24));
+    temp_can_data[tap_index].BPS_Temperature_Tap_Data = temp_raw >> 8;
 
     // bits [32:39]: Fault data (8 bits, Byte 4)
     temp_can_data[tap_index].BPS_Temperature_Tap_Fault = raw_temp_can_data[4];
@@ -287,6 +291,10 @@ void Task_Temperature_Monitor()
     // watchdog-timer clear -- see where it is OR-ed below.
     uint32_t temp_startup_coverage = 0;
 
+    // Overtemp-while-charging escalation: tick when a cell's CHARGE overtemp was debounce-confirmed
+    // (0 = not confirmed). Faults if charge current is still flowing past the grace window.
+    TickType_t overtemp_charge_since = 0;
+
 #if (VT_CAN_FORWARD_MODE == VT_FORWARD_AVERAGE)
     // per-tap accumulators + sample count for block-averaging forwarded telemetry over each window
     int32_t  temp_fwd_accum[NUM_TEMPERATURE_SENSORS]  = {0}; // sum of temp data (mC)
@@ -311,6 +319,10 @@ void Task_Temperature_Monitor()
     // hysteresis only governs recovery after a charge-temp disable, so seed the in-range state.
     set_state_bit(TEMP_OK_FOR_CHARGING, STATE_BIT_SET);
 
+    // Seed regen OK too, so the regen re-enable hysteresis doesn't leave a pack that boots inside the
+    // regen hysteresis band stuck NOK.
+    set_state_bit(TEMP_OK_FOR_REGEN, STATE_BIT_SET);
+
     TickType_t xLastWakeTime = xTaskGetTickCount();
 
     while (1)
@@ -333,10 +345,16 @@ void Task_Temperature_Monitor()
         uint8_t msgBuff2[CAN_DLC_BPS_TEMP_ADC_AGGREGATE_ARR] = {0};
 
         // variable used to keep track of maximum temperature for this specific cycle
-        uint32_t max_temp = 0;
+        int32_t max_temp = INT32_MIN;
 
         // keeps track if all temps pass checks in order to close contactors
         bool all_temp_good = true;
+
+        // set true when a cell has CONSECUTIVELY (debounce histogram) exceeded the CHARGE overtemp
+        // limit while charging, in the band below the discharge limit. Gates the charge-overtemp soft
+        // stop + escalation below, so a charge overtemp is debounced like any hard fault instead of
+        // being acted on from a single reading.
+        bool charge_overtemp_confirmed = false;
 
         // avg-temp sum published once per cycle (race-free reads), and startup-gate tracking:
         // debounce_clear stays true only if no module is mid-debounce this cycle.
@@ -394,7 +412,8 @@ void Task_Temperature_Monitor()
             // check if max temp is greater than threshold (changes depending on if battery is charging or discharging)
             if (temp_can_data[i].BPS_Temperature_Tap_Data > get_temp_threshold())
             {
-                if (get_state_bit(CHARGING_BATT_STATE) == STATE_BIT_SET)
+                bool module_charging = (get_state_bit(CHARGING_BATT_STATE) == STATE_BIT_SET);
+                if (module_charging)
                 {
                     temp_can_data[i].BPS_Temperature_Tap_Fault = BPS_TEMPERATURE_AGGREGATE_ARR_BPS_TEMPERATURE_TAP_FAULT_CHARGE_OVER_TEMPERATURE;
                 }
@@ -407,7 +426,7 @@ void Task_Temperature_Monitor()
                 temp_module_fault_histogram[temp_can_data[i].BPS_Tap_idx]++;
 
 
-                // only fault the BPS if a singular module has consecutively otemp'd a certain number of times to filter single abnormal readings from actual faults
+                // only escalate if a singular module has consecutively otemp'd a certain number of times to filter single abnormal readings from actual faults
                 if(temp_module_fault_histogram[temp_can_data[i].BPS_Tap_idx] >= TEMP_CONSECUTIVE_FAULT_THRESHOLD)
                 {
                     // A matching override (module temp/all override, or drive override disabling
@@ -415,11 +434,22 @@ void Task_Temperature_Monitor()
                     // Task_Init startup window, before this task starts, so they are already in effect.
                     if (!override_suppress_overtemp(temp_can_data[i].BPS_Tap_idx))
                     {
-                        all_temp_good = false;
-                        printf("Entering Cell Over Temperature Fault for Tap %d: %ldmC\r\n", temp_can_data[i].BPS_Tap_idx, temp_can_data[i].BPS_Temperature_Tap_Data);
-                        // latch this module as one who faulted, set fault bit, and set flag indicating we are not good to close contactors
-                        latch_mod_fault(temp_can_data[i].BPS_Tap_idx, temp_can_data[i].BPS_Temperature_Tap_Data);
-                        set_faultBit(CELL_OVERTEMP_FAULT);
+                        // A confirmed CHARGE overtemp (charging, still below the discharge limit) is NOT a
+                        // hard fault here: it hands off to the current-gated charge-overtemp escalation
+                        // below (stop charging -> grace -> fault only if the array fails to stop). A
+                        // discharge overtemp, or ANY cell above the discharge limit, hard-faults now.
+                        if (module_charging && ((int32_t)temp_can_data[i].BPS_Temperature_Tap_Data < overrides_overtemp_limit_mC(false)))
+                        {
+                            charge_overtemp_confirmed = true;
+                        }
+                        else
+                        {
+                            all_temp_good = false;
+                            printf("Entering Cell Over Temperature Fault for Tap %d: %ldmC\r\n", temp_can_data[i].BPS_Tap_idx, temp_can_data[i].BPS_Temperature_Tap_Data);
+                            // latch this module as one who faulted, set fault bit, and set flag indicating we are not good to close contactors
+                            latch_mod_fault(temp_can_data[i].BPS_Tap_idx, temp_can_data[i].BPS_Temperature_Tap_Data);
+                            set_faultBit(CELL_OVERTEMP_FAULT);
+                        }
                     }
                 }
             }
@@ -488,21 +518,60 @@ void Task_Temperature_Monitor()
             temp_printf_debug_counter = 0;
         }
 
-        // Charge-enable temperature gate with hysteresis (mirror of the voltage gate): disable on
-        // reaching the charge-temp limit; re-enable only after cooling CHARGE_REENABLE_TEMP_HYSTERESIS_MC
-        // below it, so a cell hovering at the limit can't oscillate charge on/off. Holds in the band.
-        if ((max_temp >= CELL_CHARGING_TEMP_THRESHOLD_MC) && (get_state_bit(TEMP_OK_FOR_CHARGING) != STATE_BIT_RESET))
+        // Charge-overtemp handling, gated on the per-module debounce histogram (charge_overtemp_confirmed,
+        // set above once a cell has CONSECUTIVELY exceeded the charging overtemp limit -- 55 C normal /
+        // 60 C override -- while charging, in the band below the discharge limit). Until confirmed,
+        // charging continues: the debounce window filters single abnormal readings, exactly like any
+        // hard fault. On confirmation the sequence is: stop charging (drop the TEMP_OK_FOR_CHARGING gate
+        // + immediate boost off; the precharge task then soft-opens the array), then a grace period for
+        // the array to actually stop, then a hard fault ONLY if charge current is still flowing into the
+        // (still) over-temp pack -- i.e. the array failed to stop. Re-enable (with hysteresis) once no
+        // cell is confirmed over-temp and the max cell has cooled below the limit.
+        int32_t charge_temp_limit_mC = overrides_overtemp_limit_mC(true);
+        if (charge_overtemp_confirmed)
         {
-            set_state_bit(TEMP_OK_FOR_CHARGING, STATE_BIT_RESET);
-            charge_force_disable(); // immediate boost off when a cell reaches the charge-temp limit (over temp)
+            // Soft stop on the confirm edge: drop the charge-OK gate + boost off now.
+            if (get_state_bit(TEMP_OK_FOR_CHARGING) != STATE_BIT_RESET)
+            {
+                set_state_bit(TEMP_OK_FOR_CHARGING, STATE_BIT_RESET);
+                charge_force_disable();
+            }
+
+            // Escalation: after the grace window, if charge current is still flowing the array failed
+            // to stop -> hard fault. Re-checked every cycle until the over-temp clears (disarmed below).
+            if (overtemp_charge_since == 0)
+            {
+                overtemp_charge_since = xTaskGetTickCount();
+            }
+            else if ((Calculate_TimeDifference(xTaskGetTickCount(), overtemp_charge_since) >= pdMS_TO_TICKS(POST_OVERTEMP_CHARGE_DELAY_MS)) &&
+                     (get_pack_current() < CHARGING_THRESHOLD_MA))
+            {
+                printf("Overtemp while charging: array failed to stop, faulting\r\n");
+                set_faultBit(CELL_OVERTEMP_FAULT);
+            }
         }
-        else if ((max_temp < (CELL_CHARGING_TEMP_THRESHOLD_MC - CHARGE_REENABLE_TEMP_HYSTERESIS_MC)) && (get_state_bit(TEMP_OK_FOR_CHARGING) != STATE_BIT_SET))
+        else
         {
-            set_state_bit(TEMP_OK_FOR_CHARGING, STATE_BIT_SET);
+            // No cell confirmed over-temp: disarm the escalation, and re-enable charging once the max
+            // cell has cooled CHARGE_REENABLE_TEMP_HYSTERESIS_MC below the limit (anti-oscillation).
+            overtemp_charge_since = 0;
+            if (((int32_t)max_temp < (charge_temp_limit_mC - CHARGE_REENABLE_TEMP_HYSTERESIS_MC)) && (get_state_bit(TEMP_OK_FOR_CHARGING) != STATE_BIT_SET))
+            {
+                set_state_bit(TEMP_OK_FOR_CHARGING, STATE_BIT_SET);
+            }
         }
 
-        // Regen temp gate (reported to the VCU via BPS_Regen_OK; BPS does not actuate regen)
-        set_state_bit(TEMP_OK_FOR_REGEN, (max_temp < REGEN_TEMP_THRESHOLD_MC) ? STATE_BIT_SET : STATE_BIT_RESET);
+        // Regen temp gate with hysteresis (mirror of the charge gate; reported via BPS_Regen_OK, BPS
+        // does not actuate regen). Disable at the threshold; re-enable only after cooling
+        // REGEN_REENABLE_TEMP_HYSTERESIS_MC below it, so a cell at the limit can't flap regen.
+        if (((int32_t)max_temp >= REGEN_TEMP_THRESHOLD_MC) && (get_state_bit(TEMP_OK_FOR_REGEN) != STATE_BIT_RESET))
+        {
+            set_state_bit(TEMP_OK_FOR_REGEN, STATE_BIT_RESET);
+        }
+        else if (((int32_t)max_temp < (REGEN_TEMP_THRESHOLD_MC - REGEN_REENABLE_TEMP_HYSTERESIS_MC)) && (get_state_bit(TEMP_OK_FOR_REGEN) != STATE_BIT_SET))
+        {
+            set_state_bit(TEMP_OK_FOR_REGEN, STATE_BIT_SET);
+        }
 
         // Startup contactor-close gate: only mark the monitor "good" once every tap reported this
         // watchdog window (full coverage) AND no module is mid-debounce, so HV can't close on

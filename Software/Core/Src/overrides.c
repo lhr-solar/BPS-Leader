@@ -178,6 +178,18 @@ int32_t overrides_charge_limit_voltage_mV(void)
                                             : CELL_CHARGING_VOLTAGE_THRESHOLD_MV;
 }
 
+int32_t overrides_overcurrent_charge_mA(void)
+{
+    return overrides_drive_profile_active() ? OVERRIDE_OVERCURRENT_CHARGE_THRESHOLD_mA
+                                            : OVERCURRENT_CHARGE_THRESHOLD_mA;
+}
+
+int32_t overrides_overcurrent_discharge_mA(void)
+{
+    return overrides_drive_profile_active() ? OVERRIDE_OVERCURRENT_DISCHARGE_THRESHOLD_mA
+                                            : OVERCURRENT_DISCHARGE_THRESHOLD_mA;
+}
+
 int32_t overrides_adjusted_uv_limit_mV(int32_t pack_current_mA)
 {
     // Base UV floor: relaxed setpoint while the drive profile is active, else normal.

@@ -57,6 +57,13 @@
 // loop's observed overshoot (tighten toward ~4215 if it holds tight, widen toward ~4235 if it rings).
 #define OVERRIDE_CELL_CHARGING_VOLTAGE_THRESHOLD_MV  4205    // 4.205 V (backstop above the CV target)
 
+// Overcurrent thresholds while the drive profile is active (relaxed from the normal config.h limits
+// for limp-home). Selected via overrides_overcurrent_charge_mA() / _discharge_mA() when
+// overrides_drive_profile_active(), same config + CAN-flag gate as the other drive-profile setpoints.
+// ponytail: starting values -- CALIBRATE to the pack / contactor / wiring current ratings.
+#define OVERRIDE_OVERCURRENT_DISCHARGE_THRESHOLD_mA  (75000)   // 75 A discharge (normal: 68 A)
+#define OVERRIDE_OVERCURRENT_CHARGE_THRESHOLD_mA     (-54000)  // -54 A charge (normal: -38 A)
+
 //--------------------------------------------------------------------------------
 // Regen-allowed gating. Reported to the VCU via BPS_Regen_OK in the status message:
 // regen is advertised as safe only while the drive override (0x67) is active AND the
@@ -65,6 +72,12 @@
 // faults regardless.
 #define REGEN_VOLTAGE_THRESHOLD_MV   4150    // 4.15 V: regen allowed below, disabled at/above
 #define REGEN_TEMP_THRESHOLD_MC      55000   // 55 C: regen allowed below
+
+// Regen re-enable hysteresis (mirror of the charge-enable hysteresis): once regen is disabled at the
+// threshold above, it only re-enables after the max cell drops this far back below it, so a cell
+// hovering at the limit can't flap BPS_Regen_OK. ponytail: same delta as charge for now; calibrate.
+#define REGEN_REENABLE_VOLTAGE_HYSTERESIS_MV 100   // same as CHARGE_REENABLE_VOLTAGE_HYSTERESIS_MV for now
+#define REGEN_REENABLE_TEMP_HYSTERESIS_MC    2000  // same as CHARGE_REENABLE_TEMP_HYSTERESIS_MC for now
 
 //--------------------------------------------------------------------------------
 // Advanced MPPT control. Built + active only when BPS_CMD_CONFIG_ADV_MPPT_CONTROL is 1 AND the
@@ -113,15 +126,17 @@
 #define MPPT_VOLTAGE_LIMIT_SCALE_MV_PER_LSB 10
 
 //--------------------------------------------------------------------------------
-// Sequenced "soft" shutdown timing (limits inductive overvoltage / contactor arcing).
-// Emergency order: broadcast fault status -> boost disable -> wait MPPT_DELAY (MPPTs wind
-// down) -> open array + array precharge -> wait the remainder so HV+ opens ~HV_DELAY after
-// the status TX (motor side has zeroed torque & opened its contactors) -> open HV+ then HV-.
+// Sequenced "soft" shutdown timing (limits inductive overvoltage / contactor arcing). Reverse of
+// startup (HV- , +50ms, HV+ , ignition, array contactor, precharge, array precharge, boost enable).
+// Shutdown order: broadcast fault status -> boost disable -> wait MPPT_DELAY (MPPTs wind down) ->
+// open array precharge contactor -> wait INTERCONTACTOR -> open array contactor -> wait HV_DELAY
+// (motor board zeros torque + opens its contactors) -> open HV+ -> wait INTERCONTACTOR -> open HV-.
 #define FAULT_SHUTDOWN_INTERCONTACTOR_MS   50   // "shortly after" gap within each contactor pair
 #define FAULT_SHUTDOWN_MPPT_DELAY_MS       150  // wait after boost disable before opening array
-#define FAULT_SHUTDOWN_HV_DELAY_MS         500  // delay from fault-status TX to opening HV+
+#define FAULT_SHUTDOWN_HV_DELAY_MS         500  // wait after opening the array contactor before HV+
+                                                // (lets the motor board zero torque + open its contactors)
 
-// 3-state shutdown modes (shared by the two configs below).
+// 3-state shutdown modes (independently selected per shutdown type below).
 #define SHUTDOWN_MODE_NEVER                0    // hard: open contactors immediately
 #define SHUTDOWN_MODE_ALWAYS               1    // soft: sequenced open
 #define SHUTDOWN_MODE_OVERRIDE             2    // soft only while the BPS_Soft_Shdn command signal is active
@@ -130,9 +145,7 @@
 // soft-shut as part of the sequence (this does not depend on ARRAY_SOFT_SHUTDOWN_MODE).
 #define EMERGENCY_SOFT_SHUTDOWN_MODE       SHUTDOWN_MODE_OVERRIDE
 
-// Array shutdown used when CHARGING is disabled (cell over charge-voltage / over-temp).
-// Governs ONLY the charge-disable case, not emergency shutdowns.
+// Array shutdown used when CHARGING is disabled (cell over charge-voltage / over-temp). Governs ONLY
+// the charge-disable / array drop, independently of EMERGENCY_SOFT_SHUTDOWN_MODE so the array
+// wind-down can be tuned separately from the emergency/fault shutdown.
 #define ARRAY_SOFT_SHUTDOWN_MODE           SHUTDOWN_MODE_OVERRIDE
-
-// If charging current is still present this long after charge is disabled, hard fault.
-#define CHARGE_CURRENT_DETECTION_DELAY_MS  500

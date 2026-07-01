@@ -6,11 +6,10 @@
  * are within the charge limits with no active fault). Monitor tasks can force it off
  * immediately when a charge limit is crossed.
  *
- * When charge is disabled we soft-shut the array (boost disable -> delayed array open)
- * and arm an escalation: once a short grace window from the disable elapses, ANY remaining
- * charging current hard faults (the array failed to stop charging). Re-enabling charge is
- * rate-limited (charge_reenable_allowed) and gated by the monitor-task voltage/temp hysteresis
- * so charge enable cannot oscillate.
+ * When charge is disabled we soft-shut the array (boost disable -> delayed array open).
+ * Re-enabling charge is rate-limited (charge_reenable_allowed) and gated by the monitor-task
+ * voltage/temp hysteresis so charge enable cannot oscillate. The "still charging into an over-temp
+ * pack" escalation lives in the temperature monitor task (temp-based, not charge-enable based).
  */
 
 #pragma once
@@ -21,6 +20,9 @@
 
 // ---- charge-enabled flag (drives MPPT boost + BPS_Charge_OK) ----
 bool charge_is_enabled(void);
+// Set the charge-enable flag. Disabling on a true->false edge also sends an immediate boost-disable
+// to the MPPTs, so boost-off is instant on shutdown / leaving RUN (not just re-asserted at the 300 ms
+// status cadence).
 void charge_set_enabled(bool enabled);
 
 // Immediately disable charging: clears the flag and sends boost disable to the MPPTs now
@@ -30,13 +32,6 @@ void charge_force_disable(void);
 // Anti-oscillation: returns true once MIN_CHARGE_DISABLE_TIME_MS has elapsed since charging was last
 // disabled. The precharge task requires this before recovering charge so it can't rapidly flip.
 bool charge_reenable_allowed(void);
-
-// ---- "charge should have stopped" escalation ----
-void charge_arm_escalation(void);
-void charge_disarm_escalation(void);
-// Call from the amperes task with the latest pack current (mA, negative = charging). Once the grace
-// window from the disable edge elapses, any charging current immediately hard faults.
-void charge_check_current(int32_t pack_current_mA);
 
 // Soft/hard-open the array: boost disable, then open the array + array-precharge
 // contactors. When soft, waits FAULT_SHUTDOWN_MPPT_DELAY_MS for MPPT wind-down before

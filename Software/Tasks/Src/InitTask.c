@@ -204,11 +204,14 @@ void Task_Init()
     );
 
 
-    // All tasks have checked in, ensure nothing faulted on startup before closing contactors
+    // All tasks have checked in, ensure nothing faulted on startup before closing contactors.
+    // Staggered close, low side (HV-) first then high side (HV+) after the inter-contactor gap --
+    // the reverse of the shutdown order (HV+ then HV-).
     if (is_fault_set(NUM_FAULTS) == false)
     {
-        contactor_set(HV_PLUS_CONTACTOR, CONTACTOR_CLOSED, 10, NORMAL);
         contactor_set(HV_MINUS_CONTACTOR, CONTACTOR_CLOSED, 10, NORMAL);
+        vTaskDelay(pdMS_TO_TICKS(FAULT_SHUTDOWN_INTERCONTACTOR_MS));
+        contactor_set(HV_PLUS_CONTACTOR, CONTACTOR_CLOSED, 10, NORMAL);
     }
 
     // Task deletes itself after all other taks are init'd

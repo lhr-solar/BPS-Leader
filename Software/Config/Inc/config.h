@@ -38,12 +38,18 @@
 #define OVERTEMP_THRESHOLD_CHARGING_MC 55000 // 55 C
 #define OVERTEMP_THRESHOLD_DISCHARGING_MC 70000 // 70 C
 
+// Overtemp-while-charging escalation grace: once the max cell reaches the charging overtemp limit,
+// allow this long for the shutdown to actually stop charging. If charge current is still flowing into
+// the (still) over-temp pack after this, hard fault (CELL_OVERTEMP_FAULT).
+#define POST_OVERTEMP_CHARGE_DELAY_MS      600
+
 // Charging Thresholds
 #define CELL_CHARGING_VOLTAGE_THRESHOLD_MV 4150   // 4.15 V
-#define CELL_CHARGING_TEMP_THRESHOLD_MC 50000 // 50 C
+// Charge-OK temperature gate reuses the CHARGING overtemp limit (OVERTEMP_THRESHOLD_CHARGING_MC,
+// override-relaxed to OVERRIDE_OVERTEMP_THRESHOLD_CHARGING_MC) via overrides_overtemp_limit_mC(true).
 
 // current threshold to determine if battery is charging (negative number is charging, positive is discharging)
-#define CHARGING_THRESHOLD_MA (-50) // -50 mA
+#define CHARGING_THRESHOLD_MA (-300) // -300 mA
 
 // Charge-enable anti-oscillation. Charge disables the instant a cell reaches the charge voltage/temp
 // limit, but RE-enabling requires the max cell to first fall a hysteresis band BELOW the limit, so a
@@ -112,13 +118,9 @@
 #define FDCAN_NVIC_PRIO (configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY + 3)
 #define ADC_IRQ_PRIO (configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY + 1)
 
-// Amperes Overcurrent Setpoints: 70A discharge, 38A charge
+// Amperes Overcurrent Setpoints: 68A discharge, 38A charge
 #define OVERCURRENT_DISCHARGE_THRESHOLD_mA  (68000)
 #define OVERCURRENT_CHARGE_THRESHOLD_mA     (-38000)
-
-//--------------------------------------------------------------------------------
-// NOTE: BPS override (CAN 0x67/0x69) config + drive-profile setpoints moved to
-// drive_profile_config.h (included above).
 
 #define PRE(s)  "\r    "s"  "   // \r removes the filepath and 'note: '#pragma message:...' parts
 #define STR(x)  #x

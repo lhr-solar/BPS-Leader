@@ -7,6 +7,7 @@
 #include "StatusLEDs.h"
 #include "DebugPrintf.h"
 #include "charge.h"
+#include "overrides.h"
 
 // CAN timeout. Equal to the task period (25 ms) by design: vTaskDelayUntil targets an ABSOLUTE wake
 // time, so when the amperes board is silent the blocking recv simply consumes the period instead of
@@ -32,8 +33,14 @@ static bool recv_amp_data = false;
 // Global variable
 bps_pack_current_t AmperesData = { 0 };
 
+// Pack current published as a single aligned volatile word for cross-task readers (temperature,
+// voltage, CAN-status, fault-handler tasks). Mirrors the g_avg_temp_mC / g_pack_voltage_mV pattern:
+// a 32-bit aligned access is single-copy atomic on this MCU, so readers never see a torn value and
+// no mutex is needed. Immune to tearing even if bps_pack_current_t is later regenerated packed.
+static volatile int32_t g_pack_current_mA = 0;
+
 int32_t get_pack_current(void) {
-    return AmperesData.Main_Battery_Current;
+    return g_pack_current_mA;
 }
 
 static void vAmperesWatchdogCallback(TimerHandle_t amps_timer)
@@ -102,6 +109,7 @@ void Task_Amperes_Monitor() {
             }
 
             AmperesData.Main_Battery_Current = AMPERES_UNPACK_CURRENT_mA(buffer);
+            g_pack_current_mA = AmperesData.Main_Battery_Current; // publish latest for cross-task readers
             AmperesData.BPS_Amperes_Fault = AMPERES_UNPACK_FAULT(buffer);
 
             // Print current at lower rate
@@ -117,9 +125,9 @@ void Task_Amperes_Monitor() {
         // Set fault bits if needed. If good, set the event group bit.
         // Overcurrent is purely current-threshold based and must stay independent of the
         // charge/regen-OK states: even if charge or regen is "not OK", excess current still faults.
-        if (AmperesData.Main_Battery_Current < OVERCURRENT_CHARGE_THRESHOLD_mA) set_faultBit(PACK_OVERCURRENT_CHARGING_FAULT); 
+        if (AmperesData.Main_Battery_Current < overrides_overcurrent_charge_mA()) set_faultBit(PACK_OVERCURRENT_CHARGING_FAULT); 
 
-        else if (AmperesData.Main_Battery_Current > OVERCURRENT_DISCHARGE_THRESHOLD_mA) set_faultBit(PACK_OVERCURRENT_DISCHARGING_FAULT);
+        else if (AmperesData.Main_Battery_Current > overrides_overcurrent_discharge_mA()) set_faultBit(PACK_OVERCURRENT_DISCHARGING_FAULT);
 
         else if (AmperesData.BPS_Amperes_Fault != BPS_PACK_CURRENT_BPS_AMPERES_FAULT_OK) {
             switch (AmperesData.BPS_Amperes_Fault) {
@@ -164,10 +172,6 @@ void Task_Amperes_Monitor() {
                 is_charging = true;
             }
         }
-
-        // If charging was disabled but charge current is still present past the configured
-        // delay, escalate to a hard fault (the array failed to stop charging).
-        charge_check_current(AmperesData.Main_Battery_Current);
 
         // Set event group bit so watchdog knows we ran
         xEventGroupSetBits(xWDogEventGroup_handle, AMPERES_MONITOR_DONE);

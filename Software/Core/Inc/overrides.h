@@ -70,6 +70,8 @@ int32_t overrides_adjusted_uv_limit_mV(int32_t pack_current_mA);
 int32_t overrides_overtemp_limit_mC(bool charging);   // charging selects the charge vs discharge setpoint
 int32_t overrides_overvoltage_limit_mV(void);         // per-cell overvoltage ceiling (charge)
 int32_t overrides_charge_limit_voltage_mV(void);      // "OK for charging" cutoff voltage
+int32_t overrides_overcurrent_charge_mA(void);        // pack charge overcurrent fault threshold (negative)
+int32_t overrides_overcurrent_discharge_mA(void);     // pack discharge overcurrent fault threshold (positive)
 
 // ---- Shutdown-mode resolver ----
 // Given a SHUTDOWN_MODE_* value, returns whether a soft (sequenced) shutdown should be

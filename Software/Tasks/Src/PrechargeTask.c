@@ -241,7 +241,6 @@ void Task_Precharge(void *pvParameters)
 
                 // not charging while idle
                 charge_set_enabled(false);
-                charge_disarm_escalation();
 
                 // If either array contactor is still closed we may have just dropped here from RUN
                 // because ignition/CAN was lost, with the array carrying full solar current. Spin the
@@ -318,15 +317,12 @@ void Task_Precharge(void *pvParameters)
                 {
                     // array precharged and pack in range -> charging allowed (CAN status task drives boost)
                     charge_set_enabled(true);
-                    charge_disarm_escalation();
                 }
                 else
                 {
-                    // cell over charge-voltage / over-temp -> disable charge, soft-shut the array,
-                    // and arm the "charge should have stopped" current escalation.
+                    // cell over charge-voltage / over-temp -> disable charge and soft-shut the array.
                     printf("Charge disabled: soft array shutdown\r\n");
                     charge_set_enabled(false);
-                    charge_arm_escalation();
                     array_shutdown(NORMAL, shutdown_soft_active(ARRAY_SOFT_SHUTDOWN_MODE));
                     current_precharge_state = PRECHARGE_STATE_CHARGE_DISABLED;
                 }
@@ -356,7 +352,6 @@ void Task_Precharge(void *pvParameters)
                     && (contactor_get(HV_PLUS_CONTACTOR) == CONTACTOR_CLOSED)
                     && (contactor_get(HV_MINUS_CONTACTOR) == CONTACTOR_CLOSED))
                 {
-                    charge_disarm_escalation();
                     current_precharge_state = PRECHARGE_STATE_INITIAL;
                 }
                 break;
@@ -366,7 +361,6 @@ void Task_Precharge(void *pvParameters)
                 // Do NOT open contactors here: the fault handler owns the configured
                 // emergency shutdown sequence for all hard faults.
                 charge_set_enabled(false);
-                charge_disarm_escalation();
                 xTimerStop(xPrechargeTimer, 0);
                 Fault_Checker(Array_Voltage, Battery_Voltage, current_precharge_state);
 

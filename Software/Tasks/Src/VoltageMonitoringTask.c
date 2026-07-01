@@ -291,6 +291,9 @@ void Task_Voltage_Monitor()
     // band would never enable.
     set_state_bit(VOLT_OK_FOR_CHARGING, STATE_BIT_SET);
 
+    // Seed regen OK too so a pack booting inside the regen hysteresis band isn't stuck NOK.
+    set_state_bit(VOLT_OK_FOR_REGEN, STATE_BIT_SET);
+
     TickType_t xLastWakeTime = xTaskGetTickCount();
 
     while (1)
@@ -490,8 +493,17 @@ void Task_Voltage_Monitor()
             set_state_bit(VOLT_OK_FOR_CHARGING, STATE_BIT_SET);
         }
 
-        // Regen voltage gate (reported to the VCU via BPS_Regen_OK; BPS does not actuate regen)
-        set_state_bit(VOLT_OK_FOR_REGEN, ((int32_t)max_voltage < REGEN_VOLTAGE_THRESHOLD_MV) ? STATE_BIT_SET : STATE_BIT_RESET);
+        // Regen voltage gate with hysteresis (mirror of the charge gate; reported via BPS_Regen_OK,
+        // BPS does not actuate regen). Disable at the threshold; re-enable only after the max cell
+        // drops REGEN_REENABLE_VOLTAGE_HYSTERESIS_MV below it, so a cell at the limit can't flap regen.
+        if (((int32_t)max_voltage >= REGEN_VOLTAGE_THRESHOLD_MV) && (get_state_bit(VOLT_OK_FOR_REGEN) != STATE_BIT_RESET))
+        {
+            set_state_bit(VOLT_OK_FOR_REGEN, STATE_BIT_RESET);
+        }
+        else if (((int32_t)max_voltage < (REGEN_VOLTAGE_THRESHOLD_MV - REGEN_REENABLE_VOLTAGE_HYSTERESIS_MV)) && (get_state_bit(VOLT_OK_FOR_REGEN) != STATE_BIT_SET))
+        {
+            set_state_bit(VOLT_OK_FOR_REGEN, STATE_BIT_SET);
+        }
 
         // Startup contactor-close gate: only mark the monitor "good" once every tap reported this
         // watchdog window (full coverage) AND no module is mid-debounce, so HV can't close on

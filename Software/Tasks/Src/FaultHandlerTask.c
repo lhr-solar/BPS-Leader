@@ -94,9 +94,9 @@ static void fault_shutdown_sequence(uint32_t fault_bit_index)
     // 1) Soft-drop the solar array: boost disable -> MPPT wind-down -> open array + pchg.
     array_shutdown(EMERGENCY, true);
 
-    // 2) Wait out the rest of the window so HV+ opens ~FAULT_SHUTDOWN_HV_DELAY_MS after the
-    //    status TX (motor side has zeroed torque + opened its contactors, bus current fallen).
-    vTaskDelay(pdMS_TO_TICKS(FAULT_SHUTDOWN_HV_DELAY_MS - FAULT_SHUTDOWN_MPPT_DELAY_MS - FAULT_SHUTDOWN_INTERCONTACTOR_MS));
+    // 2) Fixed wait for the motor side (other board) to zero torque + open its contactors in
+    //    response to the fault broadcast at t=0, so the bus current has fallen before HV+ opens.
+    vTaskDelay(pdMS_TO_TICKS(FAULT_SHUTDOWN_HV_DELAY_MS));
 
     // 3) Open the main battery contactors: high side (HV+) first, low side (HV-) last.
     contactor_set(HV_PLUS_CONTACTOR, CONTACTOR_OPEN, 0, EMERGENCY);
