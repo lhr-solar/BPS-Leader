@@ -53,7 +53,7 @@
 // voltage ladder: MPPT_TAPER_START_MV (4150, CC->CV) < MPPT_CV_TARGET_MV (4200, hold + current-
 // terminate) < OVERRIDE_CELL_CHARGING_VOLTAGE_THRESHOLD_MV (4225, master cutoff) <
 // OVERRIDE_CELL_OVERVOLTAGE_THRESHOLD_MV (4250, hard fault). The ordering is locked by _Static_asserts
-// in CanStatusTask.c. ponytail: 4225 = midpoint of CV target and hard fault; calibrate to the CV
+// in MpptControlTask.c. ponytail: 4225 = midpoint of CV target and hard fault; calibrate to the CV
 // loop's observed overshoot (tighten toward ~4215 if it holds tight, widen toward ~4235 if it rings).
 #define OVERRIDE_CELL_CHARGING_VOLTAGE_THRESHOLD_MV  4205    // 4.205 V (backstop above the CV target)
 
@@ -100,7 +100,7 @@
 
 // Closed-loop integrator on the MPPT output (bus) voltage ceiling. Pack/bus mV; converted to the
 // MPPT's wire units via MPPT_VOLTAGE_LIMIT_SCALE_MV_PER_LSB below. Each control cycle
-// (CAN_STATUS_TASK_DELAY_MS = 300 ms) the ceiling steps one notch toward holding the max cell at
+// (MPPT_CONTROL_TASK_DELAY_MS = 300 ms) the ceiling steps one notch toward holding the max cell at
 // target: cell over target -> lower ceiling (less current), cell below the band -> raise it.
 // ponytail: crude deadband-integral loop (fixed step, no gain term) -- enough to taper gracefully.
 #define MPPT_VLIMIT_STEP_MV   100      // ceiling change per control cycle

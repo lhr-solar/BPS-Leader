@@ -8,8 +8,9 @@
  *
  * When charge is disabled we soft-shut the array (boost disable -> delayed array open).
  * Re-enabling charge is rate-limited (charge_reenable_allowed) and gated by the monitor-task
- * voltage/temp hysteresis so charge enable cannot oscillate. The "still charging into an over-temp
- * pack" escalation lives in the temperature monitor task (temp-based, not charge-enable based).
+ * voltage/temp hysteresis so charge enable cannot oscillate. MPPT boost is driven by MpptControlTask
+ * from charge_is_enabled(). The "still charging into an over-temp pack" escalation lives in the
+ * temperature monitor task (temp-based, not charge-enable based).
  */
 
 #pragma once

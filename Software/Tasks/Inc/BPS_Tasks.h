@@ -17,6 +17,7 @@
 #define TASK_CONTACTOR_MONITOR_PRIO     tskIDLE_PRIORITY + 4
 #define TASK_FAN_CONTROLLER_PRIO        tskIDLE_PRIORITY + 3
 #define TASK_CAN_STATUS_PRIO            tskIDLE_PRIORITY + 4
+#define TASK_MPPT_CONTROL_PRIO          tskIDLE_PRIORITY + 4
 #define TASK_PRECHARGE_PRIO             tskIDLE_PRIORITY + 3
 
 #define TEST_TASK_PRIORITY              tskIDLE_PRIORITY + 3
@@ -33,6 +34,7 @@
 #define TASK_CONTACTOR_MONITORING_STACK_SIZE     (configMINIMAL_STACK_SIZE*2)
 #define TASK_FAN_CONTROLLER_STACK_SIZE           (configMINIMAL_STACK_SIZE*2)
 #define TASK_CAN_STATUS_STACK_SIZE               (configMINIMAL_STACK_SIZE*2)
+#define TASK_MPPT_CONTROL_STACK_SIZE             (configMINIMAL_STACK_SIZE*2)
 
 #define TEST_TASK_STACK_SIZE                     (configMINIMAL_STACK_SIZE*2)
 
@@ -49,6 +51,7 @@ extern StackType_t Task_Contactor_Monitoring_Stack[ TASK_CONTACTOR_MONITORING_ST
 extern StackType_t Init_Task_Stack[ TASK_INIT_STACK_SIZE ];
 extern StackType_t Task_Fan_Controller_Stack[ TASK_FAN_CONTROLLER_STACK_SIZE ];
 extern StackType_t Task_Can_Status_Stack[ TASK_CAN_STATUS_STACK_SIZE ];
+extern StackType_t Task_Mppt_Control_Stack[ TASK_MPPT_CONTROL_STACK_SIZE ];
 
 // Task Buffers
 extern StaticTask_t Task_Temperature_Buffer;
@@ -62,6 +65,7 @@ extern StaticTask_t Task_Contactor_Monitoring_Buffer;
 extern StaticTask_t Init_Task_Buffer;
 extern StaticTask_t Task_Fan_Controller_Buffer;
 extern StaticTask_t Task_Can_Status_Buffer;
+extern StaticTask_t Task_Mppt_Control_Buffer;
 
 // Task Delays
 #define TEMP_MONITOR_TASK_DELAY_MS      100
@@ -73,6 +77,7 @@ extern StaticTask_t Task_Can_Status_Buffer;
 // Periodic BPS status heartbeat. Faults are broadcast immediately by the fault
 // handler (preempts this task), so this only sets the steady-state refresh rate.
 #define CAN_STATUS_TASK_DELAY_MS        300
+#define MPPT_CONTROL_TASK_DELAY_MS      300
 
 // Task Inits
 void Task_Init();
@@ -85,6 +90,7 @@ void Task_PetWatchdog();
 void Task_CanRxForward();
 void Task_Contactor_Monitor();
 void Task_Can_Status();
+void Task_Mppt_Control();
 void Task_Precharge();
 
 // Builds and immediately sends the BPS status frame (0x1). Used by the fault handler

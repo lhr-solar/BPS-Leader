@@ -388,6 +388,6 @@ void Task_Precharge(void *pvParameters)
         // Check in with the RTOS watchdog (one of the ALL_TASKS_DONE bits).
         xEventGroupSetBits(xWDogEventGroup_handle, PRECHARGE_MONITOR_DONE);
 
-        // MPPT boost enable/disable is driven by charge_enabled in the CAN status task.
+        // MPPT boost enable/disable is driven by the MPPT control task from charge_is_enabled().
     }
 }

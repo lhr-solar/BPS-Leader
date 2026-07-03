@@ -27,6 +27,7 @@ StackType_t Init_Task_Stack[TASK_INIT_STACK_SIZE];
 StackType_t Task_Can_Forward_Stack[TASK_CAN_FORWARD_STACK_SIZE];
 StackType_t Task_Fan_Controller_Stack[TASK_FAN_CONTROLLER_STACK_SIZE];
 StackType_t Task_Can_Status_Stack[TASK_CAN_STATUS_STACK_SIZE];
+StackType_t Task_Mppt_Control_Stack[TASK_MPPT_CONTROL_STACK_SIZE];
 
 // Task Buffer
 StaticTask_t Init_Task_Buffer;
@@ -40,6 +41,7 @@ StaticTask_t Task_Contactor_Monitor_Buffer;
 StaticTask_t Task_Can_Forward_Buffer;
 StaticTask_t Task_Fan_Controller_Buffer;
 StaticTask_t Task_Can_Status_Buffer;
+StaticTask_t Task_Mppt_Control_Buffer;
 
 // Event Group
 EventGroupHandle_t xWDogEventGroup_handle;
@@ -170,6 +172,16 @@ void Task_Init()
         TASK_CAN_STATUS_PRIO,       /* Task Prioriy. */
         Task_Can_Status_Stack,   /* Stack array. */
         &Task_Can_Status_Buffer        /* Buffer for static allocation. */
+    );
+
+    xTaskCreateStatic(
+        Task_Mppt_Control,              /* The function that implements the task. */
+        "MPPT Control Task",            /* Text name for the task. */
+        TASK_MPPT_CONTROL_STACK_SIZE,   /* The size (in words) of the stack that should be created for the task. */
+        (void *)NULL,                   /* Paramter passed into the task. */
+        TASK_MPPT_CONTROL_PRIO,         /* Task Prioriy. */
+        Task_Mppt_Control_Stack,        /* Stack array. */
+        &Task_Mppt_Control_Buffer       /* Buffer for static allocation. */
     );
 
         xTaskCreateStatic(
