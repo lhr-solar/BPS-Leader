@@ -3,9 +3,10 @@
 
 /* Timing Definitions */
 
-/** * @brief Time to wait for the physical contactor to settle before reading feedback. 
+/** * @brief Time to wait for the physical contactor to reach its commanded state (and its sense
+ * feedback to settle) before the monitor verifies command vs sense. Configured in config.h. 
  */
-#define CONTACTOR_SENSE_DELAY_TICKS      pdMS_TO_TICKS(1000)  
+#define CONTACTOR_SENSE_DELAY_TICKS      pdMS_TO_TICKS(CONTACTOR_CHECK_DELAY_MS)  
 
 /** * @brief Maximum blocking time in milliseconds for contactor callbacks. 
  */

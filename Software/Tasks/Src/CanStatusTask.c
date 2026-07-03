@@ -4,12 +4,17 @@
 #include "Contactors.h"
 #include "CANbus.h"
 #include "StatusLEDs.h"
+#include "overrides.h"
 #include <string.h>
 
 // Converts the temp in mC to the centi-celcius used in the status
 #define CONVERT_TEMP_FOR_STATUS(temp) ((temp) / 10)
 
 #define BPS_STATUS_CAN_DELAY_MS 10u
+
+// Shared RX/TX scratch buffer size. The module override/ack (0x69/0x669) are 8 bytes; the BPS
+// command/ack (0x67/0x667) are 1 byte -- sized for the larger.
+#define OVERRIDE_PAYLOAD_DLC 8u
 
 // returns 0 if segemet is OK else it returns 1
 static uint8_t get_segment_status(uint8_t segment_num)
@@ -166,9 +171,24 @@ static void get_bps_status_information(bps_status_t *bps_status_message)
     bps_status_message->Main_Battery_Voltage = get_pack_voltage();
     bps_status_message->Main_Battery_Avg_Temperature = (CONVERT_TEMP_FOR_STATUS(get_avg_temp()));
 
-    bps_status_message->BPS_Charge_OK = ((bps_status_message->BPS_Fault == BPS_STATUS_BPS_FAULT_OK) && (get_state_bit(VOLT_OK_FOR_CHARGING) == STATE_BIT_SET) && (get_state_bit(TEMP_OK_FOR_CHARGING) == STATE_BIT_SET)) ? 1 : 0;
+    // Charge OK = the pack can accept charge: max cell within the charge voltage AND temp limits
+    // (override-relaxed where applicable), with the monitor-task hysteresis already applied. This is
+    // purely a cell-limit readiness flag -- NOT the array/precharge/charging state (charge_is_enabled).
+    bps_status_message->BPS_Charge_OK = ((get_state_bit(VOLT_OK_FOR_CHARGING) == STATE_BIT_SET) &&
+                                         (get_state_bit(TEMP_OK_FOR_CHARGING) == STATE_BIT_SET))
+                                            ? 1
+                                            : 0;
 
-    bps_status_message->BPS_Regen_OK = (bps_status_message->BPS_Fault == BPS_STATUS_BPS_FAULT_OK) ? 1 : 0;
+    // Regen is opt-in: only allowed while the BPS_Regen_Allow command signal is active (drive-profile
+    // master + regen bit + config gate), AND there is no fault, AND the pack's max cell voltage/temp
+    // are below the regen setpoints (drive_profile_config.h). Reported to the VCU; the BPS does not
+    // actuate regen. Overcurrent still faults regardless of this flag (see AmperesMonitorTask).
+    bps_status_message->BPS_Regen_OK = (overrides_regen_allowed() &&
+                                        (bps_status_message->BPS_Fault == BPS_STATUS_BPS_FAULT_OK) &&
+                                        (get_state_bit(VOLT_OK_FOR_REGEN) == STATE_BIT_SET) &&
+                                        (get_state_bit(TEMP_OK_FOR_REGEN) == STATE_BIT_SET))
+                                           ? 1
+                                           : 0;
 
     bps_status_message->HV_Plus_Contactor_State = (contactor_get(HV_PLUS_CONTACTOR) == CONTACTOR_CLOSED) ? 1 : 0;
     bps_status_message->HV_Minus_Contactor_State = (contactor_get(HV_MINUS_CONTACTOR) == CONTACTOR_CLOSED) ? 1 : 0;
@@ -185,25 +205,54 @@ static void get_bps_status_information(bps_status_t *bps_status_message)
     bps_status_message->BPS_Segment7_Status = get_segment_status(7);
 }
 
-void Task_Can_Status(void *pvParameters)
+void send_bps_status_now(void)
 {
-
-    TickType_t xLastWakeTime = xTaskGetTickCount();
-
     bps_status_t bps_status_message = {0};
     uint8_t bps_status_raw_can[CAN_DLC_BPS_STATUS] = {0};
 
+    get_bps_status_information(&bps_status_message);
+    pack_bps_status_message(&bps_status_message, bps_status_raw_can);
+    car_can_send(CAN_ID_BPS_STATUS, bps_status_raw_can, CAN_DLC_BPS_STATUS, BPS_STATUS_CAN_DELAY_MS);
+}
+
+// Non-blocking poll of the BPS command + module override inputs (0x67/0x69) and broadcast of the
+// current state (0x667/0x669). State only changes on a received message; acks are always sent so the
+// sender sees we're alive and what we believe. The command ack reflects the EFFECTIVE state (after
+// config gating). Also called by Task_Init during the startup window so commands are in effect early.
+void process_overrides(void)
+{
+    uint8_t buf[OVERRIDE_PAYLOAD_DLC] = {0};
+
+    if (car_can_recv(CAN_ID_BPS_COMMAND, buf, CAN_DLC_BPS_COMMAND, 0) == CAN_OK)
+    {
+        overrides_set_command(buf[0]);
+    }
+
+    if (car_can_recv(CAN_ID_BPS_MODULE_OVERRIDE, buf, CAN_DLC_BPS_MODULE_OVERRIDE, 0) == CAN_OK)
+    {
+        overrides_set_module_raw(buf);
+    }
+
+    overrides_pack_command_ack(buf);
+    car_can_send(CAN_ID_BPS_COMMAND_ACK, buf, CAN_DLC_BPS_COMMAND_ACK, BPS_STATUS_CAN_DELAY_MS);
+
+    overrides_pack_module_ack(buf);
+    car_can_send(CAN_ID_BPS_MODULE_OVERRIDE_ACK, buf, CAN_DLC_BPS_MODULE_OVERRIDE_ACK, BPS_STATUS_CAN_DELAY_MS);
+}
+
+void Task_Can_Status(void *pvParameters)
+{
+    (void)pvParameters;
+
+    TickType_t xLastWakeTime = xTaskGetTickCount();
+
     while (1)
     {
-
         toggleHeartbeat();
 
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(CAN_STATUS_TASK_DELAY_MS));
 
-        get_bps_status_information(&bps_status_message);
-
-        pack_bps_status_message(&bps_status_message, bps_status_raw_can);
-
-        car_can_send(CAN_ID_BPS_STATUS, bps_status_raw_can, CAN_DLC_BPS_STATUS, BPS_STATUS_CAN_DELAY_MS);        
+        send_bps_status_now();
+        process_overrides();
     }
 }

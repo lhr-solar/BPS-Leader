@@ -7,20 +7,34 @@
 
 #define FAULT_COUNT_ERROR_THRESHOLD 5
 
+// Forward the ENTIRE BPS bus to Car CAN. Default OFF: only the pack current is forwarded (it has
+// no other path to Car CAN). Enabling mirrors every VT voltage/temp frame too -- heavy Car-CAN
+// traffic that the monitor tasks already cover via their aggregate messages.
+#ifndef FULL_CAN_FORWARDING
+#define FULL_CAN_FORWARDING 0
+#endif
+
 static StaticQueue_t canRxForwardQueueBuffer;
 static uint8_t canRxForwardQueueStorage[CAN_RX_FORWARD_QUEUE_SIZE * sizeof(can_rx_payload_t)];
 static QueueHandle_t canRxForwardQueue;
  
-void can_fd_rRx_callback_hook(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs, can_rx_payload_t recv_payload)
+// Overrides the driver's weak can_fd_rx_callback_hook (CAN_FD.c). The name MUST match exactly
+// or the override silently won't link and forwarding stops. Runs in the RX ISR for every frame.
+void can_fd_rx_callback_hook(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs, can_rx_payload_t recv_payload)
 {
 
     BaseType_t higherPriorityTaskWoken = pdFALSE;
 
-    if (hfdcan->Instance == BPS_CAN_CHANNEL)
+    if ((hfdcan->Instance == BPS_CAN_CHANNEL) && (canRxForwardQueue != NULL))
     {
-        if (canRxForwardQueue != NULL)
+#if FULL_CAN_FORWARDING
+        const bool forward = true; // mirror the whole BPS bus to Car CAN
+#else
+        const bool forward = (recv_payload.header.Identifier == CAN_ID_BPS_PACK_CURRENT);
+#endif
+        if (forward)
         {
-            xQueueSendCircularBufferFromISR(  
+            xQueueSendCircularBufferFromISR(
                 canRxForwardQueue,
                 &recv_payload,
                 &higherPriorityTaskWoken,

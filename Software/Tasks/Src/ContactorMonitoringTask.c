@@ -129,5 +129,8 @@ void Task_Contactor_Monitor(void *pvParameters)
         {
             set_state_bit(CONTACTOR_MONITOR_GOOD, STATE_BIT_SET);
         }
+
+        // Check in with the RTOS watchdog (one of the ALL_TASKS_DONE bits).
+        xEventGroupSetBits(xWDogEventGroup_handle, CONTACTOR_MONITOR_DONE);
     }
 }

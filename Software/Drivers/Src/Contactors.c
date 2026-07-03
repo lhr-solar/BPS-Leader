@@ -4,6 +4,12 @@
 static SemaphoreHandle_t contactorsMutex = NULL;
 static StaticSemaphore_t contactorsMutexBuffer;
 
+// Latched true by the first EMERGENCY open. While set, contactor_set() rejects every non-emergency
+// write so a normal writer (e.g. the precharge task) that was preempted mid-close by the fault
+// handler cannot resume and re-close a contactor the emergency sequence just opened (finding 7).
+// One-way latch: cleared only by reboot (a latched fault holds the system shut down until reset).
+static volatile bool emergency_latched = false;
+
 bool contactor_is_initialized = false;
 
 const char* CONTACTOR_NAMES[NUM_CONTACTORS] = {
@@ -107,6 +113,12 @@ contactor_state_t contactor_set(contactor_num_t contactor_num, contactor_state_t
         return CONTACTOR_ERROR;
     }
 
+    // Once an emergency open has latched, reject all non-emergency writes (finding 7).
+    if (emergency_latched && (fault_state != EMERGENCY))
+    {
+        return CONTACTOR_ERROR;
+    }
+
     if ((contactorsMutex == NULL) && (fault_state != EMERGENCY))
         return CONTACTOR_ERROR;
 
@@ -118,20 +130,46 @@ contactor_state_t contactor_set(contactor_num_t contactor_num, contactor_state_t
         return CONTACTOR_ERROR;
     };
 
-    // critical section:
-    HAL_GPIO_WritePin(contactor->control_pin.port, contactor->control_pin.pin, ((state == CONTACTOR_CLOSED) ? GPIO_PIN_SET : GPIO_PIN_RESET));
-    contactor->state = state;
-
-    /* start timer to check if the state of the contactor makes expected state, the exit critical section. Timer resets
-    when the contactor is set to another value, so no possible error with expected value changing from when timer is called
-    the 0 param in xTimerStart indicates to start the timer immediately, not wait any ticks*/
-    if ((fault_state != EMERGENCY))
+    // GPIO write + state update (and setting the emergency latch) happen in a critical section so a
+    // normal writer and the emergency path cannot interleave. A normal writer re-checks the latch
+    // here: if the fault handler latched an emergency open after we took the mutex, we abort without
+    // touching the GPIO, so we can never clobber an emergency open with a stale close.
+    contactor_state_t result = CONTACTOR_OK;
+    bool state_changed = false;
+    taskENTER_CRITICAL();
+    if ((fault_state != EMERGENCY) && emergency_latched)
     {
-        xTimerStart(contactor->senseTimer, 0);
+        result = CONTACTOR_ERROR;
+    }
+    else
+    {
+        if (fault_state == EMERGENCY)
+        {
+            emergency_latched = true; // latch BEFORE writing so any concurrent re-check sees it
+        }
+        state_changed = (contactor->state != state); // capture before overwriting
+        HAL_GPIO_WritePin(contactor->control_pin.port, contactor->control_pin.pin, ((state == CONTACTOR_CLOSED) ? GPIO_PIN_SET : GPIO_PIN_RESET));
+        contactor->state = state;
+    }
+    taskEXIT_CRITICAL();
+
+    /* Start the sense-verify timer (only for an accepted normal write) and release the mutex. Only
+    (re)start it when the commanded state actually CHANGED: re-commanding the same state (e.g. the
+    precharge task re-asserting the array open every cycle while charge is disabled / idle) must not
+    keep restarting the one-shot timer, or a welded contactor would never be verified within
+    CONTACTOR_CHECK_DELAY_MS. A drift after a completed verify is still caught by contactor_verify,
+    which compares command vs sense directly once the timer is inactive. The 0 param in xTimerStart
+    starts the timer immediately, not waiting any ticks. */
+    if (fault_state != EMERGENCY)
+    {
+        if (result == CONTACTOR_OK && state_changed)
+        {
+            xTimerStart(contactor->senseTimer, 0);
+        }
         xSemaphoreGive(contactorsMutex);
     }
 
-    return CONTACTOR_OK;
+    return result;
 }
 
 void contactor_init()

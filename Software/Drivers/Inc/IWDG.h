@@ -40,10 +40,20 @@ Common Timeouts
 
 /* ---------------------------- MACROS ----------------------------*/
 
-#define IWDG_PRESCALAR IWDG_PRESCALER_8 
-#define IWDG_COUNTDOWN_TICKS 79               // Tick value before we refresh the IDWG (current value converts to ~20ms)
+// IWDG timeout must comfortably exceed the slowest monitored-task cadence, otherwise the watchdog
+// resets even when everything is healthy (the pet only happens once ALL monitored tasks check in).
+// The volt/temp monitors run on ~290 ms periods and can stretch to several hundred ms under
+// CAN-recv timeouts, so we size the timeout to ~2 s. With prescaler 256 each reload tick is
+// 256/32000 s = 8 ms, so RL=249 -> (249+1)*8 ms = 2000 ms. A genuine RTOS hang still resets the
+// MCU within ~2 s. ponytail: shrink this only after the monitor tasks are given tighter cadences.
+#define IWDG_PRESCALAR IWDG_PRESCALER_256
+#define IWDG_COUNTDOWN_TICKS 249              // (249+1) * 8ms = ~2000ms
 
-#define IWDG_TIMEOUT_MS 20
+#define IWDG_TIMEOUT_MS 2000
+
+// RTOS software window-timer period (ticks): the minimum spacing between pet attempts, exposed as
+// one of the ALL_TASKS_DONE bits. Hardware IWDG windowing is disabled (see IWDG.c) so only the
+// upper timeout above matters -- this just keeps the pet loop from spinning.
 #define IWDG_WINDOW_TICKS 27
 /* ----------------------------------------------------------------*/
 

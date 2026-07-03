@@ -17,6 +17,7 @@
 #define TASK_CONTACTOR_MONITOR_PRIO     tskIDLE_PRIORITY + 4
 #define TASK_FAN_CONTROLLER_PRIO        tskIDLE_PRIORITY + 3
 #define TASK_CAN_STATUS_PRIO            tskIDLE_PRIORITY + 4
+#define TASK_MPPT_CONTROL_PRIO          tskIDLE_PRIORITY + 4
 #define TASK_PRECHARGE_PRIO             tskIDLE_PRIORITY + 3
 
 #define TEST_TASK_PRIORITY              tskIDLE_PRIORITY + 3
@@ -33,6 +34,7 @@
 #define TASK_CONTACTOR_MONITORING_STACK_SIZE     (configMINIMAL_STACK_SIZE*2)
 #define TASK_FAN_CONTROLLER_STACK_SIZE           (configMINIMAL_STACK_SIZE*2)
 #define TASK_CAN_STATUS_STACK_SIZE               (configMINIMAL_STACK_SIZE*2)
+#define TASK_MPPT_CONTROL_STACK_SIZE             (configMINIMAL_STACK_SIZE*2)
 
 #define TEST_TASK_STACK_SIZE                     (configMINIMAL_STACK_SIZE*2)
 
@@ -49,6 +51,7 @@ extern StackType_t Task_Contactor_Monitoring_Stack[ TASK_CONTACTOR_MONITORING_ST
 extern StackType_t Init_Task_Stack[ TASK_INIT_STACK_SIZE ];
 extern StackType_t Task_Fan_Controller_Stack[ TASK_FAN_CONTROLLER_STACK_SIZE ];
 extern StackType_t Task_Can_Status_Stack[ TASK_CAN_STATUS_STACK_SIZE ];
+extern StackType_t Task_Mppt_Control_Stack[ TASK_MPPT_CONTROL_STACK_SIZE ];
 
 // Task Buffers
 extern StaticTask_t Task_Temperature_Buffer;
@@ -62,15 +65,19 @@ extern StaticTask_t Task_Contactor_Monitoring_Buffer;
 extern StaticTask_t Init_Task_Buffer;
 extern StaticTask_t Task_Fan_Controller_Buffer;
 extern StaticTask_t Task_Can_Status_Buffer;
+extern StaticTask_t Task_Mppt_Control_Buffer;
 
 // Task Delays
-#define TEMP_MONITOR_TASK_DELAY_MS      290
-#define VOLT_MONITOR_TASK_DELAY_MS      290
+#define TEMP_MONITOR_TASK_DELAY_MS      100
+#define VOLT_MONITOR_TASK_DELAY_MS      100
 #define PRECHARGE_TASK_DELAY_MS         200
 #define CONTACTOR_MONITOR_TASK_DELAY_MS 200
-#define AMPERES_MONITOR_TASK_DELAY_MS   90
+#define AMPERES_MONITOR_TASK_DELAY_MS   25
 #define FAN_CONTROLLER_TASK_DELAY_MS    300
-#define CAN_STATUS_TASK_DELAY_MS        500
+// Periodic BPS status heartbeat. Faults are broadcast immediately by the fault
+// handler (preempts this task), so this only sets the steady-state refresh rate.
+#define CAN_STATUS_TASK_DELAY_MS        300
+#define MPPT_CONTROL_TASK_DELAY_MS      300
 
 // Task Inits
 void Task_Init();
@@ -83,7 +90,16 @@ void Task_PetWatchdog();
 void Task_CanRxForward();
 void Task_Contactor_Monitor();
 void Task_Can_Status();
+void Task_Mppt_Control();
 void Task_Precharge();
+
+// Builds and immediately sends the BPS status frame (0x1). Used by the fault handler
+// to broadcast a fault the instant it occurs, instead of waiting for the 500ms tick.
+void send_bps_status_now(void);
+
+// Polls the override inputs (0x67/0x69) and sends the override-state acks (0x667/0x669).
+// Run each CAN-status cycle, and repeatedly by Task_Init during the startup window.
+void process_overrides(void);
 
 // access functions for 
 // returns the average temperature of all cells in the battery in mC
@@ -91,6 +107,10 @@ uint32_t get_avg_temp();
 
 // returns sum of all voltage tap measurements of pack, which is pack voltage
 uint32_t get_pack_voltage();
+
+// returns the highest / lowest single-cell voltage in the pack in mV (refreshed once per cycle)
+uint32_t get_max_cell_voltage();
+uint32_t get_min_cell_voltage();
 
 // returns a specific module's voltage in mV, module number is 0 indexed
 uint32_t get_module_voltage(uint8_t module_num);
@@ -116,6 +136,22 @@ extern uint32_t mod_fault_value;
 static inline uint32_t get_mod_fault_value(void)
 {
     return mod_fault_value;
+}
+
+// Apply a GOOD (in-range) read to a per-module consecutive-fault counter. Behaviour is set by
+// VOLT_TEMP_DEBOUNCE_MODE (config.h): CLEAR zeroes it, LEAKY_BUCKET decrements by 1 (saturating).
+// Leaky-bucket prevents a sensor oscillating across the threshold from resetting its counter on
+// every good read and thereby never reaching the fault threshold.
+static inline void debounce_good_read(uint8_t *counter)
+{
+#if (VOLT_TEMP_DEBOUNCE_MODE == DEBOUNCE_MODE_LEAKY_BUCKET)
+    if (*counter > 0)
+    {
+        (*counter)--;
+    }
+#else
+    *counter = 0;
+#endif
 }
 
 /* ---- Watchdog Event Group ---- */
@@ -191,6 +227,10 @@ typedef enum {
     // tracks if we have temp/voltage within charging thresholds
     TEMP_OK_FOR_CHARGING,
     VOLT_OK_FOR_CHARGING,
+
+    // tracks if we have temp/voltage within regen thresholds (reported via BPS_Regen_OK)
+    TEMP_OK_FOR_REGEN,
+    VOLT_OK_FOR_REGEN,
 
     NUM_STATE_BITS
 } state_bits_t;

@@ -21,7 +21,7 @@
 #define CAN_ID_BPS_VT5_TEMPERATURE_ARR 0x15
 #define CAN_ID_BPS_VT6_TEMPERATURE_ARR 0x16
 #define CAN_ID_BPS_VT7_TEMPERATURE_ARR 0x17
-#define CAN_ID_BPS_PACK_CURRENT_RAWV 0x755
+#define CAN_ID_BPS_PACK_CURRENT_ADC 0x755
 #define CAN_ID_BPS_BALANCE_DISCHARGE 0x7A0
 
 /* ================= CAN Length Macros ================= */
@@ -43,7 +43,7 @@
 #define CAN_DLC_BPS_VT5_TEMPERATURE_ARR 7
 #define CAN_DLC_BPS_VT6_TEMPERATURE_ARR 7
 #define CAN_DLC_BPS_VT7_TEMPERATURE_ARR 7
-#define CAN_DLC_BPS_PACK_CURRENT_RAWV 3
+#define CAN_DLC_BPS_PACK_CURRENT_ADC 3
 #define CAN_DLC_BPS_BALANCE_DISCHARGE 1
 
 
@@ -285,62 +285,62 @@ typedef struct {
     uint8_t BPS_Tap_idx;
     int32_t BPS_Temperature_Tap_Data;
     uint8_t BPS_Temperature_Tap_Fault;
-    uint16_t BPS_Temperature_Tap_RawV;
+    uint16_t BPS_Temperature_Tap_ADC;
 } bps_vt0_temperature_arr_t;
 
 typedef struct {
     uint8_t BPS_Tap_idx;
     int32_t BPS_Temperature_Tap_Data;
     uint8_t BPS_Temperature_Tap_Fault;
-    uint16_t BPS_Temperature_Tap_RawV;
+    uint16_t BPS_Temperature_Tap_ADC;
 } bps_vt1_temperature_arr_t;
 
 typedef struct {
     uint8_t BPS_Tap_idx;
     int32_t BPS_Temperature_Tap_Data;
     uint8_t BPS_Temperature_Tap_Fault;
-    uint16_t BPS_Temperature_Tap_RawV;
+    uint16_t BPS_Temperature_Tap_ADC;
 } bps_vt2_temperature_arr_t;
 
 typedef struct {
     uint8_t BPS_Tap_idx;
     int32_t BPS_Temperature_Tap_Data;
     uint8_t BPS_Temperature_Tap_Fault;
-    uint16_t BPS_Temperature_Tap_RawV;
+    uint16_t BPS_Temperature_Tap_ADC;
 } bps_vt3_temperature_arr_t;
 
 typedef struct {
     uint8_t BPS_Tap_idx;
     int32_t BPS_Temperature_Tap_Data;
     uint8_t BPS_Temperature_Tap_Fault;
-    uint16_t BPS_Temperature_Tap_RawV;
+    uint16_t BPS_Temperature_Tap_ADC;
 } bps_vt4_temperature_arr_t;
 
 typedef struct {
     uint8_t BPS_Tap_idx;
     int32_t BPS_Temperature_Tap_Data;
     uint8_t BPS_Temperature_Tap_Fault;
-    uint16_t BPS_Temperature_Tap_RawV;
+    uint16_t BPS_Temperature_Tap_ADC;
 } bps_vt5_temperature_arr_t;
 
 typedef struct {
     uint8_t BPS_Tap_idx;
     int32_t BPS_Temperature_Tap_Data;
     uint8_t BPS_Temperature_Tap_Fault;
-    uint16_t BPS_Temperature_Tap_RawV;
+    uint16_t BPS_Temperature_Tap_ADC;
 } bps_vt6_temperature_arr_t;
 
 typedef struct {
     uint8_t BPS_Tap_idx;
     int32_t BPS_Temperature_Tap_Data;
     uint8_t BPS_Temperature_Tap_Fault;
-    uint16_t BPS_Temperature_Tap_RawV;
+    uint16_t BPS_Temperature_Tap_ADC;
 } bps_vt7_temperature_arr_t;
 
 typedef struct {
-    uint16_t Main_Battery_Current_RawV;
+    uint16_t Main_Battery_Current_ADC;
     uint8_t FrameID_Amperes;
-} bps_pack_current_rawv_t;
+} bps_pack_current_adc_t;
 
 typedef struct {
     uint8_t BPS_Segment_idx;

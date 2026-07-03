@@ -8,7 +8,12 @@
 #include "SHT45.h"
 
 #define ALL_TASK_BITS ((1 << AMPERES_MONITOR_GOOD) | (1 << CONTACTOR_MONITOR_GOOD) | (1 << VOLTAGE_MONITOR_GOOD) | (1 << TEMPERATURE_MONITOR_GOOD))
+
+// Startup window: how long we wait after hardware init before starting the monitors/watchdogs,
+// to give the volt-temp + amperes boards time to wake up and start broadcasting (their watchdogs
+// only start with the monitor tasks). We spend the window watching for override control messages.
 #define STARTUP_DELAY_MS (1000)
+#define STARTUP_OVERRIDE_POLL_MS (50)   // how often to poll 0x67/0x69 + send acks during the window
 
 // Task Stack Arrays
 StackType_t Task_Temperature_Stack_Array[TASK_TEMPERATURE_MONITOR_STACK_SIZE];
@@ -22,6 +27,7 @@ StackType_t Init_Task_Stack[TASK_INIT_STACK_SIZE];
 StackType_t Task_Can_Forward_Stack[TASK_CAN_FORWARD_STACK_SIZE];
 StackType_t Task_Fan_Controller_Stack[TASK_FAN_CONTROLLER_STACK_SIZE];
 StackType_t Task_Can_Status_Stack[TASK_CAN_STATUS_STACK_SIZE];
+StackType_t Task_Mppt_Control_Stack[TASK_MPPT_CONTROL_STACK_SIZE];
 
 // Task Buffer
 StaticTask_t Init_Task_Buffer;
@@ -35,6 +41,7 @@ StaticTask_t Task_Contactor_Monitor_Buffer;
 StaticTask_t Task_Can_Forward_Buffer;
 StaticTask_t Task_Fan_Controller_Buffer;
 StaticTask_t Task_Can_Status_Buffer;
+StaticTask_t Task_Mppt_Control_Buffer;
 
 // Event Group
 EventGroupHandle_t xWDogEventGroup_handle;
@@ -44,9 +51,8 @@ StaticEventGroup_t xStateBits_buffer;
 
 void Task_Init()
 {
-
-    vTaskDelay(pdMS_TO_TICKS(STARTUP_DELAY_MS));
-
+    // Hardware + driver init first (no blind pre-delay): bring CAN up so we can watch for
+    // control messages during the startup window below.
     if (faultHandler_init() == 0)
     {
         Error_Handler();
@@ -74,6 +80,19 @@ void Task_Init()
     Init_WDogTask();
 
     printf("Initialized...\n\r");
+
+    // Startup window: hold off on starting the monitors/watchdogs for STARTUP_DELAY_MS so the
+    // volt-temp and amperes boards have time to wake up and start broadcasting before their
+    // watchdogs come online (the watchdogs only start with the monitor tasks). CAN is already
+    // up, so we spend the window watching for control messages (drive + module overrides,
+    // 0x67/0x69) and sending their acks (0x667/0x669) -- an override (e.g. for a discharged
+    // pack) is therefore already in effect by the time the first checks run.
+    TickType_t startup_window_start = xTaskGetTickCount();
+    while (Calculate_TimeDifference(xTaskGetTickCount(), startup_window_start) < pdMS_TO_TICKS(STARTUP_DELAY_MS))
+    {
+        process_overrides();
+        vTaskDelay(pdMS_TO_TICKS(STARTUP_OVERRIDE_POLL_MS));
+    }
 
     xTaskCreateStatic(
         Task_FaultHandler,             // Task function
@@ -155,6 +174,16 @@ void Task_Init()
         &Task_Can_Status_Buffer        /* Buffer for static allocation. */
     );
 
+    xTaskCreateStatic(
+        Task_Mppt_Control,              /* The function that implements the task. */
+        "MPPT Control Task",            /* Text name for the task. */
+        TASK_MPPT_CONTROL_STACK_SIZE,   /* The size (in words) of the stack that should be created for the task. */
+        (void *)NULL,                   /* Paramter passed into the task. */
+        TASK_MPPT_CONTROL_PRIO,         /* Task Prioriy. */
+        Task_Mppt_Control_Stack,        /* Stack array. */
+        &Task_Mppt_Control_Buffer       /* Buffer for static allocation. */
+    );
+
         xTaskCreateStatic(
         Task_Precharge,             /* The function that implements the task. */
         "Precharging Task",         /* Text name for the task. */
@@ -165,15 +194,17 @@ void Task_Init()
         &Precharge_Task_Buffer      /* Buffer for static allocation. */
     );
 
-    // xTaskCreateStatic(
-    //     Task_PetWatchdog,                   /* The function that implements the task. */
-    //     "PetWatchdog",                      /* Text name for the task. */
-    //     TASK_PETWDOG_STACK_SIZE,            /* The size (in words) of the stack that should be created for the task. */
-    //     (void*)NULL,                        /* Paramter passed into the task. */
-    //     TASK_PETWDOG_PRIO,                  /* Task Prioriy. */
-    //     Task_Petwdog_Stack_Array,           /* Stack array. */
-    //     &Task_Petwdog_Buffer                /* Buffer for static allocation. */
-    // );
+#if RTOS_WATCHDOG_ENABLE
+    xTaskCreateStatic(
+        Task_PetWatchdog,                   /* The function that implements the task. */
+        "PetWatchdog",                      /* Text name for the task. */
+        TASK_PETWDOG_STACK_SIZE,            /* The size (in words) of the stack that should be created for the task. */
+        (void*)NULL,                        /* Paramter passed into the task. */
+        TASK_PETWDOG_PRIO,                  /* Task Prioriy. */
+        Task_Petwdog_Stack_Array,           /* Stack array. */
+        &Task_Petwdog_Buffer                /* Buffer for static allocation. */
+    );
+#endif
 
     // Wait till all tasks check in
     xEventGroupWaitBits(
@@ -185,11 +216,14 @@ void Task_Init()
     );
 
 
-    // All tasks have checked in, ensure nothing faulted on startup before closing contactors
+    // All tasks have checked in, ensure nothing faulted on startup before closing contactors.
+    // Staggered close, low side (HV-) first then high side (HV+) after the inter-contactor gap --
+    // the reverse of the shutdown order (HV+ then HV-).
     if (is_fault_set(NUM_FAULTS) == false)
     {
-        contactor_set(HV_PLUS_CONTACTOR, CONTACTOR_CLOSED, 10, NORMAL);
         contactor_set(HV_MINUS_CONTACTOR, CONTACTOR_CLOSED, 10, NORMAL);
+        vTaskDelay(pdMS_TO_TICKS(FAULT_SHUTDOWN_INTERCONTACTOR_MS));
+        contactor_set(HV_PLUS_CONTACTOR, CONTACTOR_CLOSED, 10, NORMAL);
     }
 
     // Task deletes itself after all other taks are init'd
