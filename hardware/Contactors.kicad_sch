@@ -1,0 +1,176 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "4198dff1-6fe3-4da4-ba52-fca9fcba6176")
+	(paper "A4")
+	(lib_symbols)
+	(sheet
+		(at 46.99 58.42)
+		(size 43.18 19.05)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "50ecbef3-9a17-4bf8-983b-b9b2f40d8f2c")
+		(property "Sheetname" "HV_Minus_Contactor"
+			(at 46.99 57.7084 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "HV_Minus_Contactor.kicad_sch"
+			(at 46.99 78.0546 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "PS-BPSLeader"
+				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/abcdb600-343b-441e-a9af-754e86e8bbfd"
+					(page "10")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 45.72 30.48)
+		(size 45.72 17.78)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "927da2c1-2ba5-4ed2-b22e-2243cad3102e")
+		(property "Sheetname" "HV_Plus_Contactor"
+			(at 45.72 29.7684 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "HV_Plus_Contactor.kicad_sch"
+			(at 45.72 48.8446 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "PS-BPSLeader"
+				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/abcdb600-343b-441e-a9af-754e86e8bbfd"
+					(page "9")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 104.14 30.48)
+		(size 43.18 21.59)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "a7969363-38ad-45c1-bc99-f8cbddb70b36")
+		(property "Sheetname" "Array_Contactor"
+			(at 104.14 29.7684 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "Array_Contactor.kicad_sch"
+			(at 104.14 52.6546 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "PS-BPSLeader"
+				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/abcdb600-343b-441e-a9af-754e86e8bbfd"
+					(page "11")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 105.41 59.69)
+		(size 41.91 16.51)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "cf637a1b-f731-47fa-a46d-d1273cb8463c")
+		(property "Sheetname" "Array_Precharge_Contactor"
+			(at 105.41 58.9784 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "Array_Precharge_Contactor.kicad_sch"
+			(at 105.41 76.7846 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "PS-BPSLeader"
+				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/abcdb600-343b-441e-a9af-754e86e8bbfd"
+					(page "12")
+				)
+			)
+		)
+	)
+)

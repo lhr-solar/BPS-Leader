@@ -1,0 +1,9 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "UTSVT_Connectors")(type "KiCad")(uri "${KIPRJMOD}/KiCAD-Sharepoint/UTSVT_Connectors.pretty")(options "")(descr ""))
+  (lib (name "UTSVT_ICs")(type "KiCad")(uri "${KIPRJMOD}/KiCAD-Sharepoint/UTSVT_ICs.pretty")(options "")(descr ""))
+  (lib (name "UTSVT_Logos")(type "KiCad")(uri "${KIPRJMOD}/KiCAD-Sharepoint/UTSVT_Logos.pretty")(options "")(descr ""))
+  (lib (name "UTSVT_Passives")(type "KiCad")(uri "${KIPRJMOD}/KiCAD-Sharepoint/UTSVT_Passives.pretty")(options "")(descr ""))
+  (lib (name "UTSVT_Power")(type "KiCad")(uri "${KIPRJMOD}/KiCAD-Sharepoint/UTSVT_Power.pretty")(options "")(descr ""))
+  (lib (name "UTSVT_Special")(type "KiCad")(uri "${KIPRJMOD}/KiCAD-Sharepoint/UTSVT_Special.pretty")(options "")(descr ""))
+)
