@@ -229,7 +229,7 @@ ADC_Sense_Status_t Read_ADC(TickType_t Timeout_MS, ADC_Sense_Result *Result) // 
 
     if (xQueueReceive(Array_ADC_Queue, &Array_ADC, Timeout_Ticks) == pdPASS)
     {
-        Result->Array_Voltage = Array_LUT[Array_ADC];
+        Result->Array_Voltage = Prechage_LUT[Array_ADC];
     }
     else
     {
@@ -239,7 +239,7 @@ ADC_Sense_Status_t Read_ADC(TickType_t Timeout_MS, ADC_Sense_Result *Result) // 
 
     if (xQueueReceive(Battery_ADC_Queue, &Battery_ADC, Timeout_Ticks) == pdPASS)
     {
-        Result->Battery_Voltage = Battery_LUT[Battery_ADC];
+        Result->Battery_Voltage = Prechage_LUT[Battery_ADC];
     }
     else
     {

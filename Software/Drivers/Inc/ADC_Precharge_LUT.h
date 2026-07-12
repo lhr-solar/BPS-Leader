@@ -6,7 +6,7 @@
 // Output Units: millivolts (mV)
 // Range: 0 mV to 311689 mV
 
-static const uint32_t Array_LUT[4096] = {
+static const uint32_t Prechage_LUT[4096] = {
     0, 76, 152, 228, 304, 381, 457, 533,
     609, 685, 761, 837, 913, 989, 1066, 1142,
     1218, 1294, 1370, 1446, 1522, 1598, 1675, 1751,

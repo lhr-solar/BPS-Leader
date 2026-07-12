@@ -3,8 +3,7 @@
 #include "common.h"
 #include "UART.h"
 #include "ADC.h"
-#include "ADC_Battery_LUT.h"
-#include "ADC_Array_LUT.h"
+#include "ADC_Precharge_LUT.h"
 
 // ADC Channel 11 (Array Voltage) and 12 (Battery Voltage) are GPIOB 12 and 2
 #define ADC1_CHANNEL ADC_CHANNEL_11

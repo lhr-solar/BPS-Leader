@@ -82,22 +82,11 @@ if __name__ == "__main__":
     
     generate_adc_lut_header(
         output_dir=TARGET_DIR,
-        filename="ADC_Array_LUT.h",
+        filename="ADC_Precharge_LUT.h",
         bits=12,
         vref=3.029,
         r_top=100000.0,   
         r_bottom=2490.0,  
         amp_gain=0.4,
-        array_name="Array_LUT"
-    )
-
-    generate_adc_lut_header(
-        output_dir=TARGET_DIR,
-        filename="ADC_Battery_LUT.h",
-        bits=12,
-        vref=3.029,
-        r_top=100000.0,   
-        r_bottom=2490.0,  
-        amp_gain=0.4,
-        array_name="Battery_LUT"
+        array_name="Prechage_LUT"
     )
