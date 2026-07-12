@@ -14,8 +14,8 @@ void Task_Fan_Controller() {
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(FAN_CONTROLLER_TASK_DELAY_MS));
 
         // sets rpm of fans to 1500
-        set_fan_rpm(EMC2305_FAN1, 1500);
-        set_fan_rpm(EMC2305_FAN2, 1500);
+        set_fan_rpm(EMC2305_FAN1, 1300);
+        set_fan_rpm(EMC2305_FAN2, 1300);
     }
 }
 

@@ -192,6 +192,6 @@ void set_fans_MAX(void)
     if (!driver_initialized)
         EMC2305_Driver_init();
 
-    EMC2305_SetFanRPM(&chip, EMC2305_FAN1, FAN_MAX_RPM);
-    EMC2305_SetFanRPM(&chip, EMC2305_FAN2, FAN_MAX_RPM);
+    EMC2305_SetFanRPM(&chip, EMC2305_FAN1, 1500);
+    EMC2305_SetFanRPM(&chip, EMC2305_FAN2, 1500);
 }

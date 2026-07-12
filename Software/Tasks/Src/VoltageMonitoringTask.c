@@ -296,8 +296,16 @@ void Task_Voltage_Monitor()
 
     TickType_t xLastWakeTime = xTaskGetTickCount();
 
+    bool first_iteration = true;
+
+
     while (1)
     {
+
+        if(first_iteration){
+            vTaskDelay(pdMS_TO_TICKS(1000));
+            first_iteration = false;
+        }
         volt_printf_debug_counter++;
 
         // Delay

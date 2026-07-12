@@ -78,12 +78,19 @@ void Task_Amperes_Monitor() {
     // first contact below. Startup HV-close is separately gated on AMPERES_MONITOR_GOOD (which now
     // also requires fresh data), so a board that never boots still cannot close contactors.
 
+    bool first_iteration = true;
+
     while (1)
     {
         amps_printf_debug_counter++;
 
         // whether a fresh amperes CAN message was decoded this cycle (startup coverage gate)
         bool fresh_amp_data = false;
+
+        if(first_iteration){
+            vTaskDelay(pdMS_TO_TICKS(750));
+            first_iteration = false;
+        }
 
         // Delays 100 ms
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(AMPERES_MONITOR_TASK_DELAY_MS));

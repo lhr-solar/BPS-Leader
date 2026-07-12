@@ -10,9 +10,7 @@
 // Forward the ENTIRE BPS bus to Car CAN. Default OFF: only the pack current is forwarded (it has
 // no other path to Car CAN). Enabling mirrors every VT voltage/temp frame too -- heavy Car-CAN
 // traffic that the monitor tasks already cover via their aggregate messages.
-#ifndef FULL_CAN_FORWARDING
-#define FULL_CAN_FORWARDING 0
-#endif
+#define FULL_CAN_FORWARDING 1
 
 static StaticQueue_t canRxForwardQueueBuffer;
 static uint8_t canRxForwardQueueStorage[CAN_RX_FORWARD_QUEUE_SIZE * sizeof(can_rx_payload_t)];
