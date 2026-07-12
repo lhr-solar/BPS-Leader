@@ -14,6 +14,8 @@
 // Car-CAN aggregate TX wait (telemetry forward).
 #define VOLTAGE_CAN_DELAY_MS 10u
 
+#define VOLTAGE_TIMER_START_DELAY_TICKS 200
+
 // Per-tap RX wait while draining the BPS bus each cycle. Kept small so a missing/late board can't
 // stretch the (now faster) monitor period: worst case = NUM_VOLTAGE_SENSORS * this.
 #define VOLTAGE_CAN_RECV_TIMEOUT_MS 2u
@@ -40,9 +42,6 @@
 
 // array to hold struct packed can data
 bps_voltage_aggregate_arr_t volt_can_data[NUM_VOLTAGE_SENSORS] = {0};
-
-// number of consecutive voltage faults before latching module fault (shared voltage/temp counter)
-_Static_assert(VOLT_CONSECUTIVE_FAULT_THRESHOLD < 255, "VOLT_CONSECUTIVE_FAULT_THRESHOLD must be less than 255 since the histogram is an array of uint8_t");
 
 // array to store how often a module has consecutively voltage-faulted (over OR under), indexed by module number
 uint8_t volt_module_fault_histogram[NUM_VOLTAGE_SENSORS] = {0};
@@ -283,8 +282,6 @@ void Task_Voltage_Monitor()
         &volt_timer_buffer                       /* Buffer to hold timer data */
     );
 
-    xTimerStart(voltage_watchdog_timer, 0);
-
     // Start "OK for charging" asserted so a pack that boots within the charge limits behaves as
     // before (charging allowed below the limit). The re-enable hysteresis above only governs
     // recovery AFTER a charge-limit disable; without this seed a pack booting in the hysteresis
@@ -297,6 +294,7 @@ void Task_Voltage_Monitor()
     TickType_t xLastWakeTime = xTaskGetTickCount();
 
     bool first_iteration = true;
+    TickType_t xThreadStart = xTaskGetTickCount();
 
 
     while (1)
@@ -305,6 +303,11 @@ void Task_Voltage_Monitor()
         if(first_iteration){
             vTaskDelay(pdMS_TO_TICKS(1000));
             first_iteration = false;
+        }
+        // if the watchdog timer is inactive and we're 
+        // 100 50 <= 200
+        if(xThreadStart + VOLTAGE_TIMER_START_DELAY_TICKS <= xTaskGetTickCount() && xTimerIsTimerActive(voltage_watchdog_timer) == pdFALSE){
+           // xTimerStart(voltage_watchdog_timer, 0);
         }
         volt_printf_debug_counter++;
 
@@ -382,6 +385,19 @@ void Task_Voltage_Monitor()
                         set_faultBit(BQ_CHIP_FAULT);
                     }
                 }
+                else if(volt_printf_debug_counter >= VOLT_PRINTF_COUNTER)
+                {
+                    printf("BQ Fault for module: %d ", volt_can_data[i].BPS_Tap_idx);
+                    if(volt_board_fault == BPS_VOLTAGE_AGGREGATE_ARR_BPS_VOLTAGE_TAP_FAULT_BQ_I2C_READ_ERROR){
+                        printf("BQ I2C OUT OF BOUNDS ERROR\r\n");
+                    }
+                    else if(volt_board_fault == BPS_VOLTAGE_AGGREGATE_ARR_BPS_VOLTAGE_TAP_FAULT_OUT_OF_BOUNDS){
+                        printf("VOLTAGE OUT OF BOUNDS\r\n");
+                    }
+                    else{
+                        printf("\r\n");
+                    }
+                }
             }
             else
             {
@@ -412,16 +428,29 @@ void Task_Voltage_Monitor()
             else if ((int32_t)volt_can_data[i].BPS_Voltage_Tap_Data < uv_limit_mV)
             {
 
-                volt_can_data[i].BPS_Voltage_Tap_Fault = BPS_VOLTAGE_AGGREGATE_ARR_BPS_VOLTAGE_TAP_FAULT_UNDER_VOLTAGE;
-                volt_module_fault_histogram[volt_can_data[i].BPS_Tap_idx]++;
-                if (volt_module_fault_histogram[volt_can_data[i].BPS_Tap_idx] >= VOLT_CONSECUTIVE_FAULT_THRESHOLD)
-                {
-                    if (!override_suppress_undervoltage(volt_can_data[i].BPS_Tap_idx))
+                // TODO: remove ts
+                // ignores module 0 and 1 faults if they are below 1V
+                static uint32_t consecutive_fucky_wucky = 0;
+                static uint32_t total_fucky_wucky = 0;
+                if((volt_can_data[i].BPS_Tap_idx == 0 && volt_can_data[i].BPS_Voltage_Tap_Data <= 1000) ||
+                    (volt_can_data[i].BPS_Tap_idx == 1 && volt_can_data[i].BPS_Voltage_Tap_Data <= 1000)){
+                        printf("Tap: %d is vewy wewy low uwu: %dmV\r\n", volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data);
+                        consecutive_fucky_wucky++;
+                        total_fucky_wucky++;
+                        printf("Concurrent fucky wucky: %ld, Total fucky wucky: %ld\r\n", consecutive_fucky_wucky, total_fucky_wucky);
+                }
+                else{
+                    volt_can_data[i].BPS_Voltage_Tap_Fault = BPS_VOLTAGE_AGGREGATE_ARR_BPS_VOLTAGE_TAP_FAULT_UNDER_VOLTAGE;
+                    volt_module_fault_histogram[volt_can_data[i].BPS_Tap_idx]++;
+                    if (volt_module_fault_histogram[volt_can_data[i].BPS_Tap_idx] >= VOLT_CONSECUTIVE_FAULT_THRESHOLD)
                     {
-                        all_voltage_good = false;
-                        printf("Entering Cell Under Voltage Fault for Tap %d: %dmV\r\n", volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data);
-                        latch_mod_fault(volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data); // Store the faulted module value (voltage)
-                        set_faultBit(CELL_UNDERVOLTAGE_FAULT);
+                        if (!override_suppress_undervoltage(volt_can_data[i].BPS_Tap_idx))
+                        {
+                            all_voltage_good = false;
+                            printf("Entering Cell Under Voltage Fault for Tap %d: %dmV\r\n", volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data);
+                            latch_mod_fault(volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data); // Store the faulted module value (voltage)
+                            set_faultBit(CELL_UNDERVOLTAGE_FAULT);
+                        }
                     }
                 }
             }

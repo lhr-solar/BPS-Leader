@@ -8,6 +8,13 @@
 #include "DebugPrintf.h"
 #include "charge.h"
 #include "overrides.h"
+#include "Contactors.h"
+
+#define OVERCURRENT_DISCHAGE_FAULT_THRESHOLD 5
+#define OVERCURRENT_CHARGE_FAULT_THRESHOLD 5
+
+#define AMPERES_WATCHDOG_TIMER_START_DELAY_TICKS 200
+
 
 // CAN timeout. Equal to the task period (25 ms) by design: vTaskDelayUntil targets an ABSOLUTE wake
 // time, so when the amperes board is silent the blocking recv simply consumes the period instead of
@@ -15,7 +22,7 @@
 // per ~25 ms, it does not halve to 50 ms. When data is present recv returns immediately and the
 // vTaskDelayUntil below provides the spacing. Either way the effective period stays one task delay.
 #define AMPERES_CAN_TIMEOUT_MS AMPERES_MONITOR_TASK_DELAY_MS
-#define AMPERES_WATCHDOG_TIMEOUT_MS 500
+#define AMPERES_WATCHDOG_TIMEOUT_MS 2000
 
 // CAN message decoding
 #define AMPERES_UNPACK_CURRENT_mA(x) (((int32_t)(((uint32_t)(x)[3] << 24) | ((uint32_t)(x)[2] << 16) | ((uint32_t)(x)[1] << 8))) >> 8)
@@ -78,7 +85,11 @@ void Task_Amperes_Monitor() {
     // first contact below. Startup HV-close is separately gated on AMPERES_MONITOR_GOOD (which now
     // also requires fresh data), so a board that never boots still cannot close contactors.
 
-    bool first_iteration = true;
+    bool first_iteration_with_contactors = true;
+    uint8_t overcurrent_discharge_fault_counter = 0;
+    uint8_t overcurrent_charge_fault_counter = 0;
+
+    TickType_t xThreadStart = xTaskGetTickCount();
 
     while (1)
     {
@@ -87,9 +98,13 @@ void Task_Amperes_Monitor() {
         // whether a fresh amperes CAN message was decoded this cycle (startup coverage gate)
         bool fresh_amp_data = false;
 
-        if(first_iteration){
+        if(first_iteration_with_contactors && contactor_get(HV_PLUS_CONTACTOR) == CONTACTOR_CLOSED && contactor_get(HV_PLUS_CONTACTOR) == CONTACTOR_CLOSED){
             vTaskDelay(pdMS_TO_TICKS(750));
-            first_iteration = false;
+            first_iteration_with_contactors = false;
+        }
+
+        if(xThreadStart + AMPERES_WATCHDOG_TIMER_START_DELAY_TICKS <= xTaskGetTickCount() && xTimerIsTimerActive(amperes_watchdog_timer) == pdFALSE){
+            xTimerStart(amperes_watchdog_timer, 0);
         }
 
         // Delays 100 ms
@@ -109,12 +124,6 @@ void Task_Amperes_Monitor() {
             recv_amp_data = true;
             fresh_amp_data = true;
 
-            // Arm the watchdog on first contact (auto-reload thereafter).
-            if (xTimerIsTimerActive(amperes_watchdog_timer) == pdFALSE)
-            {
-                xTimerStart(amperes_watchdog_timer, 0);
-            }
-
             AmperesData.Main_Battery_Current = AMPERES_UNPACK_CURRENT_mA(buffer);
             g_pack_current_mA = AmperesData.Main_Battery_Current; // publish latest for cross-task readers
             AmperesData.BPS_Amperes_Fault = AMPERES_UNPACK_FAULT(buffer);
@@ -132,9 +141,25 @@ void Task_Amperes_Monitor() {
         // Set fault bits if needed. If good, set the event group bit.
         // Overcurrent is purely current-threshold based and must stay independent of the
         // charge/regen-OK states: even if charge or regen is "not OK", excess current still faults.
-        if (AmperesData.Main_Battery_Current < overrides_overcurrent_charge_mA()) set_faultBit(PACK_OVERCURRENT_CHARGING_FAULT); 
+        if (AmperesData.Main_Battery_Current < overrides_overcurrent_charge_mA()) {
+            if(overcurrent_charge_fault_counter >= OVERCURRENT_CHARGE_FAULT_THRESHOLD){
+                set_faultBit(PACK_OVERCURRENT_CHARGING_FAULT); 
+                overcurrent_charge_fault_counter = 0;
+            }
+            else{
+                overcurrent_charge_fault_counter++;
+            }
+        }
 
-        else if (AmperesData.Main_Battery_Current > overrides_overcurrent_discharge_mA()) set_faultBit(PACK_OVERCURRENT_DISCHARGING_FAULT);
+        else if (AmperesData.Main_Battery_Current > overrides_overcurrent_discharge_mA()) {
+            if(overcurrent_discharge_fault_counter >= OVERCURRENT_DISCHAGE_FAULT_THRESHOLD){
+                set_faultBit(PACK_OVERCURRENT_DISCHARGING_FAULT);
+                overcurrent_discharge_fault_counter = 0;
+            }
+            else{
+                overcurrent_discharge_fault_counter++;
+            }
+        }
 
         else if (AmperesData.BPS_Amperes_Fault != BPS_PACK_CURRENT_BPS_AMPERES_FAULT_OK) {
             switch (AmperesData.BPS_Amperes_Fault) {
@@ -142,10 +167,10 @@ void Task_Amperes_Monitor() {
                     set_faultBit(AMPERES_WATCHDOG_FAULT);
                     break;
                 case BPS_PACK_CURRENT_BPS_AMPERES_FAULT_OVER_CURRENT_DISCHARGE_:
-                    set_faultBit(PACK_OVERCURRENT_DISCHARGING_FAULT);
+                    //set_faultBit(PACK_OVERCURRENT_DISCHARGING_FAULT);
                     break;
                 case BPS_PACK_CURRENT_BPS_AMPERES_FAULT_OVER_CURRENT_CHARGE_:
-                    set_faultBit(PACK_OVERCURRENT_CHARGING_FAULT);
+                    //set_faultBit(PACK_OVERCURRENT_CHARGING_FAULT);
                     break;
                 case BPS_PACK_CURRENT_BPS_AMPERES_FAULT_MESSAGE_WATCHDOG:
                     set_faultBit(AMPERES_WATCHDOG_FAULT);

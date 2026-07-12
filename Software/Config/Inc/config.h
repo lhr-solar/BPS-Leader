@@ -80,9 +80,13 @@
 
 // How many consecutive bad reads on a single module before a fault is latched (filters single
 // abnormal readings from real faults). Separate voltage/temperature thresholds. Stored per-module
-// in a uint8_t histogram in the monitor tasks, so these must stay < 255.
-#define VOLT_CONSECUTIVE_FAULT_THRESHOLD 5
+// a uint8_t histogram stores the value, so these must stay < 255.
+#define VOLT_CONSECUTIVE_FAULT_THRESHOLD 10
+_Static_assert(VOLT_CONSECUTIVE_FAULT_THRESHOLD < 255, "VOLT_CONSECUTIVE_FAULT_THRESHOLD must be less than 255 since the histogram is an array of uint8_t");
+
 #define TEMP_CONSECUTIVE_FAULT_THRESHOLD 5
+_Static_assert(TEMP_CONSECUTIVE_FAULT_THRESHOLD < 255, "TEMP_CONSECUTIVE_FAULT_THRESHOLD must be less than 255 since the histogram is an array of uint8_t");
+
 
 // Debounce counter behaviour on a GOOD read (see debounce_good_read() in common.h):
 //   CLEAR        - reset the counter to 0 on any good read (a sensor oscillating across the

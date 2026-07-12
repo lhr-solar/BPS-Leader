@@ -14,6 +14,8 @@
 // Car-CAN aggregate TX wait (telemetry forward).
 #define TEMPERATURE_CAN_DELAY_MS 10u
 
+#define TEMPERATURE_TIMER_START_DELAY_TICKS 200
+
 // Per-tap RX wait while draining the BPS bus each cycle. Kept small so a missing/late board can't
 // stretch the (now faster) monitor period: worst case = NUM_TEMPERATURE_SENSORS * this.
 #define TEMPERATURE_CAN_RECV_TIMEOUT_MS 2u
@@ -48,9 +50,6 @@
 // Printf period macros
 #define TEMP_LOOP_PRINTF_DELAY_MS 2000
 #define TEMP_PRINTF_COUNTER (TEMP_LOOP_PRINTF_DELAY_MS / TEMP_MONITOR_TASK_DELAY_MS)
-
-// number of consecutive otemp faults before latching module fault (shared voltage/temp counter)
-_Static_assert(TEMP_CONSECUTIVE_FAULT_THRESHOLD < 255, "TEMP_CONSECUTIVE_FAULT_THRESHOLD must be less than 255 since the histogram is an array of uint8_t");
 
 uint32_t exposed_temperature_watchdog_bitmap = TEMP_TAPS_ALL_DATA;
 
@@ -312,9 +311,6 @@ void Task_Temperature_Monitor()
         &temp_timer_buffer                       /* Buffer to hold timer data */
     );
 
-    // start watchdog timer
-    xTimerStart(temperature_watchdog_timer, 0);
-
     // Start "OK for charging" asserted (see the voltage task for rationale): the re-enable
     // hysteresis only governs recovery after a charge-temp disable, so seed the in-range state.
     set_state_bit(TEMP_OK_FOR_CHARGING, STATE_BIT_SET);
@@ -324,10 +320,15 @@ void Task_Temperature_Monitor()
     set_state_bit(TEMP_OK_FOR_REGEN, STATE_BIT_SET);
 
     TickType_t xLastWakeTime = xTaskGetTickCount();
+    TickType_t xThreadStart = xTaskGetTickCount();
 
     while (1)
     {
         temp_printf_debug_counter++;
+
+        if(xThreadStart + TEMPERATURE_TIMER_START_DELAY_TICKS <= xTaskGetTickCount() && xTimerIsTimerActive(temperature_watchdog_timer) == pdFALSE){
+            //xTimerStart(temperature_watchdog_timer, 0);
+        }
 
         // Delays
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(TEMP_MONITOR_TASK_DELAY_MS));
@@ -335,7 +336,6 @@ void Task_Temperature_Monitor()
         // loops through each can ID
         for (uint8_t can_id_index = 0; can_id_index < NUM_VOLTTEMP_BOARDS; can_id_index++)
         {
-
             // recieve data from all taps from each id
             can_recv_all_taps(can_id_index, temp_can_data, temp_can_data2);
         }
