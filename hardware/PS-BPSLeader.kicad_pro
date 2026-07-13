@@ -439,27 +439,35 @@
     ],
     [
       "b00a1432-a9e5-4c32-babb-e7c40d680ba9",
-      "Array_Contactor"
+      "Array_Contactors"
     ],
     [
-      "9149942c-b003-4d9d-8fd3-66ca04fc4f33",
-      "Array_Precharge_Contactor"
-    ],
-    [
-      "ec86f7c2-310d-4387-ab04-7c398dc859db",
-      "HV_Minus_Contactor"
-    ],
-    [
-      "5f432dd0-2f8f-42fb-8185-3640a89e4e86",
-      "HV_Plus_Contactor"
+      "88b7aca3-8895-4108-bb92-5bebb8c73021",
+      "HV_Contactors"
     ],
     [
       "975a5890-d31b-4bf8-8164-e98394116f83",
       "Fan"
     ],
     [
+      "92d40a22-22a8-4e19-ae2b-d2176aa2e41e",
+      "ESP32_LDO"
+    ],
+    [
       "ff3d6d8a-5585-4a16-aaa1-d2e71ebe7413",
       "ESTOP"
+    ],
+    [
+      "39ec5669-e791-4214-811e-1e9fb746f2cd",
+      "ESP32_Power_Mux"
+    ],
+    [
+      "7cdf740b-f5f8-4d0f-99e4-3355517ba1bb",
+      "Power_Protection"
+    ],
+    [
+      "c8c06214-f6cc-4ed1-bf83-9de5d1156826",
+      "Power_3V3Buck"
     ]
   ],
   "text_variables": {}
