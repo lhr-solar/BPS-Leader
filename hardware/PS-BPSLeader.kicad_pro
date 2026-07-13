@@ -438,14 +438,6 @@
       "ESP32"
     ],
     [
-      "b00a1432-a9e5-4c32-babb-e7c40d680ba9",
-      "Array_Contactors"
-    ],
-    [
-      "88b7aca3-8895-4108-bb92-5bebb8c73021",
-      "HV_Contactors"
-    ],
-    [
       "975a5890-d31b-4bf8-8164-e98394116f83",
       "Fan"
     ],
@@ -458,16 +450,44 @@
       "ESTOP"
     ],
     [
-      "39ec5669-e791-4214-811e-1e9fb746f2cd",
+      "c396b043-4a62-4d2b-b629-091a6c3457ae",
       "ESP32_Power_Mux"
     ],
     [
-      "7cdf740b-f5f8-4d0f-99e4-3355517ba1bb",
+      "f99eac80-726e-4bdf-aad1-a634077b333c",
       "Power_Protection"
     ],
     [
       "c8c06214-f6cc-4ed1-bf83-9de5d1156826",
       "Power_3V3Buck"
+    ],
+    [
+      "1b9256b7-8667-463d-8456-0ec3ca2120be",
+      "Power_USB_PD"
+    ],
+    [
+      "8dff3833-5b3d-484d-a711-1f7fb0d1bbda",
+      "Array_Contactor"
+    ],
+    [
+      "e7a18522-20e6-4e05-a9ae-159e09208aeb",
+      "Power_PD_Boost"
+    ],
+    [
+      "77244fdb-4b99-4244-a9af-27b95501c0ba",
+      "Array_Precharge_Contactor"
+    ],
+    [
+      "d0687915-3890-41dc-9a8f-e7ee1bda9492",
+      "HV+ Contactor"
+    ],
+    [
+      "3ea03975-64ac-45d5-b376-c81c9b8177bf",
+      "HV- Contactor"
+    ],
+    [
+      "252fc626-7591-4f51-9e25-7431ee334d05",
+      "SD_Card"
     ]
   ],
   "text_variables": {}

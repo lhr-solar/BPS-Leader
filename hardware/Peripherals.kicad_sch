@@ -5,6 +5,130 @@
 	(uuid "e52f3a0a-4edf-430f-bff6-fb3f1a17a38d")
 	(paper "A4")
 	(lib_symbols
+		(symbol "Device:R"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 2.032 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "R"
+				(at 0 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at -1.778 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Resistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "R_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "R_0_1"
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "power:GND"
 			(power)
 			(pin_numbers
@@ -107,6 +231,64 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "R2"
+		(exclude_from_sim no)
+		(at 218.44 120.904 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "05017cf6-a139-4023-80f1-1e20aad8ae3a")
+	)
+	(text "Resistors\nfor 3.3V"
+		(exclude_from_sim no)
+		(at 211.582 120.904 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "c3fdfb93-1b3f-4dbd-9dff-b414cd6dddd2")
+	)
+	(text "R1"
+		(exclude_from_sim no)
+		(at 218.44 113.284 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "e8c0cfd7-7a72-451b-918e-f395342044eb")
+	)
+	(junction
+		(at 218.44 116.84)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "658b201d-156b-4d13-ba97-6731b8f70e6f")
+	)
+	(junction
+		(at 207.01 109.22)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "73368919-3177-4abf-82b6-cd612af07fec")
+	)
+	(junction
+		(at 167.64 124.46)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c2f67a89-39fd-4f9f-9513-e52e2b087cb7")
+	)
+	(wire
+		(pts
+			(xy 207.01 109.22) (xy 218.44 109.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2c217c12-f01f-4331-96fa-48ada336de2f")
+	)
 	(wire
 		(pts
 			(xy 160.02 55.88) (xy 163.83 55.88)
@@ -116,16 +298,6 @@
 			(type default)
 		)
 		(uuid "37308d9d-d8f3-4a1d-8969-69a1ffcc4bd7")
-	)
-	(wire
-		(pts
-			(xy 195.58 86.36) (xy 207.01 86.36)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "39f9008b-9376-42e2-b2ba-fec584e08d38")
 	)
 	(wire
 		(pts
@@ -139,7 +311,7 @@
 	)
 	(wire
 		(pts
-			(xy 121.92 148.59) (xy 127 148.59)
+			(xy 123.19 123.19) (xy 127 123.19)
 		)
 		(stroke
 			(width 0)
@@ -149,13 +321,13 @@
 	)
 	(wire
 		(pts
-			(xy 160.02 110.49) (xy 170.18 110.49)
+			(xy 160.02 109.22) (xy 170.18 109.22)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "66a44e8f-b109-4ffe-9992-9410f1946c79")
+		(uuid "668edfee-e92a-4682-ae8a-e8b9da707816")
 	)
 	(wire
 		(pts
@@ -169,7 +341,7 @@
 	)
 	(wire
 		(pts
-			(xy 203.2 113.03) (xy 205.74 113.03)
+			(xy 203.2 111.76) (xy 205.74 111.76)
 		)
 		(stroke
 			(width 0)
@@ -179,23 +351,23 @@
 	)
 	(wire
 		(pts
-			(xy 207.01 110.49) (xy 203.2 110.49)
+			(xy 167.64 119.38) (xy 170.18 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7d30dff5-2293-48c1-837e-d5e4431346bb")
+	)
+	(wire
+		(pts
+			(xy 207.01 109.22) (xy 203.2 109.22)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "7db0e4d5-54ac-4e24-abf5-501787aa8b02")
-	)
-	(wire
-		(pts
-			(xy 207.01 86.36) (xy 207.01 110.49)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7f310ae4-33c7-4bbd-b35e-4f9592c38ef9")
 	)
 	(wire
 		(pts
@@ -206,6 +378,26 @@
 			(type default)
 		)
 		(uuid "875ad3a2-f0eb-4a7d-9d8f-bd44aab36be6")
+	)
+	(wire
+		(pts
+			(xy 167.64 124.46) (xy 218.44 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8df44b01-73bf-4a3c-a9b3-36c6957564ef")
+	)
+	(wire
+		(pts
+			(xy 203.2 116.84) (xy 218.44 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a39ea112-7162-4519-8eee-73f90b2666bb")
 	)
 	(wire
 		(pts
@@ -249,6 +441,36 @@
 	)
 	(wire
 		(pts
+			(xy 121.92 160.02) (xy 127 160.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c49b943b-bd9a-4b8f-916a-44438ccd2a67")
+	)
+	(wire
+		(pts
+			(xy 203.2 86.36) (xy 207.01 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c99ce25e-c081-4714-b956-415665e63b66")
+	)
+	(wire
+		(pts
+			(xy 167.64 119.38) (xy 167.64 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d8dfe7ea-ce32-451a-9539-bad491915499")
+	)
+	(wire
+		(pts
 			(xy 160.02 53.34) (xy 163.83 53.34)
 		)
 		(stroke
@@ -259,13 +481,13 @@
 	)
 	(wire
 		(pts
-			(xy 166.37 119.38) (xy 170.18 119.38)
+			(xy 124.46 139.7) (xy 127 139.7)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "e196a6f6-d76c-4019-b56a-88a414ab7f9f")
+		(uuid "e9e28d9d-c525-4ccd-a82f-7df208363be5")
 	)
 	(wire
 		(pts
@@ -276,6 +498,27 @@
 			(type default)
 		)
 		(uuid "ef91d16e-b27f-44b7-b7ff-032429b483a1")
+	)
+	(wire
+		(pts
+			(xy 207.01 86.36) (xy 207.01 109.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f25169c8-57eb-459f-9e1b-14e97d7e08b6")
+	)
+	(hierarchical_label "MCU_3V3"
+		(shape input)
+		(at 124.46 139.7 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "155ce3c4-0540-4d57-afde-0295ad59a788")
 	)
 	(hierarchical_label "BPS_CAN_L"
 		(shape bidirectional)
@@ -312,7 +555,7 @@
 	)
 	(hierarchical_label "MCU_3V3"
 		(shape input)
-		(at 205.74 113.03 0)
+		(at 205.74 111.76 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -488,7 +731,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 121.92 148.59 0)
+		(at 123.19 123.19 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -497,7 +740,7 @@
 		(fields_autoplaced yes)
 		(uuid "77d1342a-69ae-4a54-85fc-15c484d8b80d")
 		(property "Reference" "#PWR01"
-			(at 121.92 154.94 0)
+			(at 123.19 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -506,7 +749,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 121.92 153.67 0)
+			(at 123.19 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -514,7 +757,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 121.92 148.59 0)
+			(at 123.19 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -523,7 +766,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 121.92 148.59 0)
+			(at 123.19 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -532,7 +775,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 121.92 148.59 0)
+			(at 123.19 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -554,16 +797,16 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 166.37 119.38 0)
+		(at 121.92 160.02 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "87268fba-6c25-41d3-9cd2-0e7eb8f05980")
-		(property "Reference" "#PWR039"
-			(at 166.37 125.73 0)
+		(uuid "7ce3a04d-9b52-46a2-b92b-0a8a5c8eeab8")
+		(property "Reference" "#PWR010"
+			(at 121.92 166.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -572,7 +815,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 166.37 124.46 0)
+			(at 121.92 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -580,7 +823,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 166.37 119.38 0)
+			(at 121.92 160.02 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -589,7 +832,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 166.37 119.38 0)
+			(at 121.92 160.02 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -598,7 +841,72 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 166.37 119.38 0)
+			(at 121.92 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0007b2b8-1e7a-4d1e-ba39-9c83ff91b444")
+		)
+		(instances
+			(project "PS-BPSLeader"
+				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a"
+					(reference "#PWR010")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 167.64 124.46 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "87268fba-6c25-41d3-9cd2-0e7eb8f05980")
+		(property "Reference" "#PWR039"
+			(at 167.64 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 167.64 129.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 167.64 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 167.64 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 167.64 124.46 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -684,9 +992,273 @@
 			)
 		)
 	)
+	(symbol
+		(lib_id "Device:R")
+		(at 218.44 113.03 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c5eedbed-6a97-473f-96b7-f4f4dae24529")
+		(property "Reference" "R24"
+			(at 221.996 112.014 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "18k"
+			(at 221.742 114.046 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+			(at 216.662 113.03 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 218.44 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 218.44 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" ""
+			(at 218.44 113.03 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "895d91e7-0965-4245-834f-4dccbd59c4f3")
+		)
+		(pin "2"
+			(uuid "62c654cd-845f-459a-b678-0b05b2e2f9f4")
+		)
+		(instances
+			(project "PS-BPSLeader"
+				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a"
+					(reference "R24")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 218.44 120.65 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f85ff5e6-cd69-4100-bcb7-fe4d26d47bd9")
+		(property "Reference" "R23"
+			(at 221.488 119.634 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 221.488 121.666 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+			(at 216.662 120.65 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 218.44 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 218.44 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "P/N" "CRCW060310K0FKEI "
+			(at 218.44 120.65 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2204c557-7a7b-40cf-9aca-1bd8e6ca94e9")
+		)
+		(pin "2"
+			(uuid "7626db19-c569-49c4-ad05-2ca404d42912")
+		)
+		(instances
+			(project "PS-BPSLeader"
+				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a"
+					(reference "R23")
+					(unit 1)
+				)
+			)
+		)
+	)
 	(sheet
-		(at 127 76.2)
-		(size 33.02 76.2)
+		(at 127 137.16)
+		(size 33.02 25.4)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "252fc626-7591-4f51-9e25-7431ee334d05")
+		(property "Sheetname" "SD_Card"
+			(at 127 136.4484 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "SD_Card.kicad_sch"
+			(at 127 163.1446 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "3V3" input
+			(at 127 139.7 180)
+			(uuid "810d454e-755c-48cb-84df-2f59622bbb4e")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "DET" output
+			(at 127 144.78 180)
+			(uuid "24ee25ef-ffd4-4d54-9cd8-b3b30d8e7263")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "GND" input
+			(at 127 160.02 180)
+			(uuid "97e434a9-1718-4f9d-93c9-c1320491abcc")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SPI_CLK" input
+			(at 127 147.32 180)
+			(uuid "9f5663ff-64cf-45e9-a7d8-7533c972080c")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SPI_CS" input
+			(at 127 149.86 180)
+			(uuid "3b8198f8-fe66-4333-9ac7-9d43a406b676")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SPI_MISO" output
+			(at 127 152.4 180)
+			(uuid "33d81779-77f2-4233-89fd-7f0806154afe")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SPI_MOSI" input
+			(at 127 154.94 180)
+			(uuid "39f0845c-acc1-465b-9087-6329d56e55b4")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "PS-BPSLeader"
+				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a"
+					(page "22")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 127 83.82)
+		(size 33.02 43.18)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -701,7 +1273,7 @@
 		)
 		(uuid "37240678-40e7-4b21-a99e-c284d3b12e6a")
 		(property "Sheetname" "ESP32"
-			(at 127 75.4884 0)
+			(at 127 83.1084 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -710,7 +1282,7 @@
 			)
 		)
 		(property "Sheetfile" "ESP32.kicad_sch"
-			(at 127 152.9846 0)
+			(at 127 127.5846 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -719,7 +1291,7 @@
 			)
 		)
 		(pin "+3.3V_MUX_OUT" input
-			(at 160.02 110.49 0)
+			(at 160.02 109.22 0)
 			(uuid "efa94d9d-0c04-4add-8c91-1c3b36458c13")
 			(effects
 				(font
@@ -739,7 +1311,7 @@
 			)
 		)
 		(pin "ESP_GPIO1" bidirectional
-			(at 127 102.87 180)
+			(at 127 92.71 180)
 			(uuid "105fe955-c584-42a0-a592-9ccb4a43b235")
 			(effects
 				(font
@@ -749,7 +1321,7 @@
 			)
 		)
 		(pin "ESP_GPIO2" bidirectional
-			(at 127 105.41 180)
+			(at 127 95.25 180)
 			(uuid "f43217d8-2193-43f0-81cd-569c73ad6070")
 			(effects
 				(font
@@ -759,7 +1331,7 @@
 			)
 		)
 		(pin "ESP_GPIO3" bidirectional
-			(at 127 107.95 180)
+			(at 127 97.79 180)
 			(uuid "33c4030e-a725-4f45-985f-312adf88cb40")
 			(effects
 				(font
@@ -769,7 +1341,7 @@
 			)
 		)
 		(pin "ESP_GPIO4" bidirectional
-			(at 127 110.49 180)
+			(at 127 100.33 180)
 			(uuid "22cd2969-7bab-485c-b545-4b7638235041")
 			(effects
 				(font
@@ -779,7 +1351,7 @@
 			)
 		)
 		(pin "ESP_RESET" input
-			(at 127 116.84 180)
+			(at 127 106.68 180)
 			(uuid "f6f828f4-dbea-40fa-967f-04cd97d292fc")
 			(effects
 				(font
@@ -789,7 +1361,7 @@
 			)
 		)
 		(pin "ESP_UART_RX" output
-			(at 127 120.65 180)
+			(at 127 113.03 180)
 			(uuid "f5d3c2d1-70b7-41d6-b1a5-bf21f59799f9")
 			(effects
 				(font
@@ -799,7 +1371,7 @@
 			)
 		)
 		(pin "ESP_UART_TX" input
-			(at 127 123.19 180)
+			(at 127 115.57 180)
 			(uuid "d4e98b38-d8a6-4ee3-9ecf-55d3b6cf8fff")
 			(effects
 				(font
@@ -809,7 +1381,7 @@
 			)
 		)
 		(pin "GND" input
-			(at 127 148.59 180)
+			(at 127 123.19 180)
 			(uuid "db034c00-e06e-4643-9cbc-ef575f304d47")
 			(effects
 				(font
@@ -822,98 +1394,6 @@
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a"
 					(page "7")
-				)
-			)
-		)
-	)
-	(sheet
-		(at 170.18 106.68)
-		(size 33.02 15.24)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(stroke
-			(width 0.1524)
-			(type solid)
-		)
-		(fill
-			(color 0 0 0 0.0000)
-		)
-		(uuid "39ec5669-e791-4214-811e-1e9fb746f2cd")
-		(property "Sheetname" "ESP32_Power_Mux"
-			(at 170.18 105.9684 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-			)
-		)
-		(property "Sheetfile" "ESP32_Power_Mux.kicad_sch"
-			(at 170.18 122.5046 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-			)
-		)
-		(pin "MUX_OUT" output
-			(at 170.18 110.49 180)
-			(uuid "2ce266df-84df-4378-ab85-c3c2b6b7cbcf")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "MX_GND" input
-			(at 170.18 119.38 180)
-			(uuid "c811f2d0-95b7-4c94-a25a-0a018f6264db")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "PR1" input
-			(at 203.2 115.57 0)
-			(uuid "9f83c001-6112-4bb0-a4ac-f414fb859c0e")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "VIN_1" input
-			(at 203.2 110.49 0)
-			(uuid "b9e6928a-6104-424f-bb74-347dd6bf86fc")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "VIN_2" input
-			(at 203.2 113.03 0)
-			(uuid "80feceb7-9d08-47e5-a4ba-af2b603995ff")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(instances
-			(project "PS-BPSLeader"
-				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a"
-					(page "15")
 				)
 			)
 		)
@@ -1040,7 +1520,7 @@
 	)
 	(sheet
 		(at 170.18 83.82)
-		(size 25.4 15.24)
+		(size 33.02 15.24)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -1093,7 +1573,7 @@
 			)
 		)
 		(pin "Vout" output
-			(at 195.58 86.36 0)
+			(at 203.2 86.36 0)
 			(uuid "819901bd-70df-40a6-b4be-a03a1e1838dc")
 			(effects
 				(font
@@ -1286,6 +1766,98 @@
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a"
 					(page "6")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 170.18 106.68)
+		(size 33.02 15.24)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "c396b043-4a62-4d2b-b629-091a6c3457ae")
+		(property "Sheetname" "ESP32_Power_Mux"
+			(at 170.18 105.9684 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "ESP32_Power_Mux.kicad_sch"
+			(at 170.18 122.5046 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "MUX_OUT" output
+			(at 170.18 109.22 180)
+			(uuid "fa195782-1772-4aff-ac31-2687fcddbf48")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "MX_GND" input
+			(at 170.18 119.38 180)
+			(uuid "5d9efb62-a8fb-40d5-b3e7-63ebba2374bf")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "PR1" input
+			(at 203.2 116.84 0)
+			(uuid "eb283255-1178-443f-b8d1-0ff4c15761ba")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "VIN_1" input
+			(at 203.2 109.22 0)
+			(uuid "8869371b-6776-4fc2-a7ef-bc039f9bf8c5")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "VIN_2" input
+			(at 203.2 111.76 0)
+			(uuid "76f9083a-ee18-4db0-bbbc-374d8243d634")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "PS-BPSLeader"
+				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a"
+					(page "15")
 				)
 			)
 		)
