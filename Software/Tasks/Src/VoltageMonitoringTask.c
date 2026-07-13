@@ -307,7 +307,7 @@ void Task_Voltage_Monitor()
         // if the watchdog timer is inactive and we're 
         // 100 50 <= 200
         if(xThreadStart + VOLTAGE_TIMER_START_DELAY_TICKS <= xTaskGetTickCount() && xTimerIsTimerActive(voltage_watchdog_timer) == pdFALSE){
-           // xTimerStart(voltage_watchdog_timer, 0);
+           xTimerStart(voltage_watchdog_timer, 0);
         }
         volt_printf_debug_counter++;
 

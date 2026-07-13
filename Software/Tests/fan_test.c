@@ -71,17 +71,17 @@ void vFanChipTestTask(void *pvParameters) {
             vTaskDelay(pdMS_TO_TICKS(500));
         }   
 
-        // vTaskDelay(pdMS_TO_TICKS(2000));
-        // printf("\n\r\nNow Ramping to: FAN MAX RPM\n\r\n");
+        vTaskDelay(pdMS_TO_TICKS(2000));
+        printf("\n\r\nNow Ramping to: FAN MAX RPM\n\r\n");
 
-        // if (EMC2305_SetFanRPM(&chip, EMC2305_FAN2, EMC2305_MAX_RPM) != EMC2305_OK) {
-        //     printf("Error while ramping to MAX RPM\r\n");
-        //     set_faultBit(FAN_CHIP_ERROR);
-        // }; 
-        // for (uint16_t i = 0; i < 30; i++) {
-        //     printf("Fan RPM: %d\r\n", EMC2305_GetFanRPM(&chip, EMC2305_FAN2));
-        //     vTaskDelay(pdMS_TO_TICKS(500));
-        // }   
+        if (EMC2305_SetFanRPM(&chip, EMC2305_FAN2, EMC2305_MAX_RPM) != EMC2305_OK) {
+            printf("Error while ramping to MAX RPM\r\n");
+            set_faultBit(FAN_CHIP_ERROR);
+        }; 
+        for (uint16_t i = 0; i < 30; i++) {
+            printf("Fan RPM: %d\r\n", EMC2305_GetFanRPM(&chip, EMC2305_FAN2));
+            vTaskDelay(pdMS_TO_TICKS(500));
+        }   
         
         printf("successfully ramped :)\r\n");
         vTaskDelay(pdMS_TO_TICKS(2000));

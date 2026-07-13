@@ -68,15 +68,15 @@ extern StaticTask_t Task_Can_Status_Buffer;
 extern StaticTask_t Task_Mppt_Control_Buffer;
 
 // Task Delays
-#define TEMP_MONITOR_TASK_DELAY_MS      100
-#define VOLT_MONITOR_TASK_DELAY_MS      100
-#define PRECHARGE_TASK_DELAY_MS         200
+#define TEMP_MONITOR_TASK_DELAY_MS      290
+#define VOLT_MONITOR_TASK_DELAY_MS      290
+#define PRECHARGE_TASK_DELAY_MS         100
 #define CONTACTOR_MONITOR_TASK_DELAY_MS 200
-#define AMPERES_MONITOR_TASK_DELAY_MS   25
-#define FAN_CONTROLLER_TASK_DELAY_MS    300
+#define AMPERES_MONITOR_TASK_DELAY_MS   90
+#define FAN_CONTROLLER_TASK_DELAY_MS    500
 // Periodic BPS status heartbeat. Faults are broadcast immediately by the fault
 // handler (preempts this task), so this only sets the steady-state refresh rate.
-#define CAN_STATUS_TASK_DELAY_MS        300
+#define CAN_STATUS_TASK_DELAY_MS        500
 #define MPPT_CONTROL_TASK_DELAY_MS      300
 
 // Task Inits
