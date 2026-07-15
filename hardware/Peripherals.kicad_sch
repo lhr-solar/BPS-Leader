@@ -241,7 +241,7 @@
 		)
 		(uuid "05017cf6-a139-4023-80f1-1e20aad8ae3a")
 	)
-	(text "Resistors\nfor 3.3V"
+	(text "3.3V Mux"
 		(exclude_from_sim no)
 		(at 211.582 120.904 0)
 		(effects
@@ -451,13 +451,13 @@
 	)
 	(wire
 		(pts
-			(xy 203.2 86.36) (xy 207.01 86.36)
+			(xy 195.58 86.36) (xy 207.01 86.36)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "c99ce25e-c081-4714-b956-415665e63b66")
+		(uuid "d69ded4e-f14f-4a2e-a4e8-1ff1ae754981")
 	)
 	(wire
 		(pts
@@ -1146,7 +1146,7 @@
 	)
 	(sheet
 		(at 127 137.16)
-		(size 33.02 25.4)
+		(size 22.86 25.4)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -1520,7 +1520,7 @@
 	)
 	(sheet
 		(at 170.18 83.82)
-		(size 33.02 15.24)
+		(size 25.4 15.24)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -1573,7 +1573,7 @@
 			)
 		)
 		(pin "Vout" output
-			(at 203.2 86.36 0)
+			(at 195.58 86.36 0)
 			(uuid "819901bd-70df-40a6-b4be-a03a1e1838dc")
 			(effects
 				(font

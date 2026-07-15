@@ -458,10 +458,6 @@
       "Power_Protection"
     ],
     [
-      "c8c06214-f6cc-4ed1-bf83-9de5d1156826",
-      "Power_3V3Buck"
-    ],
-    [
       "1b9256b7-8667-463d-8456-0ec3ca2120be",
       "Power_USB_PD"
     ],
@@ -478,12 +474,24 @@
       "Array_Precharge_Contactor"
     ],
     [
+      "bc7b8349-90d5-4659-8fc5-35515868a6d9",
+      "Power_5VBuck"
+    ],
+    [
       "d0687915-3890-41dc-9a8f-e7ee1bda9492",
       "HV+ Contactor"
     ],
     [
+      "62b47865-4d17-4cd5-b20c-36169ba543a0",
+      "Power_5VMux"
+    ],
+    [
       "3ea03975-64ac-45d5-b376-c81c9b8177bf",
       "HV- Contactor"
+    ],
+    [
+      "3ac4b541-f87d-4cd8-af8e-016705365d4a",
+      "Power_3V3_LDO"
     ],
     [
       "252fc626-7591-4f51-9e25-7431ee334d05",

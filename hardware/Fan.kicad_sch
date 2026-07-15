@@ -1254,6 +1254,17 @@
 		)
 		(uuid "b27d84b8-e48d-43d4-8177-0b23f1a839ca")
 	)
+	(text "How many fans?"
+		(exclude_from_sim no)
+		(at 84.836 145.288 0)
+		(effects
+			(font
+				(size 1.905 1.905)
+				(color 255 0 0 1)
+			)
+		)
+		(uuid "ccf289d2-7c4e-4fcd-b5bd-bb5c3e76ff6e")
+	)
 	(text "Fan Connectors"
 		(exclude_from_sim no)
 		(at 95.758 119.126 0)
