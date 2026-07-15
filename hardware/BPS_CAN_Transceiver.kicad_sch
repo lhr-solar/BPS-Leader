@@ -1,7 +1,7 @@
 (kicad_sch
-	(version 20250114)
+	(version 20260306)
 	(generator "eeschema")
-	(generator_version "9.0")
+	(generator_version "10.0")
 	(uuid "a09f9696-80ee-4697-8aaa-225f287b667b")
 	(paper "A4")
 	(lib_symbols
@@ -9,8 +9,12 @@
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
 			(property "Reference" "D"
 				(at 11.176 7.366 0)
+				(show_name no)
+				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -20,6 +24,8 @@
 			)
 			(property "Value" "CDSOT23-T24CAN"
 				(at 2.54 4.826 0)
+				(show_name no)
+				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -29,90 +35,108 @@
 			)
 			(property "Footprint" "SOT95P230X117-3N"
 				(at 19.05 -94.92 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 					(justify left top)
-					(hide yes)
 				)
 			)
 			(property "Datasheet" "kicad-embed://cdsot23-t24can.pdf"
 				(at 19.05 -194.92 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 					(justify left top)
-					(hide yes)
 				)
 			)
 			(property "Description" "Bourns CDSOT23-T24CAN, Dual Bi-Directional ESD Protection Diode, 3-Pin SOT-23"
 				(at 1.27 -8.128 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
 			(property "Height" "1.17"
 				(at 19.05 -394.92 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 					(justify left top)
-					(hide yes)
 				)
 			)
 			(property "Mouser Part Number" "652-CDSOT23-T24CAN"
 				(at 19.05 -494.92 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 					(justify left top)
-					(hide yes)
 				)
 			)
 			(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Bourns/CDSOT23-T24CAN?qs=Z7P4xsdcg2LuAOb%2FzQ7xoQ%3D%3D"
 				(at 19.05 -594.92 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 					(justify left top)
-					(hide yes)
 				)
 			)
 			(property "Manufacturer_Name" "Bourns"
 				(at 19.05 -694.92 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 					(justify left top)
-					(hide yes)
 				)
 			)
 			(property "P/N" "CDSOT23-T24CAN"
 				(at 19.05 -794.92 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 					(justify left top)
-					(hide yes)
 				)
 			)
 			(property "LCSC P/N" "C2959841"
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
 			(symbol "CDSOT23-T24CAN_1_1"
@@ -5184,8 +5208,12 @@
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
 			(property "Reference" "C"
 				(at 0.635 2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -5195,6 +5223,8 @@
 			)
 			(property "Value" "C"
 				(at 0.635 -2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -5204,47 +5234,57 @@
 			)
 			(property "Footprint" ""
 				(at 0.9652 -3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
-			(property "Datasheet" "~"
+			(property "Datasheet" ""
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
 			(property "Description" "Unpolarized capacitor"
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
 			(property "ki_keywords" "cap capacitor"
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
 			(property "ki_fp_filters" "C_*"
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
 			(symbol "C_0_1"
@@ -5277,7 +5317,7 @@
 				(pin passive line
 					(at 0 3.81 270)
 					(length 2.794)
-					(name "~"
+					(name ""
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -5295,7 +5335,7 @@
 				(pin passive line
 					(at 0 -3.81 90)
 					(length 2.794)
-					(name "~"
+					(name ""
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -5323,8 +5363,12 @@
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
 			(property "Reference" "R"
 				(at 2.032 0 90)
+				(show_name no)
+				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -5333,6 +5377,8 @@
 			)
 			(property "Value" "R"
 				(at 0 0 90)
+				(show_name no)
+				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -5341,47 +5387,57 @@
 			)
 			(property "Footprint" ""
 				(at -1.778 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
-			(property "Datasheet" "~"
+			(property "Datasheet" ""
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
 			(property "Description" "Resistor"
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
 			(property "ki_keywords" "R res resistor"
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
 			(property "ki_fp_filters" "R_*"
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
 			(symbol "R_0_1"
@@ -5401,7 +5457,7 @@
 				(pin passive line
 					(at 0 3.81 270)
 					(length 1.27)
-					(name "~"
+					(name ""
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -5419,7 +5475,7 @@
 				(pin passive line
 					(at 0 -3.81 90)
 					(length 1.27)
-					(name "~"
+					(name ""
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -5447,8 +5503,12 @@
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
 			(property "Reference" "C"
 				(at 0.635 2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -5458,6 +5518,8 @@
 			)
 			(property "Value" "C"
 				(at 0.635 -2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -5467,47 +5529,57 @@
 			)
 			(property "Footprint" "ECE319K:C_Axial_200mil"
 				(at 0.9652 -3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
-			(property "Datasheet" "~"
+			(property "Datasheet" ""
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
 			(property "Description" "Unpolarized capacitor"
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
 			(property "ki_keywords" "cap capacitor"
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
 			(property "ki_fp_filters" "C_*"
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
 			(symbol "C_0_1"
@@ -5540,7 +5612,7 @@
 				(pin passive line
 					(at 0 3.81 270)
 					(length 2.794)
-					(name "~"
+					(name ""
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -5558,7 +5630,7 @@
 				(pin passive line
 					(at 0 -3.81 90)
 					(length 2.794)
-					(name "~"
+					(name ""
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -5587,8 +5659,12 @@
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
 			(property "Reference" "JP"
 				(at 0 2.794 0)
+				(show_name no)
+				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -5597,6 +5673,8 @@
 			)
 			(property "Value" "Jumper_2_Open"
 				(at 0 -2.286 0)
+				(show_name no)
+				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -5605,47 +5683,57 @@
 			)
 			(property "Footprint" ""
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
-			(property "Datasheet" "~"
+			(property "Datasheet" ""
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
 			(property "Description" "Jumper, 2-pole, open"
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
 			(property "ki_keywords" "Jumper SPST"
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
 			(property "ki_fp_filters" "Jumper* TestPoint*2Pads* TestPoint*Bridge*"
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
 			(symbol "Jumper_2_Open_0_0"
@@ -5730,8 +5818,12 @@
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
 			(property "Reference" "IC"
 				(at 15.748 7.62 0)
+				(show_name no)
+				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -5741,6 +5833,8 @@
 			)
 			(property "Value" "TCAN3413DR"
 				(at 10.668 5.08 0)
+				(show_name no)
+				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -5750,90 +5844,108 @@
 			)
 			(property "Footprint" "SOIC127P600X175-8N"
 				(at 29.21 -94.92 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 					(justify left top)
-					(hide yes)
 				)
 			)
 			(property "Datasheet" "kicad-embed://tcan3413.pdf"
 				(at 29.21 -194.92 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 					(justify left top)
-					(hide yes)
 				)
 			)
 			(property "Description" "1/1 Transceiver Half CANbus 8-SOIC"
 				(at 17.526 -20.828 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
 			(property "Height" "1.75"
 				(at 29.21 -394.92 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 					(justify left top)
-					(hide yes)
 				)
 			)
 			(property "Mouser Part Number" "595-TCAN3413DR"
 				(at 29.21 -494.92 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 					(justify left top)
-					(hide yes)
 				)
 			)
 			(property "Mouser Price/Stock" "-"
 				(at 29.21 -594.92 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 					(justify left top)
-					(hide yes)
 				)
 			)
 			(property "Manufacturer_Name" "Texas Instruments"
 				(at 29.21 -694.92 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 					(justify left top)
-					(hide yes)
 				)
 			)
 			(property "P/N" "TCAN3413DR"
 				(at 29.21 -794.92 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 					(justify left top)
-					(hide yes)
 				)
 			)
 			(property "LCSC P/N" "C22433320"
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
 			(symbol "TCAN3413DR_1_1"
@@ -5859,60 +5971,6 @@
 						)
 					)
 					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -2.54 0)
-					(length 5.08)
-					(name "RXD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -5.08 0)
-					(length 5.08)
-					(name "CANH"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -7.62 0)
-					(length 5.08)
-					(name "CANL"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -5957,6 +6015,24 @@
 					)
 				)
 				(pin passive line
+					(at 0 -2.54 0)
+					(length 5.08)
+					(name "RXD"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
 					(at 33.02 -2.54 180)
 					(length 5.08)
 					(name "SHDNV_IO"
@@ -5967,6 +6043,42 @@
 						)
 					)
 					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -7.62 0)
+					(length 5.08)
+					(name "CANL"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -5.08 0)
+					(length 5.08)
+					(name "CANH"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -31736,19 +31848,7 @@
 		(fill
 			(type none)
 		)
-		(uuid 3b4100a3-bbf0-46c4-b8f7-040bd2249cf8)
-	)
-	(rectangle
-		(start 166.37 73.66)
-		(end 226.06 109.22)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid b3caedac-de22-46e7-9643-c5c9196010b4)
+		(uuid "14906139-20b1-4f8e-90b0-397dade6db8e")
 	)
 	(rectangle
 		(start 57.15 45.72)
@@ -31760,27 +31860,19 @@
 		(fill
 			(type none)
 		)
-		(uuid c72b6064-24ff-42cf-85a2-5f319e80bac0)
+		(uuid "96e65e1f-29ad-42df-85c9-e4c68c5bbba2")
 	)
-	(text "CAN Transceiver\n"
-		(exclude_from_sim no)
-		(at 69.596 49.784 0)
-		(effects
-			(font
-				(size 1.778 1.778)
-			)
+	(rectangle
+		(start 166.37 73.66)
+		(end 226.06 109.22)
+		(stroke
+			(width 0)
+			(type default)
 		)
-		(uuid "4988521a-bb8e-4fb6-9e79-ab3f0d7c608b")
-	)
-	(text "Try to keep CDSOT23 near bus conn"
-		(exclude_from_sim no)
-		(at 197.866 64.008 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
+		(fill
+			(type none)
 		)
-		(uuid "7fbf7d87-9fc4-40ea-820f-437fbcd62764")
+		(uuid "970c90f3-7c60-4e96-a553-ea9cd55ed291")
 	)
 	(text "CAN Protection"
 		(exclude_from_sim no)
@@ -31790,7 +31882,7 @@
 				(size 1.778 1.778)
 			)
 		)
-		(uuid "8cc7381c-268a-4e89-868e-d70c2ee1b2cf")
+		(uuid "1d7fd603-af39-497b-9f24-7b5b1747d94e")
 	)
 	(text "CAN Bus Termination\n"
 		(exclude_from_sim no)
@@ -31800,243 +31892,63 @@
 				(size 1.778 1.778)
 			)
 		)
-		(uuid "f28cb6b3-08af-4a21-962e-c691a9e4d85a")
+		(uuid "56b3635d-a7ab-4df4-a199-aa41ada2e263")
 	)
-	(junction
-		(at 147.32 71.12)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "18a7dca3-e6ee-4f48-9c9e-fc76fa664e75")
+	(text "CAN Transceiver\n"
+		(exclude_from_sim no)
+		(at 69.596 49.784 0)
+		(effects
+			(font
+				(size 1.778 1.778)
+			)
+		)
+		(uuid "d1ad6e5f-aa68-4d8b-80c1-6ad66f4293fc")
 	)
-	(junction
-		(at 189.23 85.09)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "457dd79d-04ce-4791-9e74-72678c3e65d8")
-	)
-	(junction
-		(at 73.66 81.28)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "7443ee25-b112-418a-a19e-16b199a8fe5b")
-	)
-	(junction
-		(at 85.09 81.28)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "76db90f1-78d8-4e5d-9cce-f6cfc8c68aa6")
-	)
-	(junction
-		(at 85.09 68.58)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "a3b72bfe-2a6f-42d8-b935-ec83e721d0d8")
+	(text "Try to keep CDSOT23 near bus conn"
+		(exclude_from_sim no)
+		(at 197.866 64.008 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "e066a3a2-a62f-4241-9466-756822a07072")
 	)
 	(junction
 		(at 73.66 68.58)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "d0cd01de-532c-4881-bbfa-68dada0141bd")
+		(uuid "34dfe272-b1b8-43a7-8a34-efa00a990b54")
 	)
-	(wire
-		(pts
-			(xy 189.23 97.79) (xy 190.5 97.79)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "02dc0498-fa0a-4af4-999d-cc09ce2f8eed")
+	(junction
+		(at 189.23 85.09)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8fdc7762-1e90-49e0-8cec-b050916c3960")
 	)
-	(wire
-		(pts
-			(xy 147.32 73.66) (xy 147.32 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0fcf45b8-2eeb-4956-88e8-96a8f3be2fc2")
+	(junction
+		(at 73.66 81.28)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "abca7d72-d4a0-49c1-be23-2422af073476")
 	)
-	(wire
-		(pts
-			(xy 107.95 71.12) (xy 111.76 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "14f6a92d-e85d-4654-93c9-436d0a52c752")
+	(junction
+		(at 85.09 68.58)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b27e5cbe-c148-4e09-9c15-1e3f0da838f0")
 	)
-	(wire
-		(pts
-			(xy 128.27 83.82) (xy 128.27 87.63)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1c957308-eb52-4c84-9d6f-48ae590d99d5")
+	(junction
+		(at 147.32 71.12)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "bb198dbf-be55-4bae-a4f5-c6128c96a3c7")
 	)
-	(wire
-		(pts
-			(xy 73.66 78.74) (xy 73.66 81.28)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "281fa88c-8ae1-4054-a13f-0c13c1d01bee")
-	)
-	(wire
-		(pts
-			(xy 189.23 92.71) (xy 189.23 97.79)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2e405b7a-06f0-48f6-9cb5-8f138f157a54")
-	)
-	(wire
-		(pts
-			(xy 85.09 68.58) (xy 85.09 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "34e9e19a-645e-4817-a53b-11ea4ec15937")
-	)
-	(wire
-		(pts
-			(xy 147.32 67.31) (xy 147.32 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "370fd011-4489-4130-aa09-5d1b9e226549")
-	)
-	(wire
-		(pts
-			(xy 144.78 73.66) (xy 147.32 73.66)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "43f094ec-461c-47c8-8122-1579148b6876")
-	)
-	(wire
-		(pts
-			(xy 146.05 78.74) (xy 146.05 82.55)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "45287061-c17c-4466-8f07-f5b0dbdf1e9e")
-	)
-	(wire
-		(pts
-			(xy 62.23 78.74) (xy 62.23 81.28)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "46a5c127-3bac-418c-9a75-8e883898b804")
-	)
-	(wire
-		(pts
-			(xy 180.34 85.09) (xy 189.23 85.09)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4ed1fe97-086c-4c08-b22d-2fb1ba74a4d8")
-	)
-	(wire
-		(pts
-			(xy 85.09 63.5) (xy 85.09 68.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "70dac787-f0ab-4692-8f06-9e8bac98967d")
-	)
-	(wire
-		(pts
-			(xy 85.09 86.36) (xy 87.63 86.36)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7460588d-8899-4373-b50b-fb0610e09f09")
-	)
-	(wire
-		(pts
-			(xy 146.05 82.55) (xy 149.86 82.55)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7da5c6ca-1f5e-4e0c-9ed1-f5b25519203e")
-	)
-	(wire
-		(pts
-			(xy 210.82 54.61) (xy 210.82 59.69)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "80bc5ad1-4fbc-4a16-aff6-a41b50d0d5ed")
-	)
-	(wire
-		(pts
-			(xy 62.23 81.28) (xy 73.66 81.28)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "89eda2dc-1a3a-4862-9057-2a53d23dc041")
-	)
-	(wire
-		(pts
-			(xy 170.18 85.09) (xy 172.72 85.09)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8d41f674-d426-4441-aa5f-d30bc0e8d498")
-	)
-	(wire
-		(pts
-			(xy 182.88 54.61) (xy 185.42 54.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8df04a62-6241-4b31-a5a9-801f1c6fce5c")
-	)
-	(wire
-		(pts
-			(xy 128.27 87.63) (xy 129.54 87.63)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8e0b5df4-2cb8-49e3-8752-25e60af29d36")
+	(junction
+		(at 85.09 81.28)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c5f99862-3d68-4ce6-9a2e-f81c8e3103c9")
 	)
 	(wire
 		(pts
@@ -32046,17 +31958,27 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "920219a8-99ce-41b7-b456-4157126609a6")
+		(uuid "006661e3-5012-4b68-8aa5-7b67eadbfc4c")
 	)
 	(wire
 		(pts
-			(xy 107.95 76.2) (xy 111.76 76.2)
+			(xy 144.78 73.66) (xy 147.32 73.66)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "92d7acaa-73a4-4711-9c6e-9d6f8e4b6bdf")
+		(uuid "084b8e49-41c4-4599-be8c-544c6067cb0a")
+	)
+	(wire
+		(pts
+			(xy 73.66 78.74) (xy 73.66 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0daf6dee-47c3-46e8-a6d9-5cf58ea47612")
 	)
 	(wire
 		(pts
@@ -32066,167 +31988,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "97b807a7-2a0f-4f78-9be9-1b8fd00655be")
-	)
-	(wire
-		(pts
-			(xy 62.23 71.12) (xy 62.23 68.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a20ab9fc-69aa-4ee0-93d6-3059b329d369")
-	)
-	(wire
-		(pts
-			(xy 73.66 81.28) (xy 85.09 81.28)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a9bf4fee-14de-4ca1-87dd-71b6c8614922")
-	)
-	(wire
-		(pts
-			(xy 205.74 85.09) (xy 210.82 85.09)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "aa55e51e-ff1d-4754-99e3-0cbf4fe8be3f")
-	)
-	(wire
-		(pts
-			(xy 107.95 73.66) (xy 111.76 73.66)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "adda2c19-4d52-4a5f-bfa0-e29c5e28dc27")
-	)
-	(wire
-		(pts
-			(xy 147.32 67.31) (xy 149.86 67.31)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b8ab2e19-3037-4588-b198-c07c4e77bc05")
-	)
-	(wire
-		(pts
-			(xy 189.23 85.09) (xy 198.12 85.09)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "bb14a602-1916-4238-a873-64ed2a18b066")
-	)
-	(wire
-		(pts
-			(xy 85.09 81.28) (xy 85.09 86.36)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c568e6ca-7f97-4122-a9d3-1ff49abf5acc")
-	)
-	(wire
-		(pts
-			(xy 73.66 68.58) (xy 73.66 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c6b18540-3af2-482b-b230-c7c3e88c1c2b")
-	)
-	(wire
-		(pts
-			(xy 210.82 59.69) (xy 213.36 59.69)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c84a68a2-25c9-4949-9cd3-564dce7f418d")
-	)
-	(wire
-		(pts
-			(xy 107.95 78.74) (xy 111.76 78.74)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c8de0135-271c-4834-b458-949e66171a03")
-	)
-	(wire
-		(pts
-			(xy 170.18 85.09) (xy 170.18 96.52)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d72421b8-96df-4d96-96de-366e757e0c7f")
-	)
-	(wire
-		(pts
-			(xy 147.32 71.12) (xy 144.78 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e3b93d3c-a2e0-469f-9761-2465843355a0")
-	)
-	(wire
-		(pts
-			(xy 182.88 57.15) (xy 185.42 57.15)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e61835ce-d874-4c37-a616-6e7e018e402e")
-	)
-	(wire
-		(pts
-			(xy 223.52 85.09) (xy 220.98 85.09)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "eb3c1286-6fe4-4dc7-afe3-b68d2675cf98")
-	)
-	(wire
-		(pts
-			(xy 87.63 63.5) (xy 85.09 63.5)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ef028e55-728d-474b-8b10-caf293163e9f")
-	)
-	(wire
-		(pts
-			(xy 223.52 97.79) (xy 223.52 85.09)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f1545d5e-e8b8-4f5b-9625-3f5248400e82")
+		(uuid "2803d8ac-8e6d-4d7e-82b5-50275cfb455a")
 	)
 	(wire
 		(pts
@@ -32236,17 +31998,197 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "f6b33fcd-5bfe-4b47-8ac1-5aada0c5cd35")
+		(uuid "320f5b4d-3b52-4c42-b3b7-17394a4b5309")
 	)
 	(wire
 		(pts
-			(xy 85.09 81.28) (xy 85.09 78.74)
+			(xy 85.09 68.58) (xy 85.09 71.12)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "f98052f3-8ad3-423e-8537-c8cb59b58c1e")
+		(uuid "3d71a51e-32e8-41c8-9d71-1723e863737b")
+	)
+	(wire
+		(pts
+			(xy 107.95 76.2) (xy 111.76 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "42de9f46-b185-41be-b17a-9a323a72a39d")
+	)
+	(wire
+		(pts
+			(xy 223.52 97.79) (xy 223.52 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4447c9e9-7580-4769-919c-e2f8d7bcecf3")
+	)
+	(wire
+		(pts
+			(xy 73.66 81.28) (xy 85.09 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "44ce533a-4120-46ab-9f50-ada576c222a8")
+	)
+	(wire
+		(pts
+			(xy 73.66 68.58) (xy 73.66 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "540be6a3-06c4-4713-9e03-e5668acee8fb")
+	)
+	(wire
+		(pts
+			(xy 189.23 85.09) (xy 198.12 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "58fd3d06-5ceb-41d2-96cc-41aa2d4f8243")
+	)
+	(wire
+		(pts
+			(xy 107.95 73.66) (xy 111.76 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5a086b62-bef6-4a35-9af6-f917b463a499")
+	)
+	(wire
+		(pts
+			(xy 210.82 59.69) (xy 213.36 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5b18be0f-90c4-41e3-b7da-d82c85e21de1")
+	)
+	(wire
+		(pts
+			(xy 128.27 83.82) (xy 128.27 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "62c98dc6-02a9-4de2-8dae-67e7d188bd1a")
+	)
+	(wire
+		(pts
+			(xy 170.18 85.09) (xy 172.72 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "68369eaa-19d7-4fc0-9824-fbf6b8f9e52f")
+	)
+	(wire
+		(pts
+			(xy 147.32 71.12) (xy 144.78 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "70bc5dbe-0cc2-4b0e-9e10-0c784af05045")
+	)
+	(wire
+		(pts
+			(xy 182.88 54.61) (xy 185.42 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "713713d8-3116-45d9-8edd-e518cd8d367d")
+	)
+	(wire
+		(pts
+			(xy 85.09 63.5) (xy 85.09 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "775d6345-f925-4750-8054-15a239b0fccd")
+	)
+	(wire
+		(pts
+			(xy 128.27 87.63) (xy 129.54 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7cbfe96d-73e4-4be9-b915-6a77575b1026")
+	)
+	(wire
+		(pts
+			(xy 62.23 78.74) (xy 62.23 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "81d884ab-65a5-42ce-af74-e31c1ba26b15")
+	)
+	(wire
+		(pts
+			(xy 87.63 63.5) (xy 85.09 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "83a377a4-3239-46c0-afca-0a086b8f586c")
+	)
+	(wire
+		(pts
+			(xy 107.95 71.12) (xy 111.76 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "85641cec-b38e-4d75-b4c1-f5f66602d40b")
+	)
+	(wire
+		(pts
+			(xy 62.23 81.28) (xy 73.66 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "87412ed0-578f-406f-8577-c4e4dfa535de")
+	)
+	(wire
+		(pts
+			(xy 85.09 86.36) (xy 87.63 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8c00f7c3-8271-48ef-be2c-c58fce924335")
 	)
 	(wire
 		(pts
@@ -32256,11 +32198,181 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "fe08bceb-d9f3-4168-a413-0146d6218e26")
+		(uuid "8f0e5c21-829a-46a8-bf80-2aa1b3dbafe6")
+	)
+	(wire
+		(pts
+			(xy 223.52 85.09) (xy 220.98 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "94486121-5c34-4a0c-8f30-04cae223fdc4")
+	)
+	(wire
+		(pts
+			(xy 205.74 85.09) (xy 210.82 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a53027ca-0be7-4b8c-a074-8f1854a48be7")
+	)
+	(wire
+		(pts
+			(xy 146.05 82.55) (xy 149.86 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a8985594-7244-42dc-ade2-31db1081892a")
+	)
+	(wire
+		(pts
+			(xy 210.82 54.61) (xy 210.82 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ac760b90-7a77-4fd4-a863-113e957cb577")
+	)
+	(wire
+		(pts
+			(xy 85.09 81.28) (xy 85.09 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b0f8afc1-ee26-4c5d-ad8c-8878878522ee")
+	)
+	(wire
+		(pts
+			(xy 170.18 85.09) (xy 170.18 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b9fff5f4-9303-4425-98b1-719b48022264")
+	)
+	(wire
+		(pts
+			(xy 180.34 85.09) (xy 189.23 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ba9e6704-443a-4dbf-a0e8-3f0d50965a93")
+	)
+	(wire
+		(pts
+			(xy 147.32 67.31) (xy 149.86 67.31)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bcc96ea5-516d-4ab4-a99e-2d7fb7a0cdf4")
+	)
+	(wire
+		(pts
+			(xy 107.95 78.74) (xy 111.76 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c98aeb99-d3f6-4548-bea5-e9fa923a50f7")
+	)
+	(wire
+		(pts
+			(xy 146.05 78.74) (xy 146.05 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cc43e8c2-24d8-46f5-b1b7-f57b738b8185")
+	)
+	(wire
+		(pts
+			(xy 182.88 57.15) (xy 185.42 57.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cdd61e8b-94c5-46e9-89e1-578f67d66fa2")
+	)
+	(wire
+		(pts
+			(xy 85.09 81.28) (xy 85.09 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d4bc11e5-04e1-4a00-983a-7898aa1dfd3b")
+	)
+	(wire
+		(pts
+			(xy 147.32 67.31) (xy 147.32 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d7ea5e18-a1e4-4c03-a339-b4c1d6f3102a")
+	)
+	(wire
+		(pts
+			(xy 62.23 71.12) (xy 62.23 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e70c9b41-9934-4cbc-97e6-349c62204db2")
+	)
+	(wire
+		(pts
+			(xy 189.23 97.79) (xy 190.5 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e804f4c0-f77c-4413-a22d-d06d46b20d0f")
+	)
+	(wire
+		(pts
+			(xy 189.23 92.71) (xy 189.23 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f24bb622-bfe1-4794-aff1-1443f15cffbf")
+	)
+	(wire
+		(pts
+			(xy 147.32 73.66) (xy 147.32 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fd828a15-183b-4d64-8726-598900848d40")
 	)
 	(image
 		(at 125.73 99.06)
-		(uuid "48b6a63b-2433-49e2-af21-5e7116c95b39")
+		(uuid "0a0817e3-ca03-485a-9ada-ac7729996d3a")
 		(data "iVBORw0KGgoAAAANSUhEUgAAAtIAAABjCAYAAAC2Y+dTAAABYGlDQ1BJQ0MgUHJvZmlsZQAAKJFt"
 			"kM9KAlEUxr8pxUr7s4igaOGiTWBhkyQtWphGBUKDJVm78TqNgU6XmYlo56oniF4gsJ5AKwp6hCAq"
 			"cOW6RS0CNyXTuVqp1b0cvh8f5xw+DtDlUznPuQDkDdtMLC/6U1vbfs8z3PBiAP3oUZnFI4oSpxZ8"
@@ -32951,7 +33063,7 @@
 	)
 	(image
 		(at 123.19 50.8)
-		(uuid "917c37b0-a50f-41a8-b594-d9c0c3e21ae7")
+		(uuid "aebd951a-a558-4e63-8189-621122a2d1c7")
 		(data "iVBORw0KGgoAAAANSUhEUgAAArgAAABACAYAAADxngRyAAABYGlDQ1BJQ0MgUHJvZmlsZQAAKJFt"
 			"kM9KAlEUxr8pxUr7s4igaOGiTWBhkyQtWphGBUKDJVm78TqNgU6XmYlo56oniF4gsJ5AKwp6hCAq"
 			"cOW6RS0CNyXTuVqp1b0cvh8f5xw+DtDlUznPuQDkDdtMLC/6U1vbfs8z3PBiAP3oUZnFI4oSpxZ8"
@@ -33556,13 +33668,17 @@
 		(lib_id "ECE319K:C")
 		(at 189.23 88.9 180)
 		(unit 1)
+		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
+		(in_pos_files yes)
 		(dnp no)
 		(uuid "2b2b7137-2160-415a-91f0-a0a95400ddfc")
 		(property "Reference" "C26"
 			(at 194.564 88.646 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -33571,6 +33687,8 @@
 		)
 		(property "Value" "0.1u"
 			(at 194.564 91.186 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -33579,47 +33697,57 @@
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
 			(at 188.2648 85.09 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" ""
 			(at 189.23 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
 			(at 189.23 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "LCSC P/N" "C14663"
 			(at 189.23 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "P/N" "MLASH168SB7104KTNA01"
 			(at 189.23 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(pin "1"
@@ -33641,13 +33769,17 @@
 		(lib_id "Device:C")
 		(at 73.66 74.93 0)
 		(unit 1)
+		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
+		(in_pos_files yes)
 		(dnp no)
 		(uuid "2dda2f50-ff79-4bd7-9e46-a979d3d0456f")
 		(property "Reference" "C24"
 			(at 76.2 73.66 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -33657,6 +33789,8 @@
 		)
 		(property "Value" "0.1u"
 			(at 75.946 75.946 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -33666,47 +33800,57 @@
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
 			(at 74.6252 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" ""
 			(at 73.66 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
 			(at 73.66 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "LCSC P/N" "C14663"
 			(at 73.66 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "P/N" "MLASH168SB7104KTNA01"
 			(at 73.66 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(pin "1"
@@ -33728,14 +33872,18 @@
 		(lib_id "CDSOT23-T24CAN:CDSOT23-T24CAN")
 		(at 185.42 54.61 0)
 		(unit 1)
+		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
+		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "31ac037c-adf9-4300-a3f1-f6c497ee9aad")
 		(property "Reference" "D9"
 			(at 196.85 46.99 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -33744,6 +33892,8 @@
 		)
 		(property "Value" "CDSOT23-T24CAN"
 			(at 196.85 49.53 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -33752,90 +33902,108 @@
 		)
 		(property "Footprint" "UTSVT_Passives:CDSOT23-T24CAN"
 			(at 204.47 149.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left top)
-				(hide yes)
 			)
 		)
 		(property "Datasheet" "kicad-embed://cdsot23-t24can.pdf"
 			(at 204.47 249.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left top)
-				(hide yes)
 			)
 		)
 		(property "Description" "Bourns CDSOT23-T24CAN, Dual Bi-Directional ESD Protection Diode, 3-Pin SOT-23"
 			(at 186.69 62.738 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Height" "1.17"
 			(at 204.47 449.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left top)
-				(hide yes)
 			)
 		)
 		(property "Mouser Part Number" "652-CDSOT23-T24CAN"
 			(at 204.47 549.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left top)
-				(hide yes)
 			)
 		)
 		(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Bourns/CDSOT23-T24CAN?qs=Z7P4xsdcg2LuAOb%2FzQ7xoQ%3D%3D"
 			(at 204.47 649.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left top)
-				(hide yes)
 			)
 		)
 		(property "Manufacturer_Name" "Bourns"
 			(at 204.47 749.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left top)
-				(hide yes)
 			)
 		)
 		(property "P/N" "CDSOT23-T24CAN"
 			(at 204.47 849.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left top)
-				(hide yes)
 			)
 		)
 		(property "LCSC P/N" "C2959841"
 			(at 185.42 54.61 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(pin "1"
@@ -33860,13 +34028,17 @@
 		(lib_id "Device:R")
 		(at 176.53 85.09 90)
 		(unit 1)
+		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
+		(in_pos_files yes)
 		(dnp no)
 		(uuid "87a7ddc7-63d1-4042-b4a5-521b854708c5")
 		(property "Reference" "R8"
 			(at 176.53 80.01 90)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -33875,6 +34047,8 @@
 		)
 		(property "Value" "60"
 			(at 176.53 82.55 90)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -33883,47 +34057,57 @@
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
 			(at 176.53 86.868 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" ""
 			(at 176.53 85.09 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Description" "Resistor"
 			(at 176.53 85.09 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "LCSC P/N" "C166918"
 			(at 176.53 85.09 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "P/N" "CRCW060360R4FKEA"
 			(at 176.53 85.09 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(pin "1"
@@ -33945,14 +34129,18 @@
 		(lib_id "Jumper:Jumper_2_Open")
 		(at 215.9 85.09 0)
 		(unit 1)
+		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
+		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8c83b4b8-29be-414f-9666-ab5a0e88dca7")
 		(property "Reference" "JP2"
 			(at 215.9 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -33961,6 +34149,8 @@
 		)
 		(property "Value" "TRM"
 			(at 215.9 81.28 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -33969,29 +34159,35 @@
 		)
 		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 			(at 215.9 85.09 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" ""
 			(at 215.9 85.09 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Description" "Jumper, 2-pole, open"
 			(at 215.9 85.09 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(pin "1"
@@ -34013,13 +34209,17 @@
 		(lib_id "Device:R")
 		(at 201.93 85.09 90)
 		(unit 1)
+		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
+		(in_pos_files yes)
 		(dnp no)
 		(uuid "8e144ca8-ebbd-4989-8ed3-38ec0a5d5bad")
 		(property "Reference" "R9"
 			(at 201.93 80.01 90)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34028,6 +34228,8 @@
 		)
 		(property "Value" "60"
 			(at 201.93 82.55 90)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34036,47 +34238,57 @@
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
 			(at 201.93 86.868 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" ""
 			(at 201.93 85.09 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Description" "Resistor"
 			(at 201.93 85.09 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "LCSC P/N" "C166918"
 			(at 201.93 85.09 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "P/N" "CRCW060360R4FKEA"
 			(at 201.93 85.09 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(pin "1"
@@ -34098,14 +34310,18 @@
 		(lib_id "TCAN3413DR:TCAN3413DR")
 		(at 111.76 71.12 0)
 		(unit 1)
+		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
+		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8f6f08d9-2f2f-4322-883a-46959071eb3a")
 		(property "Reference" "IC2"
 			(at 128.27 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34114,6 +34330,8 @@
 		)
 		(property "Value" "TCAN3413DR"
 			(at 128.27 66.04 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34122,90 +34340,108 @@
 		)
 		(property "Footprint" "UTSVT_Passives:TCAN3413DR"
 			(at 140.97 166.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left top)
-				(hide yes)
 			)
 		)
 		(property "Datasheet" "kicad-embed://tcan3413.pdf"
 			(at 140.97 266.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left top)
-				(hide yes)
 			)
 		)
 		(property "Description" "1/1 Transceiver Half CANbus 8-SOIC"
 			(at 129.286 91.948 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Height" "1.75"
 			(at 140.97 466.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left top)
-				(hide yes)
 			)
 		)
 		(property "Mouser Part Number" "595-TCAN3413DR"
 			(at 140.97 566.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left top)
-				(hide yes)
 			)
 		)
 		(property "Mouser Price/Stock" "-"
 			(at 140.97 666.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left top)
-				(hide yes)
 			)
 		)
 		(property "Manufacturer_Name" "Texas Instruments"
 			(at 140.97 766.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left top)
-				(hide yes)
 			)
 		)
 		(property "P/N" "TCAN3413DR"
 			(at 140.97 866.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left top)
-				(hide yes)
 			)
 		)
 		(property "LCSC P/N" "C22433320"
 			(at 111.76 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(pin "1"
@@ -34245,13 +34481,17 @@
 		(lib_id "Device:C")
 		(at 85.09 74.93 0)
 		(unit 1)
+		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
+		(in_pos_files yes)
 		(dnp no)
 		(uuid "9eb78e6e-fce5-47a2-8c55-d5e4f1d238ca")
 		(property "Reference" "C25"
 			(at 88.138 73.66 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34261,6 +34501,8 @@
 		)
 		(property "Value" "0.1u"
 			(at 88.138 76.2 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34270,47 +34512,57 @@
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
 			(at 86.0552 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" ""
 			(at 85.09 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
 			(at 85.09 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "LCSC P/N" "C14663"
 			(at 85.09 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "P/N" "MLASH168SB7104KTNA01"
 			(at 85.09 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(pin "1"
@@ -34332,13 +34584,17 @@
 		(lib_id "Device:C")
 		(at 62.23 74.93 0)
 		(unit 1)
+		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
+		(in_pos_files yes)
 		(dnp no)
 		(uuid "b8e84435-3fc3-40d2-ac72-afee9bfadbe5")
 		(property "Reference" "C23"
 			(at 65.278 73.66 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34348,6 +34604,8 @@
 		)
 		(property "Value" "10u"
 			(at 65.278 76.2 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34357,47 +34615,57 @@
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
 			(at 63.1952 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" ""
 			(at 62.23 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
 			(at 62.23 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "LCSC P/N" "C440198"
 			(at 62.23 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "P/N" "GRM21BR61H106KE43K"
 			(at 62.23 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(pin "1"
