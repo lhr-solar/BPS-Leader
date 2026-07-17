@@ -180,7 +180,7 @@ void Task_Precharge(void *pvParameters)
         if (driver_can_status != CAN_OK) {
 
             // only print it out once to prevent spamming
-            if(current_precharge_state != PRECHARGE_STATE_IDLE){
+            if(current_precharge_state != PRECHARGE_STATE_IDLE && current_precharge_state != PRECHARGE_STATE_FAULT){
                 printf("Precharge Back To Idle due to CAN timeout\r\n");
             }
             current_precharge_state = PRECHARGE_STATE_IDLE;
@@ -188,7 +188,7 @@ void Task_Precharge(void *pvParameters)
         // driver status message recieved and ignition switch is off
         else if(driver_input_status.Ignition_Array == 0){
 
-            if(current_precharge_state != PRECHARGE_STATE_IDLE){
+            if(current_precharge_state != PRECHARGE_STATE_IDLE && current_precharge_state != PRECHARGE_STATE_FAULT){
                 printf("Precharge Back To Idle due to Ignition Switch Off\r\n");
             }
             current_precharge_state = PRECHARGE_STATE_IDLE;

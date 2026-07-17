@@ -260,7 +260,7 @@ void Task_Voltage_Monitor()
             }
 
             // if voltage is too high or too low, set relevant fault and set fault bit
-            if (volt_can_data[i].BPS_Voltage_Tap_Data > CELL_OVERVOLTAGE_THRESHOLD_MV)
+            if (volt_can_data[i].BPS_Voltage_Tap_Data > CELL_OVERVOLTAGE_THRESHOLD_MV && volt_can_data[i].BPS_Tap_idx != 1 && volt_can_data[i].BPS_Tap_idx != 5)
             {
                 volt_can_data[i].BPS_Voltage_Tap_Fault = BPS_VOLTAGE_AGGREGATE_ARR_BPS_VOLTAGE_TAP_FAULT_OVER_VOLTAGE;
                 printf("Entering Cell Over Voltage Fault for Tap %d: %dmV\r\n", volt_can_data[i].BPS_Tap_idx, volt_can_data[i].BPS_Voltage_Tap_Data);
