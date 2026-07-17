@@ -45,7 +45,7 @@ StaticEventGroup_t xStateBits_buffer;
 void Task_Init()
 {
 
-    vTaskDelay(pdMS_TO_TICKS(STARTUP_DELAY_MS));
+    // vTaskDelay(pdMS_TO_TICKS(STARTUP_DELAY_MS));
 
     if (faultHandler_init() == 0)
     {

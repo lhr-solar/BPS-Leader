@@ -42,6 +42,15 @@
 // current threshold to determine if battery is charging (negative number is charging, positive is discharging)
 #define CHARGING_THRESHOLD_MA (-50) // -50 mA
 
+// Charge-enable anti-oscillation. Charge disables the instant a cell reaches the charge voltage/temp
+// limit, but RE-enabling requires the max cell to first fall a hysteresis band BELOW the limit, so a
+// cell sitting at the limit can't flip charge on/off ("charge complete -> resume" / "cooled ->
+// resume"). The minimum-disable dwell is a belt-and-suspenders so charge enable can't rapidly flip
+// even if the hysteresis band is crossed quickly.
+#define CHARGE_REENABLE_VOLTAGE_HYSTERESIS_MV 100   // re-enable 0.1 V below the charge-voltage cutoff
+#define CHARGE_REENABLE_TEMP_HYSTERESIS_MC    2000  // re-enable 2 C below the charge-temp cutoff
+#define MIN_CHARGE_DISABLE_TIME_MS            5000  // min time charge stays disabled before re-enable. ponytail: calibrate
+
 
 // How many bad voltage reads are tolerable when switching states and closing contactors 
 #define PRECHARGE_UNDERVOLTAGE_DEBOUNCE_LIMIT 2
