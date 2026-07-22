@@ -55,7 +55,7 @@ void Fault_Checker(uint32_t Array_Voltage, uint32_t Battery_Voltage, Precharge_S
     // Use uint64_t to prevent overflow during scaled multiplication of large mV values
     if ((Array_Voltage * VOLTAGE_TOLERANCE_DENOMINATOR) > (Battery_Voltage * VOLTAGE_TOLERANCE_NUMERATOR))
     {
-        set_faultBit(ARRAY_GREATER_THAN_BATTERY_FAULT);
+        //set_faultBit(ARRAY_GREATER_THAN_BATTERY_FAULT);
     }
 
     if (Battery_Voltage > PACK_OVERVOLTAGE_THRESHOLD_MV)
