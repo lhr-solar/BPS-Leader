@@ -9719,7 +9719,7 @@
 		(uuid "5f0c7c79-3a4f-4932-b826-57a703d03912")
 	)
 	(hierarchical_label "BOOT"
-		(shape bidirectional)
+		(shape input)
 		(at 128.905 106.045 0)
 		(effects
 			(font
