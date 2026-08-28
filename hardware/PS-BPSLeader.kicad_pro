@@ -470,16 +470,28 @@
       "ESP32"
     ],
     [
+      "ff3d6d8a-5585-4a16-aaa1-d2e71ebe7413",
+      "ESTOP"
+    ],
+    [
+      "8dff3833-5b3d-484d-a711-1f7fb0d1bbda",
+      "Motor_Contactor"
+    ],
+    [
+      "d0687915-3890-41dc-9a8f-e7ee1bda9492",
+      "HV+ Contactor"
+    ],
+    [
+      "3ea03975-64ac-45d5-b376-c81c9b8177bf",
+      "HV- Contactor"
+    ],
+    [
       "975a5890-d31b-4bf8-8164-e98394116f83",
       "Fan"
     ],
     [
       "92d40a22-22a8-4e19-ae2b-d2176aa2e41e",
       "ESP32_LDO"
-    ],
-    [
-      "ff3d6d8a-5585-4a16-aaa1-d2e71ebe7413",
-      "ESTOP"
     ],
     [
       "c396b043-4a62-4d2b-b629-091a6c3457ae",
@@ -490,44 +502,28 @@
       "Power_Protection"
     ],
     [
-      "1b9256b7-8667-463d-8456-0ec3ca2120be",
-      "Power_USB_PD"
+      "252fc626-7591-4f51-9e25-7431ee334d05",
+      "SD_Card"
     ],
     [
-      "8dff3833-5b3d-484d-a711-1f7fb0d1bbda",
-      "Array_Contactor"
+      "1b9256b7-8667-463d-8456-0ec3ca2120be",
+      "Power_USB_PD"
     ],
     [
       "380ec4f8-7be9-40d3-800b-a58d98dd66b4",
       "Power_PD_Boost"
     ],
     [
-      "77244fdb-4b99-4244-a9af-27b95501c0ba",
-      "Array_Precharge_Contactor"
-    ],
-    [
       "bc7b8349-90d5-4659-8fc5-35515868a6d9",
       "Power_5VBuck"
-    ],
-    [
-      "d0687915-3890-41dc-9a8f-e7ee1bda9492",
-      "HV+ Contactor"
     ],
     [
       "62b47865-4d17-4cd5-b20c-36169ba543a0",
       "Power_5VMux"
     ],
     [
-      "3ea03975-64ac-45d5-b376-c81c9b8177bf",
-      "HV- Contactor"
-    ],
-    [
       "3ac4b541-f87d-4cd8-af8e-016705365d4a",
       "Power_3V3_LDO"
-    ],
-    [
-      "252fc626-7591-4f51-9e25-7431ee334d05",
-      "SD_Card"
     ]
   ],
   "text_variables": {},
