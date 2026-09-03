@@ -20260,7 +20260,7 @@
 	)
 	(rectangle
 		(start 20.32 73.66)
-		(end 35.56 78.74)
+		(end 36.195 78.74)
 		(stroke
 			(width 0)
 			(type default)
@@ -20306,9 +20306,9 @@
 		)
 		(uuid "ffd52f36-2a00-4f5a-be33-6ae4fea36f67")
 	)
-	(text "Export MX150\n"
+	(text "Export Deutsch"
 		(exclude_from_sim no)
-		(at 27.94 76.454 0)
+		(at 28.194 76.454 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -20597,7 +20597,7 @@
 	)
 	(wire
 		(pts
-			(xy 230.505 113.03) (xy 240.665 113.03)
+			(xy 230.505 85.725) (xy 240.665 85.725)
 		)
 		(stroke
 			(width 0)
@@ -20627,7 +20627,7 @@
 	)
 	(wire
 		(pts
-			(xy 226.695 119.38) (xy 240.665 119.38)
+			(xy 226.695 92.075) (xy 240.665 92.075)
 		)
 		(stroke
 			(width 0)
@@ -20697,7 +20697,7 @@
 	)
 	(wire
 		(pts
-			(xy 230.505 109.22) (xy 230.505 113.03)
+			(xy 230.505 81.915) (xy 230.505 85.725)
 		)
 		(stroke
 			(width 0)
@@ -20757,7 +20757,7 @@
 	)
 	(wire
 		(pts
-			(xy 236.855 124.46) (xy 236.855 123.19)
+			(xy 236.855 97.155) (xy 236.855 95.885)
 		)
 		(stroke
 			(width 0)
@@ -20777,7 +20777,7 @@
 	)
 	(wire
 		(pts
-			(xy 229.87 139.065) (xy 229.87 142.875)
+			(xy 229.87 111.76) (xy 229.87 115.57)
 		)
 		(stroke
 			(width 0)
@@ -20857,7 +20857,7 @@
 	)
 	(wire
 		(pts
-			(xy 226.695 116.84) (xy 240.665 116.84)
+			(xy 226.695 89.535) (xy 240.665 89.535)
 		)
 		(stroke
 			(width 0)
@@ -20867,7 +20867,7 @@
 	)
 	(wire
 		(pts
-			(xy 236.22 153.035) (xy 240.03 153.035)
+			(xy 236.22 125.73) (xy 240.03 125.73)
 		)
 		(stroke
 			(width 0)
@@ -20947,7 +20947,7 @@
 	)
 	(wire
 		(pts
-			(xy 236.22 154.305) (xy 236.22 153.035)
+			(xy 236.22 127) (xy 236.22 125.73)
 		)
 		(stroke
 			(width 0)
@@ -21027,7 +21027,7 @@
 	)
 	(wire
 		(pts
-			(xy 226.06 149.225) (xy 240.03 149.225)
+			(xy 226.06 121.92) (xy 240.03 121.92)
 		)
 		(stroke
 			(width 0)
@@ -21137,7 +21137,7 @@
 	)
 	(wire
 		(pts
-			(xy 236.22 140.335) (xy 240.03 140.335)
+			(xy 236.22 113.03) (xy 240.03 113.03)
 		)
 		(stroke
 			(width 0)
@@ -21167,7 +21167,7 @@
 	)
 	(wire
 		(pts
-			(xy 229.87 142.875) (xy 240.03 142.875)
+			(xy 229.87 115.57) (xy 240.03 115.57)
 		)
 		(stroke
 			(width 0)
@@ -21237,7 +21237,7 @@
 	)
 	(wire
 		(pts
-			(xy 236.855 110.49) (xy 240.665 110.49)
+			(xy 236.855 83.185) (xy 240.665 83.185)
 		)
 		(stroke
 			(width 0)
@@ -21247,7 +21247,7 @@
 	)
 	(wire
 		(pts
-			(xy 236.855 109.22) (xy 236.855 110.49)
+			(xy 236.855 81.915) (xy 236.855 83.185)
 		)
 		(stroke
 			(width 0)
@@ -21277,7 +21277,7 @@
 	)
 	(wire
 		(pts
-			(xy 226.06 146.685) (xy 240.03 146.685)
+			(xy 226.06 119.38) (xy 240.03 119.38)
 		)
 		(stroke
 			(width 0)
@@ -21397,7 +21397,7 @@
 	)
 	(wire
 		(pts
-			(xy 236.855 123.19) (xy 240.665 123.19)
+			(xy 236.855 95.885) (xy 240.665 95.885)
 		)
 		(stroke
 			(width 0)
@@ -21427,7 +21427,7 @@
 	)
 	(wire
 		(pts
-			(xy 236.22 139.065) (xy 236.22 140.335)
+			(xy 236.22 111.76) (xy 236.22 113.03)
 		)
 		(stroke
 			(width 0)
@@ -21536,7 +21536,7 @@
 		(uuid "1d4ca1cc-05fd-4edc-ab21-df637238a2dc")
 	)
 	(label "HV-_CTRL"
-		(at 226.06 146.685 0)
+		(at 226.06 119.38 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -21586,7 +21586,7 @@
 		(uuid "339a913d-9ab4-455f-ad9a-03d56b76b751")
 	)
 	(label "HV+_SENSE"
-		(at 226.695 119.38 0)
+		(at 226.695 92.075 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -21606,7 +21606,7 @@
 		(uuid "3d4dc941-04dd-43ac-be49-daf70e78736d")
 	)
 	(label "HV-_SENSE"
-		(at 226.06 149.225 0)
+		(at 226.06 121.92 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -21966,7 +21966,7 @@
 		(uuid "f507f531-fc2a-4151-88cd-b3f2e722db64")
 	)
 	(label "HV+_CTRL"
-		(at 226.695 116.84 0)
+		(at 226.695 89.535 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -21977,7 +21977,7 @@
 	)
 	(symbol
 		(lib_id "power:+3.3V")
-		(at 236.855 109.22 0)
+		(at 236.855 81.915 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -21988,7 +21988,7 @@
 		(fields_autoplaced yes)
 		(uuid "0935944c-8bb3-41ef-9080-c8c562498fe4")
 		(property "Reference" "#PWR026"
-			(at 236.855 113.03 0)
+			(at 236.855 85.725 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21999,7 +21999,7 @@
 			)
 		)
 		(property "Value" "+3.3V"
-			(at 236.855 104.14 0)
+			(at 236.855 76.835 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -22009,7 +22009,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 236.855 109.22 0)
+			(at 236.855 81.915 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22020,7 +22020,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 236.855 109.22 0)
+			(at 236.855 81.915 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22031,7 +22031,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
-			(at 236.855 109.22 0)
+			(at 236.855 81.915 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22055,7 +22055,7 @@
 	)
 	(symbol
 		(lib_id "power:+3.3V")
-		(at 236.22 139.065 0)
+		(at 236.22 111.76 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -22066,7 +22066,7 @@
 		(fields_autoplaced yes)
 		(uuid "095d0afa-a4ca-463c-bc0b-b638e01fdafa")
 		(property "Reference" "#PWR028"
-			(at 236.22 142.875 0)
+			(at 236.22 115.57 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22077,7 +22077,7 @@
 			)
 		)
 		(property "Value" "+3.3V"
-			(at 236.22 133.985 0)
+			(at 236.22 106.68 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -22087,7 +22087,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 236.22 139.065 0)
+			(at 236.22 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22098,7 +22098,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 236.22 139.065 0)
+			(at 236.22 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22109,7 +22109,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
-			(at 236.22 139.065 0)
+			(at 236.22 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22345,7 +22345,7 @@
 	)
 	(symbol
 		(lib_id "power:+24V")
-		(at 229.87 139.065 0)
+		(at 229.87 111.76 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -22356,7 +22356,7 @@
 		(fields_autoplaced yes)
 		(uuid "2120e0ea-0f87-4463-b63b-d9471ecb2011")
 		(property "Reference" "#PWR027"
-			(at 229.87 142.875 0)
+			(at 229.87 115.57 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22367,7 +22367,7 @@
 			)
 		)
 		(property "Value" "+24V"
-			(at 229.87 133.985 0)
+			(at 229.87 106.68 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -22377,7 +22377,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 229.87 139.065 0)
+			(at 229.87 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22388,7 +22388,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 229.87 139.065 0)
+			(at 229.87 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22399,7 +22399,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+24V\""
-			(at 229.87 139.065 0)
+			(at 229.87 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22711,7 +22711,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 236.22 154.305 0)
+		(at 236.22 127 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -22722,7 +22722,7 @@
 		(fields_autoplaced yes)
 		(uuid "5d9dc34e-16c4-44e3-95ed-fe944acd9432")
 		(property "Reference" "#PWR033"
-			(at 236.22 160.655 0)
+			(at 236.22 133.35 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22733,7 +22733,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 236.22 159.385 0)
+			(at 236.22 132.08 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -22743,7 +22743,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 236.22 154.305 0)
+			(at 236.22 127 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22754,7 +22754,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 236.22 154.305 0)
+			(at 236.22 127 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22765,7 +22765,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 236.22 154.305 0)
+			(at 236.22 127 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22810,7 +22810,7 @@
 				)
 			)
 		)
-		(property "Value" "+24V"
+		(property "Value" "+12V"
 			(at 160.02 20.32 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22842,7 +22842,7 @@
 				)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+24V\""
+		(property "Description" "Power symbol creates a global label with name \"+12V\""
 			(at 160.02 25.4 0)
 			(hide yes)
 			(show_name no)
@@ -23684,7 +23684,7 @@
 	)
 	(symbol
 		(lib_id "power:+24V")
-		(at 230.505 109.22 0)
+		(at 230.505 81.915 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -23695,7 +23695,7 @@
 		(fields_autoplaced yes)
 		(uuid "a9c8de3d-092e-4777-9f07-362770b5ba90")
 		(property "Reference" "#PWR025"
-			(at 230.505 113.03 0)
+			(at 230.505 85.725 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -23706,7 +23706,7 @@
 			)
 		)
 		(property "Value" "+24V"
-			(at 230.505 104.14 0)
+			(at 230.505 76.835 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -23716,7 +23716,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 230.505 109.22 0)
+			(at 230.505 81.915 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -23727,7 +23727,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 230.505 109.22 0)
+			(at 230.505 81.915 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -23738,7 +23738,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+24V\""
-			(at 230.505 109.22 0)
+			(at 230.505 81.915 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -24118,7 +24118,7 @@
 				)
 			)
 		)
-		(property "Value" "+24V_OUT"
+		(property "Value" "+12V_OUT"
 			(at 154.94 15.24 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -24150,7 +24150,7 @@
 				)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
+		(property "Description" "Power symbol creates a global label with name \"+12V_OUT\""
 			(at 154.94 20.32 0)
 			(hide yes)
 			(show_name no)
@@ -24429,7 +24429,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 236.855 124.46 0)
+		(at 236.855 97.155 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -24440,7 +24440,7 @@
 		(fields_autoplaced yes)
 		(uuid "fc57040d-eb34-418b-becf-8c9e3dc8eead")
 		(property "Reference" "#PWR032"
-			(at 236.855 130.81 0)
+			(at 236.855 103.505 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -24451,7 +24451,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 236.855 129.54 0)
+			(at 236.855 102.235 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -24461,7 +24461,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 236.855 124.46 0)
+			(at 236.855 97.155 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -24472,7 +24472,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 236.855 124.46 0)
+			(at 236.855 97.155 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -24483,7 +24483,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 236.855 124.46 0)
+			(at 236.855 97.155 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -24506,7 +24506,7 @@
 		)
 	)
 	(sheet
-		(at 240.03 137.795)
+		(at 240.03 110.49)
 		(size 19.05 17.78)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -24522,7 +24522,7 @@
 		)
 		(uuid "3ea03975-64ac-45d5-b376-c81c9b8177bf")
 		(property "Sheetname" "HV- Contactor"
-			(at 240.03 137.0834 0)
+			(at 240.03 109.7784 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -24533,7 +24533,7 @@
 			)
 		)
 		(property "Sheetfile" "HV_Minus_Contactor.kicad_sch"
-			(at 240.03 156.1596 0)
+			(at 240.03 128.8546 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -24544,7 +24544,7 @@
 			)
 		)
 		(pin "3.3V" bidirectional
-			(at 240.03 140.335 180)
+			(at 240.03 113.03 180)
 			(uuid "8a08c4cb-79d5-4b90-918e-b414ce8d011e")
 			(effects
 				(font
@@ -24554,7 +24554,7 @@
 			)
 		)
 		(pin "CONTACTOR+" input
-			(at 240.03 142.875 180)
+			(at 240.03 115.57 180)
 			(uuid "420b3ac5-309c-484f-9524-772f6e96b313")
 			(effects
 				(font
@@ -24564,7 +24564,7 @@
 			)
 		)
 		(pin "CONTROL" input
-			(at 240.03 146.685 180)
+			(at 240.03 119.38 180)
 			(uuid "b074e890-2b2f-4b34-8b0d-6ba4bedae34e")
 			(effects
 				(font
@@ -24574,7 +24574,7 @@
 			)
 		)
 		(pin "GND" bidirectional
-			(at 240.03 153.035 180)
+			(at 240.03 125.73 180)
 			(uuid "b1a04cb6-b886-480d-8c33-f95b1109fb8f")
 			(effects
 				(font
@@ -24584,7 +24584,7 @@
 			)
 		)
 		(pin "SENSE" output
-			(at 240.03 149.225 180)
+			(at 240.03 121.92 180)
 			(uuid "baebe6dc-04d0-4dc7-b8ec-55e852d06e9a")
 			(effects
 				(font
@@ -25076,7 +25076,7 @@
 		)
 	)
 	(sheet
-		(at 240.665 107.95)
+		(at 240.665 80.645)
 		(size 19.05 17.78)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -25092,7 +25092,7 @@
 		)
 		(uuid "d0687915-3890-41dc-9a8f-e7ee1bda9492")
 		(property "Sheetname" "HV+ Contactor"
-			(at 240.665 107.2384 0)
+			(at 240.665 79.9334 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -25103,7 +25103,7 @@
 			)
 		)
 		(property "Sheetfile" "HV_Plus_Contactor.kicad_sch"
-			(at 240.665 126.3146 0)
+			(at 240.665 99.0096 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -25114,7 +25114,7 @@
 			)
 		)
 		(pin "3.3V" bidirectional
-			(at 240.665 110.49 180)
+			(at 240.665 83.185 180)
 			(uuid "36d85c4c-81f1-4e18-b721-1a69aaad59ce")
 			(effects
 				(font
@@ -25124,7 +25124,7 @@
 			)
 		)
 		(pin "CONTACTOR+" input
-			(at 240.665 113.03 180)
+			(at 240.665 85.725 180)
 			(uuid "0395f749-ab4b-459f-94d6-3717e62c4be4")
 			(effects
 				(font
@@ -25134,7 +25134,7 @@
 			)
 		)
 		(pin "CONTROL" input
-			(at 240.665 116.84 180)
+			(at 240.665 89.535 180)
 			(uuid "68ce4136-f8fe-41fb-b263-82c5dd6b57c1")
 			(effects
 				(font
@@ -25144,7 +25144,7 @@
 			)
 		)
 		(pin "GND" bidirectional
-			(at 240.665 123.19 180)
+			(at 240.665 95.885 180)
 			(uuid "b656dbc2-0244-411f-8de0-540358897959")
 			(effects
 				(font
@@ -25154,7 +25154,7 @@
 			)
 		)
 		(pin "SENSE" output
-			(at 240.665 119.38 180)
+			(at 240.665 92.075 180)
 			(uuid "e7d407d8-809c-40e2-8fc4-83b1852fcdd4")
 			(effects
 				(font

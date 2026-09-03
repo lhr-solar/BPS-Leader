@@ -623,7 +623,7 @@
 		)
 		(uuid "048fafc1-13f8-453e-9a45-8860c904e411")
 	)
-	(text "Fused 24V to power BPS boards"
+	(text "Fused 12V to power BPS boards"
 		(exclude_from_sim no)
 		(at 45.72 147.32 0)
 		(effects
@@ -637,13 +637,34 @@
 	)
 	(text "R1"
 		(exclude_from_sim no)
-		(at 139.7 113.284 90)
+		(at 193.04 113.284 90)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 		)
 		(uuid "4abfb42b-5aa2-4055-b5de-fa6f0b2d4e4d")
+	)
+	(text "((PDU | ELCON) | PD)\nreasoning: PDU or elcon will be prioritized over PD since it could be being used \nfor debugging. In those events, power from car or elcon is better. since PD needs the\nlowest priority, it will be one its own input into the highest mux so the other input\nwill have higher priority. then, between PDU and ELCON that mux can prioritize PDU"
+		(exclude_from_sim no)
+		(at -71.374 121.412 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "57493c90-d47b-40ad-ad55-11865371872d")
+	)
+	(text "PD should try to negotiate 12V. Or could just try to negotiate highest possible and rely on buckboost "
+		(exclude_from_sim no)
+		(at 156.464 22.86 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "597e745b-b9e0-406d-8455-de6b93c2715a")
 	)
 	(text "USB PD + Boost"
 		(exclude_from_sim no)
@@ -657,7 +678,7 @@
 		)
 		(uuid "67a0da84-0891-4fff-8825-7cc13c6e4a5e")
 	)
-	(text "24V Input and Regulation"
+	(text "12V Input and Regulation"
 		(exclude_from_sim no)
 		(at 43.942 23.114 0)
 		(effects
@@ -671,7 +692,7 @@
 	)
 	(text "VIN1 prioritized"
 		(exclude_from_sim no)
-		(at 168.91 116.84 0)
+		(at 218.948 113.284 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -681,7 +702,7 @@
 	)
 	(text "R2"
 		(exclude_from_sim no)
-		(at 139.7 120.904 90)
+		(at 193.04 120.904 90)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -691,7 +712,7 @@
 	)
 	(text "5V\nMux	"
 		(exclude_from_sim no)
-		(at 147.828 114.046 0)
+		(at 204.978 113.03 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -700,7 +721,7 @@
 		)
 		(uuid "a7d5a8c1-a16a-47a6-9b8c-bc12a43067ce")
 	)
-	(text "BPSL Board Power (24V, 3V3)"
+	(text "BPSL Board Power (12V, 3V3)"
 		(exclude_from_sim no)
 		(at 44.704 94.488 0)
 		(effects
@@ -730,26 +751,36 @@
 		(uuid "64868f5c-74b9-4187-ab1f-e1e748735e1b")
 	)
 	(junction
-		(at 151.13 124.46)
+		(at 199.39 124.46)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "b07e9fb3-dbea-4000-a212-9652240cd9ff")
+		(uuid "a4cedc61-ad3d-4a4e-9b00-0b3151172685")
 	)
 	(junction
-		(at 139.7 116.84)
+		(at 193.04 116.84)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "cd08b787-90a1-49e1-a879-29aea10bd2c6")
+		(uuid "ff5051f3-60bc-43b4-b543-78d99584ef9e")
 	)
 	(wire
 		(pts
-			(xy 180.34 106.68) (xy 199.39 106.68)
+			(xy 193.04 116.84) (xy 204.47 116.84)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "07c807a5-e91b-4420-8183-2012d7a3c56c")
+		(uuid "04715b17-ae89-42a5-a1de-eba10a768bb7")
+	)
+	(wire
+		(pts
+			(xy 232.41 106.68) (xy 247.015 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "06f68d1a-fd9a-4714-b041-ddf5eca1f5a2")
 	)
 	(wire
 		(pts
@@ -763,7 +794,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 116.84) (xy 139.7 118.11)
+			(xy 193.04 116.84) (xy 193.04 118.11)
 		)
 		(stroke
 			(width 0)
@@ -813,33 +844,13 @@
 	)
 	(wire
 		(pts
-			(xy 198.12 119.38) (xy 196.85 119.38)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2be51443-2a40-4198-a9d3-6a06d37030f7")
-	)
-	(wire
-		(pts
-			(xy 96.52 116.84) (xy 95.25 116.84)
+			(xy 166.37 116.84) (xy 162.56 116.84)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "31ca5544-b5b5-4be4-b856-cdff8064e040")
-	)
-	(wire
-		(pts
-			(xy 151.13 127) (xy 149.86 127)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "323b1dd3-705d-4448-8b17-81c708369364")
 	)
 	(wire
 		(pts
@@ -853,23 +864,13 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 124.46) (xy 151.13 124.46)
+			(xy 193.04 124.46) (xy 199.39 124.46)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "47bfd17a-e157-45d8-8083-617e7bdabcf1")
-	)
-	(wire
-		(pts
-			(xy 95.25 119.38) (xy 93.98 119.38)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4a371ace-793a-4357-85a6-22b4fc61d72a")
 	)
 	(wire
 		(pts
@@ -883,7 +884,7 @@
 	)
 	(wire
 		(pts
-			(xy 95.25 116.84) (xy 95.25 119.38)
+			(xy 162.56 116.84) (xy 162.56 119.38)
 		)
 		(stroke
 			(width 0)
@@ -893,7 +894,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 115.57) (xy 139.7 116.84)
+			(xy 193.04 115.57) (xy 193.04 116.84)
 		)
 		(stroke
 			(width 0)
@@ -933,7 +934,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 110.49) (xy 139.7 109.22)
+			(xy 193.04 110.49) (xy 193.04 109.22)
 		)
 		(stroke
 			(width 0)
@@ -953,7 +954,7 @@
 	)
 	(wire
 		(pts
-			(xy 85.09 106.68) (xy 96.52 106.68)
+			(xy 162.56 106.68) (xy 166.37 106.68)
 		)
 		(stroke
 			(width 0)
@@ -963,7 +964,7 @@
 	)
 	(wire
 		(pts
-			(xy 199.39 116.84) (xy 198.12 116.84)
+			(xy 247.015 116.84) (xy 243.84 116.84)
 		)
 		(stroke
 			(width 0)
@@ -1013,16 +1014,6 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 116.84) (xy 152.4 116.84)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b0c92dc3-21d2-47de-a2e9-439cceadf179")
-	)
-	(wire
-		(pts
 			(xy 40.64 66.04) (xy 41.91 66.04)
 		)
 		(stroke
@@ -1053,7 +1044,7 @@
 	)
 	(wire
 		(pts
-			(xy 127 106.68) (xy 152.4 106.68)
+			(xy 189.23 106.68) (xy 204.47 106.68)
 		)
 		(stroke
 			(width 0)
@@ -1073,7 +1064,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 123.19) (xy 139.7 124.46)
+			(xy 193.04 123.19) (xy 193.04 124.46)
 		)
 		(stroke
 			(width 0)
@@ -1113,7 +1104,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 109.22) (xy 152.4 109.22)
+			(xy 193.04 109.22) (xy 204.47 109.22)
 		)
 		(stroke
 			(width 0)
@@ -1123,7 +1114,7 @@
 	)
 	(wire
 		(pts
-			(xy 231.14 107.95) (xy 233.68 107.95)
+			(xy 262.89 107.95) (xy 265.43 107.95)
 		)
 		(stroke
 			(width 0)
@@ -1143,7 +1134,7 @@
 	)
 	(wire
 		(pts
-			(xy 152.4 124.46) (xy 151.13 124.46)
+			(xy 204.47 124.46) (xy 199.39 124.46)
 		)
 		(stroke
 			(width 0)
@@ -1173,7 +1164,7 @@
 	)
 	(wire
 		(pts
-			(xy 198.12 116.84) (xy 198.12 119.38)
+			(xy 243.84 116.84) (xy 243.84 119.38)
 		)
 		(stroke
 			(width 0)
@@ -1193,7 +1184,7 @@
 	)
 	(wire
 		(pts
-			(xy 151.13 124.46) (xy 151.13 127)
+			(xy 199.39 124.46) (xy 199.39 127)
 		)
 		(stroke
 			(width 0)
@@ -1201,17 +1192,7 @@
 		)
 		(uuid "fefce142-07ea-4d7a-897e-eb95605377c5")
 	)
-	(label "BPSL_24V"
-		(at 85.09 106.68 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "03016bfd-c943-4c9b-91f3-c2c7d7117d00")
-	)
-	(label "PDU_24V"
+	(label "PDU_12V"
 		(at 27.94 113.03 0)
 		(effects
 			(font
@@ -1241,7 +1222,7 @@
 		)
 		(uuid "1bbef07a-7d2e-4264-bdac-62eb551b2ef2")
 	)
-	(label "PD_BOOST_24V"
+	(label "PD_12V"
 		(at 27.94 119.38 0)
 		(effects
 			(font
@@ -1261,7 +1242,7 @@
 		)
 		(uuid "a9fa3d49-94a4-4a2e-9e11-6a968f8b843e")
 	)
-	(label "PD_BOOST_24V"
+	(label "PD_12V"
 		(at 251.46 43.18 180)
 		(effects
 			(font
@@ -1272,7 +1253,7 @@
 		(uuid "bc9286fa-5715-404f-92c8-b9ef5975cdc3")
 	)
 	(label "5V_BUCK"
-		(at 139.7 106.68 0)
+		(at 193.04 106.68 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1281,7 +1262,7 @@
 		)
 		(uuid "db90b551-20a6-4bd5-96cb-22d7c132525f")
 	)
-	(label "BPSL_24V"
+	(label "BPSL_12V"
 		(at 31.75 166.37 180)
 		(effects
 			(font
@@ -1292,7 +1273,7 @@
 		(uuid "dccb177e-082a-4428-ac72-7215f5fe521a")
 	)
 	(label "5V_MUX_OUT"
-		(at 184.15 106.68 0)
+		(at 233.68 106.68 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1302,7 +1283,7 @@
 		(uuid "efce36ee-3f2a-4354-8ee9-06cfbbe69787")
 	)
 	(label "PD_5V_OUT"
-		(at 139.7 109.22 0)
+		(at 193.04 109.22 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1333,9 +1314,20 @@
 		)
 		(uuid "09f737a7-80c5-4d15-a85d-b3aed86b36c6")
 	)
+	(hierarchical_label "BPSL_12V"
+		(shape output)
+		(at 162.56 106.68 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "240ba4a2-0a62-4219-baea-1c5817566675")
+	)
 	(hierarchical_label "BPSL_3V3"
 		(shape output)
-		(at 233.68 107.95 0)
+		(at 265.43 107.95 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1355,7 +1347,7 @@
 		)
 		(uuid "4f3890ff-2984-4768-b81d-38b22b359a36")
 	)
-	(hierarchical_label "24V_BPS_OUT"
+	(hierarchical_label "12V_BPS_OUT"
 		(shape output)
 		(at 52.07 165.1 0)
 		(effects
@@ -1377,7 +1369,7 @@
 		)
 		(uuid "6a96132c-7f2e-40eb-9f4f-e6f184980565")
 	)
-	(hierarchical_label "BPSL_24V"
+	(hierarchical_label "BPSL_12V"
 		(shape output)
 		(at 63.5 113.03 0)
 		(effects
@@ -1390,7 +1382,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape input)
-		(at 93.98 119.38 180)
+		(at 162.56 119.38 270)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1423,7 +1415,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape input)
-		(at 196.85 119.38 180)
+		(at 243.84 119.38 270)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1434,7 +1426,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape input)
-		(at 149.86 127 180)
+		(at 199.39 127 270)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1692,7 +1684,7 @@
 	)
 	(symbol
 		(lib_id "Device:R_Small")
-		(at 139.7 113.03 0)
+		(at 193.04 113.03 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1703,7 +1695,7 @@
 		(fields_autoplaced yes)
 		(uuid "9908502e-410b-427b-a5e5-01580e935f2a")
 		(property "Reference" "R28"
-			(at 142.24 111.7599 0)
+			(at 195.58 111.7599 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1714,7 +1706,7 @@
 			)
 		)
 		(property "Value" "16k"
-			(at 142.24 114.2999 0)
+			(at 195.58 114.2999 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1725,7 +1717,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 139.7 113.03 0)
+			(at 193.04 113.03 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1736,7 +1728,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 139.7 113.03 0)
+			(at 193.04 113.03 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1747,7 +1739,7 @@
 			)
 		)
 		(property "Description" "Resistor, small symbol"
-			(at 139.7 113.03 0)
+			(at 193.04 113.03 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1774,7 +1766,7 @@
 	)
 	(symbol
 		(lib_id "Device:R_Small")
-		(at 139.7 120.65 0)
+		(at 193.04 120.65 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1785,7 +1777,7 @@
 		(fields_autoplaced yes)
 		(uuid "b96e58f3-f7f6-4cd0-aae4-f76f8a2d37f4")
 		(property "Reference" "R29"
-			(at 142.24 119.3799 0)
+			(at 195.58 119.3799 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1796,7 +1788,7 @@
 			)
 		)
 		(property "Value" "4.7k"
-			(at 142.24 121.9199 0)
+			(at 195.58 121.9199 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1807,7 +1799,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 139.7 120.65 0)
+			(at 193.04 120.65 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1818,7 +1810,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 139.7 120.65 0)
+			(at 193.04 120.65 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1829,7 +1821,7 @@
 			)
 		)
 		(property "Description" "Resistor, small symbol"
-			(at 139.7 120.65 0)
+			(at 193.04 120.65 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2302,8 +2294,8 @@
 		)
 	)
 	(sheet
-		(at 199.39 104.14)
-		(size 31.75 15.24)
+		(at 247.015 104.14)
+		(size 15.875 15.24)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -2318,7 +2310,7 @@
 		)
 		(uuid "3ac4b541-f87d-4cd8-af8e-016705365d4a")
 		(property "Sheetname" "Power_3V3_LDO"
-			(at 199.39 103.4284 0)
+			(at 247.015 103.4284 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2329,7 +2321,7 @@
 			)
 		)
 		(property "Sheetfile" "Power_3V3_LDO.kicad_sch"
-			(at 199.39 119.9646 0)
+			(at 247.015 119.9646 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2340,7 +2332,7 @@
 			)
 		)
 		(pin "GND" input
-			(at 199.39 116.84 180)
+			(at 247.015 116.84 180)
 			(uuid "7c5fa96f-d9f1-4c05-b029-935f29cd5f95")
 			(effects
 				(font
@@ -2350,7 +2342,7 @@
 			)
 		)
 		(pin "Vin" input
-			(at 199.39 106.68 180)
+			(at 247.015 106.68 180)
 			(uuid "d9d6cc9f-c325-454c-8bb0-f4c995c4b409")
 			(effects
 				(font
@@ -2360,7 +2352,7 @@
 			)
 		)
 		(pin "Vout" output
-			(at 231.14 107.95 0)
+			(at 262.89 107.95 0)
 			(uuid "c3880ad3-5df8-405c-9ad1-d8a1d3357536")
 			(effects
 				(font
@@ -2378,7 +2370,7 @@
 		)
 	)
 	(sheet
-		(at 152.4 104.14)
+		(at 204.47 104.14)
 		(size 27.94 22.86)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2394,7 +2386,7 @@
 		)
 		(uuid "62b47865-4d17-4cd5-b20c-36169ba543a0")
 		(property "Sheetname" "Power_5VMux"
-			(at 152.4 103.4284 0)
+			(at 204.47 103.4284 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2405,7 +2397,7 @@
 			)
 		)
 		(property "Sheetfile" "Power_5VMux.kicad_sch"
-			(at 152.4 127.5846 0)
+			(at 204.47 127.5846 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2416,7 +2408,7 @@
 			)
 		)
 		(pin "MUX_OUT" output
-			(at 180.34 106.68 0)
+			(at 232.41 106.68 0)
 			(uuid "32a848a7-7ee4-4152-b1d8-a2634e7ed49b")
 			(effects
 				(font
@@ -2426,7 +2418,7 @@
 			)
 		)
 		(pin "MX_GND" input
-			(at 152.4 124.46 180)
+			(at 204.47 124.46 180)
 			(uuid "0b7d9c76-5907-4e9c-9033-f5dfaaf3e2ca")
 			(effects
 				(font
@@ -2436,7 +2428,7 @@
 			)
 		)
 		(pin "PR1" input
-			(at 152.4 116.84 180)
+			(at 204.47 116.84 180)
 			(uuid "30b94d1a-aab8-4fd6-953d-815c2863573b")
 			(effects
 				(font
@@ -2446,8 +2438,8 @@
 			)
 		)
 		(pin "VIN_1" input
-			(at 152.4 109.22 180)
-			(uuid "97877665-b4a5-43f6-b281-a0a2ea488d76")
+			(at 204.47 106.68 180)
+			(uuid "30bce4ac-c223-4d82-b80f-80aa51b8e994")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2456,8 +2448,8 @@
 			)
 		)
 		(pin "VIN_2" input
-			(at 152.4 106.68 180)
-			(uuid "535eaa48-fed5-484a-9d27-48f65aef1ccb")
+			(at 204.47 109.22 180)
+			(uuid "74f09fd1-ac6a-4494-b3b8-1864e3026c89")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2474,8 +2466,8 @@
 		)
 	)
 	(sheet
-		(at 96.52 104.14)
-		(size 30.48 15.24)
+		(at 166.37 104.14)
+		(size 22.86 15.24)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -2490,7 +2482,7 @@
 		)
 		(uuid "bc7b8349-90d5-4659-8fc5-35515868a6d9")
 		(property "Sheetname" "Power_5VBuck"
-			(at 96.52 103.4284 0)
+			(at 166.37 103.4284 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2501,7 +2493,7 @@
 			)
 		)
 		(property "Sheetfile" "Power_5VBuck.kicad_sch"
-			(at 96.52 119.9646 0)
+			(at 166.37 119.9646 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2512,7 +2504,7 @@
 			)
 		)
 		(pin "GND" input
-			(at 96.52 116.84 180)
+			(at 166.37 116.84 180)
 			(uuid "c199391a-d373-41e9-a544-65ed6be8c97e")
 			(effects
 				(font
@@ -2522,7 +2514,7 @@
 			)
 		)
 		(pin "V_in_24V" input
-			(at 96.52 106.68 180)
+			(at 166.37 106.68 180)
 			(uuid "eea9013d-ac38-40c5-9270-6f12215685e7")
 			(effects
 				(font
@@ -2532,7 +2524,7 @@
 			)
 		)
 		(pin "V_out_5V" output
-			(at 127 106.68 0)
+			(at 189.23 106.68 0)
 			(uuid "563d0db3-d5c7-4760-919d-601eb8d7bd4d")
 			(effects
 				(font
