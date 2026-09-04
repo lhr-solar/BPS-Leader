@@ -20337,9 +20337,9 @@
 		)
 		(uuid "4cd73532-4d8f-4fcd-a48c-6ca0d41c406d")
 	)
-	(text "Functions: \n- Power \n	- 12V in \n	- USB PD\n	- 12V->5V\n	- 5V->3V3\n- Peripherals\n	- ESP32 BLT\n	- ESTOP\n	- Elcon CAN\n	- CarCAN\n	- BQ chip chain\n		- Transceiver \n		- Receiver \n		- Power\n	- 3x Contactor + Economizer"
+	(text "Functions: \n- Power \n	- PDU 12V in \n	- USB PD (9-20V)\n	- ELCON LV PWR (14V)\n	- 12V Buck-Boost\n	- 12V->5V\n	- 5V->3V3\n- Peripherals\n	- ESP32 BLT\n	- ESTOP\n	- Elcon CAN\n	- CarCAN\n	- BQ chip chain\n		- Transceiver \n		- Receiver \n		- Power\n	- 3x Contactor + Economizer"
 		(exclude_from_sim no)
-		(at 57.658 -25.146 0)
+		(at 57.658 -35.941 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -22345,6 +22345,84 @@
 	)
 	(symbol
 		(lib_id "power:+24V")
+		(at 230.505 81.915 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "1c86995e-87d5-45ae-8ded-804bfd2a92a6")
+		(property "Reference" "#PWR023"
+			(at 230.505 85.725 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+12V"
+			(at 227.33 76.8349 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(property "Footprint" ""
+			(at 230.505 81.915 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 230.505 81.915 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+24V\""
+			(at 230.505 81.915 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "9c4f381b-8a4b-4391-85fe-5073f594ec58")
+		)
+		(instances
+			(project "PS-BPSLeader"
+				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963"
+					(reference "#PWR023")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+24V")
 		(at 229.87 111.76 0)
 		(unit 1)
 		(body_style 1)
@@ -22353,9 +22431,8 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "2120e0ea-0f87-4463-b63b-d9471ecb2011")
-		(property "Reference" "#PWR027"
+		(uuid "21a8193f-2932-42d0-ba85-be574f3f1250")
+		(property "Reference" "#PWR024"
 			(at 229.87 115.57 0)
 			(hide yes)
 			(show_name no)
@@ -22366,14 +22443,15 @@
 				)
 			)
 		)
-		(property "Value" "+24V"
-			(at 229.87 106.68 0)
+		(property "Value" "+12V"
+			(at 226.695 106.6799 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left top)
 			)
 		)
 		(property "Footprint" ""
@@ -22410,12 +22488,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "bf35d7f1-b489-48a6-8534-3e92018db75a")
+			(uuid "b39721a9-86ff-4e9e-9644-809bff644739")
 		)
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963"
-					(reference "#PWR027")
+					(reference "#PWR024")
 					(unit 1)
 				)
 			)
@@ -22953,7 +23031,6 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "60d9e841-e2f8-46f9-803e-1673109afe51")
 		(property "Reference" "#PWR020"
 			(at 237.49 57.15 0)
@@ -22974,6 +23051,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(justify top)
 			)
 		)
 		(property "Footprint" ""
@@ -23444,7 +23522,6 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "823a3025-ed80-433a-8a9f-d6d38cd72585")
 		(property "Reference" "#PWR019"
 			(at 231.14 57.15 0)
@@ -23457,14 +23534,15 @@
 				)
 			)
 		)
-		(property "Value" "+24V"
-			(at 231.14 48.26 0)
+		(property "Value" "+12V"
+			(at 227.965 48.2599 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left top)
 			)
 		)
 		(property "Footprint" ""
@@ -23627,7 +23705,7 @@
 				)
 			)
 		)
-		(property "Value" "+24V"
+		(property "Value" "+12V"
 			(at 231.14 15.875 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -23677,84 +23755,6 @@
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963"
 					(reference "#PWR021")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+24V")
-		(at 230.505 81.915 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "a9c8de3d-092e-4777-9f07-362770b5ba90")
-		(property "Reference" "#PWR025"
-			(at 230.505 85.725 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "+24V"
-			(at 230.505 76.835 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 230.505 81.915 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 230.505 81.915 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+24V\""
-			(at 230.505 81.915 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "f65b85ff-51c2-43ae-a42f-0336e53a4784")
-		)
-		(instances
-			(project "PS-BPSLeader"
-				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963"
-					(reference "#PWR025")
 					(unit 1)
 				)
 			)
