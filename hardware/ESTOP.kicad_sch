@@ -4339,7 +4339,7 @@
 				)
 			)
 		)
-		(property "Value" "+24V"
+		(property "Value" "+12V"
 			(at 110.49 24.13 0)
 			(show_name no)
 			(do_not_autoplace no)

@@ -77,3 +77,4 @@ Zone.Identifier
 
 # Mac specific files
 .DS_Store
+.history*

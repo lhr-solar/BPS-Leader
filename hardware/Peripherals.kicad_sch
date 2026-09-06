@@ -311,7 +311,7 @@
 	)
 	(wire
 		(pts
-			(xy 162.56 50.165) (xy 175.26 50.165)
+			(xy 163.83 45.085) (xy 176.53 45.085)
 		)
 		(stroke
 			(width 0)
@@ -331,7 +331,7 @@
 	)
 	(wire
 		(pts
-			(xy 162.56 28.575) (xy 175.26 28.575)
+			(xy 163.83 23.495) (xy 176.53 23.495)
 		)
 		(stroke
 			(width 0)
@@ -351,7 +351,7 @@
 	)
 	(wire
 		(pts
-			(xy 208.28 52.705) (xy 212.09 52.705)
+			(xy 209.55 47.625) (xy 213.36 47.625)
 		)
 		(stroke
 			(width 0)
@@ -361,7 +361,7 @@
 	)
 	(wire
 		(pts
-			(xy 162.56 31.115) (xy 175.26 31.115)
+			(xy 163.83 26.035) (xy 176.53 26.035)
 		)
 		(stroke
 			(width 0)
@@ -401,7 +401,7 @@
 	)
 	(wire
 		(pts
-			(xy 162.56 52.705) (xy 175.26 52.705)
+			(xy 163.83 47.625) (xy 176.53 47.625)
 		)
 		(stroke
 			(width 0)
@@ -451,7 +451,7 @@
 	)
 	(wire
 		(pts
-			(xy 172.72 46.99) (xy 175.26 46.99)
+			(xy 173.99 41.91) (xy 176.53 41.91)
 		)
 		(stroke
 			(width 0)
@@ -481,7 +481,7 @@
 	)
 	(wire
 		(pts
-			(xy 171.45 55.245) (xy 175.26 55.245)
+			(xy 172.72 50.165) (xy 176.53 50.165)
 		)
 		(stroke
 			(width 0)
@@ -501,7 +501,7 @@
 	)
 	(wire
 		(pts
-			(xy 171.45 33.655) (xy 175.26 33.655)
+			(xy 172.72 28.575) (xy 176.53 28.575)
 		)
 		(stroke
 			(width 0)
@@ -511,7 +511,7 @@
 	)
 	(wire
 		(pts
-			(xy 208.28 28.575) (xy 212.09 28.575)
+			(xy 209.55 23.495) (xy 213.36 23.495)
 		)
 		(stroke
 			(width 0)
@@ -551,7 +551,7 @@
 	)
 	(wire
 		(pts
-			(xy 208.28 50.165) (xy 212.09 50.165)
+			(xy 209.55 45.085) (xy 213.36 45.085)
 		)
 		(stroke
 			(width 0)
@@ -571,7 +571,7 @@
 	)
 	(wire
 		(pts
-			(xy 208.28 31.115) (xy 212.09 31.115)
+			(xy 209.55 26.035) (xy 213.36 26.035)
 		)
 		(stroke
 			(width 0)
@@ -591,7 +591,7 @@
 	)
 	(wire
 		(pts
-			(xy 172.72 25.4) (xy 175.26 25.4)
+			(xy 173.99 20.32) (xy 176.53 20.32)
 		)
 		(stroke
 			(width 0)
@@ -600,7 +600,7 @@
 		(uuid "fad83725-6736-4490-8eef-8e01832f1193")
 	)
 	(label "CAR_CAN_TX"
-		(at 162.56 50.165 0)
+		(at 163.83 45.085 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -610,7 +610,7 @@
 		(uuid "4705b641-c041-44b5-89d2-0a959121a5d6")
 	)
 	(label "BPS_CAN_RX"
-		(at 162.56 31.115 0)
+		(at 163.83 26.035 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -620,7 +620,7 @@
 		(uuid "64bc258f-3f7c-462c-828a-64bdf075efe0")
 	)
 	(label "CAR_CAN_RX"
-		(at 162.56 52.705 0)
+		(at 163.83 47.625 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -630,7 +630,7 @@
 		(uuid "9d2c1d3f-ec2c-4922-b585-0392f9444607")
 	)
 	(label "BPS_CAN_TX"
-		(at 162.56 28.575 0)
+		(at 163.83 23.495 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -652,7 +652,7 @@
 	)
 	(hierarchical_label "CAR_CAN_L"
 		(shape bidirectional)
-		(at 212.09 52.705 0)
+		(at 213.36 47.625 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -660,6 +660,28 @@
 			(justify left)
 		)
 		(uuid "4e655002-3731-4b3f-9c06-6385e59f4d96")
+	)
+	(hierarchical_label "HV-_CTRL"
+		(shape input)
+		(at 38.1 71.12 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "5107e0cb-bcde-4b8c-a155-39a313ce1646")
+	)
+	(hierarchical_label "HV+_CTRL"
+		(shape input)
+		(at 38.1 66.04 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "53eeeac1-d3df-40a9-9ca1-9df9862f5265")
 	)
 	(hierarchical_label "MCU_USB_D-"
 		(shape bidirectional)
@@ -683,6 +705,17 @@
 		)
 		(uuid "57980700-0379-4818-beaf-7249586484d6")
 	)
+	(hierarchical_label "FAN_SDA"
+		(shape bidirectional)
+		(at 37.465 93.98 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "586ef50f-4fce-46d5-a73f-f440064c4cdd")
+	)
 	(hierarchical_label "ESTOP_1_SENSE"
 		(shape input)
 		(at 46.99 32.385 180)
@@ -705,9 +738,20 @@
 		)
 		(uuid "7c9a9a93-c066-4bf5-9571-f09373963483")
 	)
-	(hierarchical_label "BPS_CAN_H"
+	(hierarchical_label "HV+_SENSE"
+		(shape input)
+		(at 38.1 64.135 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "7e49a6cd-5217-4b86-97b5-fd78212b4b0d")
+	)
+	(hierarchical_label "CHARGER_CAN_H"
 		(shape bidirectional)
-		(at 212.09 28.575 0)
+		(at 213.36 23.495 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -727,6 +771,28 @@
 		)
 		(uuid "a31e0a7b-b378-4007-b5ea-5f2ef1cc0153")
 	)
+	(hierarchical_label "ARRAY_CTRL"
+		(shape input)
+		(at 38.1 76.2 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "b46cd591-bd42-41f2-b7ef-65148d88eb82")
+	)
+	(hierarchical_label "FAN_SCL"
+		(shape bidirectional)
+		(at 36.83 97.155 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "b48db327-30ac-4967-a0a1-9c66b74962ff")
+	)
 	(hierarchical_label "MCU_3V3"
 		(shape input)
 		(at 254 108.585 0)
@@ -738,9 +804,9 @@
 		)
 		(uuid "b95667c5-4db2-478f-9977-2a26dc3b0b87")
 	)
-	(hierarchical_label "BPS_CAN_L"
+	(hierarchical_label "CHARGER_CAN_L"
 		(shape bidirectional)
-		(at 212.09 31.115 0)
+		(at 213.36 26.035 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -751,7 +817,7 @@
 	)
 	(hierarchical_label "CAR_CAN_H"
 		(shape bidirectional)
-		(at 212.09 50.165 0)
+		(at 213.36 45.085 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -760,9 +826,42 @@
 		)
 		(uuid "bee914d0-5cad-4849-95e2-0cef35f030c6")
 	)
+	(hierarchical_label "ARRAY_SENSE"
+		(shape input)
+		(at 38.1 74.295 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "c87c474c-2069-4946-96f9-01c1d7d021ea")
+	)
+	(hierarchical_label "FAN_ALERT"
+		(shape bidirectional)
+		(at 36.83 99.695 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "cc389411-d5e7-4aea-b451-8da0de6c6c92")
+	)
+	(hierarchical_label "HV-_SENSE"
+		(shape input)
+		(at 38.1 69.215 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "d915dccb-c62c-496f-ab5c-9709fdc3653b")
+	)
 	(hierarchical_label "MCU_3V3"
 		(shape input)
-		(at 172.72 25.4 180)
+		(at 173.99 20.32 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -773,7 +872,7 @@
 	)
 	(hierarchical_label "MCU_3V3"
 		(shape input)
-		(at 172.72 46.99 180)
+		(at 173.99 41.91 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -784,7 +883,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 171.45 33.655 0)
+		(at 172.72 28.575 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -795,7 +894,7 @@
 		(fields_autoplaced yes)
 		(uuid "102c1fa8-1e00-45a6-821f-e3b026b08c1f")
 		(property "Reference" "#PWR03"
-			(at 171.45 40.005 0)
+			(at 172.72 34.925 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -806,7 +905,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 171.45 38.735 0)
+			(at 172.72 33.655 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -816,7 +915,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 171.45 33.655 0)
+			(at 172.72 28.575 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -827,7 +926,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 171.45 33.655 0)
+			(at 172.72 28.575 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -838,7 +937,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 171.45 33.655 0)
+			(at 172.72 28.575 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -862,7 +961,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 171.45 55.245 0)
+		(at 172.72 50.165 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -873,7 +972,7 @@
 		(fields_autoplaced yes)
 		(uuid "5b10c768-be49-4d0c-987d-9ba7e9205234")
 		(property "Reference" "#PWR08"
-			(at 171.45 61.595 0)
+			(at 172.72 56.515 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -884,7 +983,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 171.45 60.325 0)
+			(at 172.72 55.245 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -894,7 +993,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 171.45 55.245 0)
+			(at 172.72 50.165 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -905,7 +1004,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 171.45 55.245 0)
+			(at 172.72 50.165 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -916,7 +1015,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 171.45 55.245 0)
+			(at 172.72 50.165 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1692,7 +1791,7 @@
 		)
 	)
 	(sheet
-		(at 175.26 45.085)
+		(at 176.53 40.005)
 		(size 33.02 12.7)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1708,7 +1807,7 @@
 		)
 		(uuid "5c860d81-7ce5-4942-a53b-c78a01bb6f5d")
 		(property "Sheetname" "Car_CAN_Transceiver"
-			(at 175.26 44.3734 0)
+			(at 176.53 39.2934 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1719,7 +1818,7 @@
 			)
 		)
 		(property "Sheetfile" "Car_CAN_Transceiver.kicad_sch"
-			(at 175.26 58.3696 0)
+			(at 176.53 53.2896 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1730,7 +1829,7 @@
 			)
 		)
 		(property "Date Modified" "05/12/2026"
-			(at 148.59 -40.005 0)
+			(at 149.86 -45.085 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1741,7 +1840,7 @@
 			)
 		)
 		(property "Author" "Karthik Kurapati"
-			(at 148.59 -40.005 0)
+			(at 149.86 -45.085 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1752,7 +1851,7 @@
 			)
 		)
 		(pin "3.3v" input
-			(at 175.26 46.99 180)
+			(at 176.53 41.91 180)
 			(uuid "77cbeaf4-e1eb-4b2d-b0f3-cf6894604bda")
 			(effects
 				(font
@@ -1762,7 +1861,7 @@
 			)
 		)
 		(pin "CAN_H" bidirectional
-			(at 208.28 50.165 0)
+			(at 209.55 45.085 0)
 			(uuid "b5f39eb2-4002-4f5c-a65b-5af98839b4ce")
 			(effects
 				(font
@@ -1772,7 +1871,7 @@
 			)
 		)
 		(pin "CAN_L" bidirectional
-			(at 208.28 52.705 0)
+			(at 209.55 47.625 0)
 			(uuid "6f88e156-fbea-41d8-b46e-e5157bb04a65")
 			(effects
 				(font
@@ -1782,7 +1881,7 @@
 			)
 		)
 		(pin "CAN_RX" output
-			(at 175.26 52.705 180)
+			(at 176.53 47.625 180)
 			(uuid "3ea84526-7c71-4abf-a9f6-cc3a220b34ec")
 			(effects
 				(font
@@ -1792,7 +1891,7 @@
 			)
 		)
 		(pin "CAN_TX" input
-			(at 175.26 50.165 180)
+			(at 176.53 45.085 180)
 			(uuid "a5bdc92c-4aef-4622-9e88-f1af37abedfb")
 			(effects
 				(font
@@ -1802,7 +1901,7 @@
 			)
 		)
 		(pin "GND" input
-			(at 175.26 55.245 180)
+			(at 176.53 50.165 180)
 			(uuid "600ec570-2565-4b82-9fbd-af076d6684f7")
 			(effects
 				(font
@@ -2784,7 +2883,7 @@
 		)
 	)
 	(sheet
-		(at 175.26 23.495)
+		(at 176.53 18.415)
 		(size 33.02 12.7)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2800,7 +2899,7 @@
 		)
 		(uuid "b53616f8-f3a9-4a42-a33c-3ef3f96bd2e0")
 		(property "Sheetname" "BPS_CAN_Transceiver"
-			(at 175.26 22.7834 0)
+			(at 176.53 17.7034 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2811,7 +2910,7 @@
 			)
 		)
 		(property "Sheetfile" "BPS_CAN_Transceiver.kicad_sch"
-			(at 175.26 36.7796 0)
+			(at 176.53 31.6996 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2822,7 +2921,7 @@
 			)
 		)
 		(property "Date Modified" "05/12/2026"
-			(at 107.95 -61.595 0)
+			(at 109.22 -66.675 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2833,7 +2932,7 @@
 			)
 		)
 		(property "Author" "Karthik Kurapati"
-			(at 107.95 -61.595 0)
+			(at 109.22 -66.675 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2844,7 +2943,7 @@
 			)
 		)
 		(pin "3.3v" input
-			(at 175.26 25.4 180)
+			(at 176.53 20.32 180)
 			(uuid "e64b1acf-482e-43d7-b4ad-08fbc73b3479")
 			(effects
 				(font
@@ -2854,7 +2953,7 @@
 			)
 		)
 		(pin "CAN_H" bidirectional
-			(at 208.28 28.575 0)
+			(at 209.55 23.495 0)
 			(uuid "e8164d8b-eca1-401b-a2ab-cbb3799f6280")
 			(effects
 				(font
@@ -2864,7 +2963,7 @@
 			)
 		)
 		(pin "CAN_L" bidirectional
-			(at 208.28 31.115 0)
+			(at 209.55 26.035 0)
 			(uuid "01e611ec-62cf-4bf4-a491-ee1c60c56066")
 			(effects
 				(font
@@ -2874,7 +2973,7 @@
 			)
 		)
 		(pin "CAN_RX" output
-			(at 175.26 31.115 180)
+			(at 176.53 26.035 180)
 			(uuid "5d0682e1-dab7-42b2-b1e7-f5348f3528de")
 			(effects
 				(font
@@ -2884,7 +2983,7 @@
 			)
 		)
 		(pin "CAN_TX" input
-			(at 175.26 28.575 180)
+			(at 176.53 23.495 180)
 			(uuid "4cea1129-b490-4061-a957-a7cb4800c022")
 			(effects
 				(font
@@ -2894,7 +2993,7 @@
 			)
 		)
 		(pin "GND" input
-			(at 175.26 33.655 180)
+			(at 176.53 28.575 180)
 			(uuid "984a07c6-dcb7-444b-a2bf-155770387c69")
 			(effects
 				(font

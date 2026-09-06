@@ -1,0 +1,1686 @@
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "4225407b-27a3-4785-b98c-f8c2d5c7c88e")
+	(paper "A4")
+	(lib_symbols
+		(symbol "Device:C_Small"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.254)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "C"
+				(at 0.254 1.778 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "C_Small"
+				(at 0.254 -2.032 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Unpolarized capacitor, small symbol"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "capacitor cap"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "C_*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "C_Small_0_1"
+				(polyline
+					(pts
+						(xy -1.524 0.508) (xy 1.524 0.508)
+					)
+					(stroke
+						(width 0.3048)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.524 -0.508) (xy 1.524 -0.508)
+					)
+					(stroke
+						(width 0.3302)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "C_Small_1_1"
+				(pin passive line
+					(at 0 2.54 270)
+					(length 2.032)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -2.54 90)
+					(length 2.032)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Device:R_Small"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.254)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "R"
+				(at 0 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.016 1.016)
+					)
+				)
+			)
+			(property "Value" "R_Small"
+				(at 1.778 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Resistor, small symbol"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "R resistor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "R_*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "R_Small_0_1"
+				(rectangle
+					(start -0.762 1.778)
+					(end 0.762 -1.778)
+					(stroke
+						(width 0.2032)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_Small_1_1"
+				(pin passive line
+					(at 0 2.54 270)
+					(length 0.762)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -2.54 90)
+					(length 0.762)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "lhrs_ics:BQ79600PWRQ1"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "IC"
+				(at -5.08 20.32 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+				)
+			)
+			(property "Value" "BQ79600PWRQ1"
+				(at -5.08 17.78 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+				)
+			)
+			(property "Footprint" "SOP65P640X120-16N"
+				(at -12.065 4.775 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+				)
+			)
+			(property "Datasheet" "https://www.arrow.com/en/products/bq79600pwrq1/texas-instruments"
+				(at 44.45 -194.92 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+				)
+			)
+			(property "Description" "Battery Management Automotive SPI/UART communication interface functional-safety compliant with automatic host wakeup"
+				(at -21.59 4.445 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Height" "1.2"
+				(at 44.45 -394.92 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+				)
+			)
+			(property "Mouser Part Number" "595-BQ79600PWRQ1"
+				(at 44.45 -494.92 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+				)
+			)
+			(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Texas-Instruments/BQ79600PWRQ1?qs=bAKSY%2FctAC74v4PXQeVHrA%3D%3D"
+				(at 44.45 -594.92 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+				)
+			)
+			(property "Manufacturer_Name" "Texas Instruments"
+				(at 44.45 -694.92 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+				)
+			)
+			(property "Manufacturer_Part_Number" "BQ79600PWRQ1"
+				(at 44.45 -794.92 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+				)
+			)
+			(symbol "BQ79600PWRQ1_1_1"
+				(rectangle
+					(start -16.51 15.24)
+					(end 15.24 -15.875)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin passive line
+					(at -21.59 -13.97 0)
+					(length 5.08)
+					(name "DVDD"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -21.59 0 0)
+					(length 5.08)
+					(name "NFAULT"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -21.59 12.7 0)
+					(length 5.08)
+					(name "VIO"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -21.59 6.985 0)
+					(length 5.08)
+					(name "MOSI/RX"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -21.59 4.445 0)
+					(length 5.08)
+					(name "MISO/TX"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -21.59 -6.35 0)
+					(length 5.08)
+					(name "SCLK"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -21.59 -8.89 0)
+					(length 5.08)
+					(name "NCS"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -21.59 -11.43 0)
+					(length 5.08)
+					(name "NUART/SPI_(SPI_RDY)"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 20.32 -13.97 180)
+					(length 5.08)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 20.32 -5.715 180)
+					(length 5.08)
+					(name "COMLP"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 20.32 -8.255 180)
+					(length 5.08)
+					(name "COMLN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 20.32 0 180)
+					(length 5.08)
+					(name "COMHN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 20.32 2.54 180)
+					(length 5.08)
+					(name "COMHP"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "13"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 20.32 6.985 180)
+					(length 5.08)
+					(name "CVDD"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "14"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 20.32 9.525 180)
+					(length 5.08)
+					(name "BAT"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "15"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 20.32 12.065 180)
+					(length 5.08)
+					(name "INH"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "16"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	)
+	(text "Pullup Resistors and Bypass Capacitors"
+		(exclude_from_sim no)
+		(at 33.655 15.875 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "a567fef5-73d8-43f1-a385-09c750a5797d")
+	)
+	(junction
+		(at 38.735 22.86)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d3eba625-b107-4948-bf12-c58db356a54b")
+	)
+	(junction
+		(at 48.895 22.86)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f024ff24-3766-45f0-814f-f8db46e264bf")
+	)
+	(wire
+		(pts
+			(xy 38.735 29.845) (xy 38.735 32.385)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "029e7d10-3e3d-4b3a-a8dc-62862ce5f698")
+	)
+	(wire
+		(pts
+			(xy 114.3 72.39) (xy 116.205 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "144e52ae-b870-4843-b95d-7cc69822dc43")
+	)
+	(wire
+		(pts
+			(xy 106.68 78.105) (xy 116.205 78.105)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "21fd9489-7b98-468e-9caf-93c4b18870f5")
+	)
+	(wire
+		(pts
+			(xy 58.42 29.845) (xy 58.42 32.385)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "41dff5da-de35-4c93-8c0c-605a1e9c5b09")
+	)
+	(wire
+		(pts
+			(xy 106.68 80.645) (xy 116.205 80.645)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "543dd01d-0a3a-45e8-856f-d97852e88b44")
+	)
+	(wire
+		(pts
+			(xy 38.735 21.59) (xy 38.735 22.86)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6195c08c-98cb-4945-963c-514ce88bff0d")
+	)
+	(wire
+		(pts
+			(xy 19.685 22.225) (xy 19.685 26.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "631625b5-e8af-4798-bf03-c1dfa805b281")
+	)
+	(wire
+		(pts
+			(xy 38.735 22.86) (xy 48.895 22.86)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "798c4165-46a8-42bb-ba0f-50d2bfe8d2f4")
+	)
+	(wire
+		(pts
+			(xy 48.895 29.845) (xy 48.895 32.385)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9358fceb-c1c3-453f-8c4a-1e69b61e3ae5")
+	)
+	(wire
+		(pts
+			(xy 48.895 22.86) (xy 58.42 22.86)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "95ea0d27-2772-4bab-9cf5-fc96bf368d7c")
+	)
+	(wire
+		(pts
+			(xy 38.735 22.86) (xy 38.735 24.765)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9e472e90-fde8-4fdb-b6c7-0e6509591e76")
+	)
+	(wire
+		(pts
+			(xy 106.68 85.09) (xy 116.205 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ac103d65-6526-4fa8-8869-d02b46c77f06")
+	)
+	(wire
+		(pts
+			(xy 48.895 22.86) (xy 48.895 24.765)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c834c474-60be-4c52-a3c2-2718f301baf9")
+	)
+	(wire
+		(pts
+			(xy 58.42 22.86) (xy 58.42 24.765)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "eb54c213-5e42-457b-994a-5f298fb42a63")
+	)
+	(hierarchical_label "VIO"
+		(shape input)
+		(at 19.685 22.225 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "0e35dccb-a09c-4054-b362-ce7e6ef7e3f3")
+	)
+	(hierarchical_label "GND"
+		(shape input)
+		(at 158.115 99.06 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "141655af-ae5c-45ee-be8d-224331061c12")
+	)
+	(hierarchical_label "COMHN_OUT"
+		(shape output)
+		(at 201.93 74.93 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "1fcd7d0b-4253-4880-9d8d-489d68cf3cf4")
+	)
+	(hierarchical_label "COMLP_IN"
+		(shape input)
+		(at 201.93 83.185 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "2e9b5ab7-cda6-47fe-bd61-58b981e14aef")
+	)
+	(hierarchical_label "COMHP_OUT"
+		(shape output)
+		(at 201.93 72.39 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "653f1416-e23c-467c-aac3-8b9926787fc0")
+	)
+	(hierarchical_label "MISO{slash}TX"
+		(shape input)
+		(at 106.68 80.645 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "6d7363b4-5b76-4193-821f-0096f5030614")
+	)
+	(hierarchical_label "MOSI{slash}RX"
+		(shape input)
+		(at 38.735 32.385 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "7e66ca9c-6210-435c-98f3-ed99cf350fc2")
+	)
+	(hierarchical_label "GND"
+		(shape input)
+		(at 19.685 31.75 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "82813fe5-cc24-4d7b-be3d-3daa4d66af35")
+	)
+	(hierarchical_label "NFAULT"
+		(shape input)
+		(at 106.68 85.09 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "8d2c31e9-c837-48f7-ad6f-51019a739109")
+	)
+	(hierarchical_label "MOSI{slash}RX"
+		(shape input)
+		(at 106.68 78.105 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "8fe6c0b7-5d12-4afd-ac8e-e8b6eff0d30d")
+	)
+	(hierarchical_label "BAT"
+		(shape input)
+		(at 165.735 72.39 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "96b49be5-c696-4657-8ab7-cedf8ef79d0a")
+	)
+	(hierarchical_label "COMLN_IN"
+		(shape input)
+		(at 201.93 86.36 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "9ad5e774-8b94-4390-befb-c9b84771d221")
+	)
+	(hierarchical_label "INH"
+		(shape input)
+		(at 165.735 70.485 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a506ab35-21a3-42d9-9174-07e2bc3b3c02")
+	)
+	(hierarchical_label "GND"
+		(shape input)
+		(at 133.35 108.585 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "aacdcf4b-b7bb-49f5-9d7f-aab59bdc6619")
+	)
+	(hierarchical_label "MISO{slash}TX"
+		(shape input)
+		(at 48.895 32.385 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "b3c4c37c-cf11-475a-a240-c2dafb290f6f")
+	)
+	(hierarchical_label "VIO"
+		(shape input)
+		(at 114.3 72.39 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "ca91b87b-619b-4617-99f3-e64e2cb8d0f2")
+	)
+	(hierarchical_label "VIO"
+		(shape input)
+		(at 38.735 21.59 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "d53e8f41-bec3-479f-90c2-ca49a2d6c7ec")
+	)
+	(hierarchical_label "NFAULT"
+		(shape input)
+		(at 58.42 32.385 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "fd16c940-0b2b-42e7-a003-a3ce4fa64498")
+	)
+	(symbol
+		(lib_id "Device:C_Small")
+		(at 19.685 29.21 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "07732b56-b4fb-43a8-9e9c-a9d2dcb1996d")
+		(property "Reference" "C?"
+			(at 22.86 27.9462 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "0.1u"
+			(at 22.86 30.4862 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 19.685 29.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 19.685 29.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 19.685 29.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "777d8ba4-626a-483e-ab6b-e179f33b4f5d")
+		)
+		(pin "2"
+			(uuid "2eaef4a4-7069-4176-abd4-b4a3256ae9ba")
+		)
+		(instances
+			(project "PS-BPSLeader"
+				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/e693f766-4bc7-4d67-a672-39e10f482b8b"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "lhrs_ics:BQ79600PWRQ1")
+		(at 137.795 85.09 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0ac0e532-8d94-433d-94f3-688942d20d62")
+		(property "Reference" "IC?"
+			(at 137.16 64.77 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "BQ79600PWRQ1"
+			(at 137.16 67.31 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "SOP65P640X120-16N"
+			(at 125.73 80.315 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(property "Datasheet" "https://www.arrow.com/en/products/bq79600pwrq1/texas-instruments"
+			(at 182.245 280.01 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(property "Description" "Battery Management Automotive SPI/UART communication interface functional-safety compliant with automatic host wakeup"
+			(at 116.205 80.645 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Height" "1.2"
+			(at 182.245 480.01 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(property "Mouser Part Number" "595-BQ79600PWRQ1"
+			(at 182.245 580.01 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Texas-Instruments/BQ79600PWRQ1?qs=bAKSY%2FctAC74v4PXQeVHrA%3D%3D"
+			(at 182.245 680.01 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(property "Manufacturer_Name" "Texas Instruments"
+			(at 182.245 780.01 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(property "Manufacturer_Part_Number" "BQ79600PWRQ1"
+			(at 182.245 880.01 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "3"
+			(uuid "a1af0b13-a87d-4f09-9421-cf44b1a4b44e")
+		)
+		(pin "5"
+			(uuid "194aee8d-ca91-49be-b218-78d626e65c4e")
+		)
+		(pin "10"
+			(uuid "b4da505c-54c4-4a43-b75a-5292b2aa6b26")
+		)
+		(pin "2"
+			(uuid "9880cee0-c663-4ac9-b1d8-4b5d0b66583a")
+		)
+		(pin "7"
+			(uuid "016d93b4-c05f-465b-b558-8dc614e23bf2")
+		)
+		(pin "4"
+			(uuid "5aa5ac04-a08a-4f29-ad0e-02956184c2ef")
+		)
+		(pin "9"
+			(uuid "6b0989ca-22af-49fe-811b-fb967c702231")
+		)
+		(pin "11"
+			(uuid "993c935f-f970-49e6-ba09-024fd4b4233e")
+		)
+		(pin "12"
+			(uuid "66c78d47-cf0b-43cb-b915-572dca8a5ccf")
+		)
+		(pin "13"
+			(uuid "c5bcef44-c5e4-4d3f-a239-47af66d21c50")
+		)
+		(pin "15"
+			(uuid "ef0dab6d-a82f-45e3-82a0-376ff08b2f55")
+		)
+		(pin "8"
+			(uuid "ab77094f-a1e8-4bc9-a21f-8163eadd00fd")
+		)
+		(pin "1"
+			(uuid "966055d2-e60c-4e90-8149-05bc9b00107e")
+		)
+		(pin "6"
+			(uuid "5c91b639-807f-4dc0-b5d5-3b67b45f0499")
+		)
+		(pin "14"
+			(uuid "53411719-a37f-400d-9678-8d606e4fae48")
+		)
+		(pin "16"
+			(uuid "a49e1093-c934-4d5d-ad42-d0bffc644c34")
+		)
+		(instances
+			(project "PS-BPSLeader"
+				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/e693f766-4bc7-4d67-a672-39e10f482b8b"
+					(reference "IC?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Small")
+		(at 38.735 27.305 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "18f04fe9-3ffa-40cc-9070-41b9ece00be6")
+		(property "Reference" "R?"
+			(at 41.275 26.0349 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 41.275 28.5749 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 38.735 27.305 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 38.735 27.305 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 38.735 27.305 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "df770178-5f05-4961-a8e5-3c3b1d2239ff")
+		)
+		(pin "2"
+			(uuid "98c206ee-576a-4392-baf5-484a3bb7b67b")
+		)
+		(instances
+			(project "PS-BPSLeader"
+				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/e693f766-4bc7-4d67-a672-39e10f482b8b"
+					(reference "R?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Small")
+		(at 58.42 27.305 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a6100bfe-0d75-49ff-a011-7044c4006e29")
+		(property "Reference" "R?"
+			(at 60.96 26.0349 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100k"
+			(at 60.96 28.5749 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 58.42 27.305 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 58.42 27.305 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 58.42 27.305 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "e17365a9-d097-4e64-9ced-8ba509d7a212")
+		)
+		(pin "2"
+			(uuid "23c30e26-d2a4-4b36-9444-dd3f2ae50fe8")
+		)
+		(instances
+			(project "PS-BPSLeader"
+				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/e693f766-4bc7-4d67-a672-39e10f482b8b"
+					(reference "R?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C_Small")
+		(at 109.855 102.87 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c842a96f-b88d-404e-8ad5-f1ab0727a22b")
+		(property "Reference" "C?"
+			(at 113.03 101.6062 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "0.1u"
+			(at 113.03 104.1462 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 109.855 102.87 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 109.855 102.87 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 109.855 102.87 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "d61a6974-ae1b-4528-aba7-dff06e41b48c")
+		)
+		(pin "2"
+			(uuid "4c37a252-9cdc-4eb2-9c13-5edce2fa68b1")
+		)
+		(instances
+			(project "PS-BPSLeader"
+				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/e693f766-4bc7-4d67-a672-39e10f482b8b"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Small")
+		(at 48.895 27.305 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fe8803c6-516e-49e6-9623-d2486a1203c8")
+		(property "Reference" "R?"
+			(at 51.435 26.0349 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 51.435 28.5749 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 48.895 27.305 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 48.895 27.305 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 48.895 27.305 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "0164ddfb-ef3d-45dc-9935-1208ac57c5be")
+		)
+		(pin "2"
+			(uuid "4547febe-8b76-4262-9103-b2ab47e2fe17")
+		)
+		(instances
+			(project "PS-BPSLeader"
+				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/e693f766-4bc7-4d67-a672-39e10f482b8b"
+					(reference "R?")
+					(unit 1)
+				)
+			)
+		)
+	)
+)

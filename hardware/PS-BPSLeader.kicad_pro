@@ -437,7 +437,7 @@
         "uuid": "d4a4ed4f-0983-4aef-b212-0e3284ab3963"
       }
     ],
-    "used_designators": "",
+    "used_designators": "#PWR23,#PWR31",
     "variants": []
   },
   "sheets": [
@@ -479,7 +479,7 @@
     ],
     [
       "1a445fba-997a-4276-b1d7-6bccd354442b",
-      "12VPowerMux"
+      "Power_Mux_PDU_ELCON"
     ],
     [
       "d0687915-3890-41dc-9a8f-e7ee1bda9492",
@@ -502,8 +502,8 @@
       "ESP32_Power_Mux"
     ],
     [
-      "f99eac80-726e-4bdf-aad1-a634077b333c",
-      "Power_Protection"
+      "408035a5-5a4d-4c9d-abf0-417376518132",
+      "12VBuck"
     ],
     [
       "252fc626-7591-4f51-9e25-7431ee334d05",
@@ -514,12 +514,8 @@
       "Power_USB_PD"
     ],
     [
-      "380ec4f8-7be9-40d3-800b-a58d98dd66b4",
-      "Power_PD_Boost"
-    ],
-    [
-      "bc7b8349-90d5-4659-8fc5-35515868a6d9",
-      "Power_5VBuck"
+      "e693f766-4bc7-4d67-a672-39e10f482b8b",
+      "BMS"
     ],
     [
       "62b47865-4d17-4cd5-b20c-36169ba543a0",
@@ -528,6 +524,10 @@
     [
       "3ac4b541-f87d-4cd8-af8e-016705365d4a",
       "Power_3V3_LDO"
+    ],
+    [
+      "0f3e3992-4755-4e76-a363-7a4e463e2a3d",
+      "Power_Mux_PD"
     ]
   ],
   "text_variables": {},
