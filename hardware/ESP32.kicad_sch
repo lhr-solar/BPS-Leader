@@ -5077,7 +5077,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0041f581-d9ed-4cd9-930b-3b99fae5bfb4")
-		(property "Reference" "R16"
+		(property "Reference" "R25"
 			(at 200.66 29.21 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5097,7 +5097,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
 			(at 200.66 36.068 90)
 			(hide yes)
 			(show_name no)
@@ -5162,7 +5162,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/37240678-40e7-4b21-a99e-c284d3b12e6a"
-					(reference "R16")
+					(reference "R25")
 					(unit 1)
 				)
 			)
@@ -5179,7 +5179,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "04687e9b-733c-4784-bf46-f1efd8225741")
-		(property "Reference" "C1"
+		(property "Reference" "C23"
 			(at 74.168 78.486 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5201,7 +5201,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
 			(at 72.0852 82.55 0)
 			(hide yes)
 			(show_name no)
@@ -5265,7 +5265,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/37240678-40e7-4b21-a99e-c284d3b12e6a"
-					(reference "C1")
+					(reference "C23")
 					(unit 1)
 				)
 			)
@@ -5283,7 +5283,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0f771794-7be9-453d-8631-63fa0bd09857")
-		(property "Reference" "U1"
+		(property "Reference" "U4"
 			(at 158.3533 78.74 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5305,7 +5305,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "UTSVT_Special:ESP32-C6-MINI-1"
+		(property "Footprint" "LHRS_Special:ESP32-C6-MINI-1"
 			(at 158.75 78.74 0)
 			(hide yes)
 			(show_name no)
@@ -5522,7 +5522,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/37240678-40e7-4b21-a99e-c284d3b12e6a"
-					(reference "U1")
+					(reference "U4")
 					(unit 1)
 				)
 			)
@@ -5539,7 +5539,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "12774df1-2ae9-4af3-8c69-8237aaab8334")
-		(property "Reference" "C3"
+		(property "Reference" "C25"
 			(at 145.034 72.644 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5561,7 +5561,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
 			(at 149.5552 78.74 0)
 			(hide yes)
 			(show_name no)
@@ -5625,7 +5625,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/37240678-40e7-4b21-a99e-c284d3b12e6a"
-					(reference "C3")
+					(reference "C25")
 					(unit 1)
 				)
 			)
@@ -5643,7 +5643,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "135c272f-e2be-45da-a4d5-42d055c0a6eb")
-		(property "Reference" "D2"
+		(property "Reference" "D6"
 			(at 74.93 135.89 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5745,7 +5745,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/37240678-40e7-4b21-a99e-c284d3b12e6a"
-					(reference "D2")
+					(reference "D6")
 					(unit 1)
 				)
 			)
@@ -5763,7 +5763,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "1f0c0e9f-7b4b-4376-89a6-4e4d33ae0179")
-		(property "Reference" "#PWR05"
+		(property "Reference" "#PWR032"
 			(at 127 33.02 0)
 			(hide yes)
 			(show_name no)
@@ -5823,7 +5823,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/37240678-40e7-4b21-a99e-c284d3b12e6a"
-					(reference "#PWR05")
+					(reference "#PWR032")
 					(unit 1)
 				)
 			)
@@ -5840,7 +5840,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "21122e3c-7889-446a-abc7-86068769aaaf")
-		(property "Reference" "#PWR04"
+		(property "Reference" "#PWR031"
 			(at 43.18 146.05 0)
 			(hide yes)
 			(show_name no)
@@ -5900,7 +5900,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/37240678-40e7-4b21-a99e-c284d3b12e6a"
-					(reference "#PWR04")
+					(reference "#PWR031")
 					(unit 1)
 				)
 			)
@@ -5917,7 +5917,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "50417809-3992-44f1-96ce-bec2898da493")
-		(property "Reference" "R17"
+		(property "Reference" "R26"
 			(at 200.66 42.418 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5937,7 +5937,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
 			(at 200.66 41.148 90)
 			(hide yes)
 			(show_name no)
@@ -6002,7 +6002,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/37240678-40e7-4b21-a99e-c284d3b12e6a"
-					(reference "R17")
+					(reference "R26")
 					(unit 1)
 				)
 			)
@@ -6019,7 +6019,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "5197cf58-0429-4f98-a762-379675db21e4")
-		(property "Reference" "C2"
+		(property "Reference" "C24"
 			(at 135.636 72.644 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6041,7 +6041,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
 			(at 140.6652 78.74 0)
 			(hide yes)
 			(show_name no)
@@ -6105,7 +6105,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/37240678-40e7-4b21-a99e-c284d3b12e6a"
-					(reference "C2")
+					(reference "C24")
 					(unit 1)
 				)
 			)
@@ -6122,7 +6122,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "619e17dc-5151-48c2-a7b6-6cddb36e1752")
-		(property "Reference" "D5"
+		(property "Reference" "D9"
 			(at 211.074 42.164 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6142,7 +6142,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_0603_1608Metric"
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric_Pad1.05x0.95mm_HandSolder"
 			(at 210.82 39.37 0)
 			(hide yes)
 			(show_name no)
@@ -6217,7 +6217,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/37240678-40e7-4b21-a99e-c284d3b12e6a"
-					(reference "D5")
+					(reference "D9")
 					(unit 1)
 				)
 			)
@@ -6234,7 +6234,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "77a69ed8-e83a-4348-bb2d-005fec6c80e3")
-		(property "Reference" "SW2"
+		(property "Reference" "SW3"
 			(at 167.64 26.416 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6254,7 +6254,7 @@
 				)
 			)
 		)
-		(property "Footprint" "UTSVT_Special:TL3365AF180QG"
+		(property "Footprint" "LHRS_Special:TL3365AF180QG"
 			(at 167.64 27.94 0)
 			(hide yes)
 			(show_name no)
@@ -6318,7 +6318,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/37240678-40e7-4b21-a99e-c284d3b12e6a"
-					(reference "SW2")
+					(reference "SW3")
 					(unit 1)
 				)
 			)
@@ -6335,7 +6335,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "8eef51c0-b3d2-46e3-8751-e45f1eabc7b6")
-		(property "Reference" "R14"
+		(property "Reference" "R23"
 			(at 197.104 101.854 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6357,7 +6357,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
 			(at 199.39 108.458 90)
 			(hide yes)
 			(show_name no)
@@ -6422,7 +6422,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/37240678-40e7-4b21-a99e-c284d3b12e6a"
-					(reference "R14")
+					(reference "R23")
 					(unit 1)
 				)
 			)
@@ -6440,7 +6440,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "962c34ab-2417-45df-acc8-1ad04d1e0df0")
-		(property "Reference" "R12"
+		(property "Reference" "R21"
 			(at 107.95 29.21 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6460,7 +6460,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
 			(at 107.95 36.068 90)
 			(hide yes)
 			(show_name no)
@@ -6525,7 +6525,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/37240678-40e7-4b21-a99e-c284d3b12e6a"
-					(reference "R12")
+					(reference "R21")
 					(unit 1)
 				)
 			)
@@ -6542,7 +6542,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "96aad44c-9af0-479e-8895-cbf20d3c84d8")
-		(property "Reference" "#PWR011"
+		(property "Reference" "#PWR035"
 			(at 189.23 25.4 0)
 			(hide yes)
 			(show_name no)
@@ -6602,7 +6602,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/37240678-40e7-4b21-a99e-c284d3b12e6a"
-					(reference "#PWR011")
+					(reference "#PWR035")
 					(unit 1)
 				)
 			)
@@ -6619,7 +6619,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "a1c4537b-1684-4f34-ba52-976e1871aced")
-		(property "Reference" "R11"
+		(property "Reference" "R20"
 			(at 50.038 81.28 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6639,7 +6639,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
 			(at 54.61 81.788 90)
 			(hide yes)
 			(show_name no)
@@ -6704,7 +6704,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/37240678-40e7-4b21-a99e-c284d3b12e6a"
-					(reference "R11")
+					(reference "R20")
 					(unit 1)
 				)
 			)
@@ -6721,7 +6721,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "a6b78804-2cc3-4c3e-9490-b2985db4900d")
-		(property "Reference" "R13"
+		(property "Reference" "R22"
 			(at 151.384 25.654 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6743,7 +6743,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
 			(at 155.702 27.94 90)
 			(hide yes)
 			(show_name no)
@@ -6808,7 +6808,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/37240678-40e7-4b21-a99e-c284d3b12e6a"
-					(reference "R13")
+					(reference "R22")
 					(unit 1)
 				)
 			)
@@ -6826,7 +6826,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b29a9918-0810-4ec0-be85-846e36560a53")
-		(property "Reference" "#PWR07"
+		(property "Reference" "#PWR033"
 			(at 156.21 72.39 0)
 			(hide yes)
 			(show_name no)
@@ -6886,7 +6886,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/37240678-40e7-4b21-a99e-c284d3b12e6a"
-					(reference "#PWR07")
+					(reference "#PWR033")
 					(unit 1)
 				)
 			)
@@ -6903,7 +6903,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "b44a5da0-3049-4132-aa7c-da042f2bc9de")
-		(property "Reference" "D1"
+		(property "Reference" "D5"
 			(at 61.722 66.04 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6987,7 +6987,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/37240678-40e7-4b21-a99e-c284d3b12e6a"
-					(reference "D1")
+					(reference "D5")
 					(unit 1)
 				)
 			)
@@ -7004,7 +7004,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "b550b4c7-248b-4b6c-a575-19b870c59b16")
-		(property "Reference" "C4"
+		(property "Reference" "C26"
 			(at 153.924 35.814 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7026,7 +7026,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
 			(at 158.4452 41.91 0)
 			(hide yes)
 			(show_name no)
@@ -7090,7 +7090,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/37240678-40e7-4b21-a99e-c284d3b12e6a"
-					(reference "C4")
+					(reference "C26")
 					(unit 1)
 				)
 			)
@@ -7107,7 +7107,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "b583424c-1535-4a6f-a457-51b6d389a9ee")
-		(property "Reference" "R10"
+		(property "Reference" "R19"
 			(at 50.292 76.2 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7127,7 +7127,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
 			(at 54.61 79.248 90)
 			(hide yes)
 			(show_name no)
@@ -7192,7 +7192,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/37240678-40e7-4b21-a99e-c284d3b12e6a"
-					(reference "R10")
+					(reference "R19")
 					(unit 1)
 				)
 			)
@@ -7210,7 +7210,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "cbb3955b-fbab-4300-bcac-38e97800484a")
-		(property "Reference" "J1"
+		(property "Reference" "J13"
 			(at 31.75 64.77 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7230,7 +7230,7 @@
 				)
 			)
 		)
-		(property "Footprint" "UTSVT_Connectors:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+		(property "Footprint" "LHRS_Connectors:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
 			(at 35.56 87.63 0)
 			(hide yes)
 			(show_name no)
@@ -7348,7 +7348,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/37240678-40e7-4b21-a99e-c284d3b12e6a"
-					(reference "J1")
+					(reference "J13")
 					(unit 1)
 				)
 			)
@@ -7365,7 +7365,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "d1ddf2a6-01d6-4f63-b5ed-c096051ff03e")
-		(property "Reference" "D4"
+		(property "Reference" "D8"
 			(at 210.82 27.94 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7385,7 +7385,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_0603_1608Metric"
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric_Pad1.05x0.95mm_HandSolder"
 			(at 210.82 34.29 0)
 			(hide yes)
 			(show_name no)
@@ -7460,7 +7460,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/37240678-40e7-4b21-a99e-c284d3b12e6a"
-					(reference "D4")
+					(reference "D8")
 					(unit 1)
 				)
 			)
@@ -7477,7 +7477,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "d65da091-0a9f-4378-8d04-483044eacc54")
-		(property "Reference" "SW1"
+		(property "Reference" "SW2"
 			(at 117.348 26.416 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7497,7 +7497,7 @@
 				)
 			)
 		)
-		(property "Footprint" "UTSVT_Special:BootSW"
+		(property "Footprint" "LHRS_Special:BootSW"
 			(at 118.11 34.29 0)
 			(hide yes)
 			(show_name no)
@@ -7553,7 +7553,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/37240678-40e7-4b21-a99e-c284d3b12e6a"
-					(reference "SW1")
+					(reference "SW2")
 					(unit 1)
 				)
 			)
@@ -7571,7 +7571,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e847e3ba-5e6b-47b8-9619-ec6dd81cbd85")
-		(property "Reference" "R15"
+		(property "Reference" "R24"
 			(at 200.66 19.05 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7591,7 +7591,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
 			(at 200.66 25.908 90)
 			(hide yes)
 			(show_name no)
@@ -7656,7 +7656,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/37240678-40e7-4b21-a99e-c284d3b12e6a"
-					(reference "R15")
+					(reference "R24")
 					(unit 1)
 				)
 			)
@@ -7673,7 +7673,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "f4d62e99-cf15-4ecd-889b-c1e234b8bbd9")
-		(property "Reference" "D3"
+		(property "Reference" "D7"
 			(at 210.82 17.78 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7693,7 +7693,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_0603_1608Metric"
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric_Pad1.05x0.95mm_HandSolder"
 			(at 210.82 24.13 0)
 			(hide yes)
 			(show_name no)
@@ -7768,7 +7768,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/37240678-40e7-4b21-a99e-c284d3b12e6a"
-					(reference "D3")
+					(reference "D7")
 					(unit 1)
 				)
 			)
@@ -7785,7 +7785,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "f927a20c-3345-45de-8575-404d7c8741d3")
-		(property "Reference" "#PWR012"
+		(property "Reference" "#PWR036"
 			(at 208.28 109.22 0)
 			(hide yes)
 			(show_name no)
@@ -7845,7 +7845,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/37240678-40e7-4b21-a99e-c284d3b12e6a"
-					(reference "#PWR012")
+					(reference "#PWR036")
 					(unit 1)
 				)
 			)
@@ -7863,7 +7863,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "fe13fe5b-401d-437b-9aae-c2484d1b92e1")
-		(property "Reference" "#PWR09"
+		(property "Reference" "#PWR034"
 			(at 157.48 26.67 0)
 			(hide yes)
 			(show_name no)
@@ -7923,7 +7923,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/37240678-40e7-4b21-a99e-c284d3b12e6a"
-					(reference "#PWR09")
+					(reference "#PWR034")
 					(unit 1)
 				)
 			)
