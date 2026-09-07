@@ -2739,7 +2739,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "22594cf8-53be-438d-8abd-3d01a778ae2e")
-		(property "Reference" "C94"
+		(property "Reference" "C95"
 			(at 193.04 87.6299 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2761,7 +2761,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
 			(at 190.1952 92.71 0)
 			(hide yes)
 			(show_name no)
@@ -2803,7 +2803,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/bbf4edc3-024d-405c-a803-bdefa7ee14fe"
-					(reference "C94")
+					(reference "C95")
 					(unit 1)
 				)
 			)
@@ -2820,7 +2820,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "2ad6f8c0-72cb-4552-b2a1-8f4df6d53652")
-		(property "Reference" "R131"
+		(property "Reference" "R135"
 			(at 176.53 80.01 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2904,7 +2904,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/bbf4edc3-024d-405c-a803-bdefa7ee14fe"
-					(reference "R131")
+					(reference "R135")
 					(unit 1)
 				)
 			)
@@ -3266,7 +3266,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "467d5d40-e446-4f8e-8570-e35fd20df62d")
-		(property "Reference" "C91"
+		(property "Reference" "C92"
 			(at 65.278 73.66 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3352,7 +3352,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/bbf4edc3-024d-405c-a803-bdefa7ee14fe"
-					(reference "C91")
+					(reference "C92")
 					(unit 1)
 				)
 			)
@@ -3369,7 +3369,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "a53e2032-3be3-4430-9bf2-0d2767395819")
-		(property "Reference" "C93"
+		(property "Reference" "C94"
 			(at 88.138 73.66 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3455,7 +3455,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/bbf4edc3-024d-405c-a803-bdefa7ee14fe"
-					(reference "C93")
+					(reference "C94")
 					(unit 1)
 				)
 			)
@@ -3472,7 +3472,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "b4d75dea-0243-4cdc-959f-8e5ba4f5a0f4")
-		(property "Reference" "R132"
+		(property "Reference" "R136"
 			(at 201.93 80.01 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3556,7 +3556,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/bbf4edc3-024d-405c-a803-bdefa7ee14fe"
-					(reference "R132")
+					(reference "R136")
 					(unit 1)
 				)
 			)
@@ -3573,7 +3573,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "e03a0d82-f9b4-49c4-86bc-e83ecdcfb4b8")
-		(property "Reference" "C92"
+		(property "Reference" "C93"
 			(at 76.2 73.66 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3659,7 +3659,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a/bbf4edc3-024d-405c-a803-bdefa7ee14fe"
-					(reference "C92")
+					(reference "C93")
 					(unit 1)
 				)
 			)

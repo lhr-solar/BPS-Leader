@@ -2074,7 +2074,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "c5eedbed-6a97-473f-96b7-f4f4dae24529")
-		(property "Reference" "R5"
+		(property "Reference" "R9"
 			(at 18.034 113.284 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2147,7 +2147,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a"
-					(reference "R5")
+					(reference "R9")
 					(unit 1)
 				)
 			)
@@ -2165,7 +2165,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "f85ff5e6-cd69-4100-bcb7-fe4d26d47bd9")
-		(property "Reference" "R6"
+		(property "Reference" "R10"
 			(at 18.542 120.904 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2238,7 +2238,7 @@
 		(instances
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/5da56964-fa04-4fec-bdfe-c6acfeda5c9a"
-					(reference "R6")
+					(reference "R10")
 					(unit 1)
 				)
 			)
