@@ -2911,7 +2911,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:TSOT-23-6_HandSoldering"
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
 			(at 66.04 -54.28 0)
 			(hide yes)
 			(show_name no)
@@ -4035,7 +4035,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:TSOT-23-6_HandSoldering"
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
 			(at 64.77 -22.53 0)
 			(hide yes)
 			(show_name no)
@@ -4192,7 +4192,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:TSOT-23-6_HandSoldering"
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
 			(at 64.77 6.68 0)
 			(hide yes)
 			(show_name no)

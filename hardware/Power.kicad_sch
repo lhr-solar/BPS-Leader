@@ -647,7 +647,6 @@
 				)
 			)
 			(embedded_fonts no)
-			(embedded_files)
 		)
 		(symbol "lhrs_power:Fuse_3557_2"
 			(pin_numbers
@@ -1241,14 +1240,6 @@
 		(uuid "248df066-3436-47d9-be0c-df0fec6be0f0")
 	)
 	(no_connect
-		(at 101.6 57.785)
-		(uuid "39472208-f351-4d14-9a1f-4bec0b21245c")
-	)
-	(no_connect
-		(at 101.6 53.975)
-		(uuid "3c69e028-298a-4beb-b5dd-9f5c2bedb6b8")
-	)
-	(no_connect
 		(at 99.06 130.81)
 		(uuid "4f315f99-76bd-4186-be91-91849df6c768")
 	)
@@ -1267,10 +1258,6 @@
 	(no_connect
 		(at 135.89 67.945)
 		(uuid "fa36b057-b3fb-4ad9-96d5-909fb517d70a")
-	)
-	(no_connect
-		(at 101.6 60.325)
-		(uuid "fb7dbbc3-381b-42e1-9f9b-d63be2252424")
 	)
 	(no_connect
 		(at 135.89 50.165)
@@ -1295,6 +1282,16 @@
 			(type default)
 		)
 		(uuid "06f68d1a-fd9a-4714-b041-ddf5eca1f5a2")
+	)
+	(wire
+		(pts
+			(xy 97.79 53.34) (xy 101.6 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "077effeb-026b-4bca-afc9-417b71b79c25")
 	)
 	(wire
 		(pts
@@ -1498,6 +1495,16 @@
 	)
 	(wire
 		(pts
+			(xy 97.79 58.42) (xy 101.6 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "642263f8-020f-49d4-9eb0-235e9f1fb548")
+	)
+	(wire
+		(pts
 			(xy 175.26 123.19) (xy 177.165 123.19)
 		)
 		(stroke
@@ -1605,6 +1612,16 @@
 			(type default)
 		)
 		(uuid "8dbdf5e1-526b-42e9-85a9-4dc25c966eb5")
+	)
+	(wire
+		(pts
+			(xy 97.79 60.96) (xy 101.6 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "933cc9e2-2247-49ce-9fb0-2c88d8472730")
 	)
 	(wire
 		(pts
@@ -2287,6 +2304,28 @@
 		)
 		(uuid "28f1f3ca-0555-4b8c-aba3-228852297753")
 	)
+	(hierarchical_label "USB_PD_GPIO"
+		(shape bidirectional)
+		(at 97.79 53.34 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "2c0e898b-f47c-4966-8d4b-450d0ca5e232")
+	)
+	(hierarchical_label "USB_PD_SCL"
+		(shape bidirectional)
+		(at 97.79 58.42 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "3c87dc6b-9c95-444e-a896-e5aa8b514300")
+	)
 	(hierarchical_label "USB_PD_CC2"
 		(shape bidirectional)
 		(at 97.79 48.895 180)
@@ -2319,6 +2358,17 @@
 			(justify right)
 		)
 		(uuid "4f3890ff-2984-4768-b81d-38b22b359a36")
+	)
+	(hierarchical_label "USB_PD_SDA"
+		(shape bidirectional)
+		(at 97.79 60.96 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "549f1485-6ce4-4851-8c8c-77ae2494d2c3")
 	)
 	(hierarchical_label "USB_GND"
 		(shape input)
@@ -4219,7 +4269,7 @@
 			)
 		)
 		(pin "PD_GPIO_1" bidirectional
-			(at 101.6 53.975 180)
+			(at 101.6 53.34 180)
 			(uuid "f191a00d-1ab5-43b9-86c5-8a63cc7ad7c1")
 			(effects
 				(font
@@ -4239,7 +4289,7 @@
 			)
 		)
 		(pin "PD_SCL" bidirectional
-			(at 101.6 57.785 180)
+			(at 101.6 58.42 180)
 			(uuid "54fa7de7-f802-4e7f-a2e9-0f9960ef5685")
 			(effects
 				(font
@@ -4249,7 +4299,7 @@
 			)
 		)
 		(pin "PD_SDA" bidirectional
-			(at 101.6 60.325 180)
+			(at 101.6 60.96 180)
 			(uuid "14c30757-5cbf-4eef-98eb-fe93404418d7")
 			(effects
 				(font

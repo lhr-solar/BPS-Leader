@@ -4684,7 +4684,7 @@
 		(uuid "6d7363b4-5b76-4193-821f-0096f5030614")
 	)
 	(hierarchical_label "MOSI{slash}RX"
-		(shape input)
+		(shape bidirectional)
 		(at 38.735 32.385 270)
 		(effects
 			(font
@@ -4728,7 +4728,7 @@
 		(uuid "8d2c31e9-c837-48f7-ad6f-51019a739109")
 	)
 	(hierarchical_label "MOSI{slash}RX"
-		(shape input)
+		(shape bidirectional)
 		(at 40.005 91.44 180)
 		(effects
 			(font
@@ -4794,7 +4794,7 @@
 		(uuid "adad6c7d-21b0-4c96-9088-3354f2bcc125")
 	)
 	(hierarchical_label "MISO{slash}TX"
-		(shape input)
+		(shape bidirectional)
 		(at 48.895 32.385 270)
 		(effects
 			(font
