@@ -2351,7 +2351,7 @@
 				)
 			)
 		)
-		(property "Value" "470"
+		(property "Value" "1k"
 			(at 60.96 93.98 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4494,7 +4494,7 @@
 				)
 			)
 		)
-		(property "Value" "470"
+		(property "Value" "1k"
 			(at 62.23 62.23 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4765,7 +4765,7 @@
 				)
 			)
 		)
-		(property "Value" "470"
+		(property "Value" "1k"
 			(at 60.96 123.19 90)
 			(show_name no)
 			(do_not_autoplace no)
