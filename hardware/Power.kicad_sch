@@ -1305,16 +1305,6 @@
 	)
 	(wire
 		(pts
-			(xy 135.89 42.545) (xy 153.035 42.545)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0dad6c25-f5e0-4547-a449-0c0287d14422")
-	)
-	(wire
-		(pts
 			(xy 69.85 160.655) (xy 69.85 163.83)
 		)
 		(stroke
@@ -1962,6 +1952,16 @@
 			(type default)
 		)
 		(uuid "f94d3be5-34fa-4da9-a7a3-f989ae40c3d0")
+	)
+	(wire
+		(pts
+			(xy 135.89 42.545) (xy 151.13 42.545)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f982166b-1586-4872-b8ad-ed0b4cc222db")
 	)
 	(wire
 		(pts
@@ -3771,85 +3771,6 @@
 			(project "PS-BPSLeader"
 				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/69244dac-f10b-499c-a2b2-3cdf1370aa1f"
 					(reference "R6")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 153.035 42.545 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "e0f866c5-1f30-4a8c-a5c3-7f3ed031628c")
-		(property "Reference" "TP2"
-			(at 154.94 37.9729 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "PD_OUT"
-			(at 154.94 40.5129 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "TestPoint:TestPoint_Loop_D1.80mm_Drill1.0mm_Beaded"
-			(at 158.115 42.545 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 158.115 42.545 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "test point"
-			(at 153.035 42.545 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "d5d144ad-2119-4e37-8780-01b3d5996126")
-		)
-		(instances
-			(project "PS-BPSLeader"
-				(path "/d4a4ed4f-0983-4aef-b212-0e3284ab3963/69244dac-f10b-499c-a2b2-3cdf1370aa1f"
-					(reference "TP2")
 					(unit 1)
 				)
 			)

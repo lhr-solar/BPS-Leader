@@ -2030,7 +2030,7 @@
 		(at 165.1 141.605)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "83c197f5-1047-4915-8015-8843435cdac8")
+		(uuid "8cee8b46-7ded-4c6d-86cd-bdd1f53bea4d")
 	)
 	(junction
 		(at 49.53 107.315)
@@ -2039,16 +2039,16 @@
 		(uuid "9badbf30-c5cc-4a2f-b7ce-f1dbe2fcddbf")
 	)
 	(junction
-		(at 165.735 98.425)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "adc6d6f4-5372-4eee-9f4b-da767f608e1a")
-	)
-	(junction
 		(at 175.895 99.06)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "ae411860-ec40-4911-a03c-0dd348a8dfa6")
+	)
+	(junction
+		(at 165.735 99.06)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "cb5504e5-b351-450c-9364-cf527544b343")
 	)
 	(junction
 		(at 217.805 94.615)
@@ -2129,16 +2129,6 @@
 			(type default)
 		)
 		(uuid "144e52ae-b870-4843-b95d-7cc69822dc43")
-	)
-	(wire
-		(pts
-			(xy 154.305 141.605) (xy 165.1 141.605)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "150880aa-8647-48a4-a434-ca1bcc017044")
 	)
 	(wire
 		(pts
@@ -2282,7 +2272,7 @@
 	)
 	(wire
 		(pts
-			(xy 154.305 98.425) (xy 165.735 98.425)
+			(xy 153.67 99.06) (xy 165.735 99.06)
 		)
 		(stroke
 			(width 0)
@@ -2339,6 +2329,16 @@
 			(type default)
 		)
 		(uuid "631625b5-e8af-4798-bf03-c1dfa805b281")
+	)
+	(wire
+		(pts
+			(xy 165.735 92.71) (xy 165.735 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "65c031f3-f0fb-45ef-9a3a-c96e95981ee6")
 	)
 	(wire
 		(pts
@@ -2562,16 +2562,6 @@
 	)
 	(wire
 		(pts
-			(xy 165.735 92.71) (xy 165.735 98.425)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c5f2e20b-88a8-4989-83bc-04a41ae3dd9c")
-	)
-	(wire
-		(pts
 			(xy 44.45 113.665) (xy 44.45 112.395)
 		)
 		(stroke
@@ -2622,6 +2612,16 @@
 	)
 	(wire
 		(pts
+			(xy 154.305 141.605) (xy 165.1 141.605)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dff7112d-b3ee-4974-afd3-05dc0f615e73")
+	)
+	(wire
+		(pts
 			(xy 165.1 141.605) (xy 175.26 141.605)
 		)
 		(stroke
@@ -2659,16 +2659,6 @@
 			(type default)
 		)
 		(uuid "ed4be6a1-e6c3-4c95-bcc4-e4bf0abef704")
-	)
-	(wire
-		(pts
-			(xy 165.735 98.425) (xy 165.735 99.06)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ed7c0ee6-2482-46e2-a17e-8e17aec9ef69")
 	)
 	(wire
 		(pts
@@ -4631,7 +4621,7 @@
 		)
 	)
 	(label "COMHN"
-		(at 154.305 98.425 0)
+		(at 153.67 99.06 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -4650,7 +4640,7 @@
 		)
 		(uuid "40be3ef1-78d9-4e5a-839a-afff34f9a690")
 	)
-	(label "COMLN"
+	(label "COMLP"
 		(at 154.305 141.605 0)
 		(effects
 			(font
@@ -4658,7 +4648,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "46be63d5-4dd1-4522-aeb7-8d34cc488bb3")
+		(uuid "63c93a05-fbc8-4a0c-b98b-40a6e0048ec2")
 	)
 	(label "COMLN"
 		(at 99.695 106.68 180)
@@ -4700,7 +4690,7 @@
 		)
 		(uuid "c31d80bf-c657-4b7e-9668-41bd31c49217")
 	)
-	(label "COMLP"
+	(label "COMLN"
 		(at 154.305 123.825 0)
 		(effects
 			(font
@@ -4708,7 +4698,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "d7cf33b4-72eb-4626-aa68-aa10b95adaae")
+		(uuid "cab8e60b-37cb-4e18-9742-fcc424717cc7")
 	)
 	(hierarchical_label "GND"
 		(shape input)
@@ -4753,17 +4743,6 @@
 			(justify right)
 		)
 		(uuid "141655af-ae5c-45ee-be8d-224331061c12")
-	)
-	(hierarchical_label "isolatedCOMLP"
-		(shape bidirectional)
-		(at 254 127 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "29b694a7-7c22-4cdf-8c9a-62c745ea00ff")
 	)
 	(hierarchical_label "GND"
 		(shape input)
@@ -4841,6 +4820,17 @@
 			(justify right)
 		)
 		(uuid "5325974c-0b4a-4312-bb02-b0df585983e6")
+	)
+	(hierarchical_label "isolatedCOMLN"
+		(shape bidirectional)
+		(at 254 127 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "580393dd-0a03-4a29-b3a0-52dfd346faa0")
 	)
 	(hierarchical_label "GND"
 		(shape input)
@@ -4930,17 +4920,6 @@
 		)
 		(uuid "96488c34-6979-4059-ac82-d916ef3a67ce")
 	)
-	(hierarchical_label "isolatedCOMLN"
-		(shape bidirectional)
-		(at 254 137.16 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "9b5390f4-37de-478b-a49f-4a4087b78aa0")
-	)
 	(hierarchical_label "INH"
 		(shape input)
 		(at 91.44 86.36 0)
@@ -4951,6 +4930,17 @@
 			(justify left)
 		)
 		(uuid "a506ab35-21a3-42d9-9174-07e2bc3b3c02")
+	)
+	(hierarchical_label "isolatedCOMLP"
+		(shape bidirectional)
+		(at 254 137.16 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a7dff0fe-3f95-4d28-9a9a-3207cec87a31")
 	)
 	(hierarchical_label "GND"
 		(shape input)
