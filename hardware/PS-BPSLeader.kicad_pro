@@ -83,18 +83,6 @@
       ],
       "drc_exclusions": [
         [
-          "hole_clearance|160550000|101100000|3c8cc2d7-434a-402c-a20e-f832c44e61ac|77629e42-1480-47bf-9b46-0c9117bc3ea5",
-          ""
-        ],
-        [
-          "hole_clearance|160550000|103600000|7b886c5d-eb02-447e-a100-2b3ab08e30e3|77629e42-1480-47bf-9b46-0c9117bc3ea5",
-          ""
-        ],
-        [
-          "silk_over_copper|210260000|104532500|ad85fba0-c42a-4e4c-8aba-0aa3cc4fec30|1a94afae-3824-412d-a2b6-80973bdfee7d",
-          ""
-        ],
-        [
           "silk_overlap|142094819|49458928|55ef20ec-1a7b-44fa-a968-d0234b71ae58|a1a97f3c-862f-4beb-b6b8-81d5e45fcb32",
           ""
         ],
@@ -111,11 +99,11 @@
           ""
         ],
         [
-          "silk_overlap|175825190|113656356|2b29158a-62ac-42e2-993a-c84f94cf18ea|2d2a0bfb-8c9d-4323-a796-73c1495b42d2",
+          "silk_overlap|175825190|113370642|2b29158a-62ac-42e2-993a-c84f94cf18ea|2d2a0bfb-8c9d-4323-a796-73c1495b42d2",
           ""
         ],
         [
-          "silk_overlap|188525190|113370642|36eeac70-51dc-46f7-9032-70da1c98a15e|399656c3-a581-42d9-b7e2-6c561cc57f56",
+          "silk_overlap|188525190|113656356|36eeac70-51dc-46f7-9032-70da1c98a15e|399656c3-a581-42d9-b7e2-6c561cc57f56",
           ""
         ]
       ],
@@ -258,7 +246,8 @@
         0.3,
         0.4,
         0.6,
-        1.0
+        1.0,
+        2.0
       ],
       "tuning_pattern_settings": {
         "diff_pair_defaults": {
