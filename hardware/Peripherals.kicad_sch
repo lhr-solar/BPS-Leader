@@ -200,6 +200,10 @@
 		(uuid "73368919-3177-4abf-82b6-cd612af07fec")
 	)
 	(no_connect
+		(at 200.66 118.11)
+		(uuid "082b897d-b30e-4744-b569-16b73e99555b")
+	)
+	(no_connect
 		(at 149.86 152.4)
 		(uuid "0deddd76-44e4-48d1-a641-6f9ad55b8114")
 	)
@@ -216,8 +220,20 @@
 		(uuid "185b353d-faac-42d6-b2c4-43ba3e2587de")
 	)
 	(no_connect
+		(at 200.66 120.65)
+		(uuid "1a250931-4c7e-4587-a809-5b5eca28b99b")
+	)
+	(no_connect
+		(at 200.66 128.27)
+		(uuid "2152c798-5d7e-4ec0-b4b4-43a2310e06ff")
+	)
+	(no_connect
 		(at 149.86 96.52)
 		(uuid "269877d2-4596-4f70-92b6-9c4327074f0f")
+	)
+	(no_connect
+		(at 200.66 123.19)
+		(uuid "2ddfa0f7-b96d-4e91-a3af-a9f813d624cc")
 	)
 	(no_connect
 		(at 149.86 142.24)
@@ -250,6 +266,10 @@
 	(no_connect
 		(at 149.86 149.86)
 		(uuid "7a8f06a5-b22c-41b0-ae60-c9d375470590")
+	)
+	(no_connect
+		(at 200.66 125.73)
+		(uuid "8315d38e-1c57-4dc8-b6be-27c367df9db9")
 	)
 	(no_connect
 		(at 149.86 106.68)
@@ -381,6 +401,16 @@
 	)
 	(wire
 		(pts
+			(xy 146.05 162.56) (xy 146.05 165.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "075e5fb4-c552-4e3a-b6ee-3215b424567a")
+	)
+	(wire
+		(pts
 			(xy 200.66 57.15) (xy 208.28 57.15)
 		)
 		(stroke
@@ -421,16 +451,6 @@
 	)
 	(wire
 		(pts
-			(xy 200.66 123.19) (xy 218.44 123.19)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1815e431-80e6-47ee-b629-f9910b9a4c15")
-	)
-	(wire
-		(pts
 			(xy 62.865 99.695) (xy 62.865 97.79)
 		)
 		(stroke
@@ -448,16 +468,6 @@
 			(type default)
 		)
 		(uuid "1f186ede-a940-48b5-a0ff-7636f1cd50eb")
-	)
-	(wire
-		(pts
-			(xy 200.66 118.11) (xy 218.44 118.11)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1fde73b7-61e6-45a1-a108-4225526b0984")
 	)
 	(wire
 		(pts
@@ -508,16 +518,6 @@
 			(type default)
 		)
 		(uuid "2e1e0801-5e9d-4982-a866-234ebdbfaa82")
-	)
-	(wire
-		(pts
-			(xy 218.44 128.27) (xy 200.66 128.27)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "317fd298-4b79-46ab-b81f-b2b31ba23ad2")
 	)
 	(wire
 		(pts
@@ -688,16 +688,6 @@
 			(type default)
 		)
 		(uuid "67efc637-c222-48a3-9ccc-94091a4f6ac5")
-	)
-	(wire
-		(pts
-			(xy 200.66 120.65) (xy 218.44 120.65)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "727dffdf-3dd1-4e0d-82b2-1fe30ea8a117")
 	)
 	(wire
 		(pts
@@ -1031,16 +1021,6 @@
 	)
 	(wire
 		(pts
-			(xy 146.05 165.1) (xy 146.05 162.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c8b3aeb6-862b-4f24-83ce-ebd188c5d70e")
-	)
-	(wire
-		(pts
 			(xy 200.66 72.39) (xy 209.55 72.39)
 		)
 		(stroke
@@ -1058,16 +1038,6 @@
 			(type default)
 		)
 		(uuid "cc4c4cd8-013a-48e3-8953-e90ea20fef65")
-	)
-	(wire
-		(pts
-			(xy 200.66 125.73) (xy 218.44 125.73)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cfe4dacd-7277-49ea-bd3f-f7c322a3add0")
 	)
 	(wire
 		(pts
@@ -1219,16 +1189,6 @@
 		)
 		(uuid "2176e387-1f4f-48bb-8a1a-3cab78540a10")
 	)
-	(label "SDCARD_MISO"
-		(at 218.44 123.19 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "2bb61caf-95c3-4a8d-b510-a8a5885f5d0e")
-	)
 	(label "CAR_CAN_RX"
 		(at 218.44 92.71 180)
 		(effects
@@ -1309,16 +1269,6 @@
 		)
 		(uuid "4d424faa-5a43-4133-8113-430ea1d92f60")
 	)
-	(label "SDCARD_DET"
-		(at 218.44 118.11 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "5fe26cda-cd73-4999-b95e-715fce965569")
-	)
 	(label "CHARGER_CAN_RX"
 		(at 87.63 26.035 180)
 		(effects
@@ -1369,16 +1319,6 @@
 		)
 		(uuid "821e7fb2-27f7-4a97-86f5-94857f783cb1")
 	)
-	(label "SDCARD_CS"
-		(at 218.44 128.27 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "82392ed2-77bd-47b4-9cfb-81fe58299c88")
-	)
 	(label "BPS_CAN_RX"
 		(at 218.44 83.82 180)
 		(effects
@@ -1419,16 +1359,6 @@
 		)
 		(uuid "aac3915b-53d3-4eb0-92b4-f48187962b67")
 	)
-	(label "SDCARD_CLK"
-		(at 218.44 125.73 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "b886a74a-57f9-46aa-ae9d-64fd99cccbed")
-	)
 	(label "STM_RX"
 		(at 110.49 115.57 180)
 		(effects
@@ -1438,16 +1368,6 @@
 			(justify right bottom)
 		)
 		(uuid "c2699b6c-2f18-4896-8568-75d93178d257")
-	)
-	(label "SDCARD_MOSI"
-		(at 218.44 120.65 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "c9400897-d8c5-48ca-8958-3dac370747ed")
 	)
 	(label "STM_TX"
 		(at 217.17 44.45 180)
@@ -1597,7 +1517,7 @@
 		)
 		(uuid "5107e0cb-bcde-4b8c-a155-39a313ce1646")
 	)
-	(hierarchical_label "ARRAY_ECON_STATUS"
+	(hierarchical_label "MOTOR_ECON_STATUS"
 		(shape input)
 		(at 140.97 64.77 180)
 		(effects
@@ -1764,7 +1684,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape input)
-		(at 146.05 164.465 270)
+		(at 146.05 165.1 270)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1784,7 +1704,7 @@
 		)
 		(uuid "a31e0a7b-b378-4007-b5ea-5f2ef1cc0153")
 	)
-	(hierarchical_label "ARRAY_CTRL"
+	(hierarchical_label "MOTOR_CTRL"
 		(shape input)
 		(at 208.28 64.77 0)
 		(effects
@@ -1861,7 +1781,7 @@
 		)
 		(uuid "c7e31ad8-7c23-4e14-be8d-646b1b873e86")
 	)
-	(hierarchical_label "ARRAY_SENSE"
+	(hierarchical_label "MOTOR_SENSE"
 		(shape input)
 		(at 140.97 62.23 180)
 		(effects

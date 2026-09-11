@@ -3832,12 +3832,16 @@
 		(uuid "178a8347-1a66-4134-a739-2fd96850a850")
 	)
 	(no_connect
-		(at 128.27 109.22)
-		(uuid "3c492b3d-9bd2-40f0-b75a-ea82cd40d6bf")
+		(at 196.85 111.76)
+		(uuid "28c55131-b526-4b27-8815-27655c7ef46e")
 	)
 	(no_connect
-		(at 128.27 111.76)
-		(uuid "3d59a708-6f87-40eb-9d18-6ca07e2f37b2")
+		(at 196.85 116.84)
+		(uuid "34565de1-2552-404a-abb9-47f0757db01a")
+	)
+	(no_connect
+		(at 128.27 109.22)
+		(uuid "3c492b3d-9bd2-40f0-b75a-ea82cd40d6bf")
 	)
 	(no_connect
 		(at 46.99 100.33)
@@ -3856,24 +3860,20 @@
 		(uuid "8c847d81-9664-4386-bc40-cadaee0abd39")
 	)
 	(no_connect
+		(at 196.85 119.38)
+		(uuid "91074363-3363-48fe-8178-69ec14044464")
+	)
+	(no_connect
 		(at 128.27 99.06)
 		(uuid "9781b5df-1d43-4d3d-b050-ff3c9095d3cd")
-	)
-	(no_connect
-		(at 128.27 93.98)
-		(uuid "9b1b73b8-5bee-43b3-9d14-c0679c1a3445")
-	)
-	(no_connect
-		(at 128.27 114.3)
-		(uuid "c191e4bb-f1c1-4eb0-b449-3334e754a41c")
 	)
 	(no_connect
 		(at 128.27 106.68)
 		(uuid "c4c2aaf5-9ab0-4d89-9e60-3b79a144efeb")
 	)
 	(no_connect
-		(at 128.27 91.44)
-		(uuid "c753c647-cda5-4c76-b9ee-37a82a00669f")
+		(at 196.85 114.3)
+		(uuid "d0879c6b-5e6c-4cb4-b0ca-c69abafe9aa6")
 	)
 	(wire
 		(pts
@@ -4855,6 +4855,17 @@
 		)
 		(uuid "f46c4407-e664-4990-a923-bdf13ebb21c7")
 	)
+	(hierarchical_label "ESP_GPIO3"
+		(shape bidirectional)
+		(at 128.27 111.76 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "067a3af6-a113-42f7-a9c8-0ba297c684cf")
+	)
 	(hierarchical_label "GND"
 		(shape input)
 		(at 157.48 41.91 270)
@@ -4866,27 +4877,16 @@
 		)
 		(uuid "0944b4d9-4abe-47c9-b4cd-6f9829b2c357")
 	)
-	(hierarchical_label "ESP_GPIO1"
-		(shape bidirectional)
-		(at 196.85 111.76 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "1151d08e-66f5-44f4-8dff-639fa00076ff")
-	)
 	(hierarchical_label "ESP_GPIO2"
 		(shape bidirectional)
-		(at 196.85 114.3 0)
+		(at 128.27 93.98 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify right)
 		)
-		(uuid "41f23b75-0f11-4d49-a9bd-170a80d0dfc3")
+		(uuid "20217caf-9cd1-4fdb-aa60-f2280a7fdf24")
 	)
 	(hierarchical_label "ESP_UART_TX"
 		(shape input)
@@ -4966,16 +4966,16 @@
 		)
 		(uuid "8565230d-d6ea-4e4f-8953-f0128061d2ac")
 	)
-	(hierarchical_label "ESP_GPIO3"
+	(hierarchical_label "ESP_GPIO1"
 		(shape bidirectional)
-		(at 196.85 116.84 0)
+		(at 128.27 91.44 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify right)
 		)
-		(uuid "a286b790-9053-490f-9ad9-8ae6942efff5")
+		(uuid "ae98236b-beb3-4c9c-8c11-89f2362ef282")
 	)
 	(hierarchical_label "+5V_LDO_IN"
 		(shape output)
@@ -5010,6 +5010,17 @@
 		)
 		(uuid "df8c899c-e2cd-472d-b18b-c6273849d00d")
 	)
+	(hierarchical_label "ESP_GPIO4"
+		(shape bidirectional)
+		(at 128.27 114.3 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "eb3056e2-4870-4ea1-939e-99f3e5c7e65e")
+	)
 	(hierarchical_label "GND"
 		(shape input)
 		(at 63.5 81.28 270)
@@ -5020,17 +5031,6 @@
 			(justify right)
 		)
 		(uuid "f1dcab49-59d0-4c16-92b2-7f160cb685c2")
-	)
-	(hierarchical_label "ESP_GPIO4"
-		(shape bidirectional)
-		(at 196.85 119.38 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "f5478ca7-164f-49b8-b561-ef657f7defe6")
 	)
 	(hierarchical_label "GND"
 		(shape input)
