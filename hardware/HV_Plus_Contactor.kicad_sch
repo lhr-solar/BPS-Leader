@@ -7246,7 +7246,7 @@
 		(in_bom no)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "b6c8e96d-3914-474c-8d6d-92969dc7a258")
 		(property "Reference" "TP7"
 			(at 112.395 69.215 0)

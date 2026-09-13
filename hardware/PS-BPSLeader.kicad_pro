@@ -95,15 +95,11 @@
           ""
         ],
         [
-          "silk_overlap|150832143|108531190|dbf3d5a8-a1d4-4cda-b321-cc6668293a0c|f1fa0e18-ba28-4eb7-8b2b-8831928e3e0e",
+          "silk_overlap|175825190|113656356|2b29158a-62ac-42e2-993a-c84f94cf18ea|2d2a0bfb-8c9d-4323-a796-73c1495b42d2",
           ""
         ],
         [
-          "silk_overlap|175825190|113370642|2b29158a-62ac-42e2-993a-c84f94cf18ea|2d2a0bfb-8c9d-4323-a796-73c1495b42d2",
-          ""
-        ],
-        [
-          "silk_overlap|188525190|113656356|36eeac70-51dc-46f7-9032-70da1c98a15e|399656c3-a581-42d9-b7e2-6c561cc57f56",
+          "silk_overlap|188525190|113370642|36eeac70-51dc-46f7-9032-70da1c98a15e|399656c3-a581-42d9-b7e2-6c561cc57f56",
           ""
         ]
       ],
@@ -192,7 +188,7 @@
         "min_track_width": 0.1,
         "min_via_annular_width": 0.15,
         "min_via_diameter": 0.4,
-        "solder_mask_to_copper_clearance": 0.0,
+        "solder_mask_to_copper_clearance": 0.005,
         "use_height_for_length_calcs": true
       },
       "teardrop_options": [
@@ -982,7 +978,7 @@
         "uuid": "d4a4ed4f-0983-4aef-b212-0e3284ab3963"
       }
     ],
-    "used_designators": "",
+    "used_designators": "R91,LOGO1-2",
     "variants": []
   },
   "sheets": [

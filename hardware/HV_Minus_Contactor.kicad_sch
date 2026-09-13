@@ -7499,7 +7499,7 @@
 		(in_bom no)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "c54646ea-5125-4789-b80d-1c807a006f36")
 		(property "Reference" "TP10"
 			(at 193.929 46.101 0)

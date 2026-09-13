@@ -2426,7 +2426,7 @@
 		(in_bom no)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "ee250562-aa70-4359-8aad-bc4233dd28c8")
 		(property "Reference" "TP_3.3V2"
 			(at 166.624 54.356 90)

@@ -6276,7 +6276,7 @@
 		(in_bom no)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "8bce62ab-fab0-453a-a3da-354b25df050a")
 		(property "Reference" "TP6"
 			(at 191.389 46.101 0)
